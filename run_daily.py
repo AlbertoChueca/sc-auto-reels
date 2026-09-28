@@ -78,6 +78,20 @@ try:  # also share it as a Story (never blocks the reel)
 except Exception as e:
     print("Story failed:", e); meta["story"] = f"error: {e}"
 
+if os.environ.get("YT_REFRESH_TOKEN"):  # YouTube Shorts, official API (never blocks Instagram)
+    try:
+        from publish_youtube import upload_short
+        meta["youtube"] = upload_short(out, meta["hook"], caption)
+    except Exception as e:
+        print("YouTube failed:", e); meta["youtube"] = f"error: {e}"
+
+if os.environ.get("TT_REFRESH_TOKEN"):  # TikTok draft in inbox, official API (never blocks Instagram)
+    try:
+        from publish_tiktok import send_draft
+        meta["tiktok"] = send_draft(out)
+    except Exception as e:
+        print("TikTok failed:", e); meta["tiktok"] = f"error: {e}"
+
 if os.environ.get("UPLOADPOST_API_KEY"):  # YouTube Shorts + TikTok (never blocks Instagram)
     try:
         from publish_social import crosspost
@@ -86,4 +100,4 @@ if os.environ.get("UPLOADPOST_API_KEY"):  # YouTube Shorts + TikTok (never block
         print("Cross-post failed:", e); meta["crosspost"] = f"error: {e}"
 
 log({k: meta.get(k) for k in ("mode", "puzzle", "level", "rating", "hook", "location", "permalink",
-                              "media_id", "sans", "story", "crosspost")})
+                              "media_id", "sans", "story", "youtube", "tiktok", "crosspost")})
