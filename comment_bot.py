@@ -11,20 +11,21 @@ from publish_ig import GRAPH, _check, whoami
 
 TOKEN = os.environ["IG_TOKEN"]
 DRY = os.environ.get("BOT_DRY_RUN") == "true"
+SEND_DMS = os.environ.get("BOT_SEND_DMS") == "true"   # off: public replies only
 HANDLED = "handled_comments.json"
 LINK = "https://streakchess.com/?utm_source=instagram&utm_medium=dm&utm_campaign=reel_comment"
 
 PUBLIC_CORRECT = [
-    "Correct! {move} is the move 🎯 Check your DMs 🔥",
-    "Spot on! {move} 💥 We sent you something in DM",
-    "Yes! {move} wins 👏 Check your inbox for a free training link",
-    "Great calculation! {move} is right 🔥 DM sent",
+    "Correct! {move} is the move 🎯 Train daily for free, link in bio 🔥",
+    "Spot on! {move} 💥 More puzzles like this every day, link in bio",
+    "Yes! {move} wins 👏 Keep your streak going on StreakChess, link in bio",
+    "Great calculation! {move} is right 🔥",
 ]
 PUBLIC_OTHER = [
-    "Thanks for playing! 🔥 The solution is in the video. Check your DMs 👀",
-    "Nice try! Watch till the end for the answer ♟️ We sent you a DM",
-    "Love it! 🔥 Sent you a free training link in DM",
-    "Thanks for the comment! ♟️ Check your inbox for more puzzles",
+    "Thanks for playing! 🔥 The solution is in the video. More puzzles daily, link in bio",
+    "Nice try! Watch till the end for the answer ♟️",
+    "Love it! 🔥 Train your calculation for free, link in bio",
+    "Thanks for the comment! ♟️ New puzzles every day",
 ]
 DM_CORRECT = ("Great job finding {move}! 🎯 Want a daily streak of puzzles like this? "
               "StreakChess is free to play, and the first 500 accounts get a Founder offer for Premium: " + LINK)
@@ -88,7 +89,7 @@ def main():
                     sent_pub += 1
                 except Exception as e:
                     print("  public reply failed:", e)
-                if can_dm:
+                if can_dm and SEND_DMS:
                     try:
                         _check(requests.post(f"{GRAPH}/{uid}/messages", json={
                             "recipient": {"comment_id": c["id"]}, "message": {"text": dm}},
