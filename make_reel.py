@@ -299,8 +299,8 @@ US_STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado
              "WestVirginia", "Wisconsin", "Wyoming"]
 
 def hashtags(rng):
-    """3 random English chess hashtags + 1 random US state chess hashtag (Instagram allows max 5)."""
-    tags = rng.sample(CHESS_TAGS, 3) + [rng.choice(US_STATES) + "Chess"]
+    """3 random English chess hashtags (the US location is set as the post location)."""
+    tags = rng.sample(CHESS_TAGS, 3)
     return ["#" + t for t in tags]
 
 def build(P, seed, out):
@@ -576,7 +576,7 @@ def build(P, seed, out):
     proc.stdin.close(); proc.wait()
     os.remove(wav)
     ig = (f"{hook_txt}\n{LV['name'].title()} puzzle ({LV['rng']}). {side.title()} to move, {goal_say}.\n\n"
-          f"Comment your answer before watching the solution!\n\n"
+          f"Comment your move before watching the solution!\n\n"
           f"Train your calculation every day on StreakChess. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
           + " ".join(hashtags(random.Random(f"{P['id']}-{seed}"))))
     open(out.replace(".mp4", ".txt"), "w").write(ig)

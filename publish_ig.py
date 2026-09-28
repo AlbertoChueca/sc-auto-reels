@@ -1,11 +1,14 @@
-"""Publish a Reel to Instagram (Instagram API with Instagram Login, resumable upload).
+"""Publish a Reel to Instagram through the Instagram Graph API with Facebook Login (resumable upload).
 
-Needs env var IG_TOKEN (long-lived token with instagram_business_content_publish).
+Env IG_TOKEN: a Facebook *Page* access token (starts with "EAA") for the Page linked to @streakchess,
+with instagram_basic, instagram_content_publish, pages_show_list, pages_read_engagement
+(+ instagram_manage_comments, instagram_manage_messages, pages_manage_metadata for the comment bot).
+A Page token generated from a long-lived user token does not expire.
 """
 import os, sys, time, requests
 
 API = os.environ.get("IG_API_VERSION", "v23.0")
-GRAPH = f"https://graph.instagram.com/{API}"
+GRAPH = f"https://graph.facebook.com/{API}"
 RUPLOAD = f"https://rupload.facebook.com/ig-api-upload/{API}"
 
 
@@ -16,7 +19,18 @@ def _check(r):
 
 
 def whoami(token):
-    return _check(requests.get(f"{GRAPH}/me", params={"fields": "user_id,username", "access_token": token}))
+    """Returns {"user_id": <IG business account id>, "username": ..., "page_id": ...}."""
+    me = _check(requests.get(f"{GRAPH}/me", params={
+        "fields": "id,name,instagram_business_account{id,username}", "access_token": token}))
+    ig = me.get("instagram_business_account")
+    if not ig:  # a user token was given instead of a Page token: look through the user's Pages
+        pages = _check(requests.get(f"{GRAPH}/me/accounts", params={
+            "fields": "id,name,instagram_business_account{id,username}", "access_token": token}))["data"]
+        page = next((p for p in pages if p.get("instagram_business_account")), None)
+        if not page:
+            raise RuntimeError("No Facebook Page with a linked Instagram account was found for this token")
+        me, ig = page, page["instagram_business_account"]
+    return {"user_id": ig["id"], "username": ig.get("username"), "page_id": me["id"]}
 
 
 def publish_reel(video_path, caption, token=None, location_id=None):
@@ -58,16 +72,16 @@ def publish_reel(video_path, caption, token=None, location_id=None):
 
     # 4) publish
     p = _check(requests.post(f"{GRAPH}/{uid}/media_publish", data={"creation_id": cid, "access_token": token}))
-    media = _check(requests.get(f"{GRAPH}/{p['id']}", params={"fields": "permalink", "access_token": token}))
+    media = _check(requests.get(f"{GRAPH}/{p['id']}", params={"fields": "id,permalink", "access_token": token}))
     print("Published:", media.get("permalink"), flush=True)
     return media
 
 
-def refresh_token(token):
-    """Extends a long-lived token for another 60 days. Returns the (possibly new) token."""
-    r = _check(requests.get("https://graph.instagram.com/refresh_access_token",
-                            params={"grant_type": "ig_refresh_token", "access_token": token}))
-    return r["access_token"]
+def check_token(token):
+    """Prints who the token publishes as. Page tokens from a long-lived user token never expire."""
+    me = whoami(token)
+    print(f"Token OK: @{me['username']} (IG {me['user_id']}, Page {me['page_id']})")
+    return token
 
 
 if __name__ == "__main__":
