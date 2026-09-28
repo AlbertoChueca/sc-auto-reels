@@ -77,6 +77,32 @@ def publish_reel(video_path, caption, token=None, location_id=None):
     return media
 
 
+def publish_story(video_path, token=None):
+    """Share the same video as an Instagram Story (Stories expire after 24h; no caption/links via API)."""
+    token = token or os.environ["IG_TOKEN"]
+    uid = whoami(token)["user_id"]
+    c = _check(requests.post(f"{GRAPH}/{uid}/media", data={
+        "media_type": "STORIES", "upload_type": "resumable", "access_token": token}))
+    cid = c["id"]
+    size = os.path.getsize(video_path)
+    with open(video_path, "rb") as f:
+        _check(requests.post(f"{RUPLOAD}/{cid}", data=f, headers={
+            "Authorization": f"OAuth {token}", "offset": "0", "file_size": str(size)}))
+    for _ in range(60):
+        code = _check(requests.get(f"{GRAPH}/{cid}", params={"fields": "status_code", "access_token": token})).get("status_code")
+        print("story status:", code, flush=True)
+        if code == "FINISHED":
+            break
+        if code in ("ERROR", "EXPIRED"):
+            raise RuntimeError(f"Story processing failed: {code}")
+        time.sleep(10)
+    else:
+        raise RuntimeError("Timed out waiting for story processing")
+    p = _check(requests.post(f"{GRAPH}/{uid}/media_publish", data={"creation_id": cid, "access_token": token}))
+    print("Story published:", p.get("id"), flush=True)
+    return p
+
+
 def check_token(token):
     """Prints who the token publishes as. Page tokens from a long-lived user token never expire."""
     me = whoami(token)

@@ -31,6 +31,12 @@ else:
     meta["permalink"] = media.get("permalink")
     meta["media_id"] = media.get("id")
     mark_used(P["id"])
+    # also share it as a Story (never blocks the reel)
+    try:
+        from publish_ig import publish_story
+        publish_story(out); meta["story"] = "ok"
+    except Exception as e:
+        print("Story failed:", e); meta["story"] = f"error: {e}"
     # cross-post to YouTube Shorts + TikTok (never blocks the Instagram post)
     if os.environ.get("UPLOADPOST_API_KEY"):
         try:
@@ -40,4 +46,4 @@ else:
             print("Cross-post failed:", e); meta["crosspost"] = f"error: {e}"
     with open("log.jsonl", "a") as f:
         f.write(json.dumps({"date": str(today), **{k: meta.get(k) for k in (
-            "puzzle", "level", "rating", "hook", "location", "permalink", "media_id", "sans", "crosspost")}}) + "\n")
+            "puzzle", "level", "rating", "hook", "location", "permalink", "media_id", "sans", "story", "crosspost")}}) + "\n")
