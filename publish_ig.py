@@ -103,6 +103,52 @@ def publish_story(video_path, token=None):
     return p
 
 
+def _upload_video_container(uid, token, video_path, fields):
+    c = _check(requests.post(f"{GRAPH}/{uid}/media", data={**fields, "upload_type": "resumable", "access_token": token}))
+    cid = c["id"]
+    size = os.path.getsize(video_path)
+    with open(video_path, "rb") as f:
+        _check(requests.post(f"{RUPLOAD}/{cid}", data=f, headers={
+            "Authorization": f"OAuth {token}", "offset": "0", "file_size": str(size)}))
+    return cid
+
+
+def _wait(cid, token, label):
+    for _ in range(90):
+        code = _check(requests.get(f"{GRAPH}/{cid}", params={"fields": "status_code", "access_token": token})).get("status_code")
+        if code == "FINISHED":
+            return
+        if code in ("ERROR", "EXPIRED"):
+            raise RuntimeError(f"{label} processing failed: {code}")
+        time.sleep(10)
+    raise RuntimeError(f"Timed out waiting for {label}")
+
+
+def publish_carousel(video_paths, caption, token=None, location_id=None):
+    """Carousel of short video slides (max 10), uploaded with resumable upload."""
+    token = token or os.environ["IG_TOKEN"]
+    uid = whoami(token)["user_id"]
+    children = []
+    for i, v in enumerate(video_paths[:10]):
+        cid = _upload_video_container(uid, token, v, {"media_type": "VIDEO", "is_carousel_item": "true"})
+        _wait(cid, token, f"slide {i}")
+        print(f"slide {i} ready", flush=True)
+        children.append(cid)
+    data = {"media_type": "CAROUSEL", "children": ",".join(children), "caption": caption, "access_token": token}
+    if location_id:
+        data["location_id"] = str(location_id)
+    r = requests.post(f"{GRAPH}/{uid}/media", data=data)
+    if r.status_code >= 400 and location_id:
+        print(f"Location {location_id} rejected ({r.text}); publishing without location", flush=True)
+        data.pop("location_id"); r = requests.post(f"{GRAPH}/{uid}/media", data=data)
+    cid = _check(r)["id"]
+    _wait(cid, token, "carousel")
+    p = _check(requests.post(f"{GRAPH}/{uid}/media_publish", data={"creation_id": cid, "access_token": token}))
+    media = _check(requests.get(f"{GRAPH}/{p['id']}", params={"fields": "id,permalink", "access_token": token}))
+    print("Carousel published:", media.get("permalink"), flush=True)
+    return media
+
+
 def check_token(token):
     """Prints who the token publishes as. Page tokens from a long-lived user token never expire."""
     me = whoami(token)

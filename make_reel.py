@@ -299,11 +299,25 @@ US_STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado
              "WestVirginia", "Wisconsin", "Wyoming"]
 
 def hashtags(rng):
-    """3 random English chess hashtags (the US location is set as the post location)."""
-    tags = rng.sample(CHESS_TAGS, 3)
+    """3-5 random English chess hashtags (the US location is set as the post location)."""
+    tags = rng.sample(CHESS_TAGS, rng.randint(3, 5))
     return ["#" + t for t in tags]
 
-def build(P, seed, out):
+TAG_HOOKS = [
+    ("TAG A FRIEND", "Tag a friend who thinks they're good at chess. Let's see who solves this first.", "angry"),
+    ("FRIEND CHALLENGE", "Challenge time. Send this to a friend and see who finds the move first.", "thinking"),
+    ("SEND THIS TO A FRIEND", "Send this to the friend who always beats you. Can they solve it?", "crown2"),
+    ("WHO'S SMARTER?", "You or your chess friend? Tag them and find out.", "happy"),
+]
+TAG_CAPTIONS = [
+    "Tag a friend who can't solve this 👇",
+    "Tag the friend who always beats you at chess 👇",
+    "Send this to a friend and see who solves it first ⏱️",
+    "Tag a friend who needs to train their calculation 👇",
+    "Who finds it first, you or your friend? Tag them 👇",
+]
+
+def build(P, seed, out, mode="level"):
     """P: dict with level + either (fen, moves) in Lichess-CSV format or (pgn, sol) in Lichess-API format."""
     random.seed(seed); np.random.seed(seed)
     LV = LEVELS[P["level"]]
@@ -322,7 +336,8 @@ def build(P, seed, out):
     mate_n = (len(moves) + 1) // 2 if b2.is_checkmate() else None
     goal = f"MATE IN {mate_n}" if mate_n else "FIND THE BEST MOVE"
 
-    hook_txt, hook_vo, pose = LV["hooks"][seed % len(LV["hooks"])]
+    tag = mode == "tagfriend"
+    hook_txt, hook_vo, pose = (TAG_HOOKS if tag else LV["hooks"])[seed % len(TAG_HOOKS if tag else LV["hooks"])]
     COUNT = LV["count"]
     goal_say = f"mate in {NUM[mate_n]}" if mate_n else "the best move"
     NUMW = {10: "ten", 12: "twelve"}
@@ -330,7 +345,8 @@ def build(P, seed, out):
         "hook": hook_vo,
         "intro": f"{side.title()} to move. Find {goal_say}. You've got {NUM[COUNT] if COUNT < 9 else NUMW[COUNT]} seconds.",
         "reveal": "Here's the answer. " + " ".join(san_say(s) + ("" if san_say(s).endswith("!") else ".") for s in sans),
-        "cta": "Did you get it? Comment your time. StreakChess is free to play. And the first five hundred accounts get a special Founder offer for Premium. Link in bio.",
+        "cta": ("Did you get it? Now tag a friend and see if they can. StreakChess is free to play. And the first five hundred accounts get a special Founder offer for Premium. Link in bio." if tag else
+                "Did you get it? Comment your time. StreakChess is free to play. And the first five hundred accounts get a special Founder offer for Premium. Link in bio."),
     }
     audio = {k: tts(v) for k, v in segs.items()}
     dur = {k: len(a) / SR for k, a in audio.items()}
@@ -410,7 +426,7 @@ def build(P, seed, out):
             k = min(len(moves), int((t - move_t[0]) / mstep) + 1)
             return "  ".join(san_line[:k])
         if T["count"][0] <= t < T["count"][1]:
-            return "Pause if you need more time" if t < T["count"][0] + COUNT / 2 else "Comment your move before the answer!"
+            return "Pause if you need more time" if t < T["count"][0] + COUNT / 2 else ("Tag a friend before the answer!" if tag else "Comment your move before the answer!")
         if T["cta"][0] <= t: return ""
         for k in ("hook", "intro"):
             a, b = T[k]
@@ -436,6 +452,8 @@ def build(P, seed, out):
     logo_top = logo_glow("logo_h_white.png", 400, 30)
     logo_big = logo_glow("logo_v_white.png", 520, 70)
     band = gold_pill(hook_txt, 104, padx=60, pady=22).rotate(-3, Image.BICUBIC, expand=True)
+    if band.width > 1020:
+        band = band.resize((1020, int(band.height * 1020 / band.width)), Image.LANCZOS)
     hook_m = mascot(pose, 820)
     chip_side = pill(f"{side} TO MOVE", 32, WHITE, fg=NAVY)
     chip_goal = gold_pill(goal, 32, padx=30)
@@ -444,7 +462,7 @@ def build(P, seed, out):
     celeb_m = mascot("celebrate", 270)
     hook_m_small = mascot(pose, 560)
     url_pill = gold_pill("streakchess.com", 66, padx=56, pady=24)
-    cta_top = text_img("DID YOU GET IT?", 100, WHITE)
+    cta_top = text_img("TAG A FRIEND!" if tag else "DID YOU GET IT?", 100, WHITE)
     free_pill = outline_pill("100% FREE TO PLAY", 46, color=(120, 220, 160))
     founder = Image.new("RGBA", (900, 250), (0, 0, 0, 0)); fd = ImageDraw.Draw(founder)
     fd.rounded_rectangle([2, 2, 897, 247], 40, fill=(34, 28, 66, 255), outline=GOLD, width=4)
@@ -575,12 +593,14 @@ def build(P, seed, out):
         proc.stdin.write(fr.convert("RGB").tobytes())
     proc.stdin.close(); proc.wait()
     os.remove(wav)
-    ig = (f"{hook_txt}\n{LV['name'].title()} puzzle ({LV['rng']}). {side.title()} to move, {goal_say}.\n\n"
-          f"Comment your move before watching the solution!\n\n"
-          f"Train your calculation every day on StreakChess. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
-          + " ".join(hashtags(random.Random(f"{P['id']}-{seed}"))))
+    rng = random.Random(f"{P['id']}-{seed}-{mode}")
+    first = rng.choice(TAG_CAPTIONS) if tag else hook_txt
+    ig = (f"{first}\n{LV['name'].title()} puzzle ({LV['rng']}). {side.title()} to move, {goal_say}.\n\n"
+          + ("Comment the move and tag a friend to challenge them!\n\n" if tag else "Comment your move before watching the solution!\n\n")
+          + "Train your calculation every day on StreakChess. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
+          + " ".join(hashtags(rng)))
     open(out.replace(".mp4", ".txt"), "w").write(ig)
-    meta = dict(puzzle=P["id"], level=P["level"], rating=P.get("rating"), hook=hook_txt, sans=sans, duration=round(total, 1), script=segs)
+    meta = dict(mode=mode, puzzle=P["id"], level=P["level"], rating=P.get("rating"), hook=hook_txt, sans=sans, duration=round(total, 1), script=segs)
     print(json.dumps(meta, indent=1))
     return meta
 
