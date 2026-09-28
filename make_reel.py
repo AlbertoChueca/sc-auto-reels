@@ -287,6 +287,22 @@ def logo_glow(path, width, glow=60):
     out.alpha_composite(im, (pad, pad))
     return out
 
+CHESS_TAGS = ["chess", "chesspuzzle", "chesstactics", "chesstraining", "chessplayer", "chesslover",
+              "chesscommunity", "chessgame", "chessmaster", "chesspuzzles", "chessclub", "checkmate",
+              "chesslife", "chessstrategy", "chesskids", "learnchess", "chessmoves", "chessbrain"]
+US_STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
+             "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+             "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+             "Missouri", "Montana", "Nebraska", "Nevada", "NewHampshire", "NewJersey", "NewMexico", "NewYork",
+             "NorthCarolina", "NorthDakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "RhodeIsland",
+             "SouthCarolina", "SouthDakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
+             "WestVirginia", "Wisconsin", "Wyoming"]
+
+def hashtags(rng):
+    """3 random English chess hashtags + 1 random US state chess hashtag (Instagram allows max 5)."""
+    tags = rng.sample(CHESS_TAGS, 3) + [rng.choice(US_STATES) + "Chess"]
+    return ["#" + t for t in tags]
+
 def build(P, seed, out):
     """P: dict with level + either (fen, moves) in Lichess-CSV format or (pgn, sol) in Lichess-API format."""
     random.seed(seed); np.random.seed(seed)
@@ -562,7 +578,7 @@ def build(P, seed, out):
     ig = (f"{hook_txt}\n{LV['name'].title()} puzzle ({LV['rng']}). {side.title()} to move, {goal_say}.\n\n"
           f"Comment your answer before watching the solution!\n\n"
           f"Train your calculation every day on StreakChess. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
-          f"#chess #chesspuzzle #chesstactics #ajedrez #chesstraining #calculation #{LV['name'].lower()} #streakchess")
+          + " ".join(hashtags(random.Random(f"{P['id']}-{seed}"))))
     open(out.replace(".mp4", ".txt"), "w").write(ig)
     meta = dict(puzzle=P["id"], level=P["level"], rating=P.get("rating"), hook=hook_txt, sans=sans, duration=round(total, 1), script=segs)
     print(json.dumps(meta, indent=1))

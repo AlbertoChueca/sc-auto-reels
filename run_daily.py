@@ -22,8 +22,13 @@ if dry:
     print("DRY RUN: not publishing")
 else:
     from publish_ig import publish_reel
-    media = publish_reel(out, caption)
+    import random
+    locs = [l for l in json.load(open("locations.json")) if l.get("id")] if os.path.exists("locations.json") else []
+    loc = random.Random(f"{today}-{level}-loc").choice(locs) if locs else None
+    if loc: print("Location:", loc["name"])
+    media = publish_reel(out, caption, location_id=loc and loc["id"])
+    meta["location"] = loc and loc["name"]
     meta["permalink"] = media.get("permalink")
     mark_used(P["id"])
     with open("log.jsonl", "a") as f:
-        f.write(json.dumps({"date": str(today), **{k: meta[k] for k in ("puzzle", "level", "rating", "hook", "permalink")}}) + "\n")
+        f.write(json.dumps({"date": str(today), **{k: meta[k] for k in ("puzzle", "level", "rating", "hook", "location", "permalink")}}) + "\n")
