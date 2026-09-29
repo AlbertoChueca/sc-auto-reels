@@ -78,6 +78,13 @@ try:  # also share it as a Story (never blocks the reel)
 except Exception as e:
     print("Story failed:", e); meta["story"] = f"error: {e}"
 
+if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (never blocks Instagram)
+    try:
+        from publish_zernio import crosspost as zernio_post
+        meta["zernio"] = zernio_post(out, meta["hook"], caption)
+    except Exception as e:
+        print("Zernio failed:", e); meta["zernio"] = f"error: {e}"
+
 if os.environ.get("YT_REFRESH_TOKEN"):  # YouTube Shorts, official API (never blocks Instagram)
     try:
         from publish_youtube import upload_short
@@ -100,4 +107,4 @@ if os.environ.get("UPLOADPOST_API_KEY"):  # YouTube Shorts + TikTok (never block
         print("Cross-post failed:", e); meta["crosspost"] = f"error: {e}"
 
 log({k: meta.get(k) for k in ("mode", "puzzle", "level", "rating", "hook", "location", "permalink",
-                              "media_id", "sans", "story", "youtube", "tiktok", "crosspost")})
+                              "media_id", "sans", "story", "youtube", "tiktok", "zernio", "crosspost")})
