@@ -203,7 +203,10 @@ def build(P, seed, out, mode="level"):
 
     n = int(SR * (total + 0.5)); vo = np.zeros(n, np.float32); fx = np.zeros(n, np.float32)
     def put(buf, a, at, g=1.0):
-        i = int(at * SR); j = min(n, i + len(a)); buf[i:j] += a[: j - i] * g
+        i = int(at * SR)
+        if i < 0: a = a[-i:]; i = 0
+        if i >= n: return
+        j = min(n, i + len(a)); buf[i:j] += a[: j - i] * g
     for i, a in enumerate(A):
         put(vo, a, starts[i] + 0.12)
         s = scenes[i].get("sfx", "none")
