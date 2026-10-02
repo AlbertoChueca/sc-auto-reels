@@ -15,8 +15,18 @@ import make_hype as HY
 HERE = os.path.dirname(os.path.abspath(__file__))
 W, H, FPS, SR = 1080, 1920, 30, 24000
 API = "https://generativelanguage.googleapis.com/v1beta/models"
-TEXT_MODEL = os.environ.get("GEMINI_TEXT_MODEL", "gemini-2.5-flash")
-IMAGE_MODELS = [m for m in os.environ.get("GEMINI_IMAGE_MODEL", "gemini-2.5-flash-image,gemini-2.5-flash-image-preview").split(",") if m]
+TEXT_MODELS = [m for m in os.environ.get("GEMINI_TEXT_MODEL", "gemini-3.8-flash,gemini-3.5-flash,gemini-3-flash").split(",") if m]
+IMAGE_MODELS = [m for m in os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3.1-flash-image,gemini-2.5-flash-image").split(",") if m]
+
+
+def _available():
+    """Model names this API key can call with generateContent (used as a fallback when names change)."""
+    try:
+        r = requests.get(f"{API}?pageSize=200", headers={"x-goog-api-key": _key()}, timeout=60)
+        return [m["name"].split("/")[-1] for m in r.json().get("models", [])
+                if "generateContent" in m.get("supportedGenerationMethods", [])]
+    except Exception:
+        return []
 STORY_LOG = os.path.join(HERE, "story_log.json")
 REFS = ["happy.png", "angry.png", "thinking.png", "celebrate.png"]
 
@@ -65,7 +75,15 @@ def write_story(level, side, goal, avoid):
     body = {"contents": [{"parts": [{"text": STORY_PROMPT.format(character=CHARACTER, level=level, side=side, goal=goal,
                                                                    avoid="; ".join(avoid[-40:]) or "none")}]}],
             "generationConfig": {"responseMimeType": "application/json", "temperature": 1.1}}
-    j = _post(TEXT_MODEL, body)
+    names = TEXT_MODELS + [m for m in _available() if "flash" in m and not any(x in m for x in ("image", "tts", "live", "audio", "lite"))]
+    j, last = None, None
+    for model in dict.fromkeys(names):
+        try:
+            j = _post(model, body); print("text model:", model, flush=True); break
+        except RuntimeError as e:
+            last = e
+            if " 404" not in str(e) and " 400" not in str(e): raise
+    if j is None: raise last
     txt = j["candidates"][0]["content"]["parts"][0]["text"]
     story = json.loads(txt)
     assert len(story["scenes"]) >= 3
@@ -79,15 +97,17 @@ def gen_image(prompt, refs):
         parts.append({"inline_data": {"mime_type": "image/png",
                                       "data": base64.b64encode(open(os.path.join(HERE, "assets", "mascot", p), "rb").read()).decode()}})
     last = None
-    for model in IMAGE_MODELS:
+    for model in dict.fromkeys(IMAGE_MODELS + [m for m in _available() if "image" in m]):
         try:
             j = _post(model, {"contents": [{"parts": parts}],
-                              "generationConfig": {"responseModalities": ["IMAGE"], "imageConfig": {"aspectRatio": "9:16"}}})
+                              "generationConfig": {"responseModalities": ["TEXT", "IMAGE"], "imageConfig": {"aspectRatio": "9:16"}}})
             for part in j["candidates"][0]["content"]["parts"]:
                 d = part.get("inlineData") or part.get("inline_data")
                 if d:
+                    print("image model:", model, flush=True)
                     return Image.open(io.BytesIO(base64.b64decode(d["data"]))).convert("RGB")
             last = RuntimeError(f"{model}: no image in response")
+            continue
         except Exception as e:
             last = e
     raise last
