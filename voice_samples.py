@@ -4,8 +4,8 @@ import os, subprocess, soundfile as sf
 import voice
 
 VOICES = ["Fenrir", "Puck", "Charon", "Algenib", "Sadachbia", "Achird", "Orus", "Umbriel"]
-TEXTS = ["Day three hundred sixty-four of Streak's training streak.", "Then the alarm didn't ring.",
-         "Eleven fifty-nine. One puzzle left.", "And then he saw this."]
+TEXTS = ["Day three hundred of Vektor's training.", "Then the alarm didn't ring.",
+         "Eleven fifty-nine. One puzzle left.", "Can you help Vektor find the move?"]
 STYLES = ["proud, cozy", "sudden panic", "hushed, tense", "slow, dramatic reveal"]
 os.makedirs("out/voices", exist_ok=True)
 for v in VOICES:

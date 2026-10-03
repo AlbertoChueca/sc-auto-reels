@@ -24,7 +24,7 @@ GEMINI_VOICE = os.environ.get("GEMINI_VOICE", "Fenrir")
 API = "https://generativelanguage.googleapis.com/v1beta"
 TTS_PREFERRED = ["gemini-3.8-flash-tts", "gemini-3.8-flash-tts-preview", "gemini-3.1-flash-tts-preview",
                  "gemini-3.1-flash-tts", "gemini-2.5-flash-preview-tts", "gemini-2.5-pro-preview-tts"]
-NARRATOR = ("You are the fun, charismatic narrator of a kids' animated show (ages 8-12) about a little chess knight. "
+NARRATOR = ("You are the fun, charismatic narrator of a kids' animated show (ages 8-12) about Vektor, a little chess knight. "
             "Sound like a real human talking to kids you like: warm, playful, curious, relaxed breathing, natural pitch "
             "movement, smiles in the voice. Never robotic, never a flat announcer, never babyish or over the top.")
 ENGINE_USED = None

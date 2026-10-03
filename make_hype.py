@@ -143,7 +143,7 @@ def boom():
     t = np.arange(int(SR * 1.2)) / SR
     f = 30 + 120 * np.exp(-t * 6)
     s = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 3)
-    nz = np.convolve(np.random.randn(len(t)), np.ones(40) / 40, "same") * np.exp(-t * 5) * 0.6
+    nz = np.convolve(np.random.RandomState(5).randn(len(t)), np.ones(160) / 160, "same") * np.exp(-t * 6) * 0.5
     return ((s + nz) * 0.8).astype(np.float32)
 
 
@@ -151,8 +151,9 @@ def riser(d):
     t = np.arange(int(SR * d)) / SR
     f = 200 + 1600 * (t / d) ** 2
     s = np.sin(2 * np.pi * np.cumsum(f) / SR) * 0.15
-    nz = np.random.randn(len(t)) * 0.08
-    return ((s + nz) * (t / d) ** 2).astype(np.float32)
+    air = R.whoosh(d * 1.6, seed=11)[: len(t)]
+    air = np.pad(air, (0, len(t) - len(air)))
+    return ((s * 0.8 + air * 0.5) * (t / d) ** 2).astype(np.float32)
 
 
 def beat(total, bpm=124):
@@ -192,7 +193,7 @@ HOOKS = {
 }
 
 
-def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False):
+def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False, cta_lead=None):
     import voice
     if not keep_voice:
         voice.reset()      # new reel: pick the best voice and use it for every line
@@ -222,7 +223,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
              ("up", "Time's up!")]
     lines += [(f"m{i}", R.san_say(s)) for i, s in enumerate(sans)]
     lines += [("fin", finale),
-              ("cta", ("Send this to a friend and see who's faster! " if mode == "tagfriend" else "Did you get it? ")
+              ("cta", (cta_lead or ("Send this to a friend and see who's faster! " if mode == "tagfriend" else "Did you get it? "))
                + "Play a new puzzle every day on StreakChess. It's free! Parents, the link is in bio.")]
 
     STY = {"h1": "excited, playful challenge", "h2": "fun, with a big smile", "lvl": "clear and friendly, like a cool teacher",
@@ -245,7 +246,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     add("go", D["go"] + 0.1)
     add("count", COUNT)
     add("up", D["up"] + 0.25)
-    for i in range(len(sans)): add(f"m{i}", max(D[f"m{i}"] + 0.2, 1.25))
+    for i in range(len(sans)): add(f"m{i}", max(D[f"m{i}"] + 0.5, 2.1))      # time to follow every move
     add("fin", D["fin"] + 0.6)
     add("cta", D["cta"] + 1.2)
     total = t
@@ -266,7 +267,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     put(fx, riser(3.0), T["count"][1] - 3.0, 1.0)
     put(fx, boom(), T["up"][0], 1.0)
     for i in range(len(sans)):
-        put(fx, R.whoosh(0.3), T[f"m{i}"][0] + 0.2, 0.8); put(fx, kick(), T[f"m{i}"][0] + 0.62, 0.9)
+        put(fx, R.whoosh(0.5), T[f"m{i}"][0] + 0.4, 0.5); put(fx, R.place(), T[f"m{i}"][0] + 0.93, 1.0)
     put(fx, boom(), T["fin"][0], 1.0); put(fx, R.ding(), T["fin"][0], 0.7)
     put(fx, R.whoosh(0.6), T["cta"][0] - 0.25, 1.2)
     music = beat(total)[:n]
@@ -329,7 +330,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
             if "s" not in cache: cache["s"] = R.card(R.draw_board(board, flip, (last.from_square, last.to_square)))
             return cache["s"], None
         i = max(j for j in range(len(moves)) if tt >= T[f"m{j}"][0] + 0.35)
-        m = moves[i]; prog = eio((tt - T[f"m{i}"][0] - 0.35) / 0.32); st = states[i]
+        m = moves[i]; prog = eio((tt - T[f"m{i}"][0] - 0.35) / 0.6); st = states[i]   # slow, easy-to-follow slide
         if prog >= 1:
             red = states[i + 1].king(states[i + 1].turn) if (i == len(moves) - 1 and mate_n) else None
             k = ("d", i, red)
@@ -427,7 +428,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                     cap = word_img("PAUSE IF YOU NEED TIME" if lt < COUNT / 2 else "COMMENT YOUR MOVE!", 54, WHITE, 7)
                     R.paste_center(fr, cap, W / 2, 1780, eob(((lt % (COUNT / 2))) / 0.3))
                 if T["up"][0] <= tt < T["up"][1]:
-                    lt = tt - T["up"][0]; flash = max(0, 0.55 - lt * 2.5); shake = 14 * max(0, 1 - lt / 0.3)
+                    lt = tt - T["up"][0]; flash = max(0, 0.3 - lt * 1.5); shake = 5 * max(0, 1 - lt / 0.3)
                     R.paste_center(fr, word_img("TIME'S UP!", 130, RED), W / 2 + 160, 330, eob(lt / 0.3), 1, -4)
                 for i in range(len(sans)):
                     a, b = T[f"m{i}"]
@@ -437,15 +438,12 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                         R.paste_center(fr, word_img(sans[i], 140, col), W / 2 + 170, 330, eob(lt / 0.28), 1, -3 if i % 2 else 3)
                         lab = "CHECKMATE!" if "#" in sans[i] else ("CHECK!" if "+" in sans[i] else ("BLACK" if (states[i].turn == chess.BLACK) else "WHITE"))
                         R.paste_center(fr, word_img(lab, 56, RED if "#" in sans[i] else WHITE, 7), W / 2 + 170, 470, eob((lt - 0.55) / 0.25))
-                        if 0.62 <= lt < 0.9: shake = 10 * (1 - (lt - 0.62) / 0.28)
-                        if focus is not None and lt > 0.3:   # punch in toward the landing square
-                            fx_, fy_ = R.sq_xy(focus, flip)
-                            px = (fx_ + R.SQ / 2 + 22 - 494) * 0.96; py = (fy_ + R.SQ / 2 + 22 - 494) * 0.96
-                            k = eio((lt - 0.3) / 0.5) * 0.14
-                            zoom = 1 + k; cxo, cyo = px * k * 0.9, (BOARD_CY - H / 2 + py) * k * 0.9
+                        # very subtle push-in, centred on the board, so the whole board always stays in view
+                        zoom = 1 + 0.015 * eio(min(1, (tt - T["m0"][0]) / (T[f"m{len(sans) - 1}"][1] - T["m0"][0])))
+                        cyo = (BOARD_CY - H / 2) * (1 - 1 / zoom)
                 if T["fin"][0] <= tt < T["fin"][1]:
                     lt = tt - T["fin"][0]
-                    flash = max(flash, 0.7 - lt * 2.5); shake = max(shake, 22 * max(0, 1 - lt / 0.5))
+                    flash = max(flash, 0.35 - lt * 1.5); shake = max(shake, 6 * max(0, 1 - lt / 0.4))
                     d = ImageDraw.Draw(fr)
                     for ang, sp, c in sparks:
                         r0 = sp * lt; x = W / 2 + math.cos(ang) * r0; y = BOARD_CY + math.sin(ang) * r0 + 400 * lt * lt

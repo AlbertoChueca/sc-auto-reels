@@ -31,33 +31,57 @@ STORY_LOG = os.path.join(HERE, "story_log.json")
 REFS = ["happy.png", "angry.png", "thinking.png", "celebrate.png"]
 
 CHARACTER = (
-    "STREAK: a cartoon black chess knight piece with a bright orange-and-yellow flame mane, big round white "
+    "VEKTOR: a cartoon black chess knight piece with a bright orange-and-yellow flame mane, big round white "
     "cartoon eyes with black pupils, a dark gray body with thick black outlines and a round base. No arms or legs: "
-    "he hops, slides and tilts like a chess piece. Personality: brave, funny, a bit dramatic, kind, "
-    "never gives up, obsessed with keeping his daily training streak. Style: bold flat 2D cartoon with clean thick outlines, "
-    "vibrant colors, cinematic lighting, like a high-quality animated short.")
+    "he hops, slides and tilts like a chess piece. Personality: brave, funny, a bit dramatic, kind, never gives up. "
+    "Style: bold flat 2D cartoon with clean thick outlines, vibrant colors, cinematic lighting, like a high-quality "
+    "animated short.")
 
-STORY_PROMPT = """You write 10-second micro stories for vertical chess reels starring a mascot.
+WORLD = """VEKTOR'S WORLD (keep it consistent, this is an ongoing series):
+- Vektor is a young chess knight who lives in Chessville, a cozy town where chess pieces live, go to school and play chess.
+- His big dream: become World Chess Champion one day. Every episode is one day of his journey to that dream.
+- He gets stronger by solving puzzles every day (his daily training streak). Some days are hard, he makes mistakes,
+  gets nervous, has funny little disasters, but he never gives up.
+- Recurring friends (use 0-2 per episode): Coach King (wise, calm old king who trains him), Pip (a tiny cheerful pawn,
+  his best friend), Bishop Blaze (his friendly rival, a bit show-off), Grandma Queen (sweet, super strong at blitz).
+- Typical moments: training at sunrise, chess club, school, a tournament round, a lesson with Coach King, a blitz battle
+  with Bishop Blaze, helping Pip, travelling to a new tournament, a rainy day of study, a celebration after improving.
+- THE VIEWER IS VEKTOR'S TEAMMATE: every story ends with Vektor stuck on a chess position and asking the viewer for help.
+  Solving the puzzle helps Vektor improve and get one step closer to his dream."""
+
+STORY_PROMPT = """You write 10-second micro episodes for vertical chess reels starring Vektor the knight.
 AUDIENCE: kids aged 8-12 who play chess (their parents watch too). Think of a great kids' animated show: funny, exciting, warm.
 {character}
 
-Write ONE brand-new mini story (setup -> twist -> lead-in) that ends by leading into a chess puzzle.
-The puzzle: {level} level, {side} to move, goal: {goal}.
+{world}
+
+This is episode {episode}. Recent episodes (continue the journey naturally, do not repeat them):
+{recent}
+
+Write ONE new episode: a moment of Vektor's day on his way to his dream (setup -> problem -> he needs help).
+The chess problem he faces IS the puzzle that follows: {level} level, {side} to move, goal: {goal}.
 Rules:
-- Exactly 4 scenes. Total narration 22-32 words. Narration is a fun, warm storyteller in English, like a favourite YouTuber for kids: simple words a 9-year-old knows, energetic but conversational, never babyish.
-- Kid-relatable settings and stakes: school, recess, chess club, a tournament, a sleepover, a video-game world, a science fair, a rainy day, a pet, a sibling. Positive and safe: no violence, scary horror, romance, brands or real people.
-- Write numbers as words (e.g. "three hundred").
-- Write narration to be SPOKEN: short sentences (max 9 words), natural rhythm, contractions, commas for breaths,
-  one exclamation or question per scene. No hashtags, emojis, abbreviations or chess notation in narration.
-- Each scene is a different moment/place/action. Make it visual and specific (places, props, weather, other chess pieces as characters).
-- Scene 4 narration must hand over to the puzzle (e.g. "...and then he saw THIS.").
-- Do NOT reuse any of these previous story ideas: {avoid}
+- Exactly 4 scenes. Total narration 24-34 words. Narration is a fun, warm storyteller in English, like a favourite
+  YouTuber for kids: simple words a 9-year-old knows, energetic but conversational, never babyish.
+- The story must clearly be about chess and getting better at it (why this position matters today for Vektor:
+  a tournament game, Coach King's challenge, a bet with Bishop Blaze, a puzzle he must crack to keep his streak...).
+- Scene 4 narration: Vektor is stuck on the position and the narrator asks the viewer to help him,
+  e.g. "Can you help Vektor find the winning move?" (vary the wording every episode).
+- Positive and safe: no violence, scary horror, romance, brands or real people.
+- Write numbers as words. Write narration to be SPOKEN: short sentences (max 9 words), natural rhythm, contractions,
+  commas for breaths. No hashtags, emojis, abbreviations or chess notation in narration.
+- Each scene is a different moment/place/action. Make it visual and specific (places, props, weather, the friends above).
+- Do NOT reuse any of these previous episode ideas: {avoid}
 - image_prompt: describe ONE vertical 9:16 frame: action, setting, camera framing (close-up / wide / low angle), lighting, mood.
-  Always say "the knight mascot from the reference images". No text, letters or logos in the image.
-- camera: one of push_in, pull_out, pan_left, pan_right, tilt_up, shake.
-- sfx: one of whoosh, boom, none.
-- delivery: 3-8 word acting direction for the voice actor for that scene, varied across scenes (e.g. "hushed, building suspense", "mock-dramatic, then deadpan", "excited, almost laughing", "slow, with a knowing grin").
-Return JSON: {{"title": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str, "delivery": str}}], "caption_hook": str}}"""
+  Always say "the knight mascot from the reference images" for Vektor. Other characters are cartoon chess pieces with
+  faces, same art style. No text, letters or logos in the image.
+- camera: one of push_in, pull_out, pan_left, pan_right, tilt_up.
+- sfx: one of whoosh, boom, none (use boom at most once).
+- delivery: 3-8 word acting direction for the voice actor for that scene, varied across scenes (e.g. "hushed, building
+  suspense", "excited, almost laughing", "warm and proud", "worried, then hopeful").
+- summary: one sentence describing what happened in this episode (for continuity).
+- caption_hook: short Instagram first line inviting kids to help Vektor (max 10 words, one emoji allowed).
+Return JSON: {{"title": str, "summary": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str, "delivery": str}}], "caption_hook": str}}"""
 
 
 # ----------------------------------------------------------------- Gemini
@@ -77,9 +101,11 @@ def _post(model, body, tries=4):
     raise RuntimeError(f"Gemini {model}: too many retries")
 
 
-def write_story(level, side, goal, avoid):
-    body = {"contents": [{"parts": [{"text": STORY_PROMPT.format(character=CHARACTER, level=level, side=side, goal=goal,
-                                                                   avoid="; ".join(avoid[-40:]) or "none")}]}],
+def write_story(level, side, goal, avoid, episode=1, recent=()):
+    body = {"contents": [{"parts": [{"text": STORY_PROMPT.format(
+                character=CHARACTER, world=WORLD, level=level, side=side, goal=goal, episode=episode,
+                recent="\n".join(f"- {r}" for r in recent) or "- (this is the first episode)",
+                avoid="; ".join(avoid[-40:]) or "none")}]}],
             "generationConfig": {"responseMimeType": "application/json", "temperature": 1.1}}
     names = TEXT_MODELS + [m for m in _available() if "flash" in m and not any(x in m for x in ("image", "tts", "live", "audio", "lite"))]
     j, last = None, None
@@ -123,10 +149,10 @@ def mock_story(rng):
     poses = ["thinking", "angry", "burnout", "levelup"]
     return {"title": "Mock story", "caption_hook": "He almost lost his streak...",
             "scenes": [{"narration": t, "image_prompt": p, "camera": c, "sfx": s, "delivery": dl} for (t, p, c, s), dl in zip([
-                ("Day 364 of Streak's training streak.", poses[0], "push_in", "none"),
+                ("Day three hundred of Vektor's training.", poses[0], "push_in", "none"),
                 ("Then the alarm didn't ring.", poses[1], "shake", "boom"),
                 ("Eleven fifty-nine. One puzzle left.", poses[2], "pan_left", "whoosh"),
-                ("And then he saw THIS.", poses[3], "push_in", "boom")], ["proud, cozy", "sudden panic", "hushed, tense", "slow, dramatic reveal"])]}
+                ("Can you help Vektor find the move?", poses[3], "push_in", "boom")], ["proud, cozy", "sudden panic", "hushed, tense", "slow, dramatic reveal"])]}
 
 
 def mock_image(pose, i):
@@ -195,7 +221,10 @@ def build(P, seed, out, mode="level"):
         raise SystemExit("Missing files in the repository: " + ", ".join(os.path.relpath(p, HERE) for p in missing))
     mock = os.environ.get("STORY_MOCK") == "1"
     log = json.load(open(STORY_LOG)) if os.path.exists(STORY_LOG) else []
-    story = mock_story(rng) if mock else write_story(LV["name"].title(), side, goal, [s["title"] for s in log])
+    episode = len(log) + 1
+    recent = [f"{s.get('title')}: {s.get('summary', '')}" for s in log[-3:]]
+    story = mock_story(rng) if mock else write_story(LV["name"].title(), side, goal, [s["title"] for s in log],
+                                                     episode, recent)
     scenes = story["scenes"][:4]
     print("Story:", story["title"], flush=True)
     imgs = []
@@ -221,7 +250,8 @@ def build(P, seed, out, mode="level"):
         try:
             A = voice.say_many([sc["narration"] for sc in scenes], speed=1.08,
                                styles=[sc.get("delivery") for sc in scenes], one_take=True)
-            meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True)
+            meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
+                             cta_lead="You helped Vektor get stronger! ")
             break
         except voice.VoiceError as e:
             nxt = voice.next_engine()
@@ -241,9 +271,10 @@ def build(P, seed, out, mode="level"):
     for i, a in enumerate(A):
         put(vo, a, starts[i] + 0.12)
         s = scenes[i].get("sfx", "none")
-        if s == "boom": put(fx, HY.boom(), starts[i], 0.8)
-        elif s == "whoosh": put(fx, R.whoosh(0.5), starts[i] - 0.15, 1.1)
-        if i: put(fx, R.whoosh(0.35), starts[i] - 0.12, 0.7)
+        if i:                                   # soft, musical scene change
+            put(fx, R.whoosh(0.6, seed=i), starts[i] - 0.35, 0.55)
+            put(fx, R.shimmer([659.3, 784.0, 880.0, 587.3][i % 4]), starts[i] - 0.05, 0.8)
+        if s == "boom": put(fx, R.soft_hit(), starts[i] + 0.02, 0.6)
     put(fx, HY.riser(1.6), total - 1.6, 0.9)
     tb = np.arange(n) / SR
     pad = sum(np.sin(2 * np.pi * f * tb) for f in (110, 164.8, 220)) * 0.05 * np.clip(tb / 1.5, 0, 1)
@@ -283,7 +314,7 @@ def build(P, seed, out, mode="level"):
             R.paste_center(fr, band.filter(ImageFilter.GaussianBlur(14)), W / 2, 1520)
             R.paste_center(fr, ph, W / 2, 1520)
         if i == 0 and lt < 2.5:   # top label
-            tag = R.pill(story.get("title", "")[:28].upper(), 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
+            tag = R.pill(f"VEKTOR · DAY {episode}", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
             R.paste_center(fr, tag, W / 2, 170, HY.eob(lt / 0.3))
         proc.stdin.write(HY.grain(fr, fi))
     proc.stdin.close(); proc.wait(); os.remove(wav)
@@ -298,7 +329,7 @@ def build(P, seed, out, mode="level"):
     for f in (story_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):
         if os.path.exists(f): os.remove(f)
     if not mock:
-        log.append({"title": story["title"], "puzzle": P.get("id")})
+        log.append({"title": story["title"], "summary": story.get("summary", ""), "puzzle": P.get("id")})
         json.dump(log[-200:], open(STORY_LOG, "w"), indent=0)
         for k, im in enumerate(imgs):
             im.save(out.replace(".mp4", f"_scene{k + 1}.jpg"), quality=88)

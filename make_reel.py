@@ -250,11 +250,53 @@ def tone(freq, dur, decay=18, vol=0.35):
     t = np.arange(int(SR * dur)) / SR
     return (np.sin(2 * np.pi * freq * t) * np.exp(-decay * t) * vol).astype(np.float32)
 def tick(high=False): return tone(1900 if high else 1400, 0.06, 60, 0.35 if high else 0.25)
-def whoosh(dur=0.4):
-    n = int(SR * dur); noise = np.random.randn(n).astype(np.float32)
-    k = np.ones(30) / 30; noise = np.convolve(noise, k, "same")
-    env = np.sin(np.linspace(0, np.pi, n)) ** 2
-    return noise * env * 0.5
+def whoosh(dur=0.4, seed=7):
+    """Soft cinematic swoosh: noise through a sweeping low-pass filter (no harsh hiss)."""
+    n = int(SR * dur); rng = np.random.RandomState(seed)
+    noise = rng.randn(n).astype(np.float32)
+    ph = np.linspace(0, 1, n)
+    fc = 250 + 2600 * np.sin(np.pi * ph) ** 1.5                     # filter opens then closes
+    a = np.exp(-2 * np.pi * fc / SR).astype(np.float32)
+    out = np.empty(n, np.float32); y = 0.0
+    for i in range(n):                                              # one-pole low-pass, twice
+        y = a[i] * y + (1 - a[i]) * noise[i]; out[i] = y
+    y = 0.0
+    for i in range(n):
+        y = a[i] * y + (1 - a[i]) * out[i]; out[i] = y
+    out -= np.convolve(out, np.ones(240) / 240, "same")             # remove rumble
+    env = np.where(ph < 0.6, (ph / 0.6) ** 2, ((1 - ph) / 0.4) ** 1.5)
+    out = out * env
+    return (out / (np.max(np.abs(out)) + 1e-6) * 0.3).astype(np.float32)
+
+
+def shimmer(base=784.0):
+    """Gentle magical sparkle (pentatonic arpeggio) for scene changes."""
+    notes = [1.0, 1.25, 1.5, 2.0]
+    out = np.zeros(int(SR * 1.2), np.float32)
+    for k, m in enumerate(notes):
+        t = np.arange(int(SR * 0.9)) / SR; f = base * m
+        s_ = (np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * f * 2.003 * t)) * np.exp(-5 * t)
+        s_ *= np.clip(t / 0.005, 0, 1)
+        i = int(SR * 0.055 * k); out[i:i + len(s_)] += s_[: len(out) - i] * 0.06
+    return out
+
+
+def soft_hit():
+    """Warm, round low hit (no noise burst)."""
+    t = np.arange(int(SR * 0.8)) / SR
+    f = 55 + 60 * np.exp(-t * 18)
+    s_ = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 5) * np.clip(t / 0.004, 0, 1)
+    return (s_ * 0.55).astype(np.float32)
+
+
+def place():
+    """Wooden chess piece being placed on the board."""
+    t = np.arange(int(SR * 0.18)) / SR; rng = np.random.RandomState(3)
+    knock = np.sin(2 * np.pi * 420 * t) * np.exp(-t * 45) + 0.5 * np.sin(2 * np.pi * 950 * t) * np.exp(-t * 70)
+    tick_ = np.convolve(rng.randn(len(t)), np.ones(6) / 6, "same") * np.exp(-t * 120) * 0.4
+    return ((knock + tick_) * 0.35).astype(np.float32)
+
+
 def ding(): return tone(880, 1.0, 4, 0.3) + tone(1320, 1.0, 5, 0.18)
 def pop():
     t = np.arange(int(SR * 0.09)) / SR
