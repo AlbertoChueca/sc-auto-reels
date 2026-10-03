@@ -7,10 +7,15 @@ on:
   workflow_dispatch:
     inputs:
       level:
-        description: "What to publish"
+        description: "Premium story reel: story = normal puzzle, storytag = 'challenge a friend'"
         type: choice
-        options: [story, storytag, basic, intermediate, advanced, tagfriend]
+        options: [story, storytag]
         default: story
+      difficulty:
+        description: "Puzzle level (auto = rotates every day)"
+        type: choice
+        options: [auto, basic, intermediate, advanced]
+        default: auto
       dry_run:
         description: "Only generate the video (do not publish)"
         type: boolean
@@ -92,6 +97,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
           VOICE_ENGINE: gemini
+          LEVEL_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.difficulty || 'auto' }}
           GEMINI_VOICE: ${{ vars.GEMINI_VOICE || 'Fenrir' }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
         run: python run_daily.py ${{ steps.lvl.outputs.level }}
