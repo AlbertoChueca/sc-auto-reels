@@ -50,7 +50,8 @@ jobs:
       - name: Generate story reel
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          VOICE_ENGINE: chatterbox
+          VOICE_ENGINE: gemini
+          GEMINI_VOICE: ${{ vars.GEMINI_VOICE || 'Fenrir' }}
         run: python story_test.py ${{ inputs.level }}
       - uses: actions/upload-artifact@v4
         with:

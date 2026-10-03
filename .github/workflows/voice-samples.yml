@@ -1,0 +1,26 @@
+name: Voice samples
+
+on:
+  workflow_dispatch:
+
+jobs:
+  samples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libcairo2 espeak-ng
+      - run: pip install -r requirements.txt
+      - name: Record samples
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          VOICE_ENGINE: gemini
+        run: python voice_samples.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: voice-samples
+          path: out/voices/*.mp3

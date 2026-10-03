@@ -91,7 +91,8 @@ jobs:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
-          VOICE_ENGINE: chatterbox
+          VOICE_ENGINE: gemini
+          GEMINI_VOICE: ${{ vars.GEMINI_VOICE || 'Fenrir' }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
         run: python run_daily.py ${{ steps.lvl.outputs.level }}
 
