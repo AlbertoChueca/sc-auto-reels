@@ -33,44 +33,63 @@ def whoami(token):
     return {"user_id": ig["id"], "username": ig.get("username"), "page_id": me["id"]}
 
 
+def ig_safe(video_path):
+    """Re-encode to Instagram's recommended spec (H.264 High, 30 fps, <=8 Mbps, AAC 48 kHz stereo, faststart).
+    Big high-bitrate files (grain + many details) are what makes Instagram's upload fail with ProcessingFailedError."""
+    import subprocess
+    out = video_path.replace(".mp4", "_ig.mp4")
+    if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(video_path):
+        return out
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", video_path,
+                    "-c:v", "libx264", "-profile:v", "high", "-level", "4.1", "-pix_fmt", "yuv420p", "-r", "30",
+                    "-preset", "slow", "-crf", "21", "-maxrate", "8M", "-bufsize", "16M", "-g", "60",
+                    "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2",
+                    "-movflags", "+faststart", out], check=True)
+    print(f"IG-ready file: {os.path.getsize(out) / 1e6:.1f} MB (was {os.path.getsize(video_path) / 1e6:.1f} MB)", flush=True)
+    return out
+
+
+def _container_upload_wait(uid, token, video_path, fields, label, tries=3):
+    """Create a resumable container, upload the bytes, wait until FINISHED. Retries with a fresh container."""
+    data = open(video_path, "rb").read()
+    last = None
+    for attempt in range(tries):
+        try:
+            r = requests.post(f"{GRAPH}/{uid}/media", data={**fields, "upload_type": "resumable", "access_token": token})
+            if r.status_code >= 400 and fields.get("location_id"):
+                print(f"Location rejected ({r.text[:200]}); continuing without location", flush=True)
+                fields = {k: v for k, v in fields.items() if k != "location_id"}
+                r = requests.post(f"{GRAPH}/{uid}/media", data={**fields, "upload_type": "resumable", "access_token": token})
+            cid = _check(r)["id"]
+            _check(requests.post(f"{RUPLOAD}/{cid}", data=data, timeout=600, headers={
+                "Authorization": f"OAuth {token}", "offset": "0", "file_size": str(len(data))}))
+            for _ in range(90):
+                st = _check(requests.get(f"{GRAPH}/{cid}", params={"fields": "status_code,status", "access_token": token}))
+                code = st.get("status_code")
+                print(f"{label} status:", code, flush=True)
+                if code == "FINISHED":
+                    return cid
+                if code in ("ERROR", "EXPIRED"):
+                    raise RuntimeError(f"{label} processing failed: {st}")
+                time.sleep(10)
+            raise RuntimeError(f"Timed out waiting for {label}")
+        except Exception as e:
+            last = e
+            print(f"{label} attempt {attempt + 1}/{tries} failed: {str(e)[:300]}", flush=True)
+            time.sleep(20 * (attempt + 1))
+    raise last
+
+
 def publish_reel(video_path, caption, token=None, location_id=None):
     token = token or os.environ["IG_TOKEN"]
     me = whoami(token)
     uid = me["user_id"]
     print(f"Publishing as @{me['username']}", flush=True)
-
-    # 1) create a resumable Reels container
-    data = {"media_type": "REELS", "upload_type": "resumable", "caption": caption,
-            "share_to_feed": "true", "access_token": token}
+    video_path = ig_safe(video_path)
+    fields = {"media_type": "REELS", "caption": caption, "share_to_feed": "true"}
     if location_id:
-        data["location_id"] = str(location_id)
-    r = requests.post(f"{GRAPH}/{uid}/media", data=data)
-    if r.status_code >= 400 and location_id:
-        print(f"Location {location_id} rejected ({r.text}); publishing without location", flush=True)
-        data.pop("location_id"); r = requests.post(f"{GRAPH}/{uid}/media", data=data)
-    c = _check(r)
-    cid = c["id"]
-
-    # 2) upload the local mp4 bytes
-    size = os.path.getsize(video_path)
-    with open(video_path, "rb") as f:
-        _check(requests.post(f"{RUPLOAD}/{cid}", data=f, headers={
-            "Authorization": f"OAuth {token}", "offset": "0", "file_size": str(size)}))
-
-    # 3) wait for Instagram to process the video
-    for _ in range(60):
-        st = _check(requests.get(f"{GRAPH}/{cid}", params={"fields": "status_code,status", "access_token": token}))
-        code = st.get("status_code")
-        print("container status:", code, flush=True)
-        if code == "FINISHED":
-            break
-        if code in ("ERROR", "EXPIRED"):
-            raise RuntimeError(f"Processing failed: {st}")
-        time.sleep(10)
-    else:
-        raise RuntimeError("Timed out waiting for processing")
-
-    # 4) publish
+        fields["location_id"] = str(location_id)
+    cid = _container_upload_wait(uid, token, video_path, fields, "reel")
     p = _check(requests.post(f"{GRAPH}/{uid}/media_publish", data={"creation_id": cid, "access_token": token}))
     media = _check(requests.get(f"{GRAPH}/{p['id']}", params={"fields": "id,permalink", "access_token": token}))
     print("Published:", media.get("permalink"), flush=True)
@@ -81,23 +100,7 @@ def publish_story(video_path, token=None):
     """Share the same video as an Instagram Story (Stories expire after 24h; no caption/links via API)."""
     token = token or os.environ["IG_TOKEN"]
     uid = whoami(token)["user_id"]
-    c = _check(requests.post(f"{GRAPH}/{uid}/media", data={
-        "media_type": "STORIES", "upload_type": "resumable", "access_token": token}))
-    cid = c["id"]
-    size = os.path.getsize(video_path)
-    with open(video_path, "rb") as f:
-        _check(requests.post(f"{RUPLOAD}/{cid}", data=f, headers={
-            "Authorization": f"OAuth {token}", "offset": "0", "file_size": str(size)}))
-    for _ in range(60):
-        code = _check(requests.get(f"{GRAPH}/{cid}", params={"fields": "status_code", "access_token": token})).get("status_code")
-        print("story status:", code, flush=True)
-        if code == "FINISHED":
-            break
-        if code in ("ERROR", "EXPIRED"):
-            raise RuntimeError(f"Story processing failed: {code}")
-        time.sleep(10)
-    else:
-        raise RuntimeError("Timed out waiting for story processing")
+    cid = _container_upload_wait(uid, token, ig_safe(video_path), {"media_type": "STORIES"}, "story")
     p = _check(requests.post(f"{GRAPH}/{uid}/media_publish", data={"creation_id": cid, "access_token": token}))
     print("Story published:", p.get("id"), flush=True)
     return p

@@ -102,7 +102,8 @@ except Exception as e:
 if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (never blocks Instagram)
     try:
         from publish_zernio import crosspost as zernio_post
-        meta["zernio"] = zernio_post(out, meta["hook"], caption)
+        from publish_ig import ig_safe
+        meta["zernio"] = zernio_post(ig_safe(out), meta["hook"], caption)
     except Exception as e:
         print("Zernio failed:", e); meta["zernio"] = f"error: {e}"
 

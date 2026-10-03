@@ -72,14 +72,37 @@ def _norm(w):
     return re.sub(r"[^a-z0-9]", "", w.lower())
 
 
+_ONES = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen " \
+        "seventeen eighteen nineteen".split()
+_TENS = "_ _ twenty thirty forty fifty sixty seventy eighty ninety".split()
+
+
+def _num_words(n):
+    if n < 20: return _ONES[n]
+    if n < 100: return _TENS[n // 10] + ("" if n % 10 == 0 else _ONES[n % 10])
+    if n < 1000: return _ONES[n // 100] + "hundred" + ("" if n % 100 == 0 else _num_words(n % 100))
+    if n < 10000: return _ONES[n // 1000] + "thousand" + ("" if n % 1000 == 0 else _num_words(n % 1000))
+    return str(n)
+
+
+def _spoken(text):
+    """Letters-only spoken form, so 'H6' == 'H six', '300' == 'three hundred', 'Rook takes h6' == 'Rook takes H six'."""
+    t = text.lower().replace("%", " percent").replace("&", " and ")
+    t = re.sub(r"\d+", lambda m: " " + _num_words(int(m.group())) + " ", t)
+    return re.sub(r"[^a-z]", "", t)
+
+
 def _similarity(a, text):
-    """0..1 how well the audio says the text (None when we cannot check)."""
+    """0..1 how well the audio says the text (None when we cannot check). Compared letter by letter on the
+    spoken form, so notation, numbers and punctuation written differently by the recogniser do not count."""
     heard = _asr(a)
     if heard is None:
         return None
     import difflib
-    return difflib.SequenceMatcher(None, [_norm(w) for w in text.split()],
-                                   [_norm(w) for w, _, _ in heard]).ratio()
+    x, y = _spoken(text), _spoken(" ".join(w for w, _, _ in heard))
+    if not x or not y:
+        return 0.0
+    return difflib.SequenceMatcher(None, x, y, autojunk=False).ratio()
 
 
 def align(a, text):
@@ -89,7 +112,7 @@ def align(a, text):
     if heard:
         import difflib
         sm = difflib.SequenceMatcher(None, [_norm(w) for w in ws], [_norm(w) for w, _, _ in heard])
-        if sm.ratio() < 0.6:                                   # voice said something else: show what it said
+        if _similarity(a, text) < 0.6:                         # voice said something else: show what it said
             return [(st, w) for w, st, _ in heard]
         t = [None] * len(ws)
         for i, j, n in sm.get_matching_blocks():
