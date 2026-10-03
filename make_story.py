@@ -13,7 +13,7 @@ import make_reel as R
 import make_hype as HY
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-W, H, FPS, SR = 1080, 1920, 30, 24000
+W, H, FPS, SR = 1080, 1920, 25, 24000
 API = "https://generativelanguage.googleapis.com/v1beta/models"
 TEXT_MODELS = [m for m in os.environ.get("GEMINI_TEXT_MODEL", "gemini-3.8-flash,gemini-3.5-flash,gemini-3-flash").split(",") if m]
 IMAGE_MODELS = [m for m in os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3.1-flash-image,gemini-2.5-flash-image").split(",") if m]
@@ -227,17 +227,22 @@ def build(P, seed, out, mode="level"):
                                                      episode, recent)
     scenes = story["scenes"][:4]
     print("Story:", story["title"], flush=True)
-    imgs = []
-    for i, sc in enumerate(scenes):
-        im = None
+    def one_image(i):
         for attempt in range(2):
             try:
-                im = mock_image(sc["image_prompt"], i) if mock else gen_image(sc["image_prompt"], REFS); break
+                return mock_image(scenes[i]["image_prompt"], i) if mock else gen_image(scenes[i]["image_prompt"], REFS)
             except Exception as e:
                 print(f"scene {i + 1} image failed ({attempt + 1}/2): {str(e)[:200]}", flush=True)
+        return None
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(4) as ex:                     # the 4 scenes are drawn at the same time
+        got = list(ex.map(one_image, range(len(scenes))))
+    imgs = []
+    for i, im in enumerate(got):
         if im is None:
-            if not imgs: raise RuntimeError("could not generate the first scene image")
-            im = imgs[-1]                     # keep the reel alive: reuse the previous scene
+            others = [g for g in got if g is not None]
+            if not others: raise RuntimeError("could not generate any scene image")
+            im = imgs[-1] if imgs else others[0]           # keep the reel alive: reuse a neighbouring scene
         imgs.append(im)
         print(f"scene {i + 1} image ready", flush=True)
 
@@ -288,10 +293,10 @@ def build(P, seed, out, mode="level"):
             words.append((i, starts[i] + 0.12 + ts, w))
 
     bigs = [cover(grade(cover(im, 1.0)), 1.18) for im in imgs]
+    LEAK = [None]
     story_mp4 = out.replace(".mp4", "_story.mp4")
     proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
-                             "-r", str(FPS), "-i", "-", "-i", wav, "-c:v", "libx264", "-preset", "medium", "-crf", "18",
-                             "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-ar", "24000", "-shortest", story_mp4],
+                             "-r", str(FPS), "-i", "-", "-i", wav, "-shortest"] + HY.enc_args(story_mp4),
                             stdin=subprocess.PIPE)
     for fi in range(int(total * FPS)):
         t = fi / FPS
@@ -301,17 +306,18 @@ def build(P, seed, out, mode="level"):
         lt = t - starts[i]
         if i and lt < 0.35:   # warm light-leak flash between scenes
             k = 1 - lt / 0.35
-            leak = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ld = ImageDraw.Draw(leak)
-            ld.ellipse([-W * 0.4, -H * 0.2, W * 0.9, H * 0.6], fill=(255, 170, 70, int(170 * k)))
-            fr.alpha_composite(leak.filter(ImageFilter.GaussianBlur(120)))
+            if LEAK[0] is None:                       # blurred once, then only its opacity changes
+                leak = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ld = ImageDraw.Draw(leak)
+                ld.ellipse([-W * 0.4, -H * 0.2, W * 0.9, H * 0.6], fill=(255, 170, 70, 170))
+                LEAK[0] = leak.filter(ImageFilter.GaussianBlur(120))
+            lk = LEAK[0].copy(); lk.putalpha(LEAK[0].getchannel("A").point(lambda v, k=k: int(v * k)))
+            fr.alpha_composite(lk)
             if lt < 0.08: fr = Image.blend(fr, Image.new("RGBA", (W, H), (255, 255, 255, 255)), 0.5 * (1 - lt / 0.08))
         cur = [(ts, w) for si, ts, w in words if si == i and ts <= t]
         if cur:
             idx = len(cur) - 1; st = (idx // 3) * 3
             ph = HY.phrase_img([w for _, w in cur[st:idx + 1]], t - cur[-1][0], 86)
-            band = Image.new("RGBA", (W, ph.height + 80), (0, 0, 0, 0))
-            ImageDraw.Draw(band).rounded_rectangle([40, 20, W - 40, band.height - 20], 40, fill=(0, 0, 0, 120))
-            R.paste_center(fr, band.filter(ImageFilter.GaussianBlur(14)), W / 2, 1520)
+            R.paste_center(fr, HY.band_img(ph.height + 80), W / 2, 1520)
             R.paste_center(fr, ph, W / 2, 1520)
         if i == 0 and lt < 2.5:   # top label
             tag = R.pill(f"VEKTOR · DAY {episode}", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
@@ -321,9 +327,8 @@ def build(P, seed, out, mode="level"):
 
     # join story + puzzle segment (rendered above; the story is the hook)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", story_mp4, "-i", puzzle_mp4, "-filter_complex",
-                    "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]", "-c:v", "libx264",
-                    "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
-                    "-movflags", "+faststart", out], check=True)
+                    "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]"]
+                   + HY.enc_args(out, scale=False), check=True)
     cap_old = open(puzzle_mp4.replace(".mp4", ".txt")).read().split("\n", 1)[1]
     open(out.replace(".mp4", ".txt"), "w").write(f"{story.get('caption_hook', story['title'])}\n{cap_old}")
     for f in (story_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):

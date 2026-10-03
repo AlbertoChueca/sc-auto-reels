@@ -34,19 +34,30 @@ def whoami(token):
 
 
 def ig_safe(video_path):
-    """Re-encode to Instagram's recommended spec (H.264 High, 30 fps, <=8 Mbps, AAC 48 kHz stereo, faststart).
-    Big high-bitrate files (grain + many details) are what makes Instagram's upload fail with ProcessingFailedError."""
+    """Our reels are already rendered light (720x1280, ~2.5 Mbps, AAC 48 kHz, no edit lists, faststart).
+    Anything bigger than 40 MB (old renders, other tools) is re-encoded to that spec first."""
     import subprocess
+    if os.path.getsize(video_path) <= 40e6:
+        return video_path
     out = video_path.replace(".mp4", "_ig.mp4")
-    if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(video_path):
-        return out
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", video_path,
-                    "-c:v", "libx264", "-profile:v", "high", "-level", "4.1", "-pix_fmt", "yuv420p", "-r", "30",
-                    "-preset", "slow", "-crf", "21", "-maxrate", "8M", "-bufsize", "16M", "-g", "60",
-                    "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2",
-                    "-movflags", "+faststart", out], check=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", video_path, "-vf", "scale=720:1280",
+                    "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p", "-r", "25", "-preset", "veryfast",
+                    "-crf", "23", "-maxrate", "2500k", "-bufsize", "5000k", "-g", "50",
+                    "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "2",
+                    "-movflags", "+faststart", "-use_editlist", "0", out], check=True)
     print(f"IG-ready file: {os.path.getsize(out) / 1e6:.1f} MB (was {os.path.getsize(video_path) / 1e6:.1f} MB)", flush=True)
     return out
+
+
+def _rupload(cid, token, data, chunked=False):
+    """Upload bytes to the container. chunked=True sends 4 MB pieces using the offset header (resumable upload)."""
+    if not chunked:
+        return _check(requests.post(f"{RUPLOAD}/{cid}", data=data, timeout=600, headers={
+            "Authorization": f"OAuth {token}", "offset": "0", "file_size": str(len(data))}))
+    step = 4 * 1024 * 1024
+    for off in range(0, len(data), step):
+        _check(requests.post(f"{RUPLOAD}/{cid}", data=data[off:off + step], timeout=300, headers={
+            "Authorization": f"OAuth {token}", "offset": str(off), "file_size": str(len(data))}))
 
 
 def _container_upload_wait(uid, token, video_path, fields, label, tries=3):
@@ -61,8 +72,7 @@ def _container_upload_wait(uid, token, video_path, fields, label, tries=3):
                 fields = {k: v for k, v in fields.items() if k != "location_id"}
                 r = requests.post(f"{GRAPH}/{uid}/media", data={**fields, "upload_type": "resumable", "access_token": token})
             cid = _check(r)["id"]
-            _check(requests.post(f"{RUPLOAD}/{cid}", data=data, timeout=600, headers={
-                "Authorization": f"OAuth {token}", "offset": "0", "file_size": str(len(data))}))
+            _rupload(cid, token, data, chunked=attempt > 0)
             for _ in range(90):
                 st = _check(requests.get(f"{GRAPH}/{cid}", params={"fields": "status_code,status", "access_token": token}))
                 code = st.get("status_code")

@@ -13,7 +13,7 @@ import make_reel as R
 from mascot_rig import Mascot
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-W, H, FPS, SR = 1080, 1920, 30, 24000
+W, H, FPS, SR = 1080, 1920, 25, 24000
 F900 = os.path.join(HERE, "fonts", "Nunito-900.ttf")
 if not os.path.exists(F900):   # fallback so a missing font never breaks a run
     F900 = next((p for p in (os.path.join(HERE, "Nunito-900.ttf"), os.path.join(HERE, "fonts", "Poppins-Bold.ttf"),
@@ -64,10 +64,33 @@ _GRAIN = [np.random.RandomState(k).normal(0, 5.5, (H // 2, W // 2, 1)).astype(np
 
 
 def grain(fr, fi):
-    """Subtle film grain -> raw RGB bytes."""
-    a = np.asarray(fr.convert("RGB"), dtype=np.int16)
-    g = np.repeat(np.repeat(_GRAIN[fi % 4], 2, 0), 2, 1)
-    return np.clip(a + g, 0, 255).astype(np.uint8).tobytes()
+    """Frame -> raw RGB bytes. (Film grain removed: it doubled file size and render time for no visible gain on phones.)"""
+    return fr.convert("RGB").tobytes()
+
+
+# Light, social-media friendly output: drawn at 1080x1920, encoded at 720x1280, ~2.5 Mbps, AAC 48 kHz stereo,
+# no edit lists, moov atom first (Instagram's API is strict about these).
+OUT_W, OUT_H = 720, 1280
+
+
+def enc_args(out, scale=True):
+    return ((["-vf", f"scale={OUT_W}:{OUT_H}:flags=bicubic"] if scale else []) +
+            ["-c:v", "libx264", "-preset", "veryfast", "-profile:v", "high", "-crf", "23", "-maxrate", "2500k",
+             "-bufsize", "5000k", "-g", str(FPS * 2), "-pix_fmt", "yuv420p", "-r", str(FPS),
+             "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "2",
+             "-movflags", "+faststart", "-use_editlist", "0", out])
+
+
+_BANDS = {}
+
+
+def band_img(h):
+    """Soft dark rounded band behind captions (cached: blurring it every frame was slow)."""
+    if h not in _BANDS:
+        band = Image.new("RGBA", (W, h), (0, 0, 0, 0))
+        ImageDraw.Draw(band).rounded_rectangle([40, 20, W - 40, h - 20], 40, fill=(0, 0, 0, 110))
+        _BANDS[h] = band.filter(ImageFilter.GaussianBlur(14))
+    return _BANDS[h]
 
 
 # ----------------------------------------------------------------- backgrounds
@@ -369,8 +392,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     ring_font = ImageFont.truetype(F900, 120)
 
     proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
-                             "-r", str(FPS), "-i", "-", "-i", wav, "-c:v", "libx264", "-preset", "medium", "-crf", "18",
-                             "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", out],
+                             "-r", str(FPS), "-i", "-", "-i", wav, "-shortest"] + enc_args(out),
                             stdin=subprocess.PIPE)
     for fi in range(int(total * FPS)):
         tt = fi / FPS
@@ -470,9 +492,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
             if tt >= T["cta"][0]: y = 690
             if not (T["up"][0] <= tt < T["fin"][0]):
                 ph = phrase_img(words, nt, 104 if tt < T["h2"][1] else 84)
-                band = Image.new("RGBA", (W, ph.height + 80), (0, 0, 0, 0))
-                ImageDraw.Draw(band).rounded_rectangle([40, 20, W - 40, band.height - 20], 40, fill=(0, 0, 0, 110))
-                R.paste_center(fr, band.filter(ImageFilter.GaussianBlur(14)), W / 2, y)
+                R.paste_center(fr, band_img(ph.height + 80), W / 2, y)
                 R.paste_center(fr, ph, W / 2, y)
         # fire wipes between acts
         for key, dur in (("lvl", 0.55), ("cta", 0.55)):
@@ -481,7 +501,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                 fr.alpha_composite(bg.fire(ft / dur))
 
         # camera
-        if zoom != 1 or cxo or cyo or shake:
+        if abs(zoom - 1) > 0.002 or cxo or cyo or shake:
             sx = (random.uniform(-1, 1) * shake); sy = (random.uniform(-1, 1) * shake)
             zw, zh = W / zoom, H / zoom
             x0 = W / 2 + cxo - zw / 2 + sx; y0 = H / 2 + cyo - zh / 2 + sy

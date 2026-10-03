@@ -45,7 +45,16 @@ def reset(force=None):
 _asr_model, _asr_cache = None, {}
 
 
+import threading
+_asr_lock = threading.Lock()
+
+
 def _asr(a):
+    with _asr_lock:
+        return _asr_inner(a)
+
+
+def _asr_inner(a):
     """[(word, start_s, end_s)] heard in a 24 kHz clip, or None if speech recognition is unavailable."""
     global _asr_model
     k = (len(a), round(float(np.sum(np.abs(a[::97]))), 3))
@@ -263,7 +272,8 @@ def _gemini_line(text, style, key, pace):
     natural length; otherwise the best acceptable one is kept. Fails only if every take is clearly wrong."""
     prompts = [f"Say {style or 'naturally'}, like a friendly human storyteller: {text}",
                f"{NARRATOR}\nDelivery: {style or 'natural and engaging'}, {pace}.\nSay only this line:\n{text}",
-               f"Say: {text}"]
+               f"Say: {text}",
+               text]
     takes = []
     for pr in prompts:
         try:
@@ -276,7 +286,7 @@ def _gemini_line(text, style, key, pace):
         if (sim is None or sim >= 0.7) and _sane(a, text):
             return a
         print(f"voice: retake {text!r} ({len(a) / SR:.1f}s, match {sim if sim is None else round(sim, 2)})", flush=True)
-        if 0.2 < _ratio(a, text) < 5 and (sim is None or sim >= 0.45):
+        if 0.3 < _ratio(a, text) < 3.5 and (sim is None or sim >= 0.6):
             takes.append(((sim or 0.7), -abs(np.log(_ratio(a, text))), a))
     if takes:
         return max(takes, key=lambda x: (x[0], x[1]))[2]
@@ -333,16 +343,16 @@ def _gemini_many(texts, styles, key, one_take, pace):
                       f"DIRECTOR'S NOTES:\n{notes}\n\nTRANSCRIPT:\n{script}")
             take = _trim(_gemini_call(prompt, key))
             print(f"voice: one take {len(take) / SR:.1f}s for {sum(_words(t) for t in texts)} words", flush=True)
+            if len(take) / SR > 2.2 * sum(_words(t) / 2.7 + 0.6 for t in texts) + 2:
+                raise RuntimeError("one take far too long (model added extra speech)")
             return _split_takes(take, texts)
         except Exception as e:
             if "unreachable" in str(e) or "no Gemini TTS" in str(e):
                 raise
             print("voice: one-take narration failed, recording line by line:", str(e)[:200], flush=True)
-    out = []
-    for t, s in zip(texts, styles):
-        out.append(_gemini_line(t, s, key, pace))
-        time.sleep(1.5)
-    return out
+    from concurrent.futures import ThreadPoolExecutor        # 3 lines recorded at the same time
+    with ThreadPoolExecutor(3) as ex:
+        return list(ex.map(lambda ts: _gemini_line(ts[0], ts[1], key, pace), zip(texts, styles)))
 
 
 # ------------------------------------------------------------------ local engines
