@@ -15,6 +15,9 @@ from mascot_rig import Mascot
 HERE = os.path.dirname(os.path.abspath(__file__))
 W, H, FPS, SR = 1080, 1920, 30, 24000
 F900 = os.path.join(HERE, "fonts", "Nunito-900.ttf")
+if not os.path.exists(F900):   # fallback so a missing font never breaks a run
+    F900 = next((p for p in (os.path.join(HERE, "Nunito-900.ttf"), os.path.join(HERE, "fonts", "Poppins-Bold.ttf"),
+                             os.path.join(HERE, "Poppins-Bold.ttf")) if os.path.exists(p)), F900)
 YEL, ORA, RED, WHITE, INK = (255, 214, 64), (242, 98, 46), (255, 70, 70), (255, 255, 255), (20, 16, 28)
 VOICE = os.environ.get("HYPE_VOICE", "am_fenrir")
 clamp, eob, eo, eio = R.clamp, R.ease_out_back, R.ease_out, R.ease_in_out
@@ -41,20 +44,30 @@ def phrase_img(words, newest_t, size=96, maxw=980):
     for im in ims:
         if cur and cw + im.width > maxw:
             lines.append(cur); cur, cw = [], 0
-        cur.append(im); cw += im.width + 6
+        cur.append(im); cw += im.width + 18
     lines.append(cur)
     lh = max(i.height for i in ims) - 22
     out = Image.new("RGBA", (maxw + 80, lh * len(lines) + 40), (0, 0, 0, 0))
     k = 0
     for li, line in enumerate(lines):
-        tw = sum(i.width + 6 for i in line); x = (out.width - tw) / 2
+        tw = sum(i.width + 18 for i in line); x = (out.width - tw) / 2
         for im in line:
             is_new = k == len(ims) - 1
-            s = (1.6 - 0.6 * eob(newest_t / 0.22)) if is_new else 1.0
+            s = (1.18 - 0.18 * eob(newest_t / 0.18)) if is_new else 1.0
             im2 = im if s == 1 else im.resize((int(im.width * s), int(im.height * s)), Image.BILINEAR)
             out.alpha_composite(im2, (int(x + (im.width - im2.width) / 2), int(li * lh + (im.height - im2.height) / 2) + 10))
-            x += im.width + 6; k += 1
+            x += im.width + 18; k += 1
     return out
+
+
+_GRAIN = [np.random.RandomState(k).normal(0, 5.5, (H // 2, W // 2, 1)).astype(np.int16) for k in range(4)]
+
+
+def grain(fr, fi):
+    """Subtle film grain -> raw RGB bytes."""
+    a = np.asarray(fr.convert("RGB"), dtype=np.int16)
+    g = np.repeat(np.repeat(_GRAIN[fi % 4], 2, 0), 2, 1)
+    return np.clip(a + g, 0, 255).astype(np.uint8).tobytes()
 
 
 # ----------------------------------------------------------------- backgrounds
@@ -175,7 +188,7 @@ HOOKS = {
 }
 
 
-def build(P, seed, out, mode="level", skip_hook=False):
+def build(P, seed, out, mode="level", skip_hook=False, backdrop=None):
     rng = random.Random(f"{P.get('id')}-{seed}-{mode}")
     LV = R.LEVELS[P["level"]]
     if "fen" in P:
@@ -205,12 +218,9 @@ def build(P, seed, out, mode="level", skip_hook=False):
               ("cta", ("Tag a friend who can't solve it! " if mode == "tagfriend" else "Did you get it? ")
                + "Train your calculation every day on StreakChess. It's free. Link in bio.")]
 
-    def say(txt):
-        spoken = txt.replace("3%", "three percent")
-        a = R.tts(spoken, voice=VOICE, speed=1.12)
-        nz = np.nonzero(np.abs(a) > 0.01)[0]
-        return a[max(0, nz[0] - 200): nz[-1] + 1200] if len(nz) else a
-    A = {k: say(v) for k, v in lines}; TXT = dict(lines)
+    import voice
+    clips = voice.say_many([v for _, v in lines], speed=1.12)
+    A = {k: c for (k, _), c in zip(lines, clips)}; TXT = dict(lines)
     D = {k: len(a) / SR for k, a in A.items()}
 
     T = {}; t = 0.0
@@ -221,7 +231,7 @@ def build(P, seed, out, mode="level", skip_hook=False):
     else:
         add("h1", D["h1"] + 0.15); add("h2", D["h2"] + 0.45)
     add("fire1", 0.0)
-    add("lvl", D["lvl"] + 0.3)
+    add("lvl", D["lvl"] + 0.1)
     add("go", D["go"] + 0.1)
     add("count", COUNT)
     add("up", D["up"] + 0.25)
@@ -269,7 +279,7 @@ def build(P, seed, out, mode="level", skip_hook=False):
 
     def caption(tt):
         for k, _ in lines:
-            if k in ("count",) or k.startswith("m"): continue
+            if k in ("count", "lvl", "go") or k.startswith("m"): continue
             a, b = T[k]
             if a <= tt < b:
                 cur = [(ts, w) for ts, w in WORDS[k] if ts <= tt]
@@ -280,6 +290,22 @@ def build(P, seed, out, mode="level", skip_hook=False):
 
     # ---- assets
     bg = BG(); mas = Mascot()
+    bd_dark = bd_soft = None
+    if backdrop is not None:   # keep the story's world behind the puzzle (premium, cohesive look)
+        im = backdrop.convert("RGB"); r_ = max(W / im.width, H / im.height)
+        im = im.resize((int(im.width * r_) + 1, int(im.height * r_) + 1), Image.LANCZOS)
+        im = im.crop(((im.width - W) // 2, (im.height - H) // 2, (im.width - W) // 2 + W, (im.height - H) // 2 + H))
+        bl = im.filter(ImageFilter.GaussianBlur(22))
+        bd_soft = Image.blend(bl, Image.new("RGB", (W, H), (10, 8, 18)), 0.45).convert("RGBA")
+        bd_dark = Image.blend(bl, Image.new("RGB", (W, H), (8, 6, 14)), 0.68).convert("RGBA")
+
+    def back(tt, soft=False):
+        if bd_dark is None:
+            return bg.stage_frame(tt)
+        im = (bd_soft if soft else bd_dark).copy(); d = ImageDraw.Draw(im)
+        for x, y, r, sp in bg.dust[:40]:
+            yy = (y - tt * sp) % H; d.ellipse([x - r, yy - r, x + r, yy + r], fill=(255, 235, 180, 50))
+        return im
     lg = Image.open(os.path.join(HERE, "assets", "logo_h.png")).convert("RGBA"); lg = lg.crop(lg.getbbox())
     lg = lg.resize((620, int(lg.height * 620 / lg.width)), Image.LANCZOS)
     logo_v = Image.new("RGBA", (lg.width + 80, lg.height + 60), (0, 0, 0, 0))
@@ -356,19 +382,20 @@ def build(P, seed, out, mode="level", skip_hook=False):
             zoom = 1.12 - 0.1 * eo(lt / 0.3); shake = 18 * max(0, 1 - lt / 0.35); flash = max(0, 0.6 - lt * 3)
         elif tt < T["go"][1]:                                 # level reveal on sunburst
             lt = tt - T["lvl"][0]
-            fr = bg.burst(tt, tuple(min(255, c + 30) for c in LV["color"]), LV["color"])
+            fr = back(tt, True) if bd_soft is not None else bg.burst(tt, tuple(min(255, c + 30) for c in LV["color"]), LV["color"])
             chip = R.pill(f"{LV['name']}  {LV['rng']}", 52, WHITE, fg=INK, padx=44, pady=18)
             R.paste_center(fr, chip, W / 2, 330, eob(lt / 0.35))
             goal = word_img(f"MATE IN {mate_n}!" if mate_n else "WIN!", 150, YEL)
             R.paste_center(fr, goal, W / 2, 560, eob((lt - 0.5) / 0.35), 1.0, -3)
             stm = word_img(f"{side.upper()} TO MOVE", 76, WHITE, 8)
             R.paste_center(fr, stm, W / 2, 720, eob((lt - 0.8) / 0.35))
-            put_mascot(fr, tt, 1.0, W / 2, 1900 - 30 * abs(math.sin(lt * 4)), "excited" if tt < T["go"][0] else "determined",
-                       (0.0, 0.0), mouth, tilt=4 * math.sin(lt * 3), rim=False)
+            put_mascot(fr, tt, 0.9 if bd_soft is not None else 1.0, W / 2, 1880 - 30 * abs(math.sin(lt * 4)),
+                       "excited" if tt < T["go"][0] else "determined", (0.0, 0.0), mouth, tilt=4 * math.sin(lt * 3),
+                       rim=bd_soft is not None)
             zoom = 1.04 - 0.04 * eo(lt / 0.5)
             if lt < 0.2: shake = 10
         else:
-            fr = bg.stage_frame(tt)
+            fr = back(tt)
             if tt < T["cta"][0]:
                 # board stage
                 card, focus = board_card(tt)
@@ -419,7 +446,7 @@ def build(P, seed, out, mode="level", skip_hook=False):
                     R.paste_center(fr, word_img("CHECKMATE!" if mate_n else "WINNING!", 150, YEL), W / 2, 1150, eob(lt / 0.3), 1, -5)
             else:                                           # CTA on sunburst
                 lt = tt - T["cta"][0]
-                fr = bg.burst(tt, (255, 140, 50), (235, 92, 40))
+                fr = back(tt, True) if bd_soft is not None else bg.burst(tt, (255, 140, 50), (235, 92, 40))
                 R.paste_center(fr, logo_v, W / 2, 330, eob(lt / 0.4), 1, -3)
                 put_mascot(fr, tt, 0.78, W / 2, 1560, "excited", (0, 0), mouth, bounce=12 * abs(math.sin(lt * 5)), rim=False)
                 R.paste_center(fr, R.pill("100% FREE TO PLAY", 46, (88, 204, 2), fg=WHITE, padx=40, pady=16), W / 2, 1610, eob((lt - 1.0) / 0.35))
@@ -437,7 +464,10 @@ def build(P, seed, out, mode="level", skip_hook=False):
             if tt >= T["cta"][0]: y = 690
             if not (T["up"][0] <= tt < T["fin"][0]):
                 ph = phrase_img(words, nt, 104 if tt < T["h2"][1] else 84)
-                R.paste_center(fr, ph, W / 2, y + (0 if tt < T["h2"][1] else 0))
+                band = Image.new("RGBA", (W, ph.height + 80), (0, 0, 0, 0))
+                ImageDraw.Draw(band).rounded_rectangle([40, 20, W - 40, band.height - 20], 40, fill=(0, 0, 0, 110))
+                R.paste_center(fr, band.filter(ImageFilter.GaussianBlur(14)), W / 2, y)
+                R.paste_center(fr, ph, W / 2, y)
         # fire wipes between acts
         for key, dur in (("lvl", 0.55), ("cta", 0.55)):
             ft = tt - (T[key][0] - dur / 2)
@@ -453,7 +483,7 @@ def build(P, seed, out, mode="level", skip_hook=False):
             fr = fr.crop((int(x0), int(y0), int(x0 + zw), int(y0 + zh))).resize((W, H), Image.BILINEAR)
         if flash > 0:
             fr = Image.blend(fr, Image.new("RGBA", (W, H), (255, 255, 255, 255)), min(0.8, flash))
-        proc.stdin.write(fr.convert("RGB").tobytes())
+        proc.stdin.write(grain(fr, fi))
     proc.stdin.close(); proc.wait(); os.remove(wav)
 
     first = rng.choice(R.TAG_CAPTIONS) if mode == "tagfriend" else f"{h1} {h2}"

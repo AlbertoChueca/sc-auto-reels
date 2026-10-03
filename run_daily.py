@@ -1,19 +1,21 @@
 """One publishing slot.
 
-python run_daily.py <basic|intermediate|advanced|tagfriend|carousel> [--dry-run]
-- basic / intermediate / advanced: level puzzle reel (+ Story)
-- tagfriend: "tag a friend" challenge reel with an easy-medium puzzle (+ Story)
-- carousel: 5 puzzles (2 beginner, 2 intermediate, 1 advanced) + answers
-Every post gets a random US location and 3-5 random chess hashtags.
+python run_daily.py <story|storytag|basic|intermediate|advanced|tagfriend> [--dry-run]
+
+story / storytag (default daily slots): unique AI mini story + puzzle (make_story).
+If anything in the story pipeline fails (Gemini down, quota, network...), the slot automatically
+falls back to the trailer-style reel (make_hype) and, as a last resort, the classic reel (make_reel),
+so a post always goes out. Every post: random US location, 3-5 chess hashtags, Story share and
+YouTube Shorts/TikTok cross-post when configured.
 """
-import datetime, json, os, random, sys
+import datetime, json, os, random, sys, traceback
 from pick_puzzles import pick, mark_used
 
 slot = sys.argv[1]
 dry = "--dry-run" in sys.argv or os.environ.get("DRY_RUN") == "true"
 now = datetime.datetime.utcnow()
 today = now.date()
-seed = today.toordinal() * 24 + now.hour          # different hook/pose per slot, rotating daily
+seed = today.toordinal() * 24 + now.hour
 os.makedirs("out", exist_ok=True)
 
 locs = [l for l in json.load(open("locations.json")) if l.get("id")] if os.path.exists("locations.json") else []
@@ -25,41 +27,43 @@ def log(entry):
         f.write(json.dumps({"date": str(today), "slot": slot, **entry}) + "\n")
 
 
-if slot == "carousel":
-    from make_carousel import build_carousel
-    puzzles, ids = [], set()
-    for i, lvl in enumerate(["basic", "basic", "intermediate", "intermediate", "advanced"]):
-        k = 0
-        while True:
-            P = pick(lvl, seed=f"{today}-car-{i}-{k}")
-            if P["id"] not in ids:
-                break
-            k += 1
-        puzzles.append(P); ids.add(P["id"])
-    vids, caption = build_carousel(puzzles, f"out/{today}_carousel", seed)
-    print(caption)
-    if dry:
-        print("DRY RUN: not publishing")
-    else:
-        from publish_ig import publish_carousel
-        if loc: print("Location:", loc["name"])
-        media = publish_carousel(vids, caption, location_id=loc and loc["id"])
-        for P in puzzles:
-            mark_used(P["id"])
-        log({"puzzles": sorted(ids), "location": loc and loc["name"],
-             "permalink": media.get("permalink"), "media_id": media.get("id")})
-    sys.exit(0)
-
-from make_reel import build
-if slot == "tagfriend":
-    level = random.Random(f"{now:%Y-%m-%d-%H}-tag").choice(["basic", "basic", "intermediate"])
-    mode = "tagfriend"
+# ---- choose level / mode
+LEVELS = ["basic", "intermediate", "advanced"]
+if slot == "story":
+    level, mode = LEVELS[today.toordinal() % 3], "level"          # rotates every day
+elif slot == "storytag":
+    level, mode = random.Random(f"{today}-tag").choice(["basic", "intermediate"]), "tagfriend"
+elif slot == "tagfriend":
+    level, mode = random.Random(f"{now:%Y-%m-%d-%H}-tag").choice(["basic", "basic", "intermediate"]), "tagfriend"
 else:
     level, mode = slot, "level"
 
 P = pick(level, seed=f"{today}-{slot}-{now.hour}")
 out = f"out/{today}_{slot}_{now.hour:02d}.mp4"
-meta = build(P, seed, out, mode=mode)
+
+# ---- render with fallbacks
+meta, engine = None, None
+chain = (["story", "hype", "classic"] if slot in ("story", "storytag") else ["hype", "classic"])
+for eng in chain:
+    try:
+        if eng == "story":
+            if not os.environ.get("GEMINI_API_KEY"):
+                raise RuntimeError("GEMINI_API_KEY not set")
+            from make_story import build as b
+            meta = b(P, seed, out, mode=mode)
+        elif eng == "hype":
+            from make_hype import build as b
+            meta = b(P, seed, out, mode=mode)
+        else:
+            from make_reel import build as b
+            meta = b(P, seed, out, mode=mode)
+        engine = eng
+        break
+    except Exception:
+        print(f"[{eng}] failed, trying next engine:\n{traceback.format_exc()[-1500:]}", flush=True)
+if meta is None:
+    raise SystemExit("All render engines failed")
+print("engine:", engine, flush=True)
 caption = open(out.replace(".mp4", ".txt")).read()
 print(caption)
 
@@ -70,13 +74,13 @@ if dry:
 from publish_ig import publish_reel, publish_story
 if loc: print("Location:", loc["name"])
 media = publish_reel(out, caption, location_id=loc and loc["id"])
-meta.update(location=loc and loc["name"], permalink=media.get("permalink"), media_id=media.get("id"))
+meta.update(location=loc and loc["name"], permalink=media.get("permalink"), media_id=media.get("id"), engine=engine)
 mark_used(P["id"])
 
 try:  # also share it as a Story (never blocks the reel)
-    publish_story(out); meta["story"] = "ok"
+    publish_story(out); meta["story_share"] = "ok"
 except Exception as e:
-    print("Story failed:", e); meta["story"] = f"error: {e}"
+    print("Story failed:", e); meta["story_share"] = f"error: {e}"
 
 if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (never blocks Instagram)
     try:
@@ -85,26 +89,5 @@ if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (neve
     except Exception as e:
         print("Zernio failed:", e); meta["zernio"] = f"error: {e}"
 
-if os.environ.get("YT_REFRESH_TOKEN"):  # YouTube Shorts, official API (never blocks Instagram)
-    try:
-        from publish_youtube import upload_short
-        meta["youtube"] = upload_short(out, meta["hook"], caption)
-    except Exception as e:
-        print("YouTube failed:", e); meta["youtube"] = f"error: {e}"
-
-if os.environ.get("TT_REFRESH_TOKEN"):  # TikTok draft in inbox, official API (never blocks Instagram)
-    try:
-        from publish_tiktok import send_draft
-        meta["tiktok"] = send_draft(out)
-    except Exception as e:
-        print("TikTok failed:", e); meta["tiktok"] = f"error: {e}"
-
-if os.environ.get("UPLOADPOST_API_KEY"):  # YouTube Shorts + TikTok (never blocks Instagram)
-    try:
-        from publish_social import crosspost
-        meta["crosspost"] = crosspost(out, meta["hook"], caption)
-    except Exception as e:
-        print("Cross-post failed:", e); meta["crosspost"] = f"error: {e}"
-
-log({k: meta.get(k) for k in ("mode", "puzzle", "level", "rating", "hook", "location", "permalink",
-                              "media_id", "sans", "story", "youtube", "tiktok", "zernio", "crosspost")})
+log({k: meta.get(k) for k in ("engine", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
+                              "media_id", "sans", "story_share", "zernio")})

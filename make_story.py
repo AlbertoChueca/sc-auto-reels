@@ -44,6 +44,8 @@ Write ONE brand-new mini story (setup -> twist -> lead-in) that ends by leading 
 The puzzle: {level} level, {side} to move, goal: {goal}.
 Rules:
 - Exactly 4 scenes. Total narration 22-32 words. Narration is a punchy, funny, energetic movie-trailer narrator in English.
+- Write narration to be SPOKEN: short sentences (max 9 words), natural rhythm, contractions, commas for breaths,
+  one exclamation or question per scene. No hashtags, emojis, abbreviations or chess notation in narration.
 - Each scene is a different moment/place/action. Make it visual and specific (places, props, weather, other chess pieces as characters).
 - Scene 4 narration must hand over to the puzzle (e.g. "...and then he saw THIS.").
 - Do NOT reuse any of these previous story ideas: {avoid}
@@ -182,6 +184,11 @@ def build(P, seed, out, mode="level"):
     mate_n = (len(sol) + 1) // 2 if b2.is_checkmate() else None
     goal = f"mate in {mate_n}" if mate_n else "win material"
 
+    # preflight: fail fast (before paying for images) if a required file is missing
+    need = [HY.F900, os.path.join(HERE, "assets", "logo_h.png")] + [os.path.join(HERE, "assets", "mascot", p) for p in REFS + ["happy.png"]]
+    missing = [p for p in need if not os.path.exists(p)]
+    if missing:
+        raise SystemExit("Missing files in the repository: " + ", ".join(os.path.relpath(p, HERE) for p in missing))
     mock = os.environ.get("STORY_MOCK") == "1"
     log = json.load(open(STORY_LOG)) if os.path.exists(STORY_LOG) else []
     story = mock_story(rng) if mock else write_story(LV["name"].title(), side, goal, [s["title"] for s in log])
@@ -189,15 +196,21 @@ def build(P, seed, out, mode="level"):
     print("Story:", story["title"], flush=True)
     imgs = []
     for i, sc in enumerate(scenes):
-        imgs.append(mock_image(sc["image_prompt"], i) if mock else gen_image(sc["image_prompt"], REFS))
+        im = None
+        for attempt in range(2):
+            try:
+                im = mock_image(sc["image_prompt"], i) if mock else gen_image(sc["image_prompt"], REFS); break
+            except Exception as e:
+                print(f"scene {i + 1} image failed ({attempt + 1}/2): {str(e)[:200]}", flush=True)
+        if im is None:
+            if not imgs: raise RuntimeError("could not generate the first scene image")
+            im = imgs[-1]                     # keep the reel alive: reuse the previous scene
+        imgs.append(im)
         print(f"scene {i + 1} image ready", flush=True)
 
     # voice
-    A = []
-    for sc in scenes:
-        a = R.tts(sc["narration"], voice=HY.VOICE, speed=1.1)
-        nz = np.nonzero(np.abs(a) > 0.01)[0]
-        A.append(a[max(0, nz[0] - 200): nz[-1] + 1500] if len(nz) else a)
+    import voice
+    A = voice.say_many([sc["narration"] for sc in scenes], speed=1.08)
     durs = [max(len(a) / SR + 0.35, 2.0) for a in A]
     starts = np.cumsum([0] + durs[:-1]); total = float(sum(durs)) + 0.3
 
@@ -238,22 +251,29 @@ def build(P, seed, out, mode="level"):
         p = (t - starts[i]) / durs[i]
         fr = frame_for(bigs[i], scenes[i].get("camera", "push_in"), min(p, 1), t).convert("RGBA")
         lt = t - starts[i]
-        if i and lt < 0.12:   # whip flash between scenes
-            fr = Image.blend(fr, Image.new("RGBA", (W, H), (255, 255, 255, 255)), 0.6 * (1 - lt / 0.12))
+        if i and lt < 0.35:   # warm light-leak flash between scenes
+            k = 1 - lt / 0.35
+            leak = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ld = ImageDraw.Draw(leak)
+            ld.ellipse([-W * 0.4, -H * 0.2, W * 0.9, H * 0.6], fill=(255, 170, 70, int(170 * k)))
+            fr.alpha_composite(leak.filter(ImageFilter.GaussianBlur(120)))
+            if lt < 0.08: fr = Image.blend(fr, Image.new("RGBA", (W, H), (255, 255, 255, 255)), 0.5 * (1 - lt / 0.08))
         cur = [(ts, w) for si, ts, w in words if si == i and ts <= t]
         if cur:
             idx = len(cur) - 1; st = (idx // 3) * 3
-            ph = HY.phrase_img([w for _, w in cur[st:idx + 1]], t - cur[-1][0], 92)
-            R.paste_center(fr, ph, W / 2, 1450)
+            ph = HY.phrase_img([w for _, w in cur[st:idx + 1]], t - cur[-1][0], 86)
+            band = Image.new("RGBA", (W, ph.height + 80), (0, 0, 0, 0))
+            ImageDraw.Draw(band).rounded_rectangle([40, 20, W - 40, band.height - 20], 40, fill=(0, 0, 0, 120))
+            R.paste_center(fr, band.filter(ImageFilter.GaussianBlur(14)), W / 2, 1520)
+            R.paste_center(fr, ph, W / 2, 1520)
         if i == 0 and lt < 2.5:   # top label
             tag = R.pill(story.get("title", "")[:28].upper(), 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
             R.paste_center(fr, tag, W / 2, 170, HY.eob(lt / 0.3))
-        proc.stdin.write(fr.convert("RGB").tobytes())
+        proc.stdin.write(HY.grain(fr, fi))
     proc.stdin.close(); proc.wait(); os.remove(wav)
 
     # puzzle segment (no hook: the story is the hook)
     puzzle_mp4 = out.replace(".mp4", "_puzzle.mp4")
-    meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True)
+    meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1])
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", story_mp4, "-i", puzzle_mp4, "-filter_complex",
                     "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]", "-c:v", "libx264",
                     "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
