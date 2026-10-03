@@ -43,7 +43,10 @@ out = f"out/{today}_{slot}_{now.hour:02d}.mp4"
 
 # ---- render with fallbacks
 meta, engine = None, None
-chain = (["story", "hype", "classic"] if slot in ("story", "storytag") else ["hype", "classic"])
+# Every slot gets the premium story reel (same as "Story reel test"). If the story pipeline has a transient
+# problem it is retried once; only then does it fall back so a post always goes out.
+chain = ["story", "story", "hype", "classic"]
+errors = []
 for eng in chain:
     try:
         if eng == "story":
@@ -59,11 +62,25 @@ for eng in chain:
             meta = b(P, seed, out, mode=mode)
         engine = eng
         break
-    except Exception:
+    except Exception as e:
+        errors.append(f"{eng}: {str(e)[:300]}")
         print(f"[{eng}] failed, trying next engine:\n{traceback.format_exc()[-1500:]}", flush=True)
 if meta is None:
     raise SystemExit("All render engines failed")
 print("engine:", engine, flush=True)
+try:
+    import voice as _v
+    voice_used = _v.ENGINE_USED
+except Exception:
+    voice_used = None
+summary = os.environ.get("GITHUB_STEP_SUMMARY")
+if summary:  # visible on the run page in GitHub
+    with open(summary, "a") as f:
+        ok = engine == "story"
+        f.write(f"## {'✅ Premium story reel' if ok else '⚠️ Fallback reel (story failed)'}\n\n"
+                f"- Slot: `{slot}` · level: `{level}` · mode: `{mode}`\n- Engine: `{engine}` · voice: `{voice_used}`\n"
+                + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
+                + "".join(f"- Error: `{e}`\n" for e in errors))
 caption = open(out.replace(".mp4", ".txt")).read()
 print(caption)
 
@@ -89,5 +106,6 @@ if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (neve
     except Exception as e:
         print("Zernio failed:", e); meta["zernio"] = f"error: {e}"
 
-log({k: meta.get(k) for k in ("engine", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
+meta["voice"] = voice_used
+log({k: meta.get(k) for k in ("engine", "voice", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
                               "media_id", "sans", "story_share", "zernio")})
