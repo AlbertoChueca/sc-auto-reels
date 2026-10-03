@@ -58,7 +58,7 @@ jobs:
             models
             .venv-cb
             ~/.cache/huggingface
-          key: voices-v2
+          key: voices-v3
 
       - name: Download Kokoro voice
         run: |

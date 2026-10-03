@@ -27,7 +27,7 @@ jobs:
             models
             .venv-cb
             ~/.cache/huggingface
-          key: voices-v2
+          key: voices-v3
       - run: |
           mkdir -p models
           [ -f models/kokoro.onnx ] || curl -sSL -o models/kokoro.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
