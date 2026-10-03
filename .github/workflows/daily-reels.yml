@@ -61,24 +61,14 @@ jobs:
         with:
           path: |
             models
-            .venv-cb
             ~/.cache/huggingface
-          key: voices-v3
+          key: voices-v4
 
       - name: Download Kokoro voice
         run: |
           mkdir -p models
           [ -f models/kokoro.onnx ] || curl -sSL -o models/kokoro.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
           [ -f models/voices.bin ]  || curl -sSL -o models/voices.bin  https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
-
-      - name: Install Chatterbox voice (optional, falls back to Kokoro)
-        continue-on-error: true
-        run: |
-          if [ ! -x .venv-cb/bin/python ]; then
-            python -m venv .venv-cb
-            .venv-cb/bin/pip install -q --extra-index-url https://download.pytorch.org/whl/cpu chatterbox-tts
-          fi
-          .venv-cb/bin/python -c "import chatterbox; print('chatterbox ok')"
 
       - name: Monthly cache key
         id: month
