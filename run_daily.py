@@ -38,6 +38,8 @@ elif slot == "tagfriend":
 else:
     level, mode = slot, "level"
 
+if os.environ.get("LEVEL_OVERRIDE", "auto") in LEVELS:      # manual run with a chosen difficulty
+    level = os.environ["LEVEL_OVERRIDE"]
 P = pick(level, seed=f"{today}-{slot}-{now.hour}")
 out = f"out/{today}_{slot}_{now.hour:02d}.mp4"
 
