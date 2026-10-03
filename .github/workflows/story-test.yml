@@ -12,7 +12,7 @@ on:
 jobs:
   story:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -23,12 +23,23 @@ jobs:
       - run: pip install -r requirements.txt
       - uses: actions/cache@v4
         with:
-          path: models
-          key: kokoro-v1.0
+          path: |
+            models
+            .venv-cb
+            ~/.cache/huggingface
+          key: voices-v2
       - run: |
           mkdir -p models
           [ -f models/kokoro.onnx ] || curl -sSL -o models/kokoro.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
           [ -f models/voices.bin ]  || curl -sSL -o models/voices.bin  https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
+      - name: Install Chatterbox voice (optional)
+        continue-on-error: true
+        run: |
+          if [ ! -x .venv-cb/bin/python ]; then
+            python -m venv .venv-cb
+            .venv-cb/bin/pip install -q --extra-index-url https://download.pytorch.org/whl/cpu chatterbox-tts
+          fi
+          .venv-cb/bin/python -c "import chatterbox; print('chatterbox ok')"
       - id: month
         run: echo "m=$(date +%Y-%m)" >> "$GITHUB_OUTPUT"
       - uses: actions/cache@v4
@@ -39,6 +50,7 @@ jobs:
       - name: Generate story reel
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          VOICE_ENGINE: chatterbox
         run: python story_test.py ${{ inputs.level }}
       - uses: actions/upload-artifact@v4
         with:

@@ -2,21 +2,17 @@ name: Daily reels
 
 on:
   schedule:
-    - cron: "0 13 * * *"   # tagfriend    -> 09:00 New York
-    - cron: "0 16 * * *"   # basic        -> 12:00 New York
-    - cron: "0 18 * * *"   # carousel     -> 14:00 New York
-    - cron: "0 20 * * *"   # tagfriend    -> 16:00 New York
-    - cron: "0 22 * * *"   # intermediate -> 18:00 New York
-    - cron: "0 1 * * *"    # advanced     -> 21:00 New York
+    - cron: "0 16 * * *"   # story reel     -> 12:00 New York (level rotates basic/intermediate/advanced)
+    - cron: "0 23 * * *"   # story tag reel -> 19:00 New York ("tag a friend" challenge)
   workflow_dispatch:
     inputs:
       level:
         description: "What to publish"
         type: choice
-        options: [basic, intermediate, advanced, tagfriend, carousel]
-        default: basic
+        options: [story, storytag, basic, intermediate, advanced, tagfriend]
+        default: story
       dry_run:
-        description: "Only generate (do not publish)"
+        description: "Only generate the video (do not publish)"
         type: boolean
         default: true
 
@@ -30,20 +26,16 @@ concurrency:
 jobs:
   reel:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v5
 
-      - name: Choose level
+      - name: Choose slot
         id: lvl
         run: |
           case "${{ github.event.schedule }}" in
-            "0 13 * * *") L=tagfriend ;;
-            "0 16 * * *") L=basic ;;
-            "0 18 * * *") L=carousel ;;
-            "0 20 * * *") L=tagfriend ;;
-            "0 22 * * *") L=intermediate ;;
-            "0 1 * * *")  L=advanced ;;
+            "0 16 * * *") L=story ;;
+            "0 23 * * *") L=storytag ;;
             *)            L="${{ inputs.level }}" ;;
           esac
           echo "level=$L" >> "$GITHUB_OUTPUT"
@@ -59,17 +51,29 @@ jobs:
       - name: Python packages
         run: pip install -r requirements.txt
 
-      - name: Cache voice model
+      - name: Cache voice models
         uses: actions/cache@v4
         with:
-          path: models
-          key: kokoro-v1.0
+          path: |
+            models
+            .venv-cb
+            ~/.cache/huggingface
+          key: voices-v2
 
-      - name: Download voice model
+      - name: Download Kokoro voice
         run: |
           mkdir -p models
           [ -f models/kokoro.onnx ] || curl -sSL -o models/kokoro.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
           [ -f models/voices.bin ]  || curl -sSL -o models/voices.bin  https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
+
+      - name: Install Chatterbox voice (optional, falls back to Kokoro)
+        continue-on-error: true
+        run: |
+          if [ ! -x .venv-cb/bin/python ]; then
+            python -m venv .venv-cb
+            .venv-cb/bin/pip install -q --extra-index-url https://download.pytorch.org/whl/cpu chatterbox-tts
+          fi
+          .venv-cb/bin/python -c "import chatterbox; print('chatterbox ok')"
 
       - name: Monthly cache key
         id: month
@@ -85,29 +89,25 @@ jobs:
       - name: Generate and publish
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
-          UPLOADPOST_API_KEY: ${{ secrets.UPLOADPOST_API_KEY }}
-          UPLOADPOST_USER: ${{ secrets.UPLOADPOST_USER }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
-          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
-          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
-          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          TT_CLIENT_KEY: ${{ secrets.TT_CLIENT_KEY }}
-          TT_CLIENT_SECRET: ${{ secrets.TT_CLIENT_SECRET }}
-          TT_REFRESH_TOKEN: ${{ secrets.TT_REFRESH_TOKEN }}
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          VOICE_ENGINE: chatterbox
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
         run: python run_daily.py ${{ steps.lvl.outputs.level }}
 
       - name: Save video for review
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: reel-${{ steps.lvl.outputs.level }}
           path: out/**
           retention-days: 14
+          if-no-files-found: ignore
 
-      - name: Remember used puzzle
+      - name: Remember used puzzles and stories
+        if: always()
         run: |
           git config user.name "reels-bot"
           git config user.email "reels-bot@users.noreply.github.com"
-          git add used.json log.jsonl 2>/dev/null || true
+          git add used.json log.jsonl story_log.json 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "Reel ${{ steps.lvl.outputs.level }} $(date +%F)" && (git push || (git pull --rebase && git push)))
