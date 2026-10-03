@@ -219,7 +219,11 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None):
                + "Train your calculation every day on StreakChess. It's free. Link in bio.")]
 
     import voice
-    clips = voice.say_many([v for _, v in lines], speed=1.12)
+    STY = {"h1": "playful challenge, a little cocky", "h2": "teasing, with a smile", "lvl": "clear and friendly, like a coach",
+           "go": "upbeat, encouraging", "up": "playful, slightly dramatic", "fin": "satisfied, impressed",
+           "cta": "warm and genuine, like recommending something to a friend"}
+    clips = voice.say_many([v for _, v in lines], speed=1.12,
+                           styles=[STY.get(k, "confident, calm, revealing the answer") for k, _ in lines])
     A = {k: c for (k, _), c in zip(lines, clips)}; TXT = dict(lines)
     D = {k: len(a) / SR for k, a in A.items()}
 

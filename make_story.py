@@ -43,7 +43,7 @@ STORY_PROMPT = """You write 10-second micro stories for vertical chess reels sta
 Write ONE brand-new mini story (setup -> twist -> lead-in) that ends by leading into a chess puzzle.
 The puzzle: {level} level, {side} to move, goal: {goal}.
 Rules:
-- Exactly 4 scenes. Total narration 22-32 words. Narration is a punchy, funny, energetic movie-trailer narrator in English.
+- Exactly 4 scenes. Total narration 22-32 words. Narration is a witty, warm storyteller in English (like a popular YouTube narrator), funny and energetic but conversational.
 - Write narration to be SPOKEN: short sentences (max 9 words), natural rhythm, contractions, commas for breaths,
   one exclamation or question per scene. No hashtags, emojis, abbreviations or chess notation in narration.
 - Each scene is a different moment/place/action. Make it visual and specific (places, props, weather, other chess pieces as characters).
@@ -53,7 +53,8 @@ Rules:
   Always say "the knight mascot from the reference images". No text, letters or logos in the image.
 - camera: one of push_in, pull_out, pan_left, pan_right, tilt_up, shake.
 - sfx: one of whoosh, boom, none.
-Return JSON: {{"title": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str}}], "caption_hook": str}}"""
+- delivery: 3-8 word acting direction for the voice actor for that scene, varied across scenes (e.g. "hushed, building suspense", "mock-dramatic, then deadpan", "excited, almost laughing", "slow, with a knowing grin").
+Return JSON: {{"title": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str, "delivery": str}}], "caption_hook": str}}"""
 
 
 # ----------------------------------------------------------------- Gemini
@@ -118,11 +119,11 @@ def gen_image(prompt, refs):
 def mock_story(rng):
     poses = ["thinking", "angry", "burnout", "levelup"]
     return {"title": "Mock story", "caption_hook": "He almost lost his streak...",
-            "scenes": [{"narration": t, "image_prompt": p, "camera": c, "sfx": s} for t, p, c, s in [
+            "scenes": [{"narration": t, "image_prompt": p, "camera": c, "sfx": s, "delivery": dl} for (t, p, c, s), dl in zip([
                 ("Day 364 of Streak's training streak.", poses[0], "push_in", "none"),
                 ("Then the alarm didn't ring.", poses[1], "shake", "boom"),
                 ("Eleven fifty-nine. One puzzle left.", poses[2], "pan_left", "whoosh"),
-                ("And then he saw THIS.", poses[3], "push_in", "boom")]]}
+                ("And then he saw THIS.", poses[3], "push_in", "boom")], ["proud, cozy", "sudden panic", "hushed, tense", "slow, dramatic reveal"])]}
 
 
 def mock_image(pose, i):
@@ -210,7 +211,8 @@ def build(P, seed, out, mode="level"):
 
     # voice
     import voice
-    A = voice.say_many([sc["narration"] for sc in scenes], speed=1.08)
+    A = voice.say_many([sc["narration"] for sc in scenes], speed=1.08,
+                       styles=[sc.get("delivery") for sc in scenes], one_take=True)
     durs = [max(len(a) / SR + 0.35, 2.0) for a in A]
     starts = np.cumsum([0] + durs[:-1]); total = float(sum(durs)) + 0.3
 
