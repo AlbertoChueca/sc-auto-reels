@@ -225,6 +225,10 @@ def build(P, seed, out, mode="level"):
     recent = [f"{s.get('title')}: {s.get('summary', '')}" for s in log[-3:]]
     story = mock_story(rng) if mock else write_story(LV["name"].title(), side, goal, [s["title"] for s in log],
                                                      episode, recent)
+    review_on = not mock and os.environ.get("REVIEWER", "on") != "off"
+    if review_on:                                   # 2nd agent: producer review of the script
+        import reviewer
+        story = reviewer.improve_script(story, LV["name"].title(), side, goal, episode)
     scenes = story["scenes"][:4]
     print("Story:", story["title"], flush=True)
     def one_image(i):
@@ -237,6 +241,18 @@ def build(P, seed, out, mode="level"):
     from concurrent.futures import ThreadPoolExecutor
     with ThreadPoolExecutor(4) as ex:                     # the 4 scenes are drawn at the same time
         got = list(ex.map(one_image, range(len(scenes))))
+    if review_on and any(g is not None for g in got):     # 2nd agent: redraw off-model / broken scenes once
+        redo = reviewer.check_images([g if g is not None else next(x for x in got if x is not None) for g in got],
+                                     scenes, os.path.join(HERE, "assets", "mascot", "happy.png"))
+        if redo:
+            def redraw(i):
+                try:
+                    return i, gen_image(redo[i], REFS)
+                except Exception as e:
+                    print(f"scene {i + 1} redraw failed: {str(e)[:150]}", flush=True); return i, None
+            with ThreadPoolExecutor(4) as ex:
+                for i, im in ex.map(redraw, list(redo)):
+                    if im is not None: got[i] = im
     imgs = []
     for i, im in enumerate(got):
         if im is None:
@@ -330,7 +346,11 @@ def build(P, seed, out, mode="level"):
                     "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]"]
                    + HY.enc_args(out, scale=False), check=True)
     cap_old = open(puzzle_mp4.replace(".mp4", ".txt")).read().split("\n", 1)[1]
-    open(out.replace(".mp4", ".txt"), "w").write(f"{story.get('caption_hook', story['title'])}\n{cap_old}")
+    caption = f"{story.get('caption_hook', story['title'])}\n{cap_old}"
+    review = {}
+    if review_on:                                   # 2nd agent: watch the finished reel, polish the caption
+        caption, review = reviewer.review_video(out, story, caption)   # raises RejectReel if clearly broken
+    open(out.replace(".mp4", ".txt"), "w").write(caption)
     for f in (story_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):
         if os.path.exists(f): os.remove(f)
     if not mock:
@@ -338,7 +358,8 @@ def build(P, seed, out, mode="level"):
         json.dump(log[-200:], open(STORY_LOG, "w"), indent=0)
         for k, im in enumerate(imgs):
             im.save(out.replace(".mp4", f"_scene{k + 1}.jpg"), quality=88)
-    meta.update(story=story["title"], hook=story.get("caption_hook", story["title"]))
+    meta.update(story=story["title"], hook=story.get("caption_hook", story["title"]),
+                review_score=review.get("overall"))
     return meta
 
 

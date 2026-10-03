@@ -40,6 +40,13 @@ else:
 
 if os.environ.get("LEVEL_OVERRIDE", "auto") in LEVELS:      # manual run with a chosen difficulty
     level = os.environ["LEVEL_OVERRIDE"]
+insights_msg = ""
+try:                       # real Instagram results -> performance.json (the reviewer learns from them)
+    import insights
+    insights_msg = insights.update(); print(insights_msg, flush=True)
+except Exception as e:
+    insights_msg = f"insights skipped: {str(e)[:150]}"; print(insights_msg, flush=True)
+
 P = pick(level, seed=f"{today}-{slot}-{now.hour}")
 out = f"out/{today}_{slot}_{now.hour:02d}.mp4"
 
@@ -82,6 +89,8 @@ if summary:  # visible on the run page in GitHub
         f.write(f"## {'✅ Premium story reel' if ok else '⚠️ Fallback reel (story failed)'}\n\n"
                 f"- Slot: `{slot}` · level: `{level}` · mode: `{mode}`\n- Engine: `{engine}` · voice: `{voice_used}`\n"
                 + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
+                + (f"- Reviewer score: {meta.get('review_score')}/10\n" if meta.get("review_score") is not None else "")
+                + f"- {insights_msg}\n"
                 + "".join(f"- Error: `{e}`\n" for e in errors))
 caption = open(out.replace(".mp4", ".txt")).read()
 print(caption)
@@ -110,5 +119,5 @@ if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (neve
         print("Zernio failed:", e); meta["zernio"] = f"error: {e}"
 
 meta["voice"] = voice_used
-log({k: meta.get(k) for k in ("engine", "voice", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
+log({k: meta.get(k) for k in ("engine", "voice", "review_score", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
                               "media_id", "sans", "story_share", "zernio")})
