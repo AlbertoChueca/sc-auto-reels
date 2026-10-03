@@ -46,7 +46,7 @@ def crosspost(video_path, hook, caption):
     if acc.get("youtube"):
         platforms.append({"platform": "youtube", "accountId": acc["youtube"], "platformSpecificData": {
             "title": f"{hook.title()} ♟️ Chess Puzzle #shorts"[:100], "visibility": "public",
-            "madeForKids": False, "categoryId": "27"}})
+            "madeForKids": os.environ.get("YT_MADE_FOR_KIDS", "true").lower() == "true", "categoryId": "27"}})
     if acc.get("tiktok"):
         platforms.append({"platform": "tiktok", "accountId": acc["tiktok"], "platformSpecificData": {
             "privacy_level": "PUBLIC_TO_EVERYONE", "allow_comment": True, "allow_duet": True,

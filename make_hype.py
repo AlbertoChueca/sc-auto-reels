@@ -175,20 +175,27 @@ def beat(total, bpm=124):
 
 
 # ----------------------------------------------------------------- build
-THEME = [("smotheredMate", "Smothered by its own pieces!"), ("backRankMate", "The king is trapped on the back rank!"),
-         ("sacrifice", "A sacrifice to rip the king open!"), ("attraction", "The king got dragged into the net!"),
-         ("deflection", "Deflect the defender. Game over!"), ("fork", "A fork. Two targets, one move!"),
-         ("pin", "That piece was pinned!"), ("skewer", "A skewer!"), ("discoveredAttack", "A discovered attack!"),
-         ("promotion", "Promote and win!"), ("hangingPiece", "A free piece!")]
+THEME = [("smotheredMate", "The king got trapped by his own pieces!"), ("backRankMate", "The king is stuck on the back row!"),
+         ("sacrifice", "Give up a piece, win the game!"), ("attraction", "The king walked right into the trap!"),
+         ("deflection", "Chase the defender away. Checkmate!"), ("fork", "A fork! Two pieces attacked at once!"),
+         ("pin", "That piece couldn't move. It was pinned!"), ("skewer", "A skewer! Sneaky!"),
+         ("discoveredAttack", "Surprise! A hidden attack!"), ("promotion", "New queen! You win!"),
+         ("hangingPiece", "A free piece! Grab it!")]
+# Audience: kids 8-12 (and their parents). Friendly challenge, never mocking.
 HOOKS = {
-    "basic": [("Think you're good at chess?", "Prove it."), ("Most beginners miss this.", "Do you?")],
-    "intermediate": [("Think you're a chess genius?", "Prove it."), ("Only 3% of club players see this.", "Do you?")],
-    "advanced": [("This is master level.", "No excuses."), ("Think you can calculate?", "Prove it.")],
-    "tagfriend": [("Tag a friend.", "Who solves it first?"), ("You versus your chess buddy.", "Go!")],
+    "basic": [("Can you beat the knight?", "Let's see!"), ("Quick brain challenge!", "Ready?"),
+              ("Only real chess heroes see this.", "Are you one?")],
+    "intermediate": [("This one tricks most grown-ups.", "Can you do it?"), ("Level up time!", "Ready?"),
+                     ("Your brain versus the knight.", "Go!")],
+    "advanced": [("Boss level puzzle!", "Only champions solve it."), ("This is the hardest one today.", "Ready?")],
+    "tagfriend": [("Challenge a friend!", "Who solves it first?"), ("You versus your best friend.", "Go!")],
 }
 
 
-def build(P, seed, out, mode="level", skip_hook=False, backdrop=None):
+def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False):
+    import voice
+    if not keep_voice:
+        voice.reset()      # new reel: pick the best voice and use it for every line
     rng = random.Random(f"{P.get('id')}-{seed}-{mode}")
     LV = R.LEVELS[P["level"]]
     if "fen" in P:
@@ -215,13 +222,12 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None):
              ("up", "Time's up!")]
     lines += [(f"m{i}", R.san_say(s)) for i, s in enumerate(sans)]
     lines += [("fin", finale),
-              ("cta", ("Tag a friend who can't solve it! " if mode == "tagfriend" else "Did you get it? ")
-               + "Train your calculation every day on StreakChess. It's free. Link in bio.")]
+              ("cta", ("Send this to a friend and see who's faster! " if mode == "tagfriend" else "Did you get it? ")
+               + "Play a new puzzle every day on StreakChess. It's free! Parents, the link is in bio.")]
 
-    import voice
-    STY = {"h1": "playful challenge, a little cocky", "h2": "teasing, with a smile", "lvl": "clear and friendly, like a coach",
-           "go": "upbeat, encouraging", "up": "playful, slightly dramatic", "fin": "satisfied, impressed",
-           "cta": "warm and genuine, like recommending something to a friend"}
+    STY = {"h1": "excited, playful challenge", "h2": "fun, with a big smile", "lvl": "clear and friendly, like a cool teacher",
+           "go": "upbeat, cheering them on", "up": "playful, a bit dramatic", "fin": "amazed and proud",
+           "cta": "warm and cheerful, like a fun older cousin"}
     clips = voice.say_many([v for _, v in lines], speed=1.12,
                            styles=[STY.get(k, "confident, calm, revealing the answer") for k, _ in lines])
     A = {k: c for (k, _), c in zip(lines, clips)}; TXT = dict(lines)
@@ -273,13 +279,11 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None):
     env = np.array([np.sqrt(np.mean(vo[i * hop:(i + 1) * hop] ** 2)) for i in range(int(total * FPS) + 2)])
     env = np.clip(env / (np.percentile(env[env > 0.004], 85) + 1e-6), 0, 1)
 
-    # word timing (proportional to characters inside each spoken line)
-    WORDS = {}
+    
+    WORDS = {}   # word timings taken from what the voice actually says (speech recognition)
     for k, txt in lines:
-        ws = txt.split(); L = sum(len(w) + 1 for w in ws); acc = 0; lst = []
-        for w in ws:
-            lst.append((VO_AT[k] + D[k] * acc / L * 0.95, w)); acc += len(w) + 1
-        WORDS[k] = lst
+        if k in ("count", "lvl", "go") or k.startswith("m"): continue
+        WORDS[k] = [(VO_AT[k] + ts, w) for ts, w in voice.align(A[k], txt)]
 
     def caption(tt):
         for k, _ in lines:
@@ -493,7 +497,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None):
     first = rng.choice(R.TAG_CAPTIONS) if mode == "tagfriend" else f"{h1} {h2}"
     ig = (f"{first}\n{LV['name'].title()} puzzle ({LV['rng']}). {side} to move, {goal_say}.\n\n"
           + ("Comment the move and tag a friend to challenge them!\n\n" if mode == "tagfriend" else "Comment your move before watching the solution!\n\n")
-          + "Train your calculation every day on StreakChess. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
+          + "Parents: StreakChess turns chess practice into a fun daily game for kids. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
           + " ".join(R.hashtags(rng)))
     open(out.replace(".mp4", ".txt"), "w").write(ig)
     return dict(mode=mode, puzzle=P.get("id"), level=P["level"], rating=P.get("rating"), hook=f"{h1} {h2}", sans=sans,

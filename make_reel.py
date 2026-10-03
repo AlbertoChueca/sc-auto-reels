@@ -289,7 +289,8 @@ def logo_glow(path, width, glow=60):
 
 CHESS_TAGS = ["chess", "chesspuzzle", "chesstactics", "chesstraining", "chessplayer", "chesslover",
               "chesscommunity", "chessgame", "chessmaster", "chesspuzzles", "chessclub", "checkmate",
-              "chesslife", "chessstrategy", "chesskids", "learnchess", "chessmoves", "chessbrain"]
+              "chesslife", "chessstrategy", "chesskids", "learnchess", "chessmoves", "chessbrain",
+              "chessforkids", "kidschess", "scholasticchess", "chesskid", "chessforbeginners"]
 US_STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
              "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
              "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
@@ -310,10 +311,10 @@ TAG_HOOKS = [
     ("WHO'S SMARTER?", "You or your chess friend? Tag them and find out.", "happy"),
 ]
 TAG_CAPTIONS = [
-    "Tag a friend who can't solve this 👇",
+    "Challenge a friend to solve this 👇",
     "Tag the friend who always beats you at chess 👇",
     "Send this to a friend and see who solves it first ⏱️",
-    "Tag a friend who needs to train their calculation 👇",
+    "Tag a friend who loves chess puzzles 👇",
     "Who finds it first, you or your friend? Tag them 👇",
 ]
 

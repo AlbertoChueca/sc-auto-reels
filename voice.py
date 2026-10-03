@@ -24,16 +24,118 @@ GEMINI_VOICE = os.environ.get("GEMINI_VOICE", "Fenrir")
 API = "https://generativelanguage.googleapis.com/v1beta"
 TTS_PREFERRED = ["gemini-3.8-flash-tts", "gemini-3.8-flash-tts-preview", "gemini-3.1-flash-tts-preview",
                  "gemini-3.1-flash-tts", "gemini-2.5-flash-preview-tts", "gemini-2.5-pro-preview-tts"]
-NARRATOR = ("You are a charismatic YouTube storyteller narrating a short, funny animated film about a little chess "
-            "knight. Sound like a real human talking to a friend: warm, playful, relaxed breathing, natural pitch "
-            "movement, small smiles in the voice, never robotic, never a flat announcer, never over the top.")
+NARRATOR = ("You are the fun, charismatic narrator of a kids' animated show (ages 8-12) about a little chess knight. "
+            "Sound like a real human talking to kids you like: warm, playful, curious, relaxed breathing, natural pitch "
+            "movement, smiles in the voice. Never robotic, never a flat announcer, never babyish or over the top.")
 ENGINE_USED = None
+LOCK = None          # engine chosen for the current reel: every line of one reel uses the same voice
+
+
+class VoiceError(RuntimeError):
+    """The engine locked for this reel failed; the caller must redo the whole reel with another engine."""
+
+
+def reset(force=None):
+    """Call at the start of every reel. force: None (best available), 'local' (no Gemini) or 'kokoro'."""
+    global LOCK
+    LOCK = force
+
+
+# ------------------------------------------------------------------ speech recognition (captions + checks)
+_asr_model, _asr_cache = None, {}
+
+
+def _asr(a):
+    """[(word, start_s, end_s)] heard in a 24 kHz clip, or None if speech recognition is unavailable."""
+    global _asr_model
+    k = (len(a), round(float(np.sum(np.abs(a[::97]))), 3))
+    if k in _asr_cache:
+        return _asr_cache[k]
+    if _asr_model is False:
+        return None
+    try:
+        if _asr_model is None:
+            from faster_whisper import WhisperModel
+            _asr_model = WhisperModel(os.environ.get("ASR_MODEL", "base.en"), device="cpu", compute_type="int8")
+        a16 = np.interp(np.linspace(0, len(a) - 1, int(len(a) * 16000 / SR)), np.arange(len(a)), a).astype(np.float32)
+        segs, _ = _asr_model.transcribe(a16, language="en", beam_size=1, word_timestamps=True, vad_filter=False)
+        out = [(w.word.strip(), float(w.start), float(w.end)) for sg in segs for w in (sg.words or []) if w.word.strip()]
+    except Exception as e:
+        print("voice: speech recognition unavailable:", str(e)[:150], flush=True)
+        _asr_model = False
+        return None
+    _asr_cache[k] = out
+    return out
+
+
+def _norm(w):
+    return re.sub(r"[^a-z0-9]", "", w.lower())
+
+
+def _similarity(a, text):
+    """0..1 how well the audio says the text (None when we cannot check)."""
+    heard = _asr(a)
+    if heard is None:
+        return None
+    import difflib
+    return difflib.SequenceMatcher(None, [_norm(w) for w in text.split()],
+                                   [_norm(w) for w, _, _ in heard]).ratio()
+
+
+def align(a, text):
+    """Word timings for captions: [(t_seconds, word)] matching what is actually heard in the clip."""
+    ws = text.split()
+    heard = _asr(a)
+    if heard:
+        import difflib
+        sm = difflib.SequenceMatcher(None, [_norm(w) for w in ws], [_norm(w) for w, _, _ in heard])
+        if sm.ratio() < 0.6:                                   # voice said something else: show what it said
+            return [(st, w) for w, st, _ in heard]
+        t = [None] * len(ws)
+        for i, j, n in sm.get_matching_blocks():
+            for d in range(n):
+                t[i + d] = heard[j + d][1]
+        dur = len(a) / SR
+        known = [(i, v) for i, v in enumerate(t) if v is not None]
+        xs = [-1] + [i for i, _ in known] + [len(ws)]
+        ys = [0.0] + [v for _, v in known] + [dur * 0.95]
+        t = list(np.interp(range(len(ws)), xs, ys))
+        for i in range(1, len(t)):                             # keep order
+            t[i] = max(t[i], t[i - 1] + 0.05)
+        return list(zip(t, ws))
+    L = sum(len(w) + 1 for w in ws); acc = 0; out = []        # fallback: proportional to characters
+    for w in ws:
+        out.append(((len(a) / SR) * acc / L * 0.95, w)); acc += len(w) + 1
+    return out
 
 
 # ------------------------------------------------------------------ helpers
 def _trim(a):
-    nz = np.nonzero(np.abs(a) > 0.01)[0]
+    if len(a) == 0:
+        return a
+    thr = max(0.01, 0.04 * float(np.max(np.abs(a))))
+    nz = np.nonzero(np.abs(a) > thr)[0]
     return a[max(0, nz[0] - 240): nz[-1] + 1600] if len(nz) else a
+
+
+def _tighten(a, max_gap=0.32):
+    """Shorten long internal silences (dramatic pauses, breaths) so short lines stay short."""
+    hop = int(SR * 0.01)
+    if len(a) < hop * 10:
+        return a
+    env = np.sqrt(np.convolve(a ** 2, np.ones(hop * 3) / (hop * 3), "same"))[::hop]
+    quiet = env < max(0.01, 0.05 * np.percentile(env, 95))
+    keep = np.ones(len(a), bool); i = 0; mg = int(max_gap * 100)
+    while i < len(quiet):
+        if quiet[i]:
+            j = i
+            while j < len(quiet) and quiet[j]: j += 1
+            if j - i > mg:
+                keep[(i + mg // 2) * hop:(j - mg // 2) * hop] = False
+            i = j
+        else:
+            i += 1
+    return a[keep]
 
 
 def polish(a, light=False):
@@ -123,22 +225,39 @@ def _gemini_call(prompt, key):
     raise last or RuntimeError("no Gemini TTS model available")
 
 
+def _ratio(audio, text):
+    return (len(audio) / SR) / (_words(text) / 2.7 + 0.6)
+
+
 def _sane(audio, text, factor=2.6):
     """Reject takes where the model read the stage directions aloud or cut the line."""
-    exp = _words(text) / 2.7
-    d = len(audio) / SR
-    return 0.35 * exp < d < factor * exp + 1.5
+    r = _ratio(audio, text)
+    return 0.3 < r < factor
 
 
 def _gemini_line(text, style, key, pace):
-    prompt = (f"{NARRATOR}\nDelivery for this line: {style or 'natural and engaging'}, {pace}.\n"
-              f"Say only the following line:\n{text}")
-    a = _trim(_gemini_call(prompt, key))
-    if not _sane(a, text):
-        a = _trim(_gemini_call(f"Say {style or 'naturally'}: {text}", key))
-        if not _sane(a, text, 3.5):
-            raise RuntimeError(f"bad take for: {text!r}")
-    return a
+    """Up to 3 takes with different prompt shapes. A take is accepted when it says the right words with a
+    natural length; otherwise the best acceptable one is kept. Fails only if every take is clearly wrong."""
+    prompts = [f"Say {style or 'naturally'}, like a friendly human storyteller: {text}",
+               f"{NARRATOR}\nDelivery: {style or 'natural and engaging'}, {pace}.\nSay only this line:\n{text}",
+               f"Say: {text}"]
+    takes = []
+    for pr in prompts:
+        try:
+            a = _tighten(_trim(_gemini_call(pr, key)))
+        except Exception as e:
+            if "unreachable" in str(e) or "no Gemini TTS" in str(e):
+                raise
+            print("voice: take error:", str(e)[:150], flush=True); continue
+        sim = _similarity(a, text)
+        if (sim is None or sim >= 0.7) and _sane(a, text):
+            return a
+        print(f"voice: retake {text!r} ({len(a) / SR:.1f}s, match {sim if sim is None else round(sim, 2)})", flush=True)
+        if 0.2 < _ratio(a, text) < 5 and (sim is None or sim >= 0.45):
+            takes.append(((sim or 0.7), -abs(np.log(_ratio(a, text))), a))
+    if takes:
+        return max(takes, key=lambda x: (x[0], x[1]))[2]
+    raise RuntimeError(f"bad take for: {text!r}")
 
 
 def _split_takes(a, texts):
@@ -173,9 +292,10 @@ def _split_takes(a, texts):
     if cuts != sorted(cuts):
         raise RuntimeError("pauses out of order")
     edges = [0] + [c * hop for c in cuts] + [len(a)]
-    parts = [_trim(a[edges[k]:edges[k + 1]]) for k in range(n)]
+    parts = [_tighten(_trim(a[edges[k]:edges[k + 1]])) for k in range(n)]
     for p, t in zip(parts, texts):
-        if not _sane(p, t, 3.0):
+        sim = _similarity(p, t)
+        if not _sane(p, t, 3.2) or (sim is not None and sim < 0.7):
             raise RuntimeError("split pieces do not match the text")
     return parts
 
@@ -183,11 +303,13 @@ def _split_takes(a, texts):
 def _gemini_many(texts, styles, key, one_take, pace):
     if one_take and len(texts) > 1:
         try:
-            script = "\n\n".join(f"({s or 'natural'}) {t}" if s else t for t, s in zip(texts, styles))
-            prompt = (f"{NARRATOR}\nRead this short story in one continuous performance, at {pace}. "
-                      f"Leave a clear breath pause between paragraphs. Words in parentheses are acting directions: "
-                      f"follow them but never read them aloud.\n\n{script}")
+            notes = "\n".join(f"- Paragraph {i + 1}: {s or 'natural'}" for i, s in enumerate(styles))
+            script = "\n\n".join(texts)
+            prompt = (f"{NARRATOR}\nPerform the TRANSCRIPT below in one continuous take, at {pace}, with a clear "
+                      f"breath pause between paragraphs. Read only the transcript, word for word.\n"
+                      f"DIRECTOR'S NOTES:\n{notes}\n\nTRANSCRIPT:\n{script}")
             take = _trim(_gemini_call(prompt, key))
+            print(f"voice: one take {len(take) / SR:.1f}s for {sum(_words(t) for t in texts)} words", flush=True)
             return _split_takes(take, texts)
         except Exception as e:
             if "unreachable" in str(e) or "no Gemini TTS" in str(e):
@@ -240,29 +362,44 @@ def _chatterbox_batch(texts):
 def say_many(texts, speed=1.08, styles=None, one_take=False):
     """Returns a list of float32 arrays at 24 kHz, one per text.
     styles: optional acting direction per line ("hushed, suspenseful"...).
-    one_take: record all lines as one continuous performance (used for the story narration)."""
-    global ENGINE_USED
+    one_take: record all lines as one continuous performance (used for the story narration).
+    All calls inside one reel use the same engine (see reset/LOCK); if that engine fails later in the
+    reel, VoiceError is raised so the caller can redo the reel with a single consistent voice."""
+    global ENGINE_USED, LOCK
     texts = [t.replace("3%", "three percent") for t in texts]
     styles = list(styles or [None] * len(texts))
     pace = "a lively, brisk pace" if speed >= 1.1 else "a relaxed but energetic pace"
     key = os.environ.get("GEMINI_API_KEY")
     engine = os.environ.get("VOICE_ENGINE", "gemini").lower()
-    if key and engine in ("gemini", "auto", "chatterbox") and os.environ.get("VOICE_NO_GEMINI") != "1":
+    allow_gemini = (key and engine in ("gemini", "auto", "chatterbox") and os.environ.get("VOICE_NO_GEMINI") != "1"
+                    and LOCK in (None, "gemini"))
+    allow_cb = os.path.exists(CB_PY) and engine != "kokoro" and LOCK in (None, "local", "chatterbox")
+    if allow_gemini:
         try:
             clips = _gemini_many(texts, styles, key, one_take, pace)
-            ENGINE_USED = "gemini"
+            ENGINE_USED = LOCK = "gemini"
             print(f"voice: gemini {GEMINI_VOICE} ({len(texts)} lines, one_take={one_take})", flush=True)
             return [polish(c, light=True) for c in clips]
         except Exception as e:
+            if LOCK == "gemini":
+                raise VoiceError(f"gemini failed mid-reel: {str(e)[-200:]}")
             print("voice: gemini failed, trying local voices:", str(e)[-300:], flush=True)
-    clips = None
-    if os.path.exists(CB_PY) and engine != "kokoro":
+    if allow_cb:
         try:
-            clips = _chatterbox_batch(texts); ENGINE_USED = "chatterbox"
+            clips = _chatterbox_batch(texts); ENGINE_USED = LOCK = "chatterbox"
             print(f"voice: chatterbox ({len(texts)} lines)", flush=True)
+            return [polish(c) for c in clips]
         except Exception as e:
+            if LOCK == "chatterbox":
+                raise VoiceError(f"chatterbox failed mid-reel: {str(e)[-200:]}")
             print("voice: chatterbox failed, using kokoro:", str(e)[-300:], flush=True)
-    if clips is None:
-        clips = [_kokoro(t, speed) for t in texts]; ENGINE_USED = "kokoro"
-        print(f"voice: kokoro ({len(texts)} lines)", flush=True)
+    if LOCK not in (None, "local", "kokoro"):
+        raise VoiceError(f"{LOCK} not available")
+    clips = [_kokoro(t, speed) for t in texts]; ENGINE_USED = LOCK = "kokoro"
+    print(f"voice: kokoro ({len(texts)} lines)", flush=True)
     return [polish(c) for c in clips]
+
+
+def next_engine():
+    """Engine to force after a VoiceError."""
+    return {"gemini": "local", "chatterbox": "kokoro"}.get(LOCK, "kokoro")

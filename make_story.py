@@ -33,17 +33,20 @@ REFS = ["happy.png", "angry.png", "thinking.png", "celebrate.png"]
 CHARACTER = (
     "STREAK: a cartoon black chess knight piece with a bright orange-and-yellow flame mane, big round white "
     "cartoon eyes with black pupils, a dark gray body with thick black outlines and a round base. No arms or legs: "
-    "he hops, slides and tilts like a chess piece. Personality: competitive, dramatic, funny, a little cocky, "
-    "obsessed with keeping his daily training streak. Style: bold flat 2D cartoon with clean thick outlines, "
+    "he hops, slides and tilts like a chess piece. Personality: brave, funny, a bit dramatic, kind, "
+    "never gives up, obsessed with keeping his daily training streak. Style: bold flat 2D cartoon with clean thick outlines, "
     "vibrant colors, cinematic lighting, like a high-quality animated short.")
 
 STORY_PROMPT = """You write 10-second micro stories for vertical chess reels starring a mascot.
+AUDIENCE: kids aged 8-12 who play chess (their parents watch too). Think of a great kids' animated show: funny, exciting, warm.
 {character}
 
 Write ONE brand-new mini story (setup -> twist -> lead-in) that ends by leading into a chess puzzle.
 The puzzle: {level} level, {side} to move, goal: {goal}.
 Rules:
-- Exactly 4 scenes. Total narration 22-32 words. Narration is a witty, warm storyteller in English (like a popular YouTube narrator), funny and energetic but conversational.
+- Exactly 4 scenes. Total narration 22-32 words. Narration is a fun, warm storyteller in English, like a favourite YouTuber for kids: simple words a 9-year-old knows, energetic but conversational, never babyish.
+- Kid-relatable settings and stakes: school, recess, chess club, a tournament, a sleepover, a video-game world, a science fair, a rainy day, a pet, a sibling. Positive and safe: no violence, scary horror, romance, brands or real people.
+- Write numbers as words (e.g. "three hundred").
 - Write narration to be SPOKEN: short sentences (max 9 words), natural rhythm, contractions, commas for breaths,
   one exclamation or question per scene. No hashtags, emojis, abbreviations or chess notation in narration.
 - Each scene is a different moment/place/action. Make it visual and specific (places, props, weather, other chess pieces as characters).
@@ -209,10 +212,23 @@ def build(P, seed, out, mode="level"):
         imgs.append(im)
         print(f"scene {i + 1} image ready", flush=True)
 
-    # voice
+    # voice: story narration + puzzle segment are recorded with the SAME engine/voice.
+    # The puzzle segment is rendered first; if the voice fails half way, both parts are redone with the next engine.
     import voice
-    A = voice.say_many([sc["narration"] for sc in scenes], speed=1.08,
-                       styles=[sc.get("delivery") for sc in scenes], one_take=True)
+    voice.reset()
+    puzzle_mp4 = out.replace(".mp4", "_puzzle.mp4")
+    for attempt in range(3):
+        try:
+            A = voice.say_many([sc["narration"] for sc in scenes], speed=1.08,
+                               styles=[sc.get("delivery") for sc in scenes], one_take=True)
+            meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True)
+            break
+        except voice.VoiceError as e:
+            nxt = voice.next_engine()
+            print(f"voice changed during the reel ({e}); redoing story + puzzle with: {nxt}", flush=True)
+            voice.reset(nxt)
+    else:
+        raise RuntimeError("could not record a consistent voice")
     durs = [max(len(a) / SR + 0.35, 2.0) for a in A]
     starts = np.cumsum([0] + durs[:-1]); total = float(sum(durs)) + 0.3
 
@@ -236,10 +252,9 @@ def build(P, seed, out, mode="level"):
     hop = SR // FPS
 
     words = []
-    for i, sc in enumerate(scenes):
-        ws = sc["narration"].split(); L = sum(len(w) + 1 for w in ws); acc = 0
-        for w in ws:
-            words.append((i, starts[i] + 0.12 + (len(A[i]) / SR) * acc / L * 0.95, w)); acc += len(w) + 1
+    for i, sc in enumerate(scenes):            # timings from what the voice actually says
+        for ts, w in voice.align(A[i], sc["narration"]):
+            words.append((i, starts[i] + 0.12 + ts, w))
 
     bigs = [cover(grade(cover(im, 1.0)), 1.18) for im in imgs]
     story_mp4 = out.replace(".mp4", "_story.mp4")
@@ -273,9 +288,7 @@ def build(P, seed, out, mode="level"):
         proc.stdin.write(HY.grain(fr, fi))
     proc.stdin.close(); proc.wait(); os.remove(wav)
 
-    # puzzle segment (no hook: the story is the hook)
-    puzzle_mp4 = out.replace(".mp4", "_puzzle.mp4")
-    meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1])
+    # join story + puzzle segment (rendered above; the story is the hook)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", story_mp4, "-i", puzzle_mp4, "-filter_complex",
                     "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]", "-c:v", "libx264",
                     "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
