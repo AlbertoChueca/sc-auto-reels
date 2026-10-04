@@ -44,18 +44,42 @@ def token_scopes(token):
         return None, None
 
 
+def account_media(token, limit=200):
+    """{permalink: id} and the id list straight from the account (the ids Instagram itself uses for insights)."""
+    from publish_ig import whoami
+    uid = whoami(token)["user_id"]
+    out, url = {}, f"{GRAPH}/{uid}/media"
+    params = {"fields": "id,permalink,timestamp,media_product_type", "limit": 50, "access_token": token}
+    while url and len(out) < limit:
+        r = requests.get(url, params=params, timeout=30); j = r.json()
+        if r.status_code != 200:
+            LAST_ERROR[0] = f"media list code {j.get('error', {}).get('code')}: {j.get('error', {}).get('message', '')[:120]}"
+            break
+        for it in j.get("data", []):
+            out[(it.get("permalink") or "").rstrip("/")] = it["id"]
+        url, params = j.get("paging", {}).get("next"), None
+    return out
+
+
 def update(days=45):
     token = os.environ.get("IG_TOKEN")
     if not token or not os.path.exists(os.path.join(HERE, "log.jsonl")):
         return "insights: nothing to do"
     perf = json.load(open(PERF)) if os.path.exists(PERF) else {}
-    today = datetime.date.today(); full = public = 0; fails = 0
+    today = datetime.date.today(); full = public = 0; fails = 0; remapped = 0
+    try:
+        by_link = account_media(token)
+    except Exception as err:
+        by_link = {}; print("insights: could not list account media:", str(err)[:150], flush=True)
     for line in open(os.path.join(HERE, "log.jsonl")):
         try:
             e = json.loads(line)
         except Exception:
             continue
         mid = e.get("media_id")
+        real = by_link.get((e.get("permalink") or "").rstrip("/"))
+        if real and real != mid:                          # use the id Instagram lists for this reel
+            mid = real; remapped += 1
         if not mid:
             continue
         age = (today - datetime.date.fromisoformat(e["date"])).days
@@ -77,7 +101,9 @@ def update(days=45):
         perf[mid] = {**{k: e.get(k) for k in ("date", "slot", "story", "hook", "level", "mode", "engine",
                                               "review_score", "permalink", "arms")}, **m}
     json.dump(perf, open(PERF, "w"), indent=0)
-    msg = f"insights: {full} reels with full stats"
+    msg = f"insights: {full} reels with full stats" + (f" ({remapped} ids corrected from the account list)" if remapped else "")
+    if by_link == {} and public:
+        msg += " [could not list the account's media]"
     if public:
         scopes, ttype = token_scopes(token)
         if scopes is None:
