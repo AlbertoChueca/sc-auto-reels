@@ -20,8 +20,9 @@ def _check(r):
 
 def whoami(token):
     """Returns {"user_id": <IG business account id>, "username": ..., "page_id": ...}."""
-    me = _check(requests.get(f"{GRAPH}/me", params={
-        "fields": "id,name,instagram_business_account{id,username}", "access_token": token}))
+    r = requests.get(f"{GRAPH}/me", params={
+        "fields": "id,name,instagram_business_account{id,username}", "access_token": token})
+    me = r.json() if r.status_code == 200 else {}         # a USER token has no such field -> look through its Pages
     ig = me.get("instagram_business_account")
     if not ig:  # a user token was given instead of a Page token: look through the user's Pages
         pages = _check(requests.get(f"{GRAPH}/me/accounts", params={
