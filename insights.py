@@ -63,80 +63,83 @@ def diagnose(token):
 
 
 def account_media(token, limit=200):
-    """{permalink: id} and the id list straight from the account (the ids Instagram itself uses for insights)."""
+    """Posts straight from the account: [{id, permalink, timestamp, media_product_type}] (ids Instagram really uses)."""
     from publish_ig import whoami
     uid = whoami(token)["user_id"]
-    out, url = {}, f"{GRAPH}/{uid}/media"
+    out, url = [], f"{GRAPH}/{uid}/media"
     params = {"fields": "id,permalink,timestamp,media_product_type", "limit": 50, "access_token": token}
     while url and len(out) < limit:
         r = requests.get(url, params=params, timeout=30); j = r.json()
         if r.status_code != 200:
             LAST_ERROR[0] = f"media list code {j.get('error', {}).get('code')}: {j.get('error', {}).get('message', '')[:120]}"
             break
-        for it in j.get("data", []):
-            out[(it.get("permalink") or "").rstrip("/")] = it["id"]
+        out += j.get("data", [])
         url, params = j.get("paging", {}).get("next"), None
     return out
 
 
+def _norm_link(u):
+    return (u or "").split("?")[0].rstrip("/").replace("/reels/", "/reel/").replace("/p/", "/reel/").lower()
+
+
 def update(days=45):
+    """Stats are read for the posts that really exist on the account (the source of truth), then matched to our
+    log (by link, else by publication time) to know which experiment produced each one."""
     token = os.environ.get("IG_TOKEN")
-    if not token or not os.path.exists(os.path.join(HERE, "log.jsonl")):
+    if not token:
         return "insights: nothing to do"
+    logs = []
+    if os.path.exists(os.path.join(HERE, "log.jsonl")):
+        for line in open(os.path.join(HERE, "log.jsonl")):
+            try:
+                e = json.loads(line)
+                if e.get("media_id") or e.get("permalink"):
+                    logs.append(e)
+            except Exception:
+                pass
+    by_link = {_norm_link(e.get("permalink")): e for e in logs if e.get("permalink")}
+    by_id = {e.get("media_id"): e for e in logs if e.get("media_id")}
     perf = json.load(open(PERF)) if os.path.exists(PERF) else {}
-    today = datetime.date.today(); full = public = 0; fails = 0; remapped = 0
-    try:
-        by_link = account_media(token)
-    except Exception as err:
-        by_link = {}; print("insights: could not list account media:", str(err)[:150], flush=True)
-    for line in open(os.path.join(HERE, "log.jsonl")):
+    posts = account_media(token)
+    now = datetime.datetime.now(datetime.timezone.utc)
+    full = public = matched = 0
+    for p in posts:
         try:
-            e = json.loads(line)
+            ts = datetime.datetime.strptime(p["timestamp"], "%Y-%m-%dT%H:%M:%S%z")
         except Exception:
             continue
-        mid = e.get("media_id")
-        real = by_link.get((e.get("permalink") or "").rstrip("/"))
-        if real and real != mid:                          # use the id Instagram lists for this reel
-            mid = real; remapped += 1
-        if not mid:
-            continue
-        age = (today - datetime.date.fromisoformat(e["date"])).days
+        age = (now - ts).days
         if age < 1 or age > days:
             continue
-        m = None
+        e = by_id.get(p["id"]) or by_link.get(_norm_link(p.get("permalink")))
+        if e is None:                                   # match by publication time (same day, closest log entry)
+            same = [x for x in logs if x.get("date") == ts.date().isoformat()]
+            e = same[0] if len(same) == 1 else None
+        if e is not None:
+            matched += 1
         try:
-            if fails < 3:                                 # every reel is tried; stop trying after 3 refusals in a row
-                try:
-                    m = _metrics(mid, token); full += 1; fails = 0
-                except PermissionError:
-                    fails += 1
-            if m is None:                                 # fallback: public like/comment counts (basic permission)
-                r = requests.get(f"{GRAPH}/{mid}", params={"fields": "like_count,comments_count", "access_token": token}, timeout=30)
-                m = r.json() if r.status_code == 200 else {}
-                m.pop("id", None); public += 1
+            m = _metrics(p["id"], token); full += 1
+        except PermissionError:
+            r = requests.get(f"{GRAPH}/{p['id']}", params={"fields": "like_count,comments_count", "access_token": token}, timeout=30)
+            m = r.json() if r.status_code == 200 else {}
+            m.pop("id", None); public += 1
         except Exception as err:
-            print("insights error", mid, str(err)[:150], flush=True); continue
-        perf[mid] = {**{k: e.get(k) for k in ("date", "slot", "story", "hook", "level", "mode", "engine",
-                                              "review_score", "permalink", "arms")}, **m}
+            print("insights error", p["id"], str(err)[:150], flush=True); continue
+        base = {k: (e or {}).get(k) for k in ("slot", "story", "hook", "level", "mode", "engine", "review_score", "arms")}
+        perf[p["id"]] = {**base, "date": ts.date().isoformat(), "permalink": p.get("permalink"),
+                         "type": p.get("media_product_type"), **m}
+    if full:   # once real stats work, drop old likes-only rows (old ids / different scale) to avoid double counting
+        perf = {k: v for k, v in perf.items() if v.get("views") is not None or v.get("reach") is not None}
     json.dump(perf, open(PERF, "w"), indent=0)
-    msg = (f"insights: {full} reels with full stats" + (f" ({remapped} ids corrected from the account list)" if remapped else "")
-           + (f" [ids checked against {len(by_link)} posts of the account]" if by_link else ""))
-    if by_link == {} and public:
-        msg += " [could not list the account's media]"
-    if public:
+    msg = (f"insights: {full} posts with full stats, {public} likes/comments only "
+           f"({len(posts)} posts found on the account, {matched} matched to our experiments)")
+    if public and not full:
         scopes, ttype = token_scopes(token)
-        if scopes is None:
-            perm = "could not read the token's permissions"
-        elif "instagram_manage_insights" in scopes:
-            perm = f"token ({ttype}) HAS instagram_manage_insights"
-        else:
-            perm = f"token ({ttype}) does NOT have instagram_manage_insights (has: {', '.join(scopes)})"
-        msg += f", {public} with likes/comments only - {perm} - Instagram said: {LAST_ERROR[0]}"
-        if full == 0:
-            try:
-                msg += " || DIAGNOSIS: " + diagnose(token)
-            except Exception as err:
-                msg += f" || diagnosis failed: {str(err)[:100]}"
+        msg += f" - token {ttype} - Instagram said: {LAST_ERROR[0]}"
+        try:
+            msg += " || DIAGNOSIS: " + diagnose(token)
+        except Exception as err:
+            msg += f" || diagnosis failed: {str(err)[:100]}"
     return msg
 
 
