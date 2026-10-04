@@ -8,6 +8,7 @@ import datetime, json, os, requests
 HERE = os.path.dirname(os.path.abspath(__file__))
 PERF = os.path.join(HERE, "performance.json")
 GRAPH = f"https://graph.facebook.com/{os.environ.get('IG_API_VERSION', 'v23.0')}"
+LAST_ERROR = [""]
 METRICS = ["views", "reach", "likes", "comments", "shares", "saved", "total_interactions", "ig_reels_avg_watch_time"]
 
 
@@ -15,15 +16,21 @@ def _metrics(media_id, token):
     r = requests.get(f"{GRAPH}/{media_id}/insights", params={"metric": ",".join(METRICS), "access_token": token}, timeout=30)
     if r.status_code == 200:
         return {d["name"]: (d.get("values") or [{}])[0].get("value") for d in r.json().get("data", [])}
-    err = r.text
-    if "permission" in err.lower() or "#10" in err or "#200" in err:
-        raise PermissionError(err[:300])
-    out = {}                                              # a metric name not supported -> ask one by one
+    try:
+        e = r.json().get("error", {})
+    except Exception:
+        e = {}
+    LAST_ERROR[0] = f"code {e.get('code')}: {str(e.get('message') or r.text)[:160]}"
+    if e.get("code") in (10, 200) or (e.get("code") == 190):      # real permission / token problem
+        raise PermissionError(LAST_ERROR[0])
+    out = {}                                              # e.g. (#100) a metric not available -> ask one by one
     for m in METRICS:
         r = requests.get(f"{GRAPH}/{media_id}/insights", params={"metric": m, "access_token": token}, timeout=30)
         if r.status_code == 200:
             for d in r.json().get("data", []):
                 out[d["name"]] = (d.get("values") or [{}])[0].get("value")
+    if not out:
+        raise PermissionError(LAST_ERROR[0])
     return out
 
 
@@ -62,8 +69,7 @@ def update(days=45):
         n += 1
     json.dump(perf, open(PERF, "w"), indent=0)
     return (f"insights: updated {n} reels"
-            + (" (likes/comments only: add the 'instagram_manage_insights' permission for views, shares and saves)"
-               if no_perm else ""))
+            + (f" (likes/comments only - Instagram said: {LAST_ERROR[0]})" if no_perm else ""))
 
 
 if __name__ == "__main__":
