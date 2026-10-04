@@ -34,12 +34,22 @@ def _metrics(media_id, token):
     return out
 
 
+def token_scopes(token):
+    """Permissions really included in the token (asks Meta's debug_token about itself)."""
+    try:
+        r = requests.get(f"{GRAPH}/debug_token", params={"input_token": token, "access_token": token}, timeout=30)
+        d = r.json().get("data", {})
+        return d.get("scopes"), d.get("type")
+    except Exception:
+        return None, None
+
+
 def update(days=45):
     token = os.environ.get("IG_TOKEN")
     if not token or not os.path.exists(os.path.join(HERE, "log.jsonl")):
         return "insights: nothing to do"
     perf = json.load(open(PERF)) if os.path.exists(PERF) else {}
-    today = datetime.date.today(); n = 0; no_perm = False
+    today = datetime.date.today(); full = public = 0; fails = 0
     for line in open(os.path.join(HERE, "log.jsonl")):
         try:
             e = json.loads(line)
@@ -53,23 +63,31 @@ def update(days=45):
             continue
         m = None
         try:
-            if not no_perm:
+            if fails < 3:                                 # every reel is tried; stop trying after 3 refusals in a row
                 try:
-                    m = _metrics(mid, token)
+                    m = _metrics(mid, token); full += 1; fails = 0
                 except PermissionError:
-                    no_perm = True
-            if no_perm:                                   # fallback: public like/comment counts (basic permission)
+                    fails += 1
+            if m is None:                                 # fallback: public like/comment counts (basic permission)
                 r = requests.get(f"{GRAPH}/{mid}", params={"fields": "like_count,comments_count", "access_token": token}, timeout=30)
                 m = r.json() if r.status_code == 200 else {}
-                m.pop("id", None)
+                m.pop("id", None); public += 1
         except Exception as err:
             print("insights error", mid, str(err)[:150], flush=True); continue
         perf[mid] = {**{k: e.get(k) for k in ("date", "slot", "story", "hook", "level", "mode", "engine",
                                               "review_score", "permalink", "arms")}, **m}
-        n += 1
     json.dump(perf, open(PERF, "w"), indent=0)
-    return (f"insights: updated {n} reels"
-            + (f" (likes/comments only - Instagram said: {LAST_ERROR[0]})" if no_perm else ""))
+    msg = f"insights: {full} reels with full stats"
+    if public:
+        scopes, ttype = token_scopes(token)
+        if scopes is None:
+            perm = "could not read the token's permissions"
+        elif "instagram_manage_insights" in scopes:
+            perm = f"token ({ttype}) HAS instagram_manage_insights"
+        else:
+            perm = f"token ({ttype}) does NOT have instagram_manage_insights (has: {', '.join(scopes)})"
+        msg += f", {public} with likes/comments only - {perm} - Instagram said: {LAST_ERROR[0]}"
+    return msg
 
 
 if __name__ == "__main__":
