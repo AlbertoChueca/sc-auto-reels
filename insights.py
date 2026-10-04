@@ -39,9 +39,27 @@ def token_scopes(token):
     try:
         r = requests.get(f"{GRAPH}/debug_token", params={"input_token": token, "access_token": token}, timeout=30)
         d = r.json().get("data", {})
+        TOKEN_INFO["granular"] = {g.get("scope"): g.get("target_ids") for g in d.get("granular_scopes", [])}
         return d.get("scopes"), d.get("type")
     except Exception:
         return None, None
+
+
+TOKEN_INFO = {}
+
+
+def diagnose(token):
+    """Explain WHY media insights fail: which accounts the permission was granted for + an account-level test."""
+    from publish_ig import whoami
+    me = whoami(token); uid = me["user_id"]; out = [f"IG account id {uid} (@{me.get('username')})"]
+    targets = TOKEN_INFO.get("granular", {}).get("instagram_manage_insights")
+    if targets is not None:
+        out.append("insights permission granted for: " + (", ".join(targets) or "no accounts")
+                   + (" -> OK, includes this account" if uid in targets else " -> MISSING this Instagram account"))
+    r = requests.get(f"{GRAPH}/{uid}/insights", params={"metric": "reach", "period": "day", "access_token": token}, timeout=30)
+    out.append("account-level insights test: " + ("OK" if r.status_code == 200 else
+               f"code {r.json().get('error', {}).get('code')}: {r.json().get('error', {}).get('message', '')[:100]}"))
+    return " | ".join(out)
 
 
 def account_media(token, limit=200):
@@ -101,7 +119,8 @@ def update(days=45):
         perf[mid] = {**{k: e.get(k) for k in ("date", "slot", "story", "hook", "level", "mode", "engine",
                                               "review_score", "permalink", "arms")}, **m}
     json.dump(perf, open(PERF, "w"), indent=0)
-    msg = f"insights: {full} reels with full stats" + (f" ({remapped} ids corrected from the account list)" if remapped else "")
+    msg = (f"insights: {full} reels with full stats" + (f" ({remapped} ids corrected from the account list)" if remapped else "")
+           + (f" [ids checked against {len(by_link)} posts of the account]" if by_link else ""))
     if by_link == {} and public:
         msg += " [could not list the account's media]"
     if public:
@@ -113,6 +132,11 @@ def update(days=45):
         else:
             perm = f"token ({ttype}) does NOT have instagram_manage_insights (has: {', '.join(scopes)})"
         msg += f", {public} with likes/comments only - {perm} - Instagram said: {LAST_ERROR[0]}"
+        if full == 0:
+            try:
+                msg += " || DIAGNOSIS: " + diagnose(token)
+            except Exception as err:
+                msg += f" || diagnosis failed: {str(err)[:100]}"
     return msg
 
 
