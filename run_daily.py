@@ -47,6 +47,22 @@ try:                       # real Instagram results -> performance.json (the rev
 except Exception as e:
     insights_msg = f"insights skipped: {str(e)[:150]}"; print(insights_msg, flush=True)
 
+# ---- autopilot experiment: choose today's creative options (learns from past results)
+arms, strat_msg = {}, ""
+try:
+    import strategy
+    fixed = {}
+    if os.environ.get("LEVEL_OVERRIDE", "auto") in LEVELS or slot not in ("story",):
+        fixed["difficulty"] = level                       # manual choice / tag-a-friend keep their level
+    arms = strategy.choose(seed=f"{now:%Y-%m-%d-%H}-{slot}", fixed=fixed)
+    level = arms.get("difficulty", level)
+    if slot == "story":
+        strat_msg = strategy.weekly_strategist()
+    strategy.write_report()
+    print("experiment:", {k: strategy.short(v) for k, v in arms.items()}, "|", strat_msg, flush=True)
+except Exception as e:
+    strat_msg = f"strategy skipped: {str(e)[:150]}"; print(strat_msg, flush=True)
+
 P = pick(level, seed=f"{today}-{slot}-{now.hour}")
 out = f"out/{today}_{slot}_{now.hour:02d}.mp4"
 
@@ -62,7 +78,7 @@ for eng in chain:
             if not os.environ.get("GEMINI_API_KEY"):
                 raise RuntimeError("GEMINI_API_KEY not set")
             from make_story import build as b
-            meta = b(P, seed, out, mode=mode)
+            meta = b(P, seed, out, mode=mode, arms=arms)
         elif eng == "hype":
             from make_hype import build as b
             meta = b(P, seed, out, mode=mode)
@@ -91,6 +107,8 @@ if summary:  # visible on the run page in GitHub
                 + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
                 + (f"- Reviewer score: {meta.get('review_score')}/10\n" if meta.get("review_score") is not None else "")
                 + f"- {insights_msg}\n"
+                + (f"- Experiment: {', '.join(f'{k}={v.split(chr(58))[0]}' for k, v in arms.items())}\n" if arms else "")
+                + (f"- {strat_msg}\n" if strat_msg else "")
                 + "".join(f"- Error: `{e}`\n" for e in errors))
 caption = open(out.replace(".mp4", ".txt")).read()
 print(caption)
@@ -119,5 +137,6 @@ if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (neve
         print("Zernio failed:", e); meta["zernio"] = f"error: {e}"
 
 meta["voice"] = voice_used
-log({k: meta.get(k) for k in ("engine", "voice", "review_score", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
+meta["arms"] = arms if engine == "story" else {}
+log({k: meta.get(k) for k in ("engine", "voice", "review_score", "arms", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
                               "media_id", "sans", "story_share", "zernio")})

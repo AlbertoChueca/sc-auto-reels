@@ -216,7 +216,7 @@ HOOKS = {
 }
 
 
-def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False, cta_lead=None):
+def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False, cta_lead=None, think_factor=1.0):
     import voice
     if not keep_voice:
         voice.reset()      # new reel: pick the best voice and use it for every line
@@ -233,12 +233,13 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     b2 = board.copy(); sans = []
     for m in moves: sans.append(b2.san(m)); b2.push(m)
     mate_n = (len(moves) + 1) // 2 if b2.is_checkmate() else None
-    COUNT = LV["count"]
+    COUNT = max(5, int(round(LV["count"] * think_factor)))
     themes = (P.get("themes") or "").split()
     finale = next((l for k, l in THEME if k in themes), "No escape squares!" if mate_n else "And that wins!")
     h1, h2 = rng.choice(HOOKS["tagfriend" if mode == "tagfriend" else P["level"]])
     goal_say = f"mate in {R.NUM[mate_n]}" if mate_n else "the winning move"
-    numw = {8: "eight", 10: "ten", 12: "twelve"}[COUNT]
+    numw = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
+            "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen"][min(COUNT, 18)]
 
     lines = ([] if skip_hook else [("h1", h1), ("h2", h2)]) + [
              ("lvl", f"{LV['name'].title()} level. {side} to move. Find {goal_say}."),

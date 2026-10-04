@@ -58,10 +58,13 @@ AUDIENCE: kids aged 8-12 who play chess (their parents watch too). Think of a gr
 This is episode {episode}. Recent episodes (continue the journey naturally, do not repeat them):
 {recent}
 
+{playbook}
+
 Write ONE new episode: a moment of Vektor's day on his way to his dream (setup -> problem -> he needs help).
+TODAY'S CREATIVE BRIEF (an experiment, follow it): opening hook style = {hook_style}; theme = {theme}.
 The chess problem he faces IS the puzzle that follows: {level} level, {side} to move, goal: {goal}.
 Rules:
-- Exactly 4 scenes. Total narration 24-34 words. Narration is a fun, warm storyteller in English, like a favourite
+- Exactly 4 scenes. Total narration {words} words. Narration is a fun, warm storyteller in English, like a favourite
   YouTuber for kids: simple words a 9-year-old knows, energetic but conversational, never babyish.
 - The story must clearly be about chess and getting better at it (why this position matters today for Vektor:
   a tournament game, Coach King's challenge, a bet with Bishop Blaze, a puzzle he must crack to keep his streak...).
@@ -101,9 +104,15 @@ def _post(model, body, tries=4):
     raise RuntimeError(f"Gemini {model}: too many retries")
 
 
-def write_story(level, side, goal, avoid, episode=1, recent=()):
+def write_story(level, side, goal, avoid, episode=1, recent=(), arms=None):
+    import strategy
+    arms = arms or {}
+    pb = strategy.playbook_text()
     body = {"contents": [{"parts": [{"text": STORY_PROMPT.format(
                 character=CHARACTER, world=WORLD, level=level, side=side, goal=goal, episode=episode,
+                playbook=("WHAT WORKS FOR OUR AUDIENCE (from real results):\n" + pb) if pb else "",
+                hook_style=arms.get("hook_style", "your best idea"), theme=arms.get("theme", "your best idea"),
+                words=strategy.WORDS.get(arms.get("story_length"), "24-34"),
                 recent="\n".join(f"- {r}" for r in recent) or "- (this is the first episode)",
                 avoid="; ".join(avoid[-40:]) or "none")}]}],
             "generationConfig": {"responseMimeType": "application/json", "temperature": 1.1}}
@@ -198,7 +207,8 @@ def frame_for(big, cam, p, t):
     return big.crop((int(x0), int(y0), int(x0 + vw), int(y0 + vh))).resize((W, H), Image.BILINEAR)
 
 
-def build(P, seed, out, mode="level"):
+def build(P, seed, out, mode="level", arms=None):
+    arms = arms or {}
     rng = random.Random(f"{P.get('id')}-{seed}-story")
     import chess
     LV = R.LEVELS[P["level"]]
@@ -224,11 +234,11 @@ def build(P, seed, out, mode="level"):
     episode = len(log) + 1
     recent = [f"{s.get('title')}: {s.get('summary', '')}" for s in log[-3:]]
     story = mock_story(rng) if mock else write_story(LV["name"].title(), side, goal, [s["title"] for s in log],
-                                                     episode, recent)
+                                                     episode, recent, arms)
     review_on = not mock and os.environ.get("REVIEWER", "on") != "off"
     if review_on:                                   # 2nd agent: producer review of the script
         import reviewer
-        story = reviewer.improve_script(story, LV["name"].title(), side, goal, episode)
+        story = reviewer.improve_script(story, LV["name"].title(), side, goal, episode, arms)
     scenes = story["scenes"][:4]
     print("Story:", story["title"], flush=True)
     def one_image(i):
@@ -272,7 +282,8 @@ def build(P, seed, out, mode="level"):
             A = voice.say_many([sc["narration"] for sc in scenes], speed=1.08,
                                styles=[sc.get("delivery") for sc in scenes], one_take=True)
             meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
-                             cta_lead="You helped Vektor get stronger! ")
+                             cta_lead="You helped Vektor get stronger! ",
+                             think_factor=__import__("strategy").THINK_FACTOR.get(arms.get("think_time"), 1.0))
             break
         except voice.VoiceError as e:
             nxt = voice.next_engine()
@@ -358,7 +369,7 @@ def build(P, seed, out, mode="level"):
         json.dump(log[-200:], open(STORY_LOG, "w"), indent=0)
         for k, im in enumerate(imgs):
             im.save(out.replace(".mp4", f"_scene{k + 1}.jpg"), quality=88)
-    meta.update(story=story["title"], hook=story.get("caption_hook", story["title"]),
+    meta.update(story=story["title"], hook=story.get("caption_hook", story["title"]), arms=arms,
                 review_score=review.get("overall"))
     return meta
 

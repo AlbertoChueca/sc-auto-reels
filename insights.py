@@ -32,7 +32,7 @@ def update(days=45):
     if not token or not os.path.exists(os.path.join(HERE, "log.jsonl")):
         return "insights: nothing to do"
     perf = json.load(open(PERF)) if os.path.exists(PERF) else {}
-    today = datetime.date.today(); n = 0
+    today = datetime.date.today(); n = 0; no_perm = False
     for line in open(os.path.join(HERE, "log.jsonl")):
         try:
             e = json.loads(line)
@@ -44,18 +44,26 @@ def update(days=45):
         age = (today - datetime.date.fromisoformat(e["date"])).days
         if age < 1 or age > days:
             continue
+        m = None
         try:
-            m = _metrics(mid, token)
-        except PermissionError as err:
-            return ("insights: the IG token lacks 'instagram_manage_insights' permission; the reviewer will work "
-                    "without real results until it is added. " + str(err)[:120])
+            if not no_perm:
+                try:
+                    m = _metrics(mid, token)
+                except PermissionError:
+                    no_perm = True
+            if no_perm:                                   # fallback: public like/comment counts (basic permission)
+                r = requests.get(f"{GRAPH}/{mid}", params={"fields": "like_count,comments_count", "access_token": token}, timeout=30)
+                m = r.json() if r.status_code == 200 else {}
+                m.pop("id", None)
         except Exception as err:
             print("insights error", mid, str(err)[:150], flush=True); continue
         perf[mid] = {**{k: e.get(k) for k in ("date", "slot", "story", "hook", "level", "mode", "engine",
-                                              "review_score", "permalink")}, **m}
+                                              "review_score", "permalink", "arms")}, **m}
         n += 1
     json.dump(perf, open(PERF, "w"), indent=0)
-    return f"insights: updated {n} reels"
+    return (f"insights: updated {n} reels"
+            + (" (likes/comments only: add the 'instagram_manage_insights' permission for views, shares and saves)"
+               if no_perm else ""))
 
 
 if __name__ == "__main__":

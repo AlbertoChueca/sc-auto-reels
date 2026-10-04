@@ -68,10 +68,12 @@ def learnings():
     try:
         perf = json.load(open(PERF))
     except Exception:
-        return ""
+        perf = {}
+    import strategy
+    pb = strategy.playbook_text()
     rows = [r for r in perf.values() if r.get("views")]
     if len(rows) < 4:
-        return ""
+        return pb
     rows.sort(key=lambda r: r["views"], reverse=True)
     avg = sum(r["views"] for r in rows) / len(rows)
 
@@ -82,17 +84,28 @@ def learnings():
     top, low = rows[:3], rows[-3:]
     return (f"REAL INSTAGRAM RESULTS so far ({len(rows)} reels, average {avg:.0f} views):\nBest:\n"
             + "\n".join(map(line, top)) + "\nWorst:\n" + "\n".join(map(line, low))
-            + "\nLean into what the best ones have in common; avoid what the worst ones did.")
+            + "\nLean into what the best ones have in common; avoid what the worst ones did."
+            + (("\n\n" + pb) if pb else ""))
 
 
 # ------------------------------------------------------------------ 1. script
-def improve_script(story, level, side, goal, episode):
+def _brief(arms):
+    if not arms:
+        return ""
+    import strategy
+    return (f"This episode is an A/B experiment: keep its opening hook style ({arms.get('hook_style')}) and theme "
+            f"({arms.get('theme')}) and narration length {strategy.WORDS.get(arms.get('story_length'), '24-34')} words; "
+            f"improve everything else.")
+
+
+def improve_script(story, level, side, goal, episode, arms=None):
     """Returns an improved story (same schema). Falls back to the original on any problem."""
     try:
         res = _ask([{"text": f"""{PRODUCER}
 
 {learnings()}
 
+{_brief(arms)}
 Here is the draft script for episode {episode}. Puzzle that follows: {level} level, {side} to move, goal: {goal}.
 DRAFT:
 {json.dumps(story, ensure_ascii=False, indent=1)}
