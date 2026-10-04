@@ -82,7 +82,7 @@ def _norm_link(u):
     return (u or "").split("?")[0].rstrip("/").replace("/reels/", "/reel/").replace("/p/", "/reel/").lower()
 
 
-def update(days=45):
+def update(days=120):
     """Stats are read for the posts that really exist on the account (the source of truth), then matched to our
     log (by link, else by publication time) to know which experiment produced each one."""
     token = os.environ.get("IG_TOKEN")
@@ -103,14 +103,19 @@ def update(days=45):
     posts = account_media(token)
     now = datetime.datetime.now(datetime.timezone.utc)
     full = public = matched = 0
+    skip = {"bad date": 0, "too new": 0, "too old": 0}; dates = []; types = {}
     for p in posts:
+        types[p.get("media_product_type")] = types.get(p.get("media_product_type"), 0) + 1
         try:
-            ts = datetime.datetime.strptime(p["timestamp"], "%Y-%m-%dT%H:%M:%S%z")
+            ts = datetime.datetime.fromisoformat(p["timestamp"].replace("+0000", "+00:00"))
         except Exception:
-            continue
-        age = (now - ts).days
-        if age < 1 or age > days:
-            continue
+            skip["bad date"] += 1; continue
+        dates.append(ts.date().isoformat())
+        age = (now - ts).total_seconds() / 86400
+        if age < 0.5:
+            skip["too new"] += 1; continue
+        if age > days:
+            skip["too old"] += 1; continue
         e = by_id.get(p["id"]) or by_link.get(_norm_link(p.get("permalink")))
         if e is None:                                   # match by publication time (same day, closest log entry)
             same = [x for x in logs if x.get("date") == ts.date().isoformat()]
@@ -133,6 +138,10 @@ def update(days=45):
     json.dump(perf, open(PERF, "w"), indent=0)
     msg = (f"insights: {full} posts with full stats, {public} likes/comments only "
            f"({len(posts)} posts found on the account, {matched} matched to our experiments)")
+    if not (full or public) and posts:
+        msg += (f" || posts dated {min(dates) if dates else '?'} to {max(dates) if dates else '?'}, types {types}, "
+                f"skipped {skip}, our log has {len(logs)} reels from {min((e.get('date') or '?') for e in logs) if logs else '-'}"
+                f" to {max((e.get('date') or '?') for e in logs) if logs else '-'}")
     if public and not full:
         scopes, ttype = token_scopes(token)
         msg += f" - token {ttype} - Instagram said: {LAST_ERROR[0]}"
