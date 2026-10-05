@@ -143,14 +143,14 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeDpseZldcc/",
 "type": "REELS",
-"views": 121,
-"reach": 103,
+"views": 126,
+"reach": 105,
 "likes": 0,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 2,
-"ig_reels_avg_watch_time": 7023
+"ig_reels_avg_watch_time": 6962
 },
 "17986864500118112": {
 "slot": "story",
@@ -170,14 +170,14 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeDgNY7kwKq/",
 "type": "REELS",
-"views": 101,
-"reach": 79,
+"views": 138,
+"reach": 115,
 "likes": 0,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 0,
-"ig_reels_avg_watch_time": 6594
+"ig_reels_avg_watch_time": 4845
 },
 "17927730264182308": {
 "slot": "story",
@@ -197,14 +197,14 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeDaxJ5id56/",
 "type": "REELS",
-"views": 135,
-"reach": 116,
+"views": 136,
+"reach": 119,
 "likes": 1,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 3,
-"ig_reels_avg_watch_time": 5577
+"ig_reels_avg_watch_time": 5895
 },
 "18156128401536850": {
 "slot": "story",
@@ -218,14 +218,14 @@
 "date": "2026-10-03",
 "permalink": "https://www.instagram.com/reel/DeDSz_Bjo8Q/",
 "type": "REELS",
-"views": 247,
-"reach": 215,
+"views": 249,
+"reach": 217,
 "likes": 6,
 "comments": 6,
 "shares": 1,
 "saved": 0,
 "total_interactions": 13,
-"ig_reels_avg_watch_time": 3957
+"ig_reels_avg_watch_time": 4187
 },
 "18145014598595233": {
 "slot": "story",
@@ -239,13 +239,67 @@
 "date": "2026-10-03",
 "permalink": "https://www.instagram.com/reel/DeDPqgqiRQE/",
 "type": "REELS",
-"views": 335,
-"reach": 279,
+"views": 336,
+"reach": 283,
 "likes": 3,
 "comments": 4,
 "shares": 2,
 "saved": 0,
 "total_interactions": 9,
-"ig_reels_avg_watch_time": 4393
+"ig_reels_avg_watch_time": 4382
+},
+"18101079257545227": {
+"slot": "storytag",
+"story": "Pip's Championship Rescue",
+"hook": "Save Pip! What move checkmates in one? \ud83c\udfc6",
+"level": "intermediate",
+"mode": "tagfriend",
+"engine": "story",
+"review_score": 4.0,
+"arms": {
+"hook_style": "cliffhanger: open at the most tense moment, then rewind a bit",
+"theme": "helping Pip or a friend who is stuck",
+"difficulty": "intermediate",
+"think_time": "long",
+"story_length": "short"
+},
+"date": "2026-10-05",
+"permalink": "https://www.instagram.com/reel/DeGCDDQkQy6/",
+"type": "REELS",
+"views": 125,
+"reach": 109,
+"likes": 1,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 1,
+"ig_reels_avg_watch_time": 8711
+},
+"18110022245596233": {
+"slot": "story",
+"story": "The Rooftop Blitz Clash",
+"hook": "Can you find Black's mate in two? \ud83c\udfc6",
+"level": "basic",
+"mode": "level",
+"engine": "story",
+"review_score": 5.2,
+"arms": {
+"hook_style": "big_dream: open on Vektor's dream of becoming World Champion, then today's obstacle",
+"theme": "blitz battle against Bishop Blaze",
+"difficulty": "basic",
+"think_time": "normal",
+"story_length": "normal"
+},
+"date": "2026-10-04",
+"permalink": "https://www.instagram.com/reel/DeFWdXGnwYU/",
+"type": "REELS",
+"views": 120,
+"reach": 109,
+"likes": 4,
+"comments": 6,
+"shares": 0,
+"saved": 0,
+"total_interactions": 10,
+"ig_reels_avg_watch_time": 6096
 }
 }
