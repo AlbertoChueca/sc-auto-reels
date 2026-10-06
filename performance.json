@@ -11,14 +11,14 @@
 "date": "2026-08-08",
 "permalink": "https://www.instagram.com/reel/DbysyIIIfL6/",
 "type": "REELS",
-"views": 854,
-"reach": 675,
+"views": 855,
+"reach": 676,
 "likes": 15,
 "comments": 2,
 "shares": 2,
 "saved": 4,
 "total_interactions": 23,
-"ig_reels_avg_watch_time": 5098
+"ig_reels_avg_watch_time": 5102
 },
 "17989088616021025": {
 "slot": null,
@@ -53,14 +53,14 @@
 "date": "2026-08-08",
 "permalink": "https://www.instagram.com/reel/DbyrbXfI1cE/",
 "type": "REELS",
-"views": 319,
-"reach": 281,
+"views": 320,
+"reach": 283,
 "likes": 6,
 "comments": 1,
 "shares": 1,
 "saved": 1,
 "total_interactions": 9,
-"ig_reels_avg_watch_time": 3165
+"ig_reels_avg_watch_time": 3170
 },
 "17909493021445966": {
 "slot": null,
@@ -143,14 +143,14 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeDpseZldcc/",
 "type": "REELS",
-"views": 126,
-"reach": 105,
+"views": 129,
+"reach": 107,
 "likes": 0,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 2,
-"ig_reels_avg_watch_time": 6962
+"ig_reels_avg_watch_time": 6900
 },
 "17986864500118112": {
 "slot": "story",
@@ -170,14 +170,14 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeDgNY7kwKq/",
 "type": "REELS",
-"views": 138,
+"views": 139,
 "reach": 115,
 "likes": 0,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 0,
-"ig_reels_avg_watch_time": 4845
+"ig_reels_avg_watch_time": 4809
 },
 "17927730264182308": {
 "slot": "story",
@@ -197,14 +197,14 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeDaxJ5id56/",
 "type": "REELS",
-"views": 137,
+"views": 139,
 "reach": 120,
 "likes": 2,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 4,
-"ig_reels_avg_watch_time": 6066
+"ig_reels_avg_watch_time": 5986
 },
 "18156128401536850": {
 "slot": "story",
@@ -218,14 +218,14 @@
 "date": "2026-10-03",
 "permalink": "https://www.instagram.com/reel/DeDSz_Bjo8Q/",
 "type": "REELS",
-"views": 249,
+"views": 250,
 "reach": 218,
 "likes": 6,
 "comments": 6,
 "shares": 1,
 "saved": 0,
 "total_interactions": 13,
-"ig_reels_avg_watch_time": 4187
+"ig_reels_avg_watch_time": 4177
 },
 "18145014598595233": {
 "slot": "story",
@@ -239,14 +239,14 @@
 "date": "2026-10-03",
 "permalink": "https://www.instagram.com/reel/DeDPqgqiRQE/",
 "type": "REELS",
-"views": 337,
-"reach": 284,
+"views": 338,
+"reach": 285,
 "likes": 3,
 "comments": 4,
 "shares": 2,
 "saved": 0,
 "total_interactions": 9,
-"ig_reels_avg_watch_time": 4438
+"ig_reels_avg_watch_time": 4452
 },
 "18101079257545227": {
 "slot": "storytag",
@@ -266,14 +266,14 @@
 "date": "2026-10-05",
 "permalink": "https://www.instagram.com/reel/DeGCDDQkQy6/",
 "type": "REELS",
-"views": 126,
-"reach": 110,
+"views": 127,
+"reach": 112,
 "likes": 1,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 1,
-"ig_reels_avg_watch_time": 8574
+"ig_reels_avg_watch_time": 8534
 },
 "18110022245596233": {
 "slot": "story",
@@ -293,13 +293,67 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeFWdXGnwYU/",
 "type": "REELS",
-"views": 120,
-"reach": 109,
+"views": 122,
+"reach": 111,
 "likes": 4,
 "comments": 6,
 "shares": 0,
 "saved": 0,
 "total_interactions": 10,
-"ig_reels_avg_watch_time": 6096
+"ig_reels_avg_watch_time": 6020
+},
+"18078473351392171": {
+"slot": "storytag",
+"story": "The Chess Club Show-Off",
+"hook": "Help Vektor win in one move and shock Blaze! \ud83d\udca5",
+"level": "basic",
+"mode": "tagfriend",
+"engine": "story",
+"review_score": 5.0,
+"arms": {
+"hook_style": "rival: open with Bishop Blaze showing off and challenging Vektor",
+"theme": "school chess club with friends",
+"difficulty": "basic",
+"think_time": "fast",
+"story_length": "normal"
+},
+"date": "2026-10-06",
+"permalink": "https://www.instagram.com/reel/DeIu-gsgaD5/",
+"type": "REELS",
+"views": 137,
+"reach": 114,
+"likes": 1,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 1,
+"ig_reels_avg_watch_time": 6591
+},
+"18125440855852532": {
+"slot": "story",
+"story": "The Dojo Mystery Test",
+"hook": "What is White's first winning move? \ud83e\udd4b",
+"level": "advanced",
+"mode": "level",
+"engine": "story",
+"review_score": 4.0,
+"arms": {
+"hook_style": "funny_fail: open on Vektor's funny little disaster",
+"theme": "lesson or secret test from Coach King",
+"difficulty": "advanced",
+"think_time": "long",
+"story_length": "short"
+},
+"date": "2026-10-05",
+"permalink": "https://www.instagram.com/reel/DeIRzxrjN1u/",
+"type": "REELS",
+"views": 183,
+"reach": 157,
+"likes": 2,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 2,
+"ig_reels_avg_watch_time": 6457
 }
 }
