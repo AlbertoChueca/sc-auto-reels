@@ -1,6 +1,6 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-10-07 · 4 reels with results (3+ days old) · average score 6.46_
+_Updated 2026-10-07 · 4 reels with results (3+ days old) · average score 6.47_
 
 
 Still collecting data: options are being tested evenly for now.
@@ -10,8 +10,8 @@ Still collecting data: options are being tested evenly for now.
 
 | option | reels | avg score |
 |---|---|---|
-| big_dream | 2 | 6.96 |
-| rival | 1 | 6.59 |
+| big_dream | 2 | 6.98 |
+| rival | 1 | 6.60 |
 | challenge | 1 | 5.33 |
 | mystery | 0 | - |
 | funny_fail | 0 | - |
@@ -21,8 +21,8 @@ Still collecting data: options are being tested evenly for now.
 
 | option | reels | avg score |
 |---|---|---|
-| helping Pip or a friend who is stuck | 1 | 6.74 |
-| school chess club with friends | 1 | 6.59 |
+| helping Pip or a friend who is stuck | 1 | 6.78 |
+| school chess club with friends | 1 | 6.60 |
 | blitz battle against Bishop Blaze | 2 | 6.25 |
 | tournament game with everything at stake | 0 | - |
 | lesson or secret test from Coach King | 0 | - |
@@ -33,7 +33,7 @@ Still collecting data: options are being tested evenly for now.
 
 | option | reels | avg score |
 |---|---|---|
-| basic | 4 | 6.46 |
+| basic | 4 | 6.47 |
 | intermediate | 0 | - |
 | advanced | 0 | - |
 
@@ -42,12 +42,12 @@ Still collecting data: options are being tested evenly for now.
 | option | reels | avg score |
 |---|---|---|
 | normal | 1 | 7.18 |
-| long | 1 | 6.74 |
+| long | 1 | 6.78 |
 | fast | 2 | 5.96 |
 
 ## story_length
 
 | option | reels | avg score |
 |---|---|---|
-| short | 1 | 6.59 |
-| normal | 3 | 6.41 |
+| short | 1 | 6.60 |
+| normal | 3 | 6.43 |

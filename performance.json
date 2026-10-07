@@ -12,13 +12,13 @@
 "permalink": "https://www.instagram.com/reel/DbysyIIIfL6/",
 "type": "REELS",
 "views": 855,
-"reach": 676,
+"reach": 678,
 "likes": 15,
 "comments": 2,
 "shares": 2,
 "saved": 4,
 "total_interactions": 23,
-"ig_reels_avg_watch_time": 5102
+"ig_reels_avg_watch_time": 5097
 },
 "17989088616021025": {
 "slot": null,
@@ -143,14 +143,14 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeDpseZldcc/",
 "type": "REELS",
-"views": 129,
-"reach": 107,
+"views": 132,
+"reach": 109,
 "likes": 0,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 2,
-"ig_reels_avg_watch_time": 6900
+"ig_reels_avg_watch_time": 6802
 },
 "17986864500118112": {
 "slot": "story",
@@ -197,14 +197,14 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeDaxJ5id56/",
 "type": "REELS",
-"views": 139,
-"reach": 120,
+"views": 145,
+"reach": 122,
 "likes": 2,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 4,
-"ig_reels_avg_watch_time": 5986
+"ig_reels_avg_watch_time": 5947
 },
 "18156128401536850": {
 "slot": "story",
@@ -219,7 +219,7 @@
 "permalink": "https://www.instagram.com/reel/DeDSz_Bjo8Q/",
 "type": "REELS",
 "views": 250,
-"reach": 218,
+"reach": 219,
 "likes": 6,
 "comments": 6,
 "shares": 1,
@@ -320,14 +320,14 @@
 "date": "2026-10-06",
 "permalink": "https://www.instagram.com/reel/DeIu-gsgaD5/",
 "type": "REELS",
-"views": 138,
-"reach": 115,
+"views": 149,
+"reach": 127,
 "likes": 1,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 1,
-"ig_reels_avg_watch_time": 6594
+"ig_reels_avg_watch_time": 7264
 },
 "18125440855852532": {
 "slot": "story",
@@ -347,13 +347,67 @@
 "date": "2026-10-05",
 "permalink": "https://www.instagram.com/reel/DeIRzxrjN1u/",
 "type": "REELS",
-"views": 184,
-"reach": 161,
+"views": 189,
+"reach": 166,
 "likes": 2,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 2,
-"ig_reels_avg_watch_time": 6397
+"ig_reels_avg_watch_time": 6312
+},
+"18080586365355370": {
+"slot": "storytag",
+"story": "The Golden Badge Quest",
+"hook": "What are Vektor's three winning moves? Drop them! \ud83c\udfc6",
+"level": "basic",
+"mode": "tagfriend",
+"engine": "story",
+"review_score": 6.0,
+"arms": {
+"hook_style": "big_dream: open on Vektor's dream of becoming World Champion, then today's obstacle",
+"theme": "school chess club with friends",
+"difficulty": "basic",
+"think_time": "normal",
+"story_length": "short"
+},
+"date": "2026-10-07",
+"permalink": "https://www.instagram.com/reel/DeLP2XvAA6f/",
+"type": "REELS",
+"views": 117,
+"reach": 104,
+"likes": 2,
+"comments": 2,
+"shares": 0,
+"saved": 0,
+"total_interactions": 4,
+"ig_reels_avg_watch_time": 5719
+},
+"17962571385239173": {
+"slot": "story",
+"story": "The Clocktower Blitz Mystery",
+"hook": "Can you help Vektor find the mate in four? \u26a1",
+"level": "advanced",
+"mode": "level",
+"engine": "story",
+"review_score": 5.4,
+"arms": {
+"hook_style": "mystery: open on something strange or unexpected that makes kids ask 'what happened?'",
+"theme": "blitz battle against Bishop Blaze",
+"difficulty": "advanced",
+"think_time": "normal",
+"story_length": "short"
+},
+"date": "2026-10-06",
+"permalink": "https://www.instagram.com/reel/DeKs7hEAoAr/",
+"type": "REELS",
+"views": 155,
+"reach": 127,
+"likes": 1,
+"comments": 2,
+"shares": 0,
+"saved": 0,
+"total_interactions": 3,
+"ig_reels_avg_watch_time": 5367
 }
 }
