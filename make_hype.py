@@ -39,7 +39,8 @@ HOT = re.compile(r"^(mate|checkmate|genius|prove|seconds?|free|master|beginner|a
 
 def phrase_img(words, newest_t, size=96, maxw=980):
     """Lay out up to ~3 words; the newest word pops."""
-    ims = [word_img(w.upper(), size, YEL if HOT.match(w.strip(".,!?")) else WHITE) for w in words]
+    ims = [word_img(w.upper(), size, YEL if (k == len(words) - 1 or HOT.match(w.strip(".,!?"))) else WHITE)
+           for k, w in enumerate(words)]                       # the word being spoken is highlighted
     lines, cur, cw = [], [], 0
     for im in ims:
         if cur and cw + im.width > maxw:
@@ -79,6 +80,25 @@ def enc_args(out, scale=True):
              "-bufsize", "5000k", "-g", str(FPS * 2), "-pix_fmt", "yuv420p", "-r", str(FPS),
              "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "2",
              "-movflags", "+faststart", "-use_editlist", "0", out])
+
+
+# Design tokens the art-director agent may tune (copy + layout), within safe limits.
+DEFAULT_STYLE = {"caption_scale": 1.0, "screen_hook": "", "follow_line": "", "share_line": "",
+                 "story_caption_y": 1270}
+SAFE_TOP, SAFE_BOTTOM = 250, 1500   # Instagram/TikTok UI covers the top bar, bottom caption area and right buttons
+
+_VIG = []
+
+
+def vignette():
+    """Soft dark gradients top & bottom (cached): premium cinematic look + keeps text readable over any image."""
+    if not _VIG:
+        a = np.zeros((H, W), np.float32); y = np.arange(H)[:, None]
+        a += np.clip(1 - y / 360, 0, 1) ** 1.6 * 150
+        a += np.clip((y - (H - 620)) / 620, 0, 1) ** 1.4 * 190
+        im = Image.new("RGBA", (W, H), (8, 6, 14, 0)); im.putalpha(Image.fromarray(a.clip(0, 255).astype(np.uint8)))
+        _VIG.append(im)
+    return _VIG[0]
 
 
 _BANDS = {}
@@ -157,26 +177,24 @@ def kick():
 
 
 def hat():
-    n = np.random.randn(int(SR * 0.05)).astype(np.float32)
-    n = n - np.convolve(n, np.ones(6) / 6, "same")
-    return n * np.exp(-np.arange(len(n)) / SR * 70) * 0.25
+    """Soft tonal tick for the beat (the old noise hi-hat sounded like hiss on phones)."""
+    t = np.arange(int(SR * 0.05)) / SR
+    return ((np.sin(2 * np.pi * 2400 * t) + 0.5 * np.sin(2 * np.pi * 3700 * t)) * np.exp(-t * 110) * 0.07).astype(np.float32)
 
 
 def boom():
     t = np.arange(int(SR * 1.2)) / SR
     f = 30 + 120 * np.exp(-t * 6)
     s = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 3)
-    nz = np.convolve(np.random.RandomState(5).randn(len(t)), np.ones(160) / 160, "same") * np.exp(-t * 6) * 0.5
-    return ((s + nz) * 0.8).astype(np.float32)
+    return (s * 0.8).astype(np.float32)                 # pure low tone, no noise
 
 
 def riser(d):
     t = np.arange(int(SR * d)) / SR
     f = 200 + 1600 * (t / d) ** 2
     s = np.sin(2 * np.pi * np.cumsum(f) / SR) * 0.15
-    air = R.whoosh(d * 1.6, seed=11)[: len(t)]
-    air = np.pad(air, (0, len(t) - len(air)))
-    return ((s * 0.8 + air * 0.5) * (t / d) ** 2).astype(np.float32)
+    s2 = np.sin(2 * np.pi * np.cumsum(f * 1.5) / SR) * 0.07
+    return ((s * 0.7 + s2) * (t / d) ** 2).astype(np.float32)          # tonal rise, no noise
 
 
 def beat(total, bpm=124):
@@ -216,7 +234,9 @@ HOOKS = {
 }
 
 
-def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False, cta_lead=None, think_factor=1.0):
+def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False, cta_lead=None, think_factor=1.0,
+          style=None):
+    S = {**DEFAULT_STYLE, **(style or {})}
     import voice
     if not keep_voice:
         voice.reset()      # new reel: pick the best voice and use it for every line
@@ -399,7 +419,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
         tt = fi / FPS
         mouth = float(env[fi]) * (0.75 + 0.25 * math.sin(tt * 41))
         zoom, cxo, cyo, shake, flash = 1.0, 0.0, 0.0, 0.0, 0.0
-        BOARD_CY = 1150
+        BOARD_CY = 1000                                  # board kept inside Instagram's safe zone
 
         if tt < T["h1"][1]:                                   # hook line 1: spotlight stage
             lt = tt
@@ -432,12 +452,12 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                 # board stage
                 card, focus = board_card(tt)
                 enter = eo((tt - T["count"][0] + 0.6) / 0.5) if tt < T["count"][0] + 0.5 else 1
-                R.paste_center(fr, R.shadowed(card, 30, (0, 20), 160)[0], W / 2, BOARD_CY + (1 - enter) * 1100, 0.96)
+                R.paste_center(fr, R.shadowed(card, 30, (0, 20), 160)[0], W / 2, BOARD_CY + (1 - enter) * 1100, 0.88)
                 mood, look = "thinking", (0.5 * math.sin(tt * 1.4), 0.7)
                 if tt >= T["up"][0]: mood, look = "surprised", (0.6, 0.7)
                 if tt >= T["fin"][0]: mood = "star"
                 bounce = 50 * abs(math.sin((tt - T["fin"][0]) * 7)) * max(0, 1 - (tt - T["fin"][0]) / 1.4) if tt >= T["fin"][0] else 0
-                put_mascot(fr, tt, 0.5, 205, 600, mood, look, mouth, bounce=bounce, tilt=3 * math.sin(tt * 2))
+                put_mascot(fr, tt, 0.42, 165, 520, mood, look, mouth, bounce=bounce, tilt=3 * math.sin(tt * 2))
                 if T["count"][0] <= tt < T["count"][1]:     # ring countdown
                     lt = tt - T["count"][0]; remain = COUNT - int(lt); ph = lt % 1
                     ring = Image.new("RGBA", (300, 300), (0, 0, 0, 0)); rd = ImageDraw.Draw(ring)
@@ -449,7 +469,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                     R.paste_center(fr, ring, 820, 330, 1 + (0.15 if remain <= 3 else 0.06) * max(0, 1 - ph * 5))
                     zoom = 1.0   # board stays perfectly still while the viewer thinks
                     cap = word_img("PAUSE IF YOU NEED TIME" if lt < COUNT / 2 else "COMMENT YOUR MOVE!", 54, WHITE, 7)
-                    R.paste_center(fr, cap, W / 2, 1780, eob(((lt % (COUNT / 2))) / 0.3))
+                    R.paste_center(fr, cap, W / 2, 1500, eob(((lt % (COUNT / 2))) / 0.3))
                 if T["up"][0] <= tt < T["up"][1]:
                     lt = tt - T["up"][0]; flash = max(0, 0.3 - lt * 1.5); shake = 5 * max(0, 1 - lt / 0.3)
                     R.paste_center(fr, word_img("TIME'S UP!", 130, RED), W / 2 + 160, 330, eob(lt / 0.3), 1, -4)
@@ -472,27 +492,31 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                         r0 = sp * lt; x = W / 2 + math.cos(ang) * r0; y = BOARD_CY + math.sin(ang) * r0 + 400 * lt * lt
                         s = max(2, 14 * (1 - lt))
                         d.ellipse([x - s, y - s, x + s, y + s], fill=c)
-                    R.paste_center(fr, word_img("CHECKMATE!" if mate_n else "WINNING!", 150, YEL), W / 2, 1150, eob(lt / 0.3), 1, -5)
+                    R.paste_center(fr, word_img("CHECKMATE!" if mate_n else "WINNING!", 150, YEL), W / 2, BOARD_CY, eob(lt / 0.3), 1, -5)
             else:                                           # CTA on sunburst
                 lt = tt - T["cta"][0]
                 fr = back(tt, True) if bd_soft is not None else bg.burst(tt, (255, 140, 50), (235, 92, 40))
                 R.paste_center(fr, logo_v, W / 2, 330, eob(lt / 0.4), 1, -3)
-                put_mascot(fr, tt, 0.78, W / 2, 1560, "excited", (0, 0), mouth, bounce=12 * abs(math.sin(lt * 5)), rim=False)
-                R.paste_center(fr, R.pill("100% FREE TO PLAY", 46, (88, 204, 2), fg=WHITE, padx=40, pady=16), W / 2, 1610, eob((lt - 1.0) / 0.35))
-                R.paste_center(fr, R.pill("FOUNDER OFFER - FIRST 500 ACCOUNTS", 38, INK, fg=YEL, padx=36, pady=14), W / 2, 1712, eob((lt - 1.6) / 0.35))
-                R.paste_center(fr, R.pill("streakchess.com", 66, WHITE, fg=ORA, padx=50, pady=18), W / 2, 1830 - 20, eob((lt - 2.2) / 0.35) * (1 + 0.03 * math.sin(lt * 7)))
+                put_mascot(fr, tt, 0.56, W / 2, 1010, "excited", (0, 0), mouth, bounce=12 * abs(math.sin(lt * 5)), rim=False)
+                if S.get("follow_line"):            # growth: follow for the next episode
+                    R.paste_center(fr, R.pill(S["follow_line"].upper(), 44, YEL, fg=INK, padx=40, pady=16), W / 2, 1090, eob((lt - 0.8) / 0.35))
+                R.paste_center(fr, R.pill("100% FREE TO PLAY", 40, (88, 204, 2), fg=WHITE, padx=36, pady=14), W / 2, 1185, eob((lt - 1.3) / 0.35))
+                R.paste_center(fr, R.pill("FOUNDER OFFER - FIRST 500 ACCOUNTS", 34, INK, fg=YEL, padx=32, pady=12), W / 2, 1270, eob((lt - 1.7) / 0.35))
+                R.paste_center(fr, R.pill("streakchess.com", 62, WHITE, fg=ORA, padx=48, pady=16), W / 2, 1375, eob((lt - 2.1) / 0.35) * (1 + 0.03 * math.sin(lt * 7)))
+                if S.get("share_line"):             # shares: the strongest growth signal
+                    R.paste_center(fr, word_img(S["share_line"].upper(), 44, WHITE, 7), W / 2, 1460, eob((lt - 2.6) / 0.35))
                 zoom = 1.06 - 0.06 * eo(lt / 0.5)
 
         # kinetic captions for spoken lines
         cap = caption(tt)
         if cap and not (T["count"][0] <= tt < T["count"][1]):
             words, nt = cap
-            y = 330 if tt < T["h2"][1] else (1000 if tt < T["go"][1] else (1380 if tt < T["cta"][0] else 1080))
+            y = 330 if tt < T["h2"][1] else (1000 if tt < T["go"][1] else (1500 if tt < T["cta"][0] else 1080))
             if T["lvl"][0] <= tt < T["go"][1]: y = 880
-            if T["fin"][0] <= tt < T["cta"][0]: y = 1770
-            if tt >= T["cta"][0]: y = 690
+            if T["fin"][0] <= tt < T["cta"][0]: y = 1500
+            if tt >= T["cta"][0]: y = 560
             if not (T["up"][0] <= tt < T["fin"][0]):
-                ph = phrase_img(words, nt, 104 if tt < T["h2"][1] else 84)
+                ph = phrase_img(words, nt, int((104 if tt < T["h2"][1] else 84) * S["caption_scale"]))
                 R.paste_center(fr, band_img(ph.height + 80), W / 2, y)
                 R.paste_center(fr, ph, W / 2, y)
         # fire wipes between acts

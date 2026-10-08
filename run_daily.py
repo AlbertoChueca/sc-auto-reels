@@ -106,6 +106,7 @@ if summary:  # visible on the run page in GitHub
                 f"- Slot: `{slot}` · level: `{level}` · mode: `{mode}`\n- Engine: `{engine}` · voice: `{voice_used}`\n"
                 + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
                 + (f"- Reviewer score: {meta.get('review_score')}/10\n" if meta.get("review_score") is not None else "")
+                + (f"- Art director (copy + design): {meta.get('design_score')}/10\n" if meta.get("design_score") is not None else "")
                 + f"- {insights_msg}\n"
                 + (f"- Experiment: {', '.join(f'{k}={v.split(chr(58))[0]}' for k, v in arms.items())}\n" if arms else "")
                 + (f"- {strat_msg}\n" if strat_msg else "")
@@ -138,5 +139,5 @@ if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (neve
 
 meta["voice"] = voice_used
 meta["arms"] = arms if engine == "story" else {}
-log({k: meta.get(k) for k in ("engine", "voice", "review_score", "arms", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
+log({k: meta.get(k) for k in ("engine", "voice", "review_score", "design_score", "arms", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
                               "media_id", "sans", "story_share", "zernio")})

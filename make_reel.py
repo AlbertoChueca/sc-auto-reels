@@ -251,22 +251,12 @@ def tone(freq, dur, decay=18, vol=0.35):
     return (np.sin(2 * np.pi * freq * t) * np.exp(-decay * t) * vol).astype(np.float32)
 def tick(high=False): return tone(1900 if high else 1400, 0.06, 60, 0.35 if high else 0.25)
 def whoosh(dur=0.4, seed=7):
-    """Soft cinematic swoosh: noise through a sweeping low-pass filter (no harsh hiss)."""
-    n = int(SR * dur); rng = np.random.RandomState(seed)
-    noise = rng.randn(n).astype(np.float32)
-    ph = np.linspace(0, 1, n)
-    fc = 250 + 2600 * np.sin(np.pi * ph) ** 1.5                     # filter opens then closes
-    a = np.exp(-2 * np.pi * fc / SR).astype(np.float32)
-    out = np.empty(n, np.float32); y = 0.0
-    for i in range(n):                                              # one-pole low-pass, twice
-        y = a[i] * y + (1 - a[i]) * noise[i]; out[i] = y
-    y = 0.0
-    for i in range(n):
-        y = a[i] * y + (1 - a[i]) * out[i]; out[i] = y
-    out -= np.convolve(out, np.ones(240) / 240, "same")             # remove rumble
-    env = np.where(ph < 0.6, (ph / 0.6) ** 2, ((1 - ph) / 0.4) ** 1.5)
-    out = out * env
-    return (out / (np.max(np.abs(out)) + 1e-6) * 0.3).astype(np.float32)
+    """Clean tonal 'swish' (no noise at all): two soft sine glides with a smooth envelope."""
+    n = int(SR * dur); t = np.arange(n) / SR; ph = t / dur
+    f = 260 + 520 * ph ** 1.4
+    s_ = np.sin(2 * np.pi * np.cumsum(f) / SR) + 0.35 * np.sin(2 * np.pi * np.cumsum(f * 1.5) / SR)
+    env = np.sin(np.pi * ph) ** 2
+    return (s_ * env * 0.06).astype(np.float32)
 
 
 def shimmer(base=784.0):

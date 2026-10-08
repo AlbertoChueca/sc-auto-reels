@@ -39,6 +39,7 @@ def reset(force=None):
     """Call at the start of every reel. force: None (best available), 'local' (no Gemini) or 'kokoro'."""
     global LOCK
     LOCK = force
+    _CLIPS.clear()
 
 
 # ------------------------------------------------------------------ speech recognition (captions + checks)
@@ -267,17 +268,44 @@ def _sane(audio, text, factor=2.6):
     return 0.3 < r < factor
 
 
+def _clean_edges(a, text):
+    """Cut any extra words the model spoke before/after the line (e.g. a stray "Say..." or an acting note),
+    using the word timings from speech recognition."""
+    heard = _asr(a)
+    ws = [_spoken(w) for w in text.split()]
+    ws = [w for w in ws if w]
+    if not heard or not ws:
+        return a
+    hw = [_spoken(w) for w, _, _ in heard]
+    start = end = None
+    for j in range(min(4, len(hw))):                       # first spoken word of the line
+        if hw[j] and (hw[j] == ws[0] or (len(ws) > 1 and hw[j] == ws[1] and j > 0)):
+            start = j if hw[j] == ws[0] else j - 1; break
+    for j in range(len(hw) - 1, max(-1, len(hw) - 5), -1):  # last spoken word of the line
+        if hw[j] and hw[j] == ws[-1]:
+            end = j; break
+    t0 = heard[start][1] - 0.08 if start else 0.0
+    t1 = heard[end][2] + 0.25 if end is not None and end < len(hw) - 1 else None
+    if start or t1:
+        print(f"voice: trimmed extra words around {text[:40]!r}", flush=True)
+        _asr_cache.clear()
+        b = a[int(max(0, t0) * SR): int(t1 * SR) if t1 else len(a)]
+        return b if len(b) > SR * 0.3 else a
+    return a
+
+
 def _gemini_line(text, style, key, pace):
     """Up to 3 takes with different prompt shapes. A take is accepted when it says the right words with a
     natural length; otherwise the best acceptable one is kept. Fails only if every take is clearly wrong."""
-    prompts = [f"Say {style or 'naturally'}, like a friendly human storyteller: {text}",
-               f"{NARRATOR}\nDelivery: {style or 'natural and engaging'}, {pace}.\nSay only this line:\n{text}",
-               f"Say: {text}",
+    notes = f"### DIRECTOR'S NOTES\n{NARRATOR}\nDelivery: {style or 'natural and engaging'}, {pace}.\n" \
+            f"Read ONLY the transcript, word for word. Never read these notes.\n### TRANSCRIPT\n"
+    prompts = [notes + text,
+               f"### DIRECTOR'S NOTES\nWarm, friendly storyteller, {style or 'natural'}.\n### TRANSCRIPT\n{text}",
                text]
     takes = []
     for pr in prompts:
         try:
-            a = _tighten(_trim(_gemini_call(pr, key)))
+            a = _clean_edges(_tighten(_trim(_gemini_call(pr, key))), text)
         except Exception as e:
             if "unreachable" in str(e) or "no Gemini TTS" in str(e):
                 raise
@@ -325,7 +353,7 @@ def _split_takes(a, texts):
     if cuts != sorted(cuts):
         raise RuntimeError("pauses out of order")
     edges = [0] + [c * hop for c in cuts] + [len(a)]
-    parts = [_tighten(_trim(a[edges[k]:edges[k + 1]])) for k in range(n)]
+    parts = [_clean_edges(_tighten(_trim(a[edges[k]:edges[k + 1]])), texts[k]) for k in range(n)]
     for p, t in zip(parts, texts):
         sim = _similarity(p, t)
         if not _sane(p, t, 3.2) or (sim is not None and sim < 0.7):
@@ -400,6 +428,19 @@ def say_many(texts, speed=1.08, styles=None, one_take=False):
     reel, VoiceError is raised so the caller can redo the reel with a single consistent voice."""
     global ENGINE_USED, LOCK
     texts = [t.replace("3%", "three percent") for t in texts]
+    ck = (tuple(texts), tuple(styles or ()), one_take, LOCK)
+    if ck in _CLIPS:
+        return [c.copy() for c in _CLIPS[ck]]
+    out = _say_many(texts, speed, styles, one_take)
+    _CLIPS[(tuple(texts), tuple(styles or ()), one_take, LOCK)] = [c.copy() for c in out]
+    return out
+
+
+_CLIPS = {}
+
+
+def _say_many(texts, speed, styles, one_take):
+    global ENGINE_USED, LOCK
     styles = list(styles or [None] * len(texts))
     pace = "a lively, brisk pace" if speed >= 1.1 else "a relaxed but energetic pace"
     key = os.environ.get("GEMINI_API_KEY")

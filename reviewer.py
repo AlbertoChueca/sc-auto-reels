@@ -118,6 +118,7 @@ DRAFT:
    frame and say "the knight mascot from the reference images" for Vektor, no text in images, camera in
    [push_in, pull_out, pan_left, pan_right, tilt_up], sfx in [whoosh, boom, none], delivery = short acting direction.
    caption_hook: max 10 words, one emoji allowed, makes kids want to comment their answer.
+   screen_hook: big on-screen text for the first 2 seconds, max 6 words, no emoji, a curiosity gap that stops the scroll.
 Return JSON: {{"scores": {{...}}, "overall": number, "changes": [str], "story": <the full improved story object>}}"""}])
         new = res.get("story") or {}
         sc = new.get("scenes") or []
@@ -130,7 +131,7 @@ Return JSON: {{"scores": {{...}}, "overall": number, "changes": [str], "story": 
         if not ok:
             print("reviewer: script rewrite rejected (format), keeping draft", flush=True)
             return story
-        for k in ("title", "summary"):
+        for k in ("title", "summary", "screen_hook"):
             new.setdefault(k, story.get(k))
         print(f"reviewer: script {res.get('overall')}/10 -> improved ({'; '.join((res.get('changes') or [])[:3])})", flush=True)
         return new
@@ -188,6 +189,7 @@ Watch this finished reel (story about Vektor + chess puzzle + call to action). S
 Current Instagram caption first line: {first!r}
 
 Check and score 1-10: hook in the first 1.5 s, story clarity, pacing (nothing too slow or too fast for kids),
+any stray spoken words that are not part of the story (e.g. "say") or hiss/noise in the sound,
 subtitles readable and in sync with the voice, voice natural and matching the words, the chess board and moves easy
 to follow, visuals consistent and attractive, call to action clear, likelihood kids comment/share/follow.
 "critical" = true ONLY if the reel is clearly broken (silent, frozen/black, unreadable, wrong/garbled voice,
@@ -218,3 +220,75 @@ Return JSON: {{"overall": number, "scores": {{...}}, "critical": bool, "issues":
         cap = re.sub(r"Comment your move before watching the solution!|Comment the move and tag a friend to challenge them!",
                      prompt, cap, count=1)
     return cap, {"overall": overall, "issues": res.get("issues"), "suggestions": res.get("suggestions")}
+
+
+# ------------------------------------------------------------------ 4. art director (copy + design on real frames)
+ART_DIRECTOR = """You are the ART DIRECTOR and COPY CHIEF of a top kids' edutainment channel (think the polish of
+Duolingo, Pixar shorts and MrBeast-level hooks). You review real frames of a vertical reel before it goes live.
+Phone reality: Instagram/TikTok UI covers the top ~250 px, the bottom ~420 px (caption, username, music) and a
+column of buttons on the right; anything important there is lost."""
+
+
+def _frames(path, times):
+    from PIL import Image
+    out = []
+    for t in times:
+        f = path.replace(".mp4", f"_f{t:.1f}.jpg")
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{max(0, t):.2f}", "-i", path, "-frames:v", "1", f], check=False)
+        if os.path.exists(f):
+            out.append((t, Image.open(f).convert("RGB"))); os.remove(f)
+    return out
+
+
+def art_direct(path, story, style, starts, story_len):
+    """Looks at key frames (hook, story, board, solution, end card) and returns (new_style or None, report).
+    It can only tune safe design tokens and short copy, so it can never break the reel."""
+    try:
+        dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path],
+                                   capture_output=True, text=True).stdout.strip() or 0)
+        times = [0.6, 1.8] + [float(s) + 1.2 for s in list(starts)[1:3]] + \
+                [story_len + 6, story_len + (dur - story_len) * 0.7, dur - 1.0]
+        fr = _frames(path, [t for t in times if t < dur])
+        parts = [{"text": f"""{ART_DIRECTOR}
+
+Frames (in order) of today's reel. Story: "{story.get('title')}". Current tokens:
+{json.dumps({k: style.get(k) for k in ('screen_hook', 'caption_scale', 'story_caption_y', 'follow_line', 'share_line')})}
+
+Judge 1-10: scroll-stopping hook (on-screen text in the first frames), copy quality (short, punchy, kid-friendly,
+clear for parents too), typography & readability on a phone, layout inside the safe zone, visual polish / premium
+feel, clarity of the chess board, strength of the end card (follow + share + app), overall shareability.
+Then propose improvements ONLY through these tokens (leave a token out to keep it):
+- screen_hook: max 6 words, no emoji, a curiosity gap (it is shown big over the first scene)
+- caption_scale: 0.85-1.2 (subtitle size)
+- story_caption_y: 1050-1350 (vertical position of story subtitles, px from top of 1920)
+- follow_line: max 6 words (end card, makes people follow for the next episode)
+- share_line: max 7 words (end card, makes people send it to a friend)
+Return JSON: {{"overall": number, "scores": {{...}}, "issues": [str], "changes": {{token: value}}, "why": [str]}}"""}]
+        for t, im in fr:
+            parts.append({"text": f"frame at {t:.1f}s"})
+            parts.append({"inline_data": {"mime_type": "image/jpeg", "data": _jpeg_b64(im, 540)}})
+        res = _ask(parts, 0.4)
+    except Exception as e:
+        print("reviewer: art direction skipped:", str(e)[:200], flush=True)
+        return None, {}
+    ch = res.get("changes") or {}
+    new = dict(style)
+
+    def words(v, n):
+        v = re.sub(r"[^\w\s'?!,.-]", "", str(v or "")).strip()
+        return v if 1 <= len(v.split()) <= n else None
+    if words(ch.get("screen_hook"), 6): new["screen_hook"] = words(ch["screen_hook"], 6)
+    if words(ch.get("follow_line"), 6): new["follow_line"] = words(ch["follow_line"], 6)
+    if words(ch.get("share_line"), 7): new["share_line"] = words(ch["share_line"], 7)
+    try:
+        if ch.get("caption_scale") is not None: new["caption_scale"] = round(min(1.2, max(0.85, float(ch["caption_scale"]))), 2)
+        if ch.get("story_caption_y") is not None: new["story_caption_y"] = int(min(1350, max(1050, float(ch["story_caption_y"]))))
+    except Exception:
+        pass
+    overall = float(res.get("overall") or 0)
+    _log("design", {"story": story.get("title"), "overall": overall, "scores": res.get("scores"), "issues": res.get("issues"),
+                    "changes": {k: v for k, v in new.items() if style.get(k) != v}, "why": res.get("why")})
+    print(f"art director: {overall}/10" + (f" - {'; '.join((res.get('issues') or [])[:3])}" if res.get("issues") else ""), flush=True)
+    if new == style or overall >= 9.3:          # already great, or nothing valid to change
+        return None, {"overall": overall}
+    return new, {"overall": overall}

@@ -4,7 +4,7 @@ scenes generated with Google Gemini), followed by the puzzle segment from make_h
 python make_story.py puzzle.json seed out.mp4          (needs GEMINI_API_KEY)
 STORY_MOCK=1 python make_story.py ...                   (offline test with placeholder scenes)
 """
-import base64, io, json, math, os, random, subprocess, sys, time
+import base64, io, json, math, os, random, re, subprocess, sys, time
 import numpy as np
 import requests
 import soundfile as sf
@@ -84,7 +84,9 @@ Rules:
   suspense", "excited, almost laughing", "warm and proud", "worried, then hopeful").
 - summary: one sentence describing what happened in this episode (for continuity).
 - caption_hook: short Instagram first line inviting kids to help Vektor (max 10 words, one emoji allowed).
-Return JSON: {{"title": str, "summary": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str, "delivery": str}}], "caption_hook": str}}"""
+- screen_hook: the BIG on-screen text shown in the first 2 seconds (max 6 words, no emoji): a curiosity gap that
+  stops the scroll (e.g. "Vektor has 10 seconds left", "His rival found a trap").
+Return JSON: {{"title": str, "summary": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str, "delivery": str}}], "caption_hook": str, "screen_hook": str}}"""
 
 
 # ----------------------------------------------------------------- Gemini
@@ -235,7 +237,7 @@ def build(P, seed, out, mode="level", arms=None):
     recent = [f"{s.get('title')}: {s.get('summary', '')}" for s in log[-3:]]
     story = mock_story(rng) if mock else write_story(LV["name"].title(), side, goal, [s["title"] for s in log],
                                                      episode, recent, arms)
-    review_on = not mock and os.environ.get("REVIEWER", "on") != "off"
+    review_on = (not mock or os.environ.get("REVIEWER") == "force") and os.environ.get("REVIEWER", "on") != "off"
     if review_on:                                   # 2nd agent: producer review of the script
         import reviewer
         story = reviewer.improve_script(story, LV["name"].title(), side, goal, episode, arms)
@@ -277,13 +279,21 @@ def build(P, seed, out, mode="level", arms=None):
     import voice
     voice.reset()
     puzzle_mp4 = out.replace(".mp4", "_puzzle.mp4")
+    story_mp4 = out.replace(".mp4", "_story.mp4")
+    think = __import__("strategy").THINK_FACTOR.get(arms.get("think_time"), 1.0)
+    hook0 = story.get("screen_hook") or re.sub(r"[^\w\s'?!,.-]", "", story.get("caption_hook", "")).strip()
+    style = {**HY.DEFAULT_STYLE, "screen_hook": " ".join(hook0.split()[:7]),
+             "follow_line": "Follow for Vektor's next day", "share_line": "Send this to a chess friend"}
+
+    def render_puzzle(st):
+        return HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
+                        cta_lead="You helped Vektor get stronger! ", think_factor=think, style=st)
+
     for attempt in range(3):
         try:
             A = voice.say_many([sc["narration"] for sc in scenes], speed=1.08,
                                styles=[sc.get("delivery") for sc in scenes], one_take=True)
-            meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
-                             cta_lead="You helped Vektor get stronger! ",
-                             think_factor=__import__("strategy").THINK_FACTOR.get(arms.get("think_time"), 1.0))
+            meta = render_puzzle(style)
             break
         except voice.VoiceError as e:
             nxt = voice.next_engine()
@@ -303,59 +313,76 @@ def build(P, seed, out, mode="level", arms=None):
     for i, a in enumerate(A):
         put(vo, a, starts[i] + 0.12)
         s = scenes[i].get("sfx", "none")
-        if i:                                   # soft, musical scene change
-            put(fx, R.whoosh(0.6, seed=i), starts[i] - 0.35, 0.55)
-            put(fx, R.shimmer([659.3, 784.0, 880.0, 587.3][i % 4]), starts[i] - 0.05, 0.8)
+        if i:                                   # soft, musical scene change (tonal only, no noise)
+            put(fx, R.shimmer([659.3, 784.0, 880.0, 587.3][i % 4]), starts[i] - 0.05, 0.7)
         if s == "boom": put(fx, R.soft_hit(), starts[i] + 0.02, 0.6)
     put(fx, HY.riser(1.6), total - 1.6, 0.9)
     tb = np.arange(n) / SR
-    pad = sum(np.sin(2 * np.pi * f * tb) for f in (110, 164.8, 220)) * 0.05 * np.clip(tb / 1.5, 0, 1)
+    pad = sum(np.sin(2 * np.pi * f * tb) for f in (110, 164.8, 220)) * 0.03 * np.clip(tb / 1.5, 0, 1)
     mix = np.tanh((vo * 1.15 + fx + pad.astype(np.float32)) * 1.1) * 0.92
-    wav = out.replace(".mp4", "_s.wav"); sf.write(wav, mix, SR)
-    hop = SR // FPS
 
     words = []
     for i, sc in enumerate(scenes):            # timings from what the voice actually says
         for ts, w in voice.align(A[i], sc["narration"]):
             words.append((i, starts[i] + 0.12 + ts, w))
-
     bigs = [cover(grade(cover(im, 1.0)), 1.18) for im in imgs]
     LEAK = [None]
-    story_mp4 = out.replace(".mp4", "_story.mp4")
-    proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
-                             "-r", str(FPS), "-i", "-", "-i", wav, "-shortest"] + HY.enc_args(story_mp4),
-                            stdin=subprocess.PIPE)
-    for fi in range(int(total * FPS)):
-        t = fi / FPS
-        i = int(np.searchsorted(starts, t, side="right") - 1)
-        p = (t - starts[i]) / durs[i]
-        fr = frame_for(bigs[i], scenes[i].get("camera", "push_in"), min(p, 1), t).convert("RGBA")
-        lt = t - starts[i]
-        if i and lt < 0.35:   # warm light-leak flash between scenes
-            k = 1 - lt / 0.35
-            if LEAK[0] is None:                       # blurred once, then only its opacity changes
-                leak = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ld = ImageDraw.Draw(leak)
-                ld.ellipse([-W * 0.4, -H * 0.2, W * 0.9, H * 0.6], fill=(255, 170, 70, 170))
-                LEAK[0] = leak.filter(ImageFilter.GaussianBlur(120))
-            lk = LEAK[0].copy(); lk.putalpha(LEAK[0].getchannel("A").point(lambda v, k=k: int(v * k)))
-            fr.alpha_composite(lk)
-            if lt < 0.08: fr = Image.blend(fr, Image.new("RGBA", (W, H), (255, 255, 255, 255)), 0.5 * (1 - lt / 0.08))
-        cur = [(ts, w) for si, ts, w in words if si == i and ts <= t]
-        if cur:
-            idx = len(cur) - 1; st = (idx // 3) * 3
-            ph = HY.phrase_img([w for _, w in cur[st:idx + 1]], t - cur[-1][0], 86)
-            R.paste_center(fr, HY.band_img(ph.height + 80), W / 2, 1520)
-            R.paste_center(fr, ph, W / 2, 1520)
-        if i == 0 and lt < 2.5:   # top label
-            tag = R.pill(f"VEKTOR · DAY {episode}", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
-            R.paste_center(fr, tag, W / 2, 170, HY.eob(lt / 0.3))
-        proc.stdin.write(HY.grain(fr, fi))
-    proc.stdin.close(); proc.wait(); os.remove(wav)
 
-    # join story + puzzle segment (rendered above; the story is the hook)
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", story_mp4, "-i", puzzle_mp4, "-filter_complex",
-                    "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]"]
-                   + HY.enc_args(out, scale=False), check=True)
+    def render_story(st):
+        wav = out.replace(".mp4", "_s.wav"); sf.write(wav, mix, SR)
+        cy = int(min(max(st.get("story_caption_y", 1270), 1000), HY.SAFE_BOTTOM - 120))
+        hook_img = None
+        if st.get("screen_hook"):
+            hook_img = HY.phrase_img(st["screen_hook"].split(), 9, int(92 * st.get("caption_scale", 1.0)))
+        proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
+                                 "-r", str(FPS), "-i", "-", "-i", wav, "-shortest"] + HY.enc_args(story_mp4),
+                                stdin=subprocess.PIPE)
+        for fi in range(int(total * FPS)):
+            t = fi / FPS
+            i = int(np.searchsorted(starts, t, side="right") - 1)
+            p = (t - starts[i]) / durs[i]
+            fr = frame_for(bigs[i], scenes[i].get("camera", "push_in"), min(p, 1), t).convert("RGBA")
+            lt = t - starts[i]
+            if i and lt < 0.35:   # warm light-leak between scenes (no white flash)
+                k = 1 - lt / 0.35
+                if LEAK[0] is None:                       # blurred once, then only its opacity changes
+                    leak = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ld = ImageDraw.Draw(leak)
+                    ld.ellipse([-W * 0.4, -H * 0.2, W * 0.9, H * 0.6], fill=(255, 170, 70, 150))
+                    LEAK[0] = leak.filter(ImageFilter.GaussianBlur(120))
+                lk = LEAK[0].copy(); lk.putalpha(LEAK[0].getchannel("A").point(lambda v, k=k: int(v * k)))
+                fr.alpha_composite(lk)
+            # cinematic letterbox gradient top/bottom for legibility and a premium look
+            fr.alpha_composite(HY.vignette())
+            if i == 0 and t < 2.6 and hook_img is not None:   # on-screen hook: the first thing people read
+                a_ = HY.eob(t / 0.25) * (1 if t < 2.3 else max(0, 1 - (t - 2.3) / 0.3))
+                R.paste_center(fr, HY.band_img(hook_img.height + 70), W / 2, 470, a_)
+                R.paste_center(fr, hook_img, W / 2, 470, a_)
+            cur = [(ts, w) for si, ts, w in words if si == i and ts <= t]
+            if cur:
+                idx = len(cur) - 1; st_ = (idx // 3) * 3
+                ph = HY.phrase_img([w for _, w in cur[st_:idx + 1]], t - cur[-1][0], int(86 * st.get("caption_scale", 1.0)))
+                R.paste_center(fr, HY.band_img(ph.height + 80), W / 2, cy)
+                R.paste_center(fr, ph, W / 2, cy)
+            if i == 0 and lt < 2.6:   # series badge
+                tag = R.pill(f"VEKTOR · DAY {episode}", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
+                R.paste_center(fr, tag, W / 2, 300, HY.eob(lt / 0.3))
+            proc.stdin.write(HY.grain(fr, fi))
+        proc.stdin.close(); proc.wait(); os.remove(wav)
+
+    def join():
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", story_mp4, "-i", puzzle_mp4, "-filter_complex",
+                        "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]"]
+                       + HY.enc_args(out, scale=False), check=True)
+
+    render_story(style); join()
+    art = {}
+    if review_on:                     # 2nd agent (art director): checks copy + design on real frames, one revision
+        new_style, art = reviewer.art_direct(out, story, style, starts, total)
+        if new_style and new_style != style:
+            print("art director: re-rendering with", {k: v for k, v in new_style.items() if style.get(k) != v}, flush=True)
+            style = new_style
+            meta = render_puzzle(style)            # voice takes are cached: no new recording
+            render_story(style); join()
     cap_old = open(puzzle_mp4.replace(".mp4", ".txt")).read().split("\n", 1)[1]
     caption = f"{story.get('caption_hook', story['title'])}\n{cap_old}"
     review = {}
@@ -370,7 +397,7 @@ def build(P, seed, out, mode="level", arms=None):
         for k, im in enumerate(imgs):
             im.save(out.replace(".mp4", f"_scene{k + 1}.jpg"), quality=88)
     meta.update(story=story["title"], hook=story.get("caption_hook", story["title"]), arms=arms,
-                review_score=review.get("overall"))
+                review_score=review.get("overall"), design_score=art.get("overall"))
     return meta
 
 
