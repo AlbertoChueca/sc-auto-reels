@@ -428,13 +428,40 @@
 "date": "2026-10-07",
 "permalink": "https://www.instagram.com/reel/DeNR2rrieA3/",
 "type": "REELS",
-"views": 73,
-"reach": 111,
+"views": 74,
+"reach": 113,
 "likes": 2,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 4,
-"ig_reels_avg_watch_time": 4518
+"ig_reels_avg_watch_time": 4474
+},
+"18172946089465051": {
+"slot": "storytag",
+"story": "The Championship Decider",
+"hook": "Can you spot the winning move for Vektor? \ud83c\udfc6",
+"level": "intermediate",
+"mode": "tagfriend",
+"engine": "story",
+"review_score": 4.8,
+"arms": {
+"hook_style": "big_dream: open on Vektor's dream of becoming World Champion, then today's obstacle",
+"theme": "tournament game with everything at stake",
+"difficulty": "intermediate",
+"think_time": "normal",
+"story_length": "short"
+},
+"date": "2026-10-08",
+"permalink": "https://www.instagram.com/reel/DeN3NyjAGOn/",
+"type": "REELS",
+"views": 141,
+"reach": 117,
+"likes": 0,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 0,
+"ig_reels_avg_watch_time": 3969
 }
 }
