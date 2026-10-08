@@ -171,9 +171,56 @@ def _tighten(a, max_gap=0.32):
     return a[keep]
 
 
-def polish(a, light=False):
-    """Gentle cleanup. Gemini audio only gets a high-pass + level; local TTS gets a bit more 'mic' colour."""
+def degate(a):
+    """Remove breaths, hiss and noise between words and at the edges of every clip.
+    Frames (20 ms) are 'voiced' when they are loud and tonal. Any run of non-voiced frames longer than 120 ms
+    (breath, hiss, room noise) is faded down to near silence; short ones (s, f, sh, t inside words) are kept.
+    Leading/trailing non-voiced audio is cut off completely."""
     a = a.astype(np.float32)
+    fr = int(SR * 0.02)
+    n = len(a) // fr
+    if n < 5:
+        return a
+    X = np.abs(np.fft.rfft(a[: n * fr].reshape(n, fr) * np.hanning(fr), axis=1)) + 1e-9
+    rms = np.sqrt(np.mean(a[: n * fr].reshape(n, fr) ** 2, axis=1))
+    flat = np.exp(np.mean(np.log(X[:, 3:]), axis=1)) / np.mean(X[:, 3:], axis=1)
+    p90 = np.percentile(rms, 90) + 1e-9
+    quiet = rms < 0.12 * p90
+    hiss = flat > 0.75                                   # white-noise-like (speech sounds stay below ~0.72)
+    breathy = (flat > 0.55) & (rms < 0.35 * p90)         # breaths: noisy and softer than speech
+    g = np.ones(n, np.float32)
+
+    def gate(mask, min_run):
+        i = 0
+        while i < n:
+            if mask[i]:
+                j = i
+                while j < n and mask[j]: j += 1
+                if j - i >= min_run or i == 0 or j == n:
+                    g[i:j] = 0.02
+                i = j
+            else:
+                i += 1
+    gate(quiet | hiss, 4)                                # silence/hiss runs >= 80 ms
+    gate(breathy, 8)                                     # breaths >= 160 ms
+    keep = g > 0.5
+    if not keep.any():
+        return a
+    first, last = int(np.argmax(keep)), n - 1 - int(np.argmax(keep[::-1]))
+    gs = np.repeat(g, fr)
+    gs = np.concatenate([gs, np.full(len(a) - len(gs), gs[-1])])
+    ramp = int(SR * 0.012)                          # smooth 12 ms gain changes (no clicks)
+    gs = np.convolve(gs, np.ones(ramp) / ramp, "same")
+    out = (a * gs)[max(0, first * fr - int(SR * 0.03)): min(len(a), (last + 1) * fr + int(SR * 0.08))]
+    fade = min(int(SR * 0.015), len(out) // 4)
+    if fade > 1:
+        out[:fade] *= np.linspace(0, 1, fade); out[-fade:] *= np.linspace(1, 0, fade)
+    return out.astype(np.float32)
+
+
+def polish(a, light=False):
+    """Cleanup: breath/hiss gate, then a high-pass + level (local TTS gets a bit more 'mic' colour)."""
+    a = degate(a.astype(np.float32))
     if len(a) < 10:
         return a
     k = int(SR / 80)

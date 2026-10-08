@@ -283,7 +283,7 @@ def place():
     """Wooden chess piece being placed on the board."""
     t = np.arange(int(SR * 0.18)) / SR; rng = np.random.RandomState(3)
     knock = np.sin(2 * np.pi * 420 * t) * np.exp(-t * 45) + 0.5 * np.sin(2 * np.pi * 950 * t) * np.exp(-t * 70)
-    tick_ = np.convolve(rng.randn(len(t)), np.ones(6) / 6, "same") * np.exp(-t * 120) * 0.4
+    tick_ = np.sin(2 * np.pi * 2600 * t) * np.exp(-t * 160) * 0.25        # tonal click (no noise)
     return ((knock + tick_) * 0.35).astype(np.float32)
 
 

@@ -37,6 +37,53 @@ HOT = re.compile(r"^(mate|checkmate|genius|prove|seconds?|free|master|beginner|a
                  r"friend|3%|\d+|win|sacrifice|fork|trapped|king|streakchess)", re.I)
 
 
+def dehiss(a, sr=24000):
+    """Final safety net on the whole soundtrack: any run >= 80 ms that sounds like white noise (very flat spectrum)
+    is faded to silence. Our music and effects are tonal and the voice is tonal, so only hiss is touched."""
+    a = np.asarray(a, np.float32); fr = int(sr * 0.02); n = len(a) // fr
+    if n < 5:
+        return a
+    F = a[: n * fr].reshape(n, fr)
+    X = np.abs(np.fft.rfft(F * np.hanning(fr), axis=1)) + 1e-9
+    flat = np.exp(np.mean(np.log(X[:, 3:]), axis=1)) / np.mean(X[:, 3:], axis=1)
+    rms = np.sqrt(np.mean(F ** 2, axis=1)); top = np.percentile(rms, 95) + 1e-9
+    bad = (flat > 0.78) & (rms > 0.004 * top)
+    g = np.ones(n, np.float32); i = 0
+    while i < n:
+        if bad[i]:
+            j = i
+            while j < n and bad[j]: j += 1
+            if j - i >= 4: g[i:j] = 0.05
+            i = j
+        else:
+            i += 1
+    if g.min() == 1:
+        return a
+    gs = np.concatenate([np.repeat(g, fr), np.ones(len(a) - n * fr, np.float32)])
+    gs = np.convolve(gs, np.ones(int(sr * 0.012)) / int(sr * 0.012), "same")
+    print(f"audio check: removed {int(np.sum(g < 1)) * 20} ms of hiss", flush=True)
+    return (a * gs).astype(np.float32)
+
+
+def fit_phrase(words, size=96, maxw=900, max_lines=2, min_size=56):
+    """phrase_img that shrinks the font until the text fits in max_lines (clean, predictable layout)."""
+    while True:
+        ims = [word_img(w.upper(), size) for w in words]
+        lines, cw = 1, 0
+        for im in ims:
+            if cw and cw + im.width > maxw:
+                lines += 1; cw = 0
+            cw += im.width + 18
+        if lines <= max_lines or size <= min_size:
+            return phrase_img(words, 9, size, maxw)
+        size -= 6
+
+
+def boxes_overlap(a, b, pad=16):
+    """a, b = (x0, y0, x1, y1). True when two text blocks touch (used to keep layouts clean)."""
+    return not (a[2] + pad <= b[0] or b[2] + pad <= a[0] or a[3] + pad <= b[1] or b[3] + pad <= a[1])
+
+
 def phrase_img(words, newest_t, size=96, maxw=980):
     """Lay out up to ~3 words; the newest word pops."""
     ims = [word_img(w.upper(), size, YEL if (k == len(words) - 1 or HOT.match(w.strip(".,!?"))) else WHITE)
@@ -323,7 +370,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     music[int(T["count"][0] * SR):int(T["count"][1] * SR)] *= 0.45      # tension: thinner during countdown
     venv = np.convolve((np.abs(vo) > 0.01).astype(np.float32), np.ones(3000) / 3000, "same")
     mix = vo * 1.15 + fx + music * (0.42 - 0.24 * np.clip(venv * 3, 0, 1))
-    mix = np.tanh(mix * 1.1) * 0.92
+    mix = dehiss(np.tanh(mix * 1.1) * 0.92)
     wav = out.replace(".mp4", ".wav"); sf.write(wav, mix, SR)
     hop = SR // FPS
     env = np.array([np.sqrt(np.mean(vo[i * hop:(i + 1) * hop] ** 2)) for i in range(int(total * FPS) + 2)])
@@ -353,9 +400,9 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
         im = backdrop.convert("RGB"); r_ = max(W / im.width, H / im.height)
         im = im.resize((int(im.width * r_) + 1, int(im.height * r_) + 1), Image.LANCZOS)
         im = im.crop(((im.width - W) // 2, (im.height - H) // 2, (im.width - W) // 2 + W, (im.height - H) // 2 + H))
-        bl = im.filter(ImageFilter.GaussianBlur(22))
-        bd_soft = Image.blend(bl, Image.new("RGB", (W, H), (10, 8, 18)), 0.45).convert("RGBA")
-        bd_dark = Image.blend(bl, Image.new("RGB", (W, H), (8, 6, 14)), 0.68).convert("RGBA")
+        bl = im.resize((W // 8, H // 8), Image.BILINEAR).filter(ImageFilter.GaussianBlur(9)).resize((W, H), Image.BICUBIC)
+        bd_soft = Image.blend(bl, Image.new("RGB", (W, H), (10, 8, 18)), 0.62).convert("RGBA")   # colour mood only,
+        bd_dark = Image.blend(bl, Image.new("RGB", (W, H), (8, 6, 14)), 0.80).convert("RGBA")    # no visible shapes
 
     def back(tt, soft=False):
         if bd_dark is None:

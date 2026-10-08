@@ -349,7 +349,7 @@ def build(P, seed, out, mode="level", arms=None):
     put(fx, HY.riser(1.6), total - 1.6, 0.9)
     tb = np.arange(n) / SR
     pad = sum(np.sin(2 * np.pi * f * tb) for f in (110, 164.8, 220)) * 0.03 * np.clip(tb / 1.5, 0, 1)
-    mix = np.tanh((vo * 1.15 + fx + pad.astype(np.float32)) * 1.1) * 0.92
+    mix = HY.dehiss(np.tanh((vo * 1.15 + fx + pad.astype(np.float32)) * 1.1) * 0.92)
 
     words = []
     for i, sc in enumerate(scenes):            # timings from what the voice actually says
@@ -361,9 +361,14 @@ def build(P, seed, out, mode="level", arms=None):
     def render_story(st):
         wav = out.replace(".mp4", "_s.wav"); sf.write(wav, mix, SR)
         cy = int(min(max(st.get("story_caption_y", 1270), 1000), HY.SAFE_BOTTOM - 120))
-        hook_img = None
+        # ---- top block layout (measured, never overlapping): badge, then the hook (max 2 lines)
+        badge = R.pill(f"VEKTOR · DAY {episode}", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
+        badge_y = HY.SAFE_TOP + badge.height // 2
+        hook_img = hook_y = None
+        HOOK_T = 2.3                                    # the hook is the only big text on screen while shown
         if st.get("screen_hook"):
-            hook_img = HY.phrase_img(st["screen_hook"].split(), 9, int(92 * st.get("caption_scale", 1.0)))
+            hook_img = HY.fit_phrase(st["screen_hook"].split(), int(96 * st.get("caption_scale", 1.0)), 900, 2)
+            hook_y = badge_y + badge.height // 2 + 30 + (hook_img.height + 70) // 2
         proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
                                  "-r", str(FPS), "-i", "-", "-i", wav, "-shortest"] + HY.enc_args(story_mp4),
                                 stdin=subprocess.PIPE)
@@ -383,19 +388,19 @@ def build(P, seed, out, mode="level", arms=None):
                 fr.alpha_composite(lk)
             # cinematic letterbox gradient top/bottom for legibility and a premium look
             fr.alpha_composite(HY.vignette())
-            if i == 0 and t < 2.6 and hook_img is not None:   # on-screen hook: the first thing people read
-                a_ = HY.eob(t / 0.25) * (1 if t < 2.3 else max(0, 1 - (t - 2.3) / 0.3))
-                R.paste_center(fr, HY.band_img(hook_img.height + 70), W / 2, 470, a_)
-                R.paste_center(fr, hook_img, W / 2, 470, a_)
-            cur = [(ts, w) for si, ts, w in words if si == i and ts <= t]
-            if cur:
+            hook_on = hook_img is not None and t < HOOK_T + 0.3
+            if hook_on:                                  # on-screen hook: the first thing people read
+                a_ = HY.eob(t / 0.25) * (1 if t < HOOK_T else max(0, 1 - (t - HOOK_T) / 0.3))
+                R.paste_center(fr, HY.band_img(hook_img.height + 70), W / 2, hook_y, a_)
+                R.paste_center(fr, hook_img, W / 2, hook_y, a_)
+            cur = [(ts, w) for si, ts, w in words if si == i and ts <= t and not (hook_on and ts < HOOK_T)]
+            if cur and not (hook_on and t < HOOK_T):
                 idx = len(cur) - 1; st_ = (idx // 3) * 3
                 ph = HY.phrase_img([w for _, w in cur[st_:idx + 1]], t - cur[-1][0], int(86 * st.get("caption_scale", 1.0)))
                 R.paste_center(fr, HY.band_img(ph.height + 80), W / 2, cy)
                 R.paste_center(fr, ph, W / 2, cy)
-            if i == 0 and lt < 2.6:   # series badge
-                tag = R.pill(f"VEKTOR · DAY {episode}", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
-                R.paste_center(fr, tag, W / 2, 300, HY.eob(lt / 0.3))
+            if i == 0 and lt < 2.6:   # series badge (always above the hook, measured)
+                R.paste_center(fr, badge, W / 2, badge_y, HY.eob(lt / 0.3))
             proc.stdin.write(HY.grain(fr, fi))
         proc.stdin.close(); proc.wait(); os.remove(wav)
 
