@@ -33,7 +33,9 @@ REFS = ["happy.png", "angry.png", "thinking.png", "celebrate.png"]
 CHARACTER = (
     "VEKTOR: a cartoon black chess knight piece with a bright orange-and-yellow flame mane, big round white "
     "cartoon eyes with black pupils, a dark gray body with thick black outlines and a round base. No arms or legs: "
-    "he hops, slides and tilts like a chess piece. Personality: brave, funny, a bit dramatic, kind, never gives up. "
+    "he hops, slides and tilts like a chess piece. He ALWAYS stands upright on his round base: never lying down, "
+    "tipped over, fallen, sideways or upside down. He shows emotion with his eyes, his flame mane, tilting, hopping "
+    "and leaning. Personality: brave, funny, a bit dramatic, kind, never gives up. "
     "Style: bold flat 2D cartoon with clean thick outlines, vibrant colors, cinematic lighting, like a high-quality "
     "animated short.")
 
@@ -42,10 +44,8 @@ WORLD = """VEKTOR'S WORLD (keep it consistent, this is an ongoing series):
 - His big dream: become World Chess Champion one day. Every episode is one day of his journey to that dream.
 - He gets stronger by solving puzzles every day (his daily training streak). Some days are hard, he makes mistakes,
   gets nervous, has funny little disasters, but he never gives up.
-- Recurring friends (use 0-2 per episode): Coach King (wise, calm old king who trains him), Pip (a tiny cheerful pawn,
-  his best friend), Bishop Blaze (his friendly rival, a bit show-off), Grandma Queen (sweet, super strong at blitz).
-- Typical moments: training at sunrise, chess club, school, a tournament round, a lesson with Coach King, a blitz battle
-  with Bishop Blaze, helping Pip, travelling to a new tournament, a rainy day of study, a celebration after improving.
+- A growing cast of characters with their own personalities (see CAST below). Each episode gives a real role to
+  today's spotlight character, so over time every character develops.
 - THE VIEWER IS VEKTOR'S TEAMMATE: every story ends with Vektor stuck on a chess position and asking the viewer for help.
   Solving the puzzle helps Vektor improve and get one step closer to his dream."""
 
@@ -55,13 +55,23 @@ AUDIENCE: kids aged 8-12 who play chess (their parents watch too). Think of a gr
 
 {world}
 
-This is episode {episode}. Recent episodes (continue the journey naturally, do not repeat them):
+CAST (looks must stay identical every episode):
+{cast}
+
+SEASON {season} ARC: {arc}
+This is episode {episode}. Recent episodes (continue the journey naturally, NEVER repeat their plot, place or gag):
 {recent}
+
+TODAY'S EPISODE PLAN (mandatory, this guarantees variety):
+- Format: {format}
+- Spotlight character (must have a real role and a memorable moment): {spotlight}{extra}
+- Setting: {setting} (a place we have not used recently; make it vivid)
 
 {playbook}
 
 Write ONE new episode: a moment of Vektor's day on his way to his dream (setup -> problem -> he needs help).
-TODAY'S CREATIVE BRIEF (an experiment, follow it): opening hook style = {hook_style}; theme = {theme}.
+TODAY'S CREATIVE BRIEF (an experiment): opening hook style = {hook_style}; extra flavour (blend it in only if it fits
+today's format) = {theme}.
 The chess problem he faces IS the puzzle that follows: {level} level, {side} to move, goal: {goal}.
 Rules:
 - Exactly 4 scenes. Total narration {words} words. Narration is a fun, warm storyteller in English, like a favourite
@@ -73,11 +83,15 @@ Rules:
 - Positive and safe: no violence, scary horror, romance, brands or real people.
 - Write numbers as words. Write narration to be SPOKEN: short sentences (max 9 words), natural rhythm, contractions,
   commas for breaths. No hashtags, emojis, abbreviations or chess notation in narration.
-- Each scene is a different moment/place/action. Make it visual and specific (places, props, weather, the friends above).
+- Each scene is a different moment/action with a clear story beat (setup, twist, rising tension, call for help).
+  Make it visual and specific (props, weather, expressions, the spotlight character's personality).
+- Shots must vary: scene 1 wide establishing shot, scene 2 medium action shot, scene 3 close-up on emotion,
+  scene 4 dramatic shot of Vektor (upright) facing a glowing chessboard.
+- Surprise the viewer: no generic "Vektor is sad / falls down" beats; find a fresh, funny or exciting idea every day.
 - Do NOT reuse any of these previous episode ideas: {avoid}
 - image_prompt: describe ONE vertical 9:16 frame: action, setting, camera framing (close-up / wide / low angle), lighting, mood.
-  Always say "the knight mascot from the reference images" for Vektor. Other characters are cartoon chess pieces with
-  faces, same art style. No text, letters or logos in the image.
+  Always say "the knight mascot from the reference images, standing upright" for Vektor. Describe other characters
+  exactly as in the CAST. Same art style. No text, letters or logos in the image.
 - camera: one of push_in, pull_out, pan_left, pan_right, tilt_up.
 - sfx: one of whoosh, boom, none (use boom at most once).
 - delivery: 3-8 word acting direction for the voice actor for that scene, varied across scenes (e.g. "hushed, building
@@ -106,12 +120,15 @@ def _post(model, body, tries=4):
     raise RuntimeError(f"Gemini {model}: too many retries")
 
 
-def write_story(level, side, goal, avoid, episode=1, recent=(), arms=None):
-    import strategy
-    arms = arms or {}
+def write_story(level, side, goal, avoid, episode=1, recent=(), arms=None, ep=None):
+    import strategy, series
+    arms = arms or {}; ep = ep or series.plan([], episode)
     pb = strategy.playbook_text()
     body = {"contents": [{"parts": [{"text": STORY_PROMPT.format(
                 character=CHARACTER, world=WORLD, level=level, side=side, goal=goal, episode=episode,
+                cast=series.cast_sheet(), season=ep["season"], arc=ep["arc"], format=ep["format"],
+                spotlight=ep["spotlight"], extra=(f" (also appearing: {ep['extra']})" if ep.get("extra") else ""),
+                setting=ep["setting"],
                 playbook=("WHAT WORKS FOR OUR AUDIENCE (from real results):\n" + pb) if pb else "",
                 hook_style=arms.get("hook_style", "your best idea"), theme=arms.get("theme", "your best idea"),
                 words=strategy.WORDS.get(arms.get("story_length"), "24-34"),
@@ -234,13 +251,17 @@ def build(P, seed, out, mode="level", arms=None):
     mock = os.environ.get("STORY_MOCK") == "1"
     log = json.load(open(STORY_LOG)) if os.path.exists(STORY_LOG) else []
     episode = len(log) + 1
-    recent = [f"{s.get('title')}: {s.get('summary', '')}" for s in log[-3:]]
+    recent = [f"{s.get('title')}: {s.get('summary', '')} [format: {(s.get('format') or '?').split(':')[0]}, "
+              f"spotlight: {s.get('spotlight', '?')}, setting: {s.get('setting', '?')}]" for s in log[-6:]]
+    import series
+    ep = series.plan(log, f"{P.get('id')}-{seed}")
+    print(f"episode plan: {ep['format'].split(':')[0]} | spotlight {ep['spotlight']} | {ep['setting']}", flush=True)
     story = mock_story(rng) if mock else write_story(LV["name"].title(), side, goal, [s["title"] for s in log],
-                                                     episode, recent, arms)
+                                                     episode, recent, arms, ep)
     review_on = (not mock or os.environ.get("REVIEWER") == "force") and os.environ.get("REVIEWER", "on") != "off"
     if review_on:                                   # 2nd agent: producer review of the script
         import reviewer
-        story = reviewer.improve_script(story, LV["name"].title(), side, goal, episode, arms)
+        story = reviewer.improve_script(story, LV["name"].title(), side, goal, episode, arms, ep, recent)
         import agents                               # writers' room: hook specialist + visual director
         story = agents.hook_pass(story)
         story = agents.visual_prompts_pass(story, CHARACTER)
@@ -402,7 +423,8 @@ def build(P, seed, out, mode="level", arms=None):
     for f in (story_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):
         if os.path.exists(f): os.remove(f)
     if not mock:
-        log.append({"title": story["title"], "summary": story.get("summary", ""), "puzzle": P.get("id")})
+        log.append({"title": story["title"], "summary": story.get("summary", ""), "puzzle": P.get("id"),
+                    "format": ep["format"], "spotlight": ep["spotlight"], "setting": ep["setting"]})
         json.dump(log[-200:], open(STORY_LOG, "w"), indent=0)
         for k, im in enumerate(imgs):
             im.save(out.replace(".mp4", f"_scene{k + 1}.jpg"), quality=88)

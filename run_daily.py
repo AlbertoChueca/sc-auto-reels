@@ -51,6 +51,12 @@ agents_msg = ""
 try:                       # writers' room: the 5 agents rewrite their notebooks once a day from results + comments
     import agents
     agents_msg = agents.daily_learning(); print(agents_msg, flush=True)
+    import series
+    try:
+        _slog = json.load(open("story_log.json"))
+    except Exception:
+        _slog = []
+    agents_msg += " | " + series.weekly_update(_slog)
 except Exception as e:
     agents_msg = f"agents skipped: {str(e)[:150]}"; print(agents_msg, flush=True)
 

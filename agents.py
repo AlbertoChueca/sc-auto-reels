@@ -102,7 +102,10 @@ def visual_prompts_pass(story, character):
 Character sheet: {character}
 Rewrite these 4 image prompts so each is ONE striking vertical 9:16 frame of a premium animated film: clear subject,
 camera framing, lighting, colour mood, depth, expressive pose; Vektor always "the knight mascot from the reference
-images", same look in every frame; keep the main subject in the middle 60% of the frame (phone UI covers edges);
+images, standing upright" (never lying down, tipped over or fallen), same look in every frame; other characters exactly
+as in this cast sheet:
+{__import__('series').cast_sheet()}
+Vary the shots (wide / medium / close-up / dramatic) and make every image clearly different from the others; keep the main subject in the middle 60% of the frame (phone UI covers edges);
 no text, letters, numbers or logos. Keep each scene's story meaning.
 Prompts: {json.dumps([s['image_prompt'] for s in sc], ensure_ascii=False)}
 Return JSON: {{"prompts": [str, str, str, str]}}""", 0.5)

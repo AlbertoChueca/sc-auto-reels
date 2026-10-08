@@ -89,6 +89,17 @@ def learnings():
 
 
 # ------------------------------------------------------------------ 1. script
+def _plan_text(ep, recent):
+    if not ep:
+        return ""
+    import series
+    return (f"TODAY'S EPISODE PLAN (keep it): format = {ep['format']}; spotlight = {ep['spotlight']}; setting = {ep['setting']}.\n"
+            f"CAST (keep looks exactly): \n{series.cast_sheet()}\n"
+            f"RECENT EPISODES - the new one must feel clearly DIFFERENT (plot, place, gag, emotion):\n"
+            + "\n".join(f"- {r}" for r in list(recent)[-6:]) +
+            "\nVektor must always be upright in every image prompt (never lying down, tipped over or fallen).")
+
+
 def _brief(arms):
     if not arms:
         return ""
@@ -98,7 +109,7 @@ def _brief(arms):
             f"improve everything else.")
 
 
-def improve_script(story, level, side, goal, episode, arms=None):
+def improve_script(story, level, side, goal, episode, arms=None, ep=None, recent=()):
     """Returns an improved story (same schema). Falls back to the original on any problem."""
     try:
         import agents
@@ -109,6 +120,7 @@ def improve_script(story, level, side, goal, episode, arms=None):
 {learnings()}
 
 {_brief(arms)}
+{_plan_text(ep, recent)}
 Here is the draft script for episode {episode}. Puzzle that follows: {level} level, {side} to move, goal: {goal}.
 DRAFT:
 {json.dumps(story, ensure_ascii=False, indent=1)}
@@ -155,7 +167,7 @@ def check_images(imgs, scenes, mascot_ref):
 {agents._brief('visual')}
 First image: the official Vektor mascot (reference). Then {len(imgs)} generated story scenes, in order.
 For each scene check: Vektor clearly visible and on-model (black knight piece, orange-yellow flame mane, big white
-cartoon eyes, no arms/legs); NO text, letters, numbers or logos anywhere; no broken anatomy / melted shapes;
+cartoon eyes, no arms/legs) and STANDING UPRIGHT (lying down, tipped over, fallen or sideways = not ok); NO text, letters, numbers or logos anywhere; no broken anatomy / melted shapes;
 matches its prompt; bright, readable on a phone; kid-safe.
 Prompts: {json.dumps([s.get('image_prompt') for s in scenes], ensure_ascii=False)}
 Return JSON: {{"scenes": [{{"index": 0, "ok": true, "problems": [str], "better_prompt": str}}]}}

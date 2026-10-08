@@ -99,14 +99,31 @@ def stats():
     return out, mu, max(sd, 0.3), len(res)
 
 
+def _recent_arms(n=2):
+    out = []
+    try:
+        for line in open(os.path.join(HERE, "log.jsonl")):
+            a = json.loads(line).get("arms")
+            if a: out.append(a)
+    except Exception:
+        pass
+    return out[-n:]
+
+
 def choose(seed=None, fixed=None):
-    """Pick one option per lever (Thompson sampling with a prior centred on the account average)."""
+    """Pick one option per lever (Thompson sampling with a prior centred on the account average).
+    Variety rule: the creative levers (hook_style, theme) never repeat an option used in the last 2 reels."""
     rng = random.Random(seed)
     st, mu, sd, n_total = stats()
+    recent = _recent_arms(2)
     pick = {}
     for lev, d in st.items():
         if fixed and lev in fixed:
             pick[lev] = fixed[lev]; continue
+        if lev in ("hook_style", "theme"):
+            banned = {r.get(lev) for r in recent}
+            if len(d) - len(banned & set(d)) >= 2:
+                d = {a: v for a, v in d.items() if a not in banned}
         if rng.random() < EXPLORE or n_total < 6:
             pick[lev] = rng.choice(list(d)); continue
         best, best_v = None, -1e9
