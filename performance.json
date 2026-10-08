@@ -293,14 +293,14 @@
 "date": "2026-10-04",
 "permalink": "https://www.instagram.com/reel/DeFWdXGnwYU/",
 "type": "REELS",
-"views": 122,
-"reach": 111,
-"likes": 4,
+"views": 123,
+"reach": 112,
+"likes": 5,
 "comments": 6,
 "shares": 0,
 "saved": 0,
-"total_interactions": 10,
-"ig_reels_avg_watch_time": 6020
+"total_interactions": 11,
+"ig_reels_avg_watch_time": 5999
 },
 "18078473351392171": {
 "slot": "storytag",
@@ -374,14 +374,14 @@
 "date": "2026-10-07",
 "permalink": "https://www.instagram.com/reel/DeLP2XvAA6f/",
 "type": "REELS",
-"views": 117,
-"reach": 106,
-"likes": 2,
+"views": 118,
+"reach": 107,
+"likes": 3,
 "comments": 2,
 "shares": 0,
 "saved": 0,
-"total_interactions": 4,
-"ig_reels_avg_watch_time": 5631
+"total_interactions": 5,
+"ig_reels_avg_watch_time": 5612
 },
 "17962571385239173": {
 "slot": "story",
@@ -401,13 +401,40 @@
 "date": "2026-10-06",
 "permalink": "https://www.instagram.com/reel/DeKs7hEAoAr/",
 "type": "REELS",
-"views": 156,
-"reach": 128,
-"likes": 1,
+"views": 158,
+"reach": 131,
+"likes": 2,
 "comments": 2,
 "shares": 0,
 "saved": 0,
-"total_interactions": 3,
-"ig_reels_avg_watch_time": 5423
+"total_interactions": 4,
+"ig_reels_avg_watch_time": 5358
+},
+"18093208961173062": {
+"slot": "story",
+"story": "The Puddle Puzzle Panic",
+"hook": "Help Pip win! Can you find mate in two? \u265f\ufe0f",
+"level": "intermediate",
+"mode": "level",
+"engine": "story",
+"review_score": 6.0,
+"arms": {
+"hook_style": "funny_fail: open on Vektor's funny little disaster",
+"theme": "helping Pip or a friend who is stuck",
+"difficulty": "intermediate",
+"think_time": "long",
+"story_length": "normal"
+},
+"date": "2026-10-07",
+"permalink": "https://www.instagram.com/reel/DeNR2rrieA3/",
+"type": "REELS",
+"views": 72,
+"reach": 111,
+"likes": 2,
+"comments": 2,
+"shares": 0,
+"saved": 0,
+"total_interactions": 4,
+"ig_reels_avg_watch_time": 4518
 }
 }
