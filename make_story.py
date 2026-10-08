@@ -290,9 +290,13 @@ def build(P, seed, out, mode="level", arms=None):
     if review_on:                                   # growth marketer writes the end-card lines
         style.update(agents.growth_lines(story, mode))
 
+    MAX_TOTAL = float(os.environ.get("REEL_MAX_SECONDS", "55"))
+
     def render_puzzle(st):
+        story_len = sum(max(len(a) / SR + 0.35, 2.0) for a in A) + 0.3
         return HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
-                        cta_lead="You helped Vektor get stronger! ", think_factor=think, style=st)
+                        cta_lead="You helped Vektor get stronger! ", think_factor=think, style=st,
+                        max_len=MAX_TOTAL - story_len)
 
     for attempt in range(3):
         try:

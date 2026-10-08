@@ -235,7 +235,7 @@ HOOKS = {
 
 
 def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False, cta_lead=None, think_factor=1.0,
-          style=None):
+          style=None, max_len=None):
     S = {**DEFAULT_STYLE, **(style or {})}
     import voice
     if not keep_voice:
@@ -278,6 +278,11 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     A = {k: c for (k, _), c in zip(lines, clips)}; TXT = dict(lines)
     D = {k: len(a) / SR for k, a in A.items()}
 
+    if max_len:                    # keep the whole reel short enough (retention + Stories max 60 s)
+        mv = sum(max(D[f"m{i}"] + 0.5, 1.8) for i in range(len(sans)))
+        fixed = (0 if skip_hook else D["h1"] + D["h2"] + 0.6) + D["lvl"] + D["go"] + D["up"] + D["fin"] + D["cta"] + 2.4 + mv
+        COUNT = int(max(5, min(COUNT, max_len - fixed)))
+    MOVE_MIN = 2.1 if not max_len else 1.8
     T = {}; t = 0.0
     def add(k, d):
         nonlocal t; T[k] = (t, t + d); t += d
@@ -290,7 +295,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     add("go", D["go"] + 0.1)
     add("count", COUNT)
     add("up", D["up"] + 0.25)
-    for i in range(len(sans)): add(f"m{i}", max(D[f"m{i}"] + 0.5, 2.1))      # time to follow every move
+    for i in range(len(sans)): add(f"m{i}", max(D[f"m{i}"] + 0.5, MOVE_MIN))  # time to follow every move
     add("fin", D["fin"] + 0.6)
     add("cta", D["cta"] + 1.2)
     total = t

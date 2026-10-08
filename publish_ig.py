@@ -107,11 +107,28 @@ def publish_reel(video_path, caption, token=None, location_id=None):
     return media
 
 
+def story_safe(path, limit=59.0):
+    """Instagram Stories accept at most 60 s: longer videos are cut to 59 s with a soft fade."""
+    import subprocess
+    d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path],
+                             capture_output=True, text=True).stdout.strip() or 0)
+    if d <= limit:
+        return path
+    out = path.replace(".mp4", "_story.mp4")
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", path, "-t", str(limit),
+                    "-vf", f"fade=t=out:st={limit - 0.8}:d=0.8", "-af", f"afade=t=out:st={limit - 0.8}:d=0.8",
+                    "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p",
+                    "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart",
+                    "-use_editlist", "0", out], check=True)
+    print(f"Story version cut to {limit:.0f} s (reel is {d:.1f} s)", flush=True)
+    return out
+
+
 def publish_story(video_path, token=None):
     """Share the same video as an Instagram Story (Stories expire after 24h; no caption/links via API)."""
     token = token or os.environ["IG_TOKEN"]
     uid = whoami(token)["user_id"]
-    cid = _container_upload_wait(uid, token, ig_safe(video_path), {"media_type": "STORIES"}, "story")
+    cid = _container_upload_wait(uid, token, story_safe(ig_safe(video_path)), {"media_type": "STORIES"}, "story")
     p = _check(requests.post(f"{GRAPH}/{uid}/media_publish", data={"creation_id": cid, "access_token": token}))
     print("Story published:", p.get("id"), flush=True)
     return p
