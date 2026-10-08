@@ -95,5 +95,13 @@
 "format": "newcomer: Luna or a brand-new character arrives with a challenge",
 "spotlight": "Grandma Queen",
 "setting": "a giant clock tower"
+},
+{
+"title": "The Valley Express Blitz",
+"summary": "Speeding across a mountain trestle to the regional tournament, Bishop Blaze challenges Vektor to beat a frantic five-second puzzle clock.",
+"puzzle": "6WOwT",
+"format": "race against the clock: Vektor must solve something before time runs out",
+"spotlight": "Bishop Blaze",
+"setting": "a steam train crossing a valley"
 }
 ]
