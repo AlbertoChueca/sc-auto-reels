@@ -101,7 +101,10 @@ def _brief(arms):
 def improve_script(story, level, side, goal, episode, arms=None):
     """Returns an improved story (same schema). Falls back to the original on any problem."""
     try:
+        import agents
         res = _ask([{"text": f"""{PRODUCER}
+
+{agents._brief('story')}
 
 {learnings()}
 
@@ -147,7 +150,9 @@ def check_images(imgs, scenes, mascot_ref):
         from PIL import Image
         ref = Image.open(mascot_ref).convert("RGBA")
         bg = Image.new("RGB", ref.size, (255, 255, 255)); bg.paste(ref, (0, 0), ref)
+        import agents
         parts = [{"text": f"""{PRODUCER}
+{agents._brief('visual')}
 First image: the official Vektor mascot (reference). Then {len(imgs)} generated story scenes, in order.
 For each scene check: Vektor clearly visible and on-model (black knight piece, orange-yellow flame mane, big white
 cartoon eyes, no arms/legs); NO text, letters, numbers or logos anywhere; no broken anatomy / melted shapes;
@@ -249,7 +254,9 @@ def art_direct(path, story, style, starts, story_len):
         times = [0.6, 1.8] + [float(s) + 1.2 for s in list(starts)[1:3]] + \
                 [story_len + 6, story_len + (dur - story_len) * 0.7, dur - 1.0]
         fr = _frames(path, [t for t in times if t < dur])
+        import agents
         parts = [{"text": f"""{ART_DIRECTOR}
+{agents._brief('visual')}
 
 Frames (in order) of today's reel. Story: "{story.get('title')}". Current tokens:
 {json.dumps({k: style.get(k) for k in ('screen_hook', 'caption_scale', 'story_caption_y', 'follow_line', 'share_line')})}

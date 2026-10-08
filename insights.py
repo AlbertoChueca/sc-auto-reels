@@ -154,3 +154,30 @@ def update(days=120):
 
 if __name__ == "__main__":
     print(update())
+
+
+def recent_comments(days=14, per_post=50):
+    """Anonymous comment texts of recent posts (usernames are never stored). Needs instagram_manage_comments."""
+    token = os.environ.get("IG_TOKEN")
+    if not token:
+        return []
+    from publish_ig import whoami
+    me = whoami(token).get("username")
+    perf = json.load(open(PERF)) if os.path.exists(PERF) else {}
+    now = datetime.datetime.now(datetime.timezone.utc); out = []
+    for p in account_media(token, limit=60):
+        try:
+            ts = datetime.datetime.fromisoformat(p["timestamp"].replace("+0000", "+00:00"))
+        except Exception:
+            continue
+        if (now - ts).days > days:
+            continue
+        r = requests.get(f"{GRAPH}/{p['id']}/comments", params={"fields": "text,username,like_count", "limit": per_post,
+                                                                "access_token": token}, timeout=30)
+        if r.status_code != 200:
+            continue
+        for c in r.json().get("data", []):
+            if c.get("username") == me or not c.get("text"):
+                continue
+            out.append({"text": c["text"], "likes": c.get("like_count", 0), "story": (perf.get(p["id"]) or {}).get("story")})
+    return out

@@ -241,6 +241,9 @@ def build(P, seed, out, mode="level", arms=None):
     if review_on:                                   # 2nd agent: producer review of the script
         import reviewer
         story = reviewer.improve_script(story, LV["name"].title(), side, goal, episode, arms)
+        import agents                               # writers' room: hook specialist + visual director
+        story = agents.hook_pass(story)
+        story = agents.visual_prompts_pass(story, CHARACTER)
     scenes = story["scenes"][:4]
     print("Story:", story["title"], flush=True)
     def one_image(i):
@@ -284,6 +287,8 @@ def build(P, seed, out, mode="level", arms=None):
     hook0 = story.get("screen_hook") or re.sub(r"[^\w\s'?!,.-]", "", story.get("caption_hook", "")).strip()
     style = {**HY.DEFAULT_STYLE, "screen_hook": " ".join(hook0.split()[:7]),
              "follow_line": "Follow for Vektor's next day", "share_line": "Send this to a chess friend"}
+    if review_on:                                   # growth marketer writes the end-card lines
+        style.update(agents.growth_lines(story, mode))
 
     def render_puzzle(st):
         return HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
@@ -388,6 +393,7 @@ def build(P, seed, out, mode="level", arms=None):
     review = {}
     if review_on:                                   # 2nd agent: watch the finished reel, polish the caption
         caption, review = reviewer.review_video(out, story, caption)   # raises RejectReel if clearly broken
+        caption = agents.growth_caption(caption, story, review)         # growth marketer: final caption
     open(out.replace(".mp4", ".txt"), "w").write(caption)
     for f in (story_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):
         if os.path.exists(f): os.remove(f)

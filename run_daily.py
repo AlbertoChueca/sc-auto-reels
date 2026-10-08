@@ -47,6 +47,13 @@ try:                       # real Instagram results -> performance.json (the rev
 except Exception as e:
     insights_msg = f"insights skipped: {str(e)[:150]}"; print(insights_msg, flush=True)
 
+agents_msg = ""
+try:                       # writers' room: the 5 agents rewrite their notebooks once a day from results + comments
+    import agents
+    agents_msg = agents.daily_learning(); print(agents_msg, flush=True)
+except Exception as e:
+    agents_msg = f"agents skipped: {str(e)[:150]}"; print(agents_msg, flush=True)
+
 # ---- autopilot experiment: choose today's creative options (learns from past results)
 arms, strat_msg = {}, ""
 try:
@@ -107,7 +114,7 @@ if summary:  # visible on the run page in GitHub
                 + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
                 + (f"- Reviewer score: {meta.get('review_score')}/10\n" if meta.get("review_score") is not None else "")
                 + (f"- Art director (copy + design): {meta.get('design_score')}/10\n" if meta.get("design_score") is not None else "")
-                + f"- {insights_msg}\n"
+                + f"- {insights_msg}\n" + f"- {agents_msg}\n"
                 + (f"- Experiment: {', '.join(f'{k}={v.split(chr(58))[0]}' for k, v in arms.items())}\n" if arms else "")
                 + (f"- {strat_msg}\n" if strat_msg else "")
                 + "".join(f"- Error: `{e}`\n" for e in errors))
