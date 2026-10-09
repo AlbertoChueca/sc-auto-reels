@@ -1,5 +1,6 @@
-# Visual notebook (2026-10-08)
+# Visual notebook (2026-10-09)
 
-• Keep doing: Warm, vibrant, distinct settings (kitchens, rainy rooms) that pop against dark blitz feeds.
-• Stop doing: Dark, repetitive arcade and generic club backgrounds that blend together and correlate with low reach.
-• Try next: Clear, high-contrast board readability for mobile screens, giving Vektor expressive micro-reactions when solving tactical moves.
+# Visual notebook (2026-10-09)
+• Keep doing: Warm, atmospheric interior settings (kitchens, rainy windows) that stand out against dark blitz feeds.
+• Stop doing: Drab dojo interiors and repetitive club backgrounds, which correlated directly with lowest reach (51 views).
+• Try next: Bold board contrast and expressive character reaction shots right as the key move is revealed to retain mobile viewers under 5 seconds.

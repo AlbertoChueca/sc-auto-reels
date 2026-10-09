@@ -1,5 +1,6 @@
-# Hook notebook (2026-10-08)
+# Hook notebook (2026-10-09)
 
-• Keep doing: Conversational question hooks inviting teamwork ("Can you help Vektor...", "Can you spot...")—our top two performers (338 and 250 views) both used this frame.
-• Stop doing: Generic aggressive/cliffhanger hooks ("Help Vektor win and shock Blaze!", "Save Pip!") which fell to the bottom tier.
-• Try next: Short, high-curiosity questions tying a puzzle to a fun, relatable reward (like cookies or badges) with single clear emojis.
+# Hook notebook (2026-10-09)
+• Keep doing: Collaborative question hooks ("Can you help Vektor...", "Can you spot...") with playful emojis (🍪, ♟️), which delivered our top two scores (8.09 and 7.88) and 588 combined views.
+• Stop doing: Urgent imperative commands ("Save Pip!", "Shock Blaze!") which sank to the bottom tier (6.20 and 6.01).
+• Try next: Specific, fun micro-stake questions focused on tangible everyday goals (e.g., "Can you help Vektor solve the breakfast puzzle? 🥞").

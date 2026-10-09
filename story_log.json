@@ -111,5 +111,13 @@
 "format": "friendship: Vektor helps a friend who is stuck or sad",
 "spotlight": "Luna",
 "setting": "a sunny chess park with giant outdoor boards"
+},
+{
+"title": "The Pirate Dream Blitz",
+"summary": "Inside a magical dream aboard a starlit pirate ship, Bishop Blaze challenges Vektor to a rapid blitz duel while Grandma Queen steers the ship.",
+"puzzle": "5PZN1",
+"format": "dream: Vektor dreams of a magical chess world",
+"spotlight": "Grandma Queen",
+"setting": "a pirate ship on a calm sea"
 }
 ]

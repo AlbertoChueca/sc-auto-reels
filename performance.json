@@ -266,14 +266,14 @@
 "date": "2026-10-05",
 "permalink": "https://www.instagram.com/reel/DeGCDDQkQy6/",
 "type": "REELS",
-"views": 127,
-"reach": 112,
-"likes": 1,
+"views": 128,
+"reach": 113,
+"likes": 2,
 "comments": 0,
 "shares": 0,
 "saved": 0,
-"total_interactions": 1,
-"ig_reels_avg_watch_time": 8534
+"total_interactions": 2,
+"ig_reels_avg_watch_time": 8487
 },
 "18110022245596233": {
 "slot": "story",
@@ -428,14 +428,14 @@
 "date": "2026-10-07",
 "permalink": "https://www.instagram.com/reel/DeNR2rrieA3/",
 "type": "REELS",
-"views": 76,
-"reach": 114,
+"views": 77,
+"reach": 115,
 "likes": 2,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 4,
-"ig_reels_avg_watch_time": 4411
+"ig_reels_avg_watch_time": 4379
 },
 "18172946089465051": {
 "slot": "storytag",
@@ -455,13 +455,40 @@
 "date": "2026-10-08",
 "permalink": "https://www.instagram.com/reel/DeN3NyjAGOn/",
 "type": "REELS",
-"views": 144,
-"reach": 119,
+"views": 146,
+"reach": 121,
 "likes": 0,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 0,
-"ig_reels_avg_watch_time": 4034
+"ig_reels_avg_watch_time": 3987
+},
+"18122703817903171": {
+"slot": "story",
+"story": "The Dojo Tumble Rescue",
+"hook": "Can you help Vektor rescue Pip's game? \u265f\ufe0f",
+"level": "intermediate",
+"mode": "level",
+"engine": "story",
+"review_score": 6.2,
+"arms": {
+"hook_style": "funny_fail: open on Vektor's funny little disaster",
+"theme": "helping Pip or a friend who is stuck",
+"difficulty": "intermediate",
+"think_time": "long",
+"story_length": "short"
+},
+"date": "2026-10-08",
+"permalink": "https://www.instagram.com/reel/DePEjHIEV4E/",
+"type": "REELS",
+"views": 51,
+"reach": 42,
+"likes": 1,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 1,
+"ig_reels_avg_watch_time": 6994
 }
 }
