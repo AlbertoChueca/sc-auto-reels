@@ -11,14 +11,14 @@
 "date": "2026-08-08",
 "permalink": "https://www.instagram.com/reel/DbysyIIIfL6/",
 "type": "REELS",
-"views": 855,
-"reach": 678,
+"views": 856,
+"reach": 679,
 "likes": 15,
 "comments": 2,
 "shares": 2,
 "saved": 4,
 "total_interactions": 23,
-"ig_reels_avg_watch_time": 5097
+"ig_reels_avg_watch_time": 5096
 },
 "17989088616021025": {
 "slot": null,
@@ -32,14 +32,14 @@
 "date": "2026-08-08",
 "permalink": "https://www.instagram.com/reel/DbysJdHIPDj/",
 "type": "REELS",
-"views": 2489,
-"reach": 1959,
+"views": 2491,
+"reach": 1961,
 "likes": 42,
 "comments": 0,
 "shares": 9,
 "saved": 5,
 "total_interactions": 58,
-"ig_reels_avg_watch_time": 6830
+"ig_reels_avg_watch_time": 6829
 },
 "18387640396163078": {
 "slot": null,
@@ -74,14 +74,14 @@
 "date": "2026-08-08",
 "permalink": "https://www.instagram.com/reel/DbyqzTWIZDc/",
 "type": "REELS",
-"views": 1779,
+"views": 1780,
 "reach": 1586,
 "likes": 26,
 "comments": 0,
 "shares": 1,
 "saved": 2,
 "total_interactions": 29,
-"ig_reels_avg_watch_time": 5475
+"ig_reels_avg_watch_time": 5476
 },
 "18090841277435142": {
 "slot": null,
@@ -218,14 +218,14 @@
 "date": "2026-10-03",
 "permalink": "https://www.instagram.com/reel/DeDSz_Bjo8Q/",
 "type": "REELS",
-"views": 250,
-"reach": 219,
+"views": 254,
+"reach": 220,
 "likes": 6,
 "comments": 6,
 "shares": 1,
 "saved": 0,
 "total_interactions": 13,
-"ig_reels_avg_watch_time": 4177
+"ig_reels_avg_watch_time": 4165
 },
 "18145014598595233": {
 "slot": "story",
@@ -428,14 +428,14 @@
 "date": "2026-10-07",
 "permalink": "https://www.instagram.com/reel/DeNR2rrieA3/",
 "type": "REELS",
-"views": 77,
-"reach": 115,
+"views": 79,
+"reach": 117,
 "likes": 2,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 4,
-"ig_reels_avg_watch_time": 4379
+"ig_reels_avg_watch_time": 4388
 },
 "18172946089465051": {
 "slot": "storytag",
@@ -455,14 +455,14 @@
 "date": "2026-10-08",
 "permalink": "https://www.instagram.com/reel/DeN3NyjAGOn/",
 "type": "REELS",
-"views": 146,
-"reach": 121,
+"views": 152,
+"reach": 126,
 "likes": 0,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 0,
-"ig_reels_avg_watch_time": 3987
+"ig_reels_avg_watch_time": 3890
 },
 "18122703817903171": {
 "slot": "story",
@@ -482,13 +482,67 @@
 "date": "2026-10-08",
 "permalink": "https://www.instagram.com/reel/DePEjHIEV4E/",
 "type": "REELS",
-"views": 51,
-"reach": 42,
-"likes": 1,
+"views": 124,
+"reach": 107,
+"likes": 3,
 "comments": 0,
 "shares": 0,
 "saved": 0,
-"total_interactions": 1,
-"ig_reels_avg_watch_time": 6994
+"total_interactions": 3,
+"ig_reels_avg_watch_time": 4815
+},
+"17969096369961301": {
+"slot": "storytag",
+"story": "The Pirate Dream Blitz",
+"hook": "Can you help Vektor win this pirate blitz? \ud83c\udff4\u200d\u2620\ufe0f",
+"level": "basic",
+"mode": "tagfriend",
+"engine": "story",
+"review_score": 6.8,
+"arms": {
+"hook_style": "rival: open with Bishop Blaze showing off and challenging Vektor",
+"theme": "blitz battle against Bishop Blaze",
+"difficulty": "basic",
+"think_time": "fast",
+"story_length": "normal"
+},
+"date": "2026-10-09",
+"permalink": "https://www.instagram.com/reel/DeQd_oyD90W/",
+"type": "REELS",
+"views": 191,
+"reach": 164,
+"likes": 2,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 2,
+"ig_reels_avg_watch_time": 7904
+},
+"18028962980856282": {
+"slot": "story",
+"story": "The Giant Board Showdown",
+"hook": "Can you spot White's winning move for Luna? \ud83c\udfc6",
+"level": "advanced",
+"mode": "level",
+"engine": "story",
+"review_score": 5.4,
+"arms": {
+"hook_style": "big_dream: open on Vektor's dream of becoming World Champion, then today's obstacle",
+"theme": "tournament game with everything at stake",
+"difficulty": "advanced",
+"think_time": "normal",
+"story_length": "normal"
+},
+"date": "2026-10-08",
+"permalink": "https://www.instagram.com/reel/DeP3M1EETnE/",
+"type": "REELS",
+"views": 108,
+"reach": 79,
+"likes": 0,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 0,
+"ig_reels_avg_watch_time": 2898
 }
 }
