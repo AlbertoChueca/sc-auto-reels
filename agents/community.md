@@ -1,6 +1,5 @@
-# Community notebook (2026-10-09)
+# Community notebook (2026-10-10)
 
-# Community notebook (2026-10-09)
-• Keep doing: Tracking comment triggers, noting that top-viewed creative setups elicit the highest comment volume.
-• Stop doing: Relying on comments for chess balance or narrative critique; data is too thin as 100% of comments are automated "Send me this post" variations with emojis (😍, ⚡, 💖).
-• Try next: Testing a pinned binary poll ("Did you find mate in 1 or 2?") to provoke real feedback from actual kids and parents.
+• Keep doing: Tracking volume across posts (Cookie Challenge and Rainy Day Riddle drove highest raw interaction).
+• Stop doing: Attempting to extract chess difficulty or story critiques from comments; audience data is too thin as 100% of comments are automated "Send me this post" variants.
+• Try next: Pinning a simple binary question ("Did you spot move 1 or move 2 first?") to gauge whether real parents and kids are actively watching.

@@ -1,6 +1,5 @@
-# Visual notebook (2026-10-09)
+# Visual notebook (2026-10-10)
 
-# Visual notebook (2026-10-09)
-• Keep doing: Warm, atmospheric interior settings (kitchens, rainy windows) that stand out against dark blitz feeds.
-• Stop doing: Drab dojo interiors and repetitive club backgrounds, which correlated directly with lowest reach (51 views).
-• Try next: Bold board contrast and expressive character reaction shots right as the key move is revealed to retain mobile viewers under 5 seconds.
+• Keep doing: Warm, atmospheric settings (rain-streaked windows, cozy kitchens) that stand out in crowded feeds and drove our top view counts.
+• Stop doing: Stark dojos and cavernous tournament halls ("The Giant Board Showdown" bottomed at 2317 ms watch time).
+• Try next: High-contrast boards paired with exaggerated, animated character facial expressions right before the tactical move to keep mobile watch time above 6 seconds.

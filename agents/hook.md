@@ -1,6 +1,5 @@
-# Hook notebook (2026-10-09)
+# Hook notebook (2026-10-10)
 
-# Hook notebook (2026-10-09)
-• Keep doing: Collaborative question hooks ("Can you help Vektor...", "Can you spot...") with playful emojis (🍪, ♟️), which delivered our top two scores (8.09 and 7.88) and 588 combined views.
-• Stop doing: Urgent imperative commands ("Save Pip!", "Shock Blaze!") which sank to the bottom tier (6.20 and 6.01).
-• Try next: Specific, fun micro-stake questions focused on tangible everyday goals (e.g., "Can you help Vektor solve the breakfast puzzle? 🥞").
+• Keep doing: Collaborative question hooks pairing Vektor with tangible, playful goals ("Can you help Vektor win the cookie challenge? 🍪", "Can you spot the four moves with Vektor? ♟️") which generated our highest scores (8.09, 7.89) and only shares.
+• Stop doing: High-stress imperatives ("Save Pip!") and generic championship questions ("Can you spot White's winning move for Luna?"), which hit our lowest watch times and bottom scores (5.13).
+• Try next: Everyday micro-stake challenge hooks pairing a fun reward with an emoji (e.g., "Can you help Vektor win the snack tournament? 🍕").
