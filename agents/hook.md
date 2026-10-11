@@ -1,5 +1,7 @@
-# Hook notebook (2026-10-10)
+# Hook notebook (2026-10-11)
 
-• Keep doing: Collaborative question hooks pairing Vektor with tangible, playful goals ("Can you help Vektor win the cookie challenge? 🍪", "Can you spot the four moves with Vektor? ♟️") which generated our highest scores (8.09, 7.89) and only shares.
-• Stop doing: High-stress imperatives ("Save Pip!") and generic championship questions ("Can you spot White's winning move for Luna?"), which hit our lowest watch times and bottom scores (5.13).
-• Try next: Everyday micro-stake challenge hooks pairing a fun reward with an emoji (e.g., "Can you help Vektor win the snack tournament? 🍕").
+# Hook notebook (2026-10-11)
+
+• Keep doing: Collaborative questions pairing Vektor with tangible, low-stakes goals and an emoji ("Can you help Vektor win the cookie challenge? 🍪"), driving our highest scores (8.09, 7.89).
+• Stop doing: High-pressure rescue phrasing ("Save Pip!") and sterile tournament questions ("spot White's winning move for Luna?"), which sunk watch times to 2.2s.
+• Try next: Everyday food or game wagers with concrete numbers: "Can you help Vektor win 3 pancake points? 🥞".

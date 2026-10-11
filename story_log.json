@@ -143,5 +143,13 @@
 "format": "tournament drama: a key game with everything at stake",
 "spotlight": "Grandma Queen",
 "setting": "a desert festival with balloons"
+},
+{
+"title": "The Hot Cocoa Showdown",
+"summary": "Trapped inside a rainy caf\u00e9 after chess club, Bishop Blaze wagers a giant hot chocolate that his puzzle is unbeatable until Pip spots an opening.",
+"puzzle": "60b6G",
+"format": "rival showdown: a challenge from Bishop Blaze or a trap from Mister Zugzwang",
+"spotlight": "Pip",
+"setting": "a rainy caf\u00e9 with steaming hot chocolate"
 }
 ]

@@ -1,5 +1,7 @@
-# Community notebook (2026-10-10)
+# Community notebook (2026-10-11)
 
-• Keep doing: Tracking volume across posts (Cookie Challenge and Rainy Day Riddle drove highest raw interaction).
-• Stop doing: Attempting to extract chess difficulty or story critiques from comments; audience data is too thin as 100% of comments are automated "Send me this post" variants.
-• Try next: Pinning a simple binary question ("Did you spot move 1 or move 2 first?") to gauge whether real parents and kids are actively watching.
+# Community notebook (2026-10-11)
+
+• Keep doing: Tracking raw comment volume spikes on top posts ("Cookie Challenge", "Rainy Day Riddle", "Rooftop Blitz").
+• Stop doing: Expecting qualitative chess difficulty or narrative feedback; human audience critique is virtually non-existent right now.
+• Try next: Recognizing that 100% of comments are automated share/bot requests ("Send me this post"). Use a binary on-screen visual prompt ("Tap like if you found it in under 5 seconds!") to separate real viewers from bots.

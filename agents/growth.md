@@ -1,5 +1,7 @@
-# Growth notebook (2026-10-10)
+# Growth notebook (2026-10-11)
 
-• Keep doing: Whimsical, shareable setups—our top 2 family-friendly posts accounted for 100% of all shares.
-• Stop doing: Open-ended CTAs asking viewers to write out chess moves, which generated zero chess notation comments.
-• Try next: Leveraging the high volume of "Send me this post" comments with an explicit keyword automation CTA: "Comment PUZZLE to get the animated solution sent to your DMs!"
+# Growth notebook (2026-10-11)
+
+• Keep doing: Family-friendly, lighthearted content—our top 2 domestic posts drove all recorded shares.
+• Stop doing: Asking viewers to type algebraic notation or multi-move combinations; viewers do not write out moves.
+• Try next: Converting heavy DM-bot/sharing behavior into real leads with an automated keyword CTA: "Comment PUZZLE to get the animated solution sent to your inbox!"
