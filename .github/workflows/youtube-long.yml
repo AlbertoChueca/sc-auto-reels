@@ -1,0 +1,109 @@
+name: YouTube long videos
+
+on:
+  schedule:
+    - cron: "0 5 * * 1"    # Monday 05:00 UTC   -> goes public Tuesday 21:00 UTC (17:00 New York in summer)
+    - cron: "0 5 * * 4"    # Thursday 05:00 UTC -> goes public Friday 21:00 UTC
+  workflow_dispatch:
+    inputs:
+      format:
+        description: "Format (auto = the autopilot decides)"
+        type: choice
+        options: [auto, lesson, challenge, legendary]
+        default: auto
+      dry_run:
+        description: "Only generate the video (do not upload)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: reels            # never runs at the same time as the reels (they share used.json)
+  cancel-in-progress: false
+
+jobs:
+  video:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: System packages
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libcairo2 espeak-ng
+
+      - name: Python packages
+        run: pip install -r requirements.txt
+
+      - name: Cache voice models
+        uses: actions/cache@v4
+        with:
+          path: |
+            models
+            ~/.cache/huggingface
+          key: voices-v4
+
+      - name: Download Kokoro voice (backup voice)
+        run: |
+          mkdir -p models
+          [ -f models/kokoro.onnx ] || curl -sSL -o models/kokoro.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
+          [ -f models/voices.bin ]  || curl -sSL -o models/voices.bin  https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
+
+      - name: Monthly cache key
+        id: month
+        run: echo "m=$(date +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache puzzle database
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: puzzles-${{ steps.month.outputs.m }}
+          restore-keys: puzzles-
+
+      - name: Generate and upload
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          VOICE_ENGINE: gemini
+          YT_VOICE: ${{ vars.YT_VOICE || vars.GEMINI_VOICE || 'Sadachbia' }}
+          YT_PUBLISH_HOUR_UTC: ${{ vars.YT_PUBLISH_HOUR_UTC || '21' }}
+          YT_FORMAT: ${{ github.event_name == 'workflow_dispatch' && inputs.format || 'auto' }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+        run: python youtube/yt_run.py
+
+      - name: Save video for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-video
+          path: out/youtube/**
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Notify (GitHub issue = email to you)
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f out/youtube/notify.md ]; then
+            gh issue create --title "YouTube: nuevo vídeo programado ($(date +%F))" --body-file out/youtube/notify.md || true
+          fi
+
+      - name: Remember results
+        if: always()
+        run: |
+          git config user.name "reels-bot"
+          git config user.email "reels-bot@users.noreply.github.com"
+          git add used.json 2>/dev/null || true
+          for f in youtube/yt_log.jsonl youtube/yt_performance.json youtube/yt_arms.json youtube/yt_report.md youtube/yt_playbook.md; do [ -f "$f" ] && git add "$f"; done
+          [ -d youtube/thumbs ] && git add youtube/thumbs
+          git diff --cached --quiet || (git commit -m "YouTube video $(date +%F)" && (git push || (git pull --rebase && git push)))
