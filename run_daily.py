@@ -29,8 +29,8 @@ def log(entry):
 
 # ---- choose level / mode
 LEVELS = ["basic", "intermediate", "advanced"]
-if slot == "story":
-    level, mode = LEVELS[today.toordinal() % 3], "level"          # rotates every day
+if slot in ("story", "benefit"):
+    level, mode = LEVELS[today.toordinal() % 3], "level"          # rotates every day (benefit: used only as fallback)
 elif slot == "storytag":
     level, mode = random.Random(f"{today}-tag").choice(["basic", "intermediate"]), "tagfriend"
 elif slot == "tagfriend":
@@ -84,10 +84,22 @@ meta, engine = None, None
 # Every slot gets the premium story reel (same as "Story reel test"). If the story pipeline has a transient
 # problem it is retried once; only then does it fall back so a post always goes out.
 chain = ["story", "story", "hype", "classic"]
+# Benefit reels: on chosen weekdays the evening slot has Vektor explain a real benefit of StreakChess
+# (illustrated scenes, only true facts from assets/app/facts.md). BENEFIT_DAYS=none disables them.
+_bdays = {int(d) for d in os.environ.get("BENEFIT_DAYS", "2,5").split(",") if d.strip().isdigit()}   # 0=Mon .. 6=Sun
+if slot == "benefit" or (slot == "storytag" and today.weekday() in _bdays
+                         and os.environ.get("LEVEL_OVERRIDE", "auto") == "auto"):
+    chain = ["benefit"] + chain
+    print("today's evening reel: StreakChess benefits", flush=True)
 errors = []
 for eng in chain:
     try:
-        if eng == "story":
+        if eng == "benefit":
+            if not os.environ.get("GEMINI_API_KEY"):
+                raise RuntimeError("GEMINI_API_KEY not set")
+            from make_benefit import build as b
+            meta = b(seed, out)
+        elif eng == "story":
             if not os.environ.get("GEMINI_API_KEY"):
                 raise RuntimeError("GEMINI_API_KEY not set")
             from make_story import build as b
@@ -114,7 +126,7 @@ except Exception:
 summary = os.environ.get("GITHUB_STEP_SUMMARY")
 if summary:  # visible on the run page in GitHub
     with open(summary, "a") as f:
-        ok = engine == "story"
+        ok = engine in ("story", "benefit")
         f.write(f"## {'✅ Premium story reel' if ok else '⚠️ Fallback reel (story failed)'}\n\n"
                 f"- Slot: `{slot}` · level: `{level}` · mode: `{mode}`\n- Engine: `{engine}` · voice: `{voice_used}`\n"
                 + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
