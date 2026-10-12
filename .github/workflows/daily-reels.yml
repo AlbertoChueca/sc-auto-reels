@@ -9,7 +9,7 @@ on:
       level:
         description: "Premium story reel: story = normal puzzle, storytag = 'challenge a friend'"
         type: choice
-        options: [story, storytag]
+        options: [story, storytag, benefit]
         default: story
       difficulty:
         description: "Puzzle level (auto = rotates every day)"
@@ -106,6 +106,6 @@ jobs:
         run: |
           git config user.name "reels-bot"
           git config user.email "reels-bot@users.noreply.github.com"
-          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json; do [ -f "$f" ] && git add "$f"; done
+          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json; do [ -f "$f" ] && git add "$f"; done
           [ -d agents ] && git add agents
           git diff --cached --quiet || (git commit -m "Reel ${{ steps.lvl.outputs.level }} $(date +%F)" && (git push || (git pull --rebase && git push)))
