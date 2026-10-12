@@ -1,4 +1,8 @@
 # Visual Director - notebook
+_Updated 2026-10-12_
 
-- Light up the 1-3 squares that matter; pop at most 3 words on screen per line.
-- Put a short pause after big reveals so the move can land.
+# Visual Director - notebook
+
+- Highlight 1-3 active squares; display at most 3 words on screen at a time.
+- Hold a deliberate visual beat after tactical reveals so the move lands cleanly.
+- Visually spotlight the 'tempting move' square before illustrating its tactical refutation.

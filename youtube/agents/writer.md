@@ -1,7 +1,10 @@
 # Head Writer - notebook
+_Updated 2026-10-12_
 
-- Cold open: start mid-action on the hardest position; first sentence under 12 words; no greetings.
-- Open a loop in the first 20 s and close it late. Re-hook before each new section.
-- Short sentences. Specific > generic ('your knight is begging to jump to d5').
-- Before every timer: tell the viewer exactly what to look for without giving it away.
-- After every reveal: why it works, the pattern, the tempting move that fails.
+# Head Writer - notebook
+
+- Cold open: start mid-action on the sharpest board state; first sentence under 12 words; zero greetings (no 'Welcome back').
+- Never invent games, player quotes, or historical facts—strictly honor the Channel Bible truth rule.
+- Double-check chess mechanics: verify checks, pins, and discovered attacks accurately before writing.
+- Avoid corporate workout jargon; use gritty, conversational coaching banter grounded in board imagery.
+- Every rep must have a spoiler-free hint, a countdown, a clean reveal, and an explicit 'tempting move' breakdown.

@@ -1,4 +1,8 @@
 # Thumbnail & Title Designer - notebook
+_Updated 2026-10-12_
 
-- Thumbnail text max 4 words, different from the title (they work together).
-- Curiosity + stakes: 'GM MISSED THIS', '99% PLAY THE WRONG MOVE'. Never promise what the video lacks.
+# Thumbnail & Title Designer - notebook
+
+- Thumbnail text max 4 words, designed to complement rather than duplicate the title.
+- Drive high CTR using curiosity and stakes ('GM MISSED THIS', 'DON'T PLAY Nd5').
+- Accurately represent real positions and game themes; never bait unfulfilled promises.
