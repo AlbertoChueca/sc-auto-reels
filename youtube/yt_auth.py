@@ -10,7 +10,7 @@ import http.server, sys, urllib.parse, webbrowser
 import requests
 
 SCOPES = "https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube " \
-         "https://www.googleapis.com/auth/yt-analytics.readonly"
+         "https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/yt-analytics.readonly"
 PORT = 8765
 code = {}
 

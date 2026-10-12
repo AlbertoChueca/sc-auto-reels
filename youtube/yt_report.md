@@ -10,9 +10,10 @@ Still collecting data: options are being tested evenly for now.
 
 | option | videos | avg score |
 |---|---|---|
-| lesson | 0 | - |
-| challenge | 0 | - |
+| gym | 0 | - |
+| streak | 0 | - |
 | legendary | 0 | - |
+| trending | 0 | - |
 
 ## hook_style
 
@@ -48,24 +49,3 @@ Still collecting data: options are being tested evenly for now.
 | fast | 0 | - |
 | normal | 0 | - |
 | long | 0 | - |
-
-## topic
-
-| option | videos | avg score |
-|---|---|---|
-| fork | 0 | - |
-| pin | 0 | - |
-| skewer | 0 | - |
-| deflection | 0 | - |
-| attraction | 0 | - |
-| discovered | 0 | - |
-| backrank | 0 | - |
-| intermezzo | 0 | - |
-| quiet | 0 | - |
-| sacrifice | 0 | - |
-| clearance | 0 | - |
-| checklist | 0 | - |
-| mate3 | 0 | - |
-| smothered | 0 | - |
-| xray | 0 | - |
-| candidates | 0 | - |

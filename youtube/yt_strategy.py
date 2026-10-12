@@ -18,7 +18,7 @@ EXPLORE = float(os.environ.get("EXPLORE_RATE", "0.15"))
 MIN_AGE_DAYS = 5
 
 DEFAULT_ARMS = {
-    "format": ["lesson", "challenge", "legendary"],
+    "format": ["gym", "streak", "legendary", "trending"],
     "hook_style": [
         "cold_open: start on the hardest position of the video and say most players miss it",
         "shock_stat: open with a surprising, true observation about how club players lose games to missed tactics",
@@ -34,11 +34,9 @@ DEFAULT_ARMS = {
     ],
     "thumb_style": ["board_text", "big_number", "question"],
     "think_time": ["fast", "normal", "long"],
-    "topic": ["fork", "pin", "skewer", "deflection", "attraction", "discovered", "backrank", "intermezzo", "quiet",
-              "sacrifice", "clearance", "checklist", "mate3", "smothered", "xray", "candidates"],
 }
 THINK_SECONDS = {"fast": 12, "normal": 20, "long": 30}
-CREATIVE = ("format", "hook_style", "title_style", "topic")
+CREATIVE = ("format", "hook_style", "title_style")
 
 
 def arms():
@@ -119,8 +117,6 @@ def choose(seed=None, fixed=None):
         if fixed and fixed.get(lev):
             pick[lev] = fixed[lev]; continue
         ban = {r.get(lev) for r in last[-1:]} if lev in CREATIVE else set()
-        if lev == "topic":
-            ban = {r.get("topic") for r in last}                # never the same lesson topic within 3 videos
         dd = {a: v for a, v in d.items() if a not in ban} or d
         if rng.random() < EXPLORE or n_total < 8:
             pick[lev] = rng.choice(list(dd)); continue
@@ -131,8 +127,6 @@ def choose(seed=None, fixed=None):
             if v > best_v:
                 best, best_v = a, v
         pick[lev] = best
-    if pick["format"] != "lesson":
-        pick.pop("topic", None)
     return pick
 
 

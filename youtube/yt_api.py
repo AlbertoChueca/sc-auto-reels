@@ -138,3 +138,47 @@ def analytics(video_ids, start, end):
                 else:
                     out.setdefault(vid, {}).update(d)
     return out
+
+
+def upload_captions(video_id, srt_path, lang, name):
+    """Upload an SRT track. Needs the youtube.force-ssl scope (re-run yt_auth.py once if it says insufficient scope)."""
+    import uuid
+    meta = json.dumps({"snippet": {"videoId": video_id, "language": lang, "name": name, "isDraft": False}})
+    boundary = uuid.uuid4().hex
+    body = (f"--{boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n{meta}\r\n"
+            f"--{boundary}\r\nContent-Type: application/octet-stream\r\n\r\n").encode() + open(srt_path, "rb").read() + \
+        f"\r\n--{boundary}--".encode()
+    r = requests.post(f"{UPLOAD}/captions?uploadType=multipart&part=snippet", data=body, timeout=120,
+                      headers=_h({"Content-Type": f"multipart/related; boundary={boundary}"}))
+    return _check(r, f"captions {lang}")
+
+
+def set_localizations(video_id, locs, default_lang="en"):
+    """Translated titles/descriptions so the video is found in other languages."""
+    v = video(video_id)
+    if not v or not locs:
+        return None
+    sn = v["snippet"]
+    body = {"id": video_id, "snippet": {"title": sn["title"], "description": sn.get("description", ""),
+                                        "tags": sn.get("tags", []), "categoryId": sn.get("categoryId", "27"),
+                                        "defaultLanguage": default_lang},
+            "localizations": {k: {"title": x["title"][:100], "description": (x.get("description") or "")[:4900]}
+                              for k, x in locs.items()}}
+    r = requests.put(f"{API}/videos?part=snippet,localizations", json=body, headers=_h(), timeout=30)
+    return _check(r, "localizations")
+
+
+def comments(video_ids, per_video=40):
+    """Recent top-level comment texts (no author names) for the Analyst."""
+    out = []
+    for vid in video_ids[-8:]:
+        try:
+            r = requests.get(f"{API}/commentThreads", headers=_h(), timeout=30, params={
+                "part": "snippet", "videoId": vid, "maxResults": per_video, "order": "relevance", "textFormat": "plainText"})
+            for it in (r.json().get("items") or []):
+                t = it["snippet"]["topLevelComment"]["snippet"].get("textDisplay", "")
+                if t:
+                    out.append(t[:300])
+        except Exception:
+            pass
+    return out
