@@ -1,0 +1,50 @@
+name: YouTube -> Instagram Story
+
+on:
+  schedule:
+    - cron: "17 */2 * * *"   # every 2 hours: posts the Story once you make the video public
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: youtube-story
+  cancel-in-progress: false
+
+jobs:
+  story:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Anything pending?
+        id: p
+        run: |
+          if [ -f youtube/yt_log.jsonl ] && grep -q '"story": "pending"' youtube/yt_log.jsonl; then echo "go=1" >> "$GITHUB_OUTPUT"; fi
+
+      - uses: actions/setup-python@v6
+        if: steps.p.outputs.go == '1'
+        with:
+          python-version: "3.11"
+
+      - name: Post pending stories
+        if: steps.p.outputs.go == '1'
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q requests
+          python youtube/yt_story_check.py
+
+      - name: Save state
+        if: steps.p.outputs.go == '1' && always()
+        run: |
+          git config user.name "reels-bot"
+          git config user.email "reels-bot@users.noreply.github.com"
+          git add -A youtube/yt_log.jsonl youtube/stories 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "Instagram story for YouTube video $(date +%F)" && (git push || (git pull --rebase && git push)))

@@ -98,22 +98,26 @@ def publish_time(now=None):
     return t
 
 
+STORIES = os.path.join(HERE, "stories")
+
+
 def instagram_story(API, vid, plan, res):
-    """Story on Instagram announcing the video (only when the video is really public)."""
+    """Instagram Story announcing the video. Posted now if the video is public; otherwise saved and posted by
+    yt_story_check.py (every 2 h) as soon as you make the video public in YouTube Studio."""
     if not os.environ.get("IG_TOKEN"):
         return "story: skipped (no IG_TOKEN)"
     try:
-        v = API.video(vid) or {}
-        status = (v.get("status") or {}).get("privacyStatus")
-        if status != "public":
-            return (f"story: skipped, YouTube kept the video '{status}' (new API projects upload as private until "
-                    f"Google's audit is approved)")
         import yt_story as SS
-        sys.path.insert(0, ROOT)
-        import publish_ig as IG
         p = SS.make(plan, res["video"], OUT, os.environ.get("YT_CHANNEL_HANDLE") or API.channel_handle())
-        IG.publish_story(p)
-        return "story: published on Instagram"
+        status = ((API.video(vid) or {}).get("status") or {}).get("privacyStatus")
+        if status == "public":
+            sys.path.insert(0, ROOT)
+            import publish_ig as IG
+            IG.publish_story(p)
+            return "story: published on Instagram"
+        os.makedirs(STORIES, exist_ok=True)
+        shutil.copy(p, os.path.join(STORIES, f"{vid}.mp4"))
+        return "story: pending - it will be posted automatically (within ~2 h) once you make the video public"
     except Exception as e:
         return f"story: failed ({str(e)[:200]})"
 
@@ -215,14 +219,16 @@ def main():
     story = instagram_story(API, vid, plan, res) if veto <= 0 else "story: will not be posted while the video is scheduled"
     say(story)
     API.add_to_playlist(vid, PLAYLISTS[plan["format"]])
-    entry.update(video_id=vid, publish_date=when.date().isoformat(), publish_at=when.isoformat())
+    entry.update(video_id=vid, publish_date=when.date().isoformat(), publish_at=when.isoformat(),
+                 story="posted" if story.startswith("story: published") else ("pending" if "pending" in story else "none"))
     with open(ST.LOG, "a") as f:
         f.write(json.dumps(entry) + "\n")
     note = (f"## Nuevo vídeo {'programado' if veto > 0 else 'publicado'}: {plan['title']}\n\n"
             + (f"- Se publica solo el **{when.strftime('%Y-%m-%d %H:%M')} UTC** ({mins:.1f} min, {plan['series']} #{plan['episode']}).\n"
                f"- **Para vetarlo**: en YouTube Studio cambia la visibilidad a Privado (sin programar) o bórralo.\n"
-               if veto > 0 else f"- Publicado ya ({mins:.1f} min, {plan['series']} #{plan['episode']}): https://youtu.be/{vid}\n"
-                                f"- Story de Instagram: {story}\n")
+               if veto > 0 else f"- Vídeo subido ({mins:.1f} min, {plan['series']} #{plan['episode']}): https://youtu.be/{vid}\n"
+                                + ("- **Está en privado**: revísalo y ponlo en *Público* en YouTube Studio. La Story de Instagram "
+                                   "se publicará sola en las 2 horas siguientes.\n" if "pending" in story else f"- {story}\n"))
             + f"- Editarlo: https://studio.youtube.com/video/{vid}/edit\n"
             f"- Título alternativo (si el CTR sale bajo se cambia solo): {plan['alt_title']}\n"
             f"- Nota de calidad del Showrunner: {plan['sources'].get('quality')}/10\n")

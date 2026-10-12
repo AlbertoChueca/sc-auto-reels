@@ -7,7 +7,9 @@ Dos vídeos por semana de 8-12 min sobre cálculo y táctica, generados, subidos
 | Martes 19:00 UTC | En cuanto termina (~20:00 UTC, 16:00 Nueva York en verano) |
 | Viernes 19:00 UTC | En cuanto termina |
 
-Nada más publicarse, se sube una **Story a Instagram** (@streakchess): los primeros 15 s del vídeo con el título y "Watch the full video · Link in bio". La API de Instagram no permite poner un sticker de enlace clicable, así que la Story manda al **enlace de la bio**: pon ahí tu canal de YouTube (o una página tuya que enlace al último vídeo). Te llega además un aviso (issue de GitHub → email) con el enlace al vídeo.
+Mientras Google no apruebe la auditoría de la API, YouTube deja el vídeo **en privado**: te llega el aviso, lo revisas y lo pones en **Público** en YouTube Studio. En las 2 horas siguientes se publica sola la Story (workflow *YouTube -> Instagram Story*; si no lo haces público en 7 días, la Story se descarta).
+
+Cuando el vídeo es público, se sube una **Story a Instagram** (@streakchess): los primeros 15 s del vídeo con el título y "Watch the full video · Link in bio". La API de Instagram no permite poner un sticker de enlace clicable, así que la Story manda al **enlace de la bio**: pon ahí tu canal de YouTube (o una página tuya que enlace al último vídeo). Te llega además un aviso (issue de GitHub → email) con el enlace al vídeo.
 
 ¿Quieres volver a tener margen para vetar? En GitHub → Settings → Secrets and variables → Actions → **Variables**, crea `YT_VETO_HOURS` (por ejemplo `24`): el vídeo se subirá privado y programado, y en ese modo no se publica la Story.
 

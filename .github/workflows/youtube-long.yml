@@ -121,4 +121,5 @@ jobs:
           for f in youtube/yt_log.jsonl youtube/yt_performance.json youtube/yt_arms.json youtube/yt_report.md youtube/yt_playbook.md youtube/yt_trends.json; do [ -f "$f" ] && git add "$f"; done
           [ -d youtube/agents ] && git add youtube/agents
           [ -d youtube/thumbs ] && git add youtube/thumbs
+          [ -d youtube/stories ] && git add youtube/stories
           git diff --cached --quiet || (git commit -m "YouTube video $(date +%F)" && (git push || (git pull --rebase && git push)))
