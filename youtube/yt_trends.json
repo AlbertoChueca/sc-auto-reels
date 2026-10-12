@@ -1,0 +1,157 @@
+{
+ "date": "2026-10-12",
+ "news": {
+  "items": [
+   {
+    "headline": "Wesley So and Awonder Liang Lead 2026 U.S. Chess Championship with Perfect Scores",
+    "detail": "Grandmasters Wesley So and Awonder Liang won their opening two games to co-lead the U.S. Chess Championship with 2/2, with So overcoming Jeffery Xiong and Liang defeating Sam Sevian. Defending champion Fabiano Caruana sits just a half-point behind after grinding out a 73-move victory against Grigoriy Oparin.",
+    "date": "2026-10-11",
+    "people": [
+     "Wesley So",
+     "Awonder Liang",
+     "Fabiano Caruana",
+     "Jeffery Xiong",
+     "Sam Sevian",
+     "Grigoriy Oparin"
+    ],
+    "event": "2026 U.S. Chess Championship",
+    "why_viewers_care": "The strongest classical national championship in the world is underway in Saint Louis with top American super-grandmasters contending for the national crown."
+   },
+   {
+    "headline": "Megan Paragua and Thalia Cervantes Take Early Lead in U.S. Women's Championship",
+    "detail": "Underdogs FM Megan Paragua and WGM Thalia Cervantes surged to the top of the standings after round two with 2/2 scores. Paragua delivered the biggest upset of the event so far by defeating defending champion IM Carissa Yip with a stylish queen sacrifice.",
+    "date": "2026-10-11",
+    "people": [
+     "Megan Paragua",
+     "Thalia Cervantes",
+     "Carissa Yip",
+     "Rachael Li"
+    ],
+    "event": "2026 U.S. Women's Chess Championship",
+    "why_viewers_care": "A stunning tactical queen sacrifice created an immediate major shake-up in the title defense of the reigning champion."
+   },
+   {
+    "headline": "Hikaru Nakamura Sets Historic Record with Fifth Consecutive Bullet Brawl Win",
+    "detail": "Hikaru Nakamura took first place in the October 10 Bullet Brawl, overcoming a field of more than 180 titled competitors including GMs Arjun Erigaisi and Ediz Gurel. The win marked the first time in the tournament's history that any player has captured five consecutive Bullet Brawl victories.",
+    "date": "2026-10-10",
+    "people": [
+     "Hikaru Nakamura",
+     "Ediz Gurel",
+     "Arjun Erigaisi"
+    ],
+    "event": "Chess.com Bullet Brawl",
+    "why_viewers_care": "Nakamura established a new milestone in online blitz/bullet history, maintaining his dominance against top international grandmasters."
+   },
+   {
+    "headline": "Countdown Begins for Gukesh vs. Sindarov World Chess Championship Match",
+    "detail": "Following the conclusion of the Olympiad in Samarkand, anticipation intensified as reigning World Champion Gukesh D and challenger Javokhir Sindarov head into final preparations. The classical FIDE World Championship match is scheduled to begin on November 24.",
+    "date": "2026-10-03",
+    "people": [
+     "Gukesh D",
+     "Javokhir Sindarov"
+    ],
+    "event": "2026 FIDE World Chess Championship",
+    "why_viewers_care": "Fans and commentators are following the build-up to the classical title clash featuring two of the youngest elite grandmasters in modern chess history."
+   },
+   {
+    "headline": "Record 140 Teams Enter 6th Intercontinental Online Chess Championship for Prisoners",
+    "detail": "FIDE announced that the 6th Intercontinental Online Chess Championship for Prisoners set a new participation record with 140 teams representing 56 countries. Scheduled for October 13\u201315, the international online competition takes place under the Chess for Freedom initiative.",
+    "date": "2026-10-10",
+    "people": [],
+    "event": "6th Intercontinental Online Chess Championship for Prisoners",
+    "why_viewers_care": "It marks the largest edition to date for FIDE's flagship social rehabilitation initiative using chess in correctional facilities."
+   },
+   {
+    "headline": "FIDE Faces Host Compliance Questions Over Israeli Players for World Amateur Championship",
+    "detail": "Reports highlighted diplomatic entry restrictions in host country Malaysia that could potentially bar Israeli chess players from attending the upcoming World Amateur Championship. The policy raises potential conflicts with FIDE rules prohibiting discrimination and requiring guaranteed entry for all affiliated federations.",
+    "date": "2026-10-09",
+    "people": [
+     "Anwar Ibrahim"
+    ],
+    "event": "World Amateur Chess Championship",
+    "why_viewers_care": "The controversy tests FIDE's strict anti-discrimination guidelines and host-nation requirements for international chess competitions."
+   }
+  ],
+  "search_terms": [
+   "US Chess Championship 2026 round 2",
+   "Megan Paragua queen sacrifice Carissa Yip",
+   "Hikaru Nakamura Bullet Brawl",
+   "Wesley So US Championship 2026",
+   "Gukesh vs Sindarov World Championship 2026"
+  ],
+  "sources": [
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF8RxlVonG7Y8z3CGMc1jiDpgQciGGCHIyfvWyrG-3kLj92OMS55J6AU5CGuGuT2KmAmRzFtEjAacFBjGJdKjjuS-AwbZp2XcvkH3WzWEusGf6AgFUhbZ1XRMiNtnfMcFvVsccP7bqvtsQ4tWvaqJkhJK0hTcDP2qDe",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGf2TCOTwrQal9i23axPiU7eo1FME9QT__5j0m2gbzfTL71q6NCSpsW-1uiinbg1_hUK2Fs2F9L3thtmv1KSpEO1SDXTAsvuG6_BnWw3JFv0-CRdQ0xqW025KkpfLzf5ZDial4w7hEPnxmUMwt9hw==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFpXf3EaKa4yGNvALk4y-ACwuaJMMGQ5bEUt6-fHeC5RSmH25VW5RAs8ARtOWsIuPX4PS7MCNb2_pARp2h-dOYGcyET2X5qykiTd3kCTfHduWP8owyb6d-UFRB1O8tuHcm7",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzb-ZbWOtwoXZ9HAED8EYjTPKLAfefePMISCarUYpTq9FHbo84q6Q-tzNmCgGEwqZMylUWBVkRMOIIkX1uEEkClcne23PVosWfXoca_oO6XuV7JtAUSJoHfUbNxEZm5wjZO5lt-rrJMv7BcVCVk-qpxFBeF3moErJa1rPhr-twLvvKZA==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH3Jhslrx0gENmOrO6FpCx4RDzRCz6MUkwMdIgSLt_uDfP2dhmxBLIV0pyzd6ssgf0XM_cDunlHApYwGfYTQ4TZeH9xsFSlNyOtP1HZOQT4UzP9yGBcsv0fU5H75s4fdYp5PrRNyyRDDNnsQqFpWeubwrIn1JPmrXiOEnzPFhUJAh5QtKoOhJdEZXbUaTq3AOQ=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1J7oRD1X0EGXtOD99XeFQfC0ZoJgXWhqiISAcH17xYILwGiT6vrcOYq_U29gtWGF7PPLXZ5BwMV7M8rUSf2pHzQrHWfE_8K5cvJWLjxJavBc24F9V5RogADNCh41M6fTw_Jp9vbNQPQCqjiSfrmgApmDjC9lHVl8u0UXFduwM8Kt1mk8R8GfFkkpUffG_aTpJbmgj8Pk=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGX4t313ACgGRGrItcVhAaqb3kEOGPxdLCaeBpESsAphPaN38mqQRKx18YpJ5nM4L-kMAXo1-D3TePjbljIaY5HPzP7TPt1HcEgFi9-N95-AR11MjQ_3jaj5873HFWGPiqy8u_f_xgif98p1hBAqUo60K_qP6-B1mWMwyDfJ9A1e52z64VQAQ-3mrOWWq3u9JROUAJje1r7zVBM-gMaYbznrni1QnZhl2rrKbn8RvT7ZC15cm2mR4aiAzNWv9Tym3u70p0k2Q=="
+  ]
+ },
+ "suggest": {
+  "chess tactics": [
+   "chess tactics",
+   "chess tactics for beginners",
+   "chess tactics training",
+   "chess tactics and strategy",
+   "chess tactics explained",
+   "chess tactics for intermediate players",
+   "chess tactics gothamchess",
+   "chess tactics for kids",
+   "chess tactics hikaru",
+   "chess tactics from scratch"
+  ],
+  "chess puzzles": [
+   "chess puzzles",
+   "chess puzzles for beginners",
+   "chess puzzles for intermediate players",
+   "chess puzzles for kids",
+   "chess puzzles hard",
+   "chess puzzles explained",
+   "chess puzzles watch dogs",
+   "chess puzzles gothamchess",
+   "chess puzzles mate in 2",
+   "chess puzzles uil"
+  ],
+  "how to calculate in chess": [
+   "how to calculate in chess",
+   "how to calculate in chess like a grandmaster",
+   "how to calculate in chess gotham",
+   "how to calculate in chess for beginners",
+   "how to calculate in chess dina",
+   "how to calculate in chess faster",
+   "how to calculate in chess like hikaru",
+   "how to calculate in chess hikaru",
+   "how to calculate in chess daniel naroditsky",
+   "how to calculate in chess fast"
+  ],
+  "chess tricks": [
+   "chess tricks",
+   "chess tricks to win fast",
+   "chess tricks for beginners",
+   "chess tricks checkmate",
+   "chess tricks and traps",
+   "chess tricks for black",
+   "chess tricks and tips",
+   "chess tricks in hindi",
+   "chess tricks to win",
+   "chess tricks to win fast for beginners"
+  ],
+  "US Chess Championship 2026 round 2": [
+   "us chess championship 2026 round 2",
+   "us chess championship 2023",
+   "2019 us chess championship"
+  ],
+  "Megan Paragua queen sacrifice Carissa Yip": [
+   "magnus giri queen sacrifice",
+   "magnus carlsen vs anish giri queen sacrifice"
+  ],
+  "Hikaru Nakamura Bullet Brawl": [
+   "hikaru nakamura bullet brawl",
+   "hikaru bullet botez",
+   "hikaru nakamura bullet chess",
+   "hikaru bullet danya"
+  ]
+ }
+}
