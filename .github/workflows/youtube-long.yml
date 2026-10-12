@@ -2,8 +2,8 @@ name: YouTube long videos
 
 on:
   schedule:
-    - cron: "0 5 * * 1"    # Monday 05:00 UTC   -> goes public Tuesday 21:00 UTC (17:00 New York in summer)
-    - cron: "0 5 * * 4"    # Thursday 05:00 UTC -> goes public Friday 21:00 UTC
+    - cron: "0 19 * * 2"   # Tuesday 19:00 UTC -> public ~20:00 UTC (16:00 New York in summer) + Instagram Story
+    - cron: "0 19 * * 5"   # Friday  19:00 UTC
   workflow_dispatch:
     inputs:
       format:
@@ -83,6 +83,8 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          YT_VETO_HOURS: ${{ vars.YT_VETO_HOURS || '0' }}
           VOICE_ENGINE: gemini
           STOCKFISH: models/stockfish
           YT_VOICE: ${{ vars.YT_VOICE || vars.GEMINI_VOICE || 'Sadachbia' }}
@@ -106,7 +108,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ -f out/youtube/notify.md ]; then
-            gh issue create --title "YouTube: nuevo vídeo programado ($(date +%F))" --body-file out/youtube/notify.md || true
+            gh issue create --title "YouTube: nuevo vídeo ($(date +%F))" --body-file out/youtube/notify.md || true
           fi
 
       - name: Remember results

@@ -2,12 +2,14 @@
 
 Dos vídeos por semana de 8-12 min sobre cálculo y táctica, generados, subidos y optimizados solos.
 
-| Cuándo se genera | Cuándo se publica | Margen de veto |
-|---|---|---|
-| Lunes 05:00 UTC | Martes 21:00 UTC (17:00 Nueva York en verano) | ~40 h |
-| Jueves 05:00 UTC | Viernes 21:00 UTC | ~40 h |
+| Cuándo se genera | Cuándo se publica |
+|---|---|
+| Martes 19:00 UTC | En cuanto termina (~20:00 UTC, 16:00 Nueva York en verano) |
+| Viernes 19:00 UTC | En cuanto termina |
 
-El vídeo se sube como **privado y programado**. Te llega un aviso (issue de GitHub → email) con el enlace a YouTube Studio. Si no haces nada, se publica solo. **Para vetarlo**: en Studio cambia la visibilidad a Privado sin programar, o bórralo.
+Nada más publicarse, se sube una **Story a Instagram** (@streakchess): los primeros 15 s del vídeo con el título y "Watch the full video · Link in bio". La API de Instagram no permite poner un sticker de enlace clicable, así que la Story manda al **enlace de la bio**: pon ahí tu canal de YouTube (o una página tuya que enlace al último vídeo). Te llega además un aviso (issue de GitHub → email) con el enlace al vídeo.
+
+¿Quieres volver a tener margen para vetar? En GitHub → Settings → Secrets and variables → Actions → **Variables**, crea `YT_VETO_HOURS` (por ejemplo `24`): el vídeo se subirá privado y programado, y en ese modo no se publica la Story.
 
 ## Formatos (el piloto automático los rota y aprende cuál funciona)
 - **Calculation Gym**: un curso progresivo (horquilla → clavada → enfilada → … → jugadas candidatas). Demo explicada, 4 repeticiones de dificultad creciente con temporizador y pista, la "jugada tentadora" que falla y la Regla del Coach.

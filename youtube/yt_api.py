@@ -37,12 +37,13 @@ def _check(r, what):
     return r.json() if r.text else {}
 
 
-def upload(path, title, description, tags, publish_at, category="27", lang="en"):
-    """Resumable upload as a PRIVATE video scheduled to go public at publish_at (RFC3339, UTC).
-    Until then the owner can veto it in YouTube Studio. Returns the video id."""
+def upload(path, title, description, tags, publish_at=None, category="27", lang="en"):
+    """Resumable upload. publish_at=None -> public right away; otherwise PRIVATE and scheduled to go public at
+    publish_at (RFC3339, UTC), so the owner can veto it in YouTube Studio. Returns the video id."""
     meta = {"snippet": {"title": title[:100], "description": description[:4900], "tags": tags[:15], "categoryId": category,
                         "defaultLanguage": lang, "defaultAudioLanguage": lang},
-            "status": {"privacyStatus": "private", "publishAt": publish_at, "selfDeclaredMadeForKids": False,
+            "status": {"privacyStatus": "private" if publish_at else "public", **({"publishAt": publish_at} if publish_at else {}),
+                       "selfDeclaredMadeForKids": False,
                        "embeddable": True, "license": "youtube",
                        "containsSyntheticMedia": os.environ.get("YT_SYNTHETIC", "false").lower() == "true"}}
     size = os.path.getsize(path)
@@ -72,6 +73,17 @@ def upload(path, title, description, tags, publish_at, category="27", lang="en")
                 sent = int(rng.split("-")[1]) + 1 if rng else 0
                 print(f"upload: {sent * 100 // size}%", flush=True); continue
             raise RuntimeError(f"YouTube upload failed {rr.status_code}: {rr.text[:500]}")
+
+
+def channel_handle():
+    """'@handle' of the channel (for the Instagram Story), or None."""
+    try:
+        r = requests.get(f"{API}/channels", params={"part": "snippet", "mine": "true"}, headers=_h(), timeout=30)
+        it = (_check(r, "channels").get("items") or [{}])[0]
+        h = it.get("snippet", {}).get("customUrl")
+        return h if not h or h.startswith("@") else "@" + h
+    except Exception:
+        return None
 
 
 def set_thumbnail(video_id, jpg):

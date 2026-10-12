@@ -4,7 +4,7 @@
 2. Thumbnail/title rescue: a 3-10 day old video with clearly low click-through gets its alternative thumbnail + title.
 3. Mondays: strategist rewrites the playbook. Always: yt_report.md.
 4. Choose this video's experiment, write the plan, record the voice, render, upload as PRIVATE scheduled to go public
-   ~24 h later (the veto window), set the thumbnail, add to the format playlist, log everything.
+   right away (or scheduled YT_VETO_HOURS later), set the thumbnail, captions, playlist, post the Instagram Story, log.
 
 Env: DRY_RUN=1 (render only), YT_FORMAT=lesson|challenge|legendary (force), YT_MOCK=1 (offline test).
 """
@@ -98,6 +98,26 @@ def publish_time(now=None):
     return t
 
 
+def instagram_story(API, vid, plan, res):
+    """Story on Instagram announcing the video (only when the video is really public)."""
+    if not os.environ.get("IG_TOKEN"):
+        return "story: skipped (no IG_TOKEN)"
+    try:
+        v = API.video(vid) or {}
+        status = (v.get("status") or {}).get("privacyStatus")
+        if status != "public":
+            return (f"story: skipped, YouTube kept the video '{status}' (new API projects upload as private until "
+                    f"Google's audit is approved)")
+        import yt_story as SS
+        sys.path.insert(0, ROOT)
+        import publish_ig as IG
+        p = SS.make(plan, res["video"], OUT, API.channel_handle())
+        IG.publish_story(p)
+        return "story: published on Instagram"
+    except Exception as e:
+        return f"story: failed ({str(e)[:200]})"
+
+
 def results_table():
     try:
         perf = json.load(open(ST.PERF))
@@ -169,8 +189,10 @@ def main():
         say("dry run: video not uploaded (see the workflow artifacts)")
         return entry
     import yt_api as API
-    when = publish_time()
-    vid = API.upload(res["video"], plan["title"], desc, plan["seo"]["tags"], when.strftime("%Y-%m-%dT%H:%M:%SZ"))
+    veto = float(os.environ.get("YT_VETO_HOURS", "0") or 0)
+    when = publish_time() if veto > 0 else datetime.datetime.now(datetime.timezone.utc)
+    vid = API.upload(res["video"], plan["title"], desc, plan["seo"]["tags"],
+                     when.strftime("%Y-%m-%dT%H:%M:%SZ") if veto > 0 else None)
     try:
         API.set_thumbnail(vid, res["thumbs"][0])
     except Exception as e:
@@ -190,14 +212,18 @@ def main():
                 break
     os.makedirs(THUMBS, exist_ok=True)
     shutil.copy(res["thumbs"][1], os.path.join(THUMBS, f"{vid}_b.jpg"))
+    story = instagram_story(API, vid, plan, res) if veto <= 0 else "story: will not be posted while the video is scheduled"
+    say(story)
     API.add_to_playlist(vid, PLAYLISTS[plan["format"]])
     entry.update(video_id=vid, publish_date=when.date().isoformat(), publish_at=when.isoformat())
     with open(ST.LOG, "a") as f:
         f.write(json.dumps(entry) + "\n")
-    note = (f"## Nuevo vídeo programado: {plan['title']}\n\n"
-            f"- Se publica solo el **{when.strftime('%Y-%m-%d %H:%M')} UTC** ({mins:.1f} min, {plan['series']} #{plan['episode']}).\n"
-            f"- Revisarlo: https://studio.youtube.com/video/{vid}/edit\n"
-            f"- **Para vetarlo**: en YouTube Studio cambia la visibilidad a Privado (sin programar) o bórralo.\n"
+    note = (f"## Nuevo vídeo {'programado' if veto > 0 else 'publicado'}: {plan['title']}\n\n"
+            + (f"- Se publica solo el **{when.strftime('%Y-%m-%d %H:%M')} UTC** ({mins:.1f} min, {plan['series']} #{plan['episode']}).\n"
+               f"- **Para vetarlo**: en YouTube Studio cambia la visibilidad a Privado (sin programar) o bórralo.\n"
+               if veto > 0 else f"- Publicado ya ({mins:.1f} min, {plan['series']} #{plan['episode']}): https://youtu.be/{vid}\n"
+                                f"- Story de Instagram: {story}\n")
+            + f"- Editarlo: https://studio.youtube.com/video/{vid}/edit\n"
             f"- Título alternativo (si el CTR sale bajo se cambia solo): {plan['alt_title']}\n"
             f"- Nota de calidad del Showrunner: {plan['sources'].get('quality')}/10\n")
     open(os.path.join(OUT, "notify.md"), "w").write(note)
