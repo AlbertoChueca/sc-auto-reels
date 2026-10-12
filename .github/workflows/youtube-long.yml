@@ -85,6 +85,7 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           YT_VETO_HOURS: ${{ vars.YT_VETO_HOURS || '0' }}
+          YT_CHANNEL_HANDLE: ${{ vars.YT_CHANNEL_HANDLE }}
           VOICE_ENGINE: gemini
           STOCKFISH: models/stockfish
           YT_VOICE: ${{ vars.YT_VOICE || vars.GEMINI_VOICE || 'Sadachbia' }}

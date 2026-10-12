@@ -111,7 +111,7 @@ def instagram_story(API, vid, plan, res):
         import yt_story as SS
         sys.path.insert(0, ROOT)
         import publish_ig as IG
-        p = SS.make(plan, res["video"], OUT, API.channel_handle())
+        p = SS.make(plan, res["video"], OUT, os.environ.get("YT_CHANNEL_HANDLE") or API.channel_handle())
         IG.publish_story(p)
         return "story: published on Instagram"
     except Exception as e:

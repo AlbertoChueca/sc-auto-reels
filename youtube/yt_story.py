@@ -27,17 +27,21 @@ def card(plan, channel, thumb):
     # title + thumbnail strip
     y = VY + VH + 70
     y = RN.text_fit(d, plan["title"], RN.F_BLACK, 66, (60, y, SW - 60, y + 260), max_lines=3) + 40
-    # call to action
-    cy = SH - 420
-    d.rounded_rectangle([60, cy, SW - 60, cy + 230], 36, fill=RN.ORANGE)
-    RN.text_fit(d, "WATCH THE FULL VIDEO", RN.F_BLACK, 56, (100, cy + 34, SW - 100, cy + 110), fill=(255, 255, 255),
+    # call to action: the channel address is the main element (Stories can't carry a clickable link via the API)
+    cy = SH - 520
+    d.rounded_rectangle([50, cy, SW - 50, cy + 330], 40, fill=RN.ORANGE)
+    RN.text_fit(d, "WATCH THE FULL VIDEO ON YOUTUBE", RN.F_BLACK, 44, (90, cy + 34, SW - 90, cy + 92), fill=(255, 255, 255),
                 align="center", max_lines=1)
-    RN.text_fit(d, "Link in bio  ·  YouTube", RN.F_BOLD, 42, (100, cy + 128, SW - 100, cy + 190), fill=(255, 255, 255),
-                align="center", max_lines=1)
-    if channel:
-        RN.text_fit(d, f"youtube.com/{channel}", RN.F_SEMI, 38, (60, SH - 178, SW - 60, SH - 130), fill=RN.TEXT,
-                    align="center", max_lines=1)
-    lg = RN.logo(300); im.alpha_composite(lg, (SW // 2 - lg.width // 2, SH - 70 - lg.height // 2))
+    url = f"youtube.com/{channel}" if channel else "Search StreakChess on YouTube"
+    d.rounded_rectangle([90, cy + 120, SW - 90, cy + 250], 26, fill=(255, 255, 255))
+    size = 66
+    while size > 30 and RN.fnt(RN.F_BLACK, size).getlength(url) > SW - 250:
+        size -= 2
+    f = RN.fnt(RN.F_BLACK, size)
+    d.text((SW / 2 - f.getlength(url) / 2, cy + 185 - size * 0.62), url, font=f, fill=(20, 20, 24))
+    RN.text_fit(d, "Link in bio", RN.F_BOLD, 34, (90, cy + 268, SW - 90, cy + 312), fill=(255, 255, 255), align="center",
+                max_lines=1)
+    lg = RN.logo(300); im.alpha_composite(lg, (SW // 2 - lg.width // 2, SH - 140))
     # punch a transparent hole for the video
     hole = Image.new("L", im.size, 255); ImageDraw.Draw(hole).rectangle([60, VY, SW - 60, VY + VH], fill=0)
     im.putalpha(hole)
