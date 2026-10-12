@@ -1,7 +1,5 @@
-# Community notebook (2026-10-11)
+# Community notebook (2026-10-12)
 
-# Community notebook (2026-10-11)
-
-• Keep doing: Tracking raw comment volume spikes on top posts ("Cookie Challenge", "Rainy Day Riddle", "Rooftop Blitz").
-• Stop doing: Expecting qualitative chess difficulty or narrative feedback; human audience critique is virtually non-existent right now.
-• Try next: Recognizing that 100% of comments are automated share/bot requests ("Send me this post"). Use a binary on-screen visual prompt ("Tap like if you found it in under 5 seconds!") to separate real viewers from bots.
+• Keep doing: Monitoring raw comment volume surges on top-performing posts ("Cookie Challenge", "Rainy Day Riddle", "Rooftop Blitz").
+• Stop doing: Trying to extract chess skill feedback or story critique; genuine audience feedback is currently nonexistent.
+• Try next: Acknowledging that 100% of incoming comments are bot/scraper requests ("Send me this post"). Use a simple binary on-screen prompt ("Double-tap if you solved it under 10s!") to measure real human engagement.

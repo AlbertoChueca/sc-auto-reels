@@ -1,0 +1,61 @@
+{
+ "season": 1,
+ "arc": "While training for the Chessville Cup qualifiers, Vektor and his friends turn everyday chores, playground wagers, and cozy clubhouse hangouts into high-spirited puzzle bets where cracking tactics wins extra recess time and the best after-school treats.",
+ "cast": [
+  {
+   "name": "Pip",
+   "role": "best friend",
+   "look": "a tiny cheerful white pawn with a big blue scarf and freckles",
+   "personality": "optimistic, a bit clumsy, dreams of promoting into a queen one day"
+  },
+  {
+   "name": "Bishop Blaze",
+   "role": "friendly rival",
+   "look": "a tall white bishop with cool sunglasses and a red cape",
+   "personality": "show-off, competitive, secretly kind and loyal"
+  },
+  {
+   "name": "Coach King",
+   "role": "mentor",
+   "look": "a wise old black king with a white beard, round glasses and a wooden cane",
+   "personality": "calm, funny one-liners, believes in Vektor"
+  },
+  {
+   "name": "Grandma Queen",
+   "role": "family",
+   "look": "a purple queen with a pearl crown and a knitted shawl",
+   "personality": "sweet, tells legends, secretly the fastest blitz player in town"
+  },
+  {
+   "name": "Rooky and Rocco",
+   "role": "comic duo",
+   "look": "twin orange castle rooks with matching headbands",
+   "personality": "strong, loud, clumsy, always finish each other's sentences"
+  },
+  {
+   "name": "Luna",
+   "role": "newcomer",
+   "look": "a silver knight girl with a glowing blue star-shaped mane",
+   "personality": "quiet puzzle prodigy from a faraway town, mysterious, becomes a friend"
+  },
+  {
+   "name": "Professor Pawnsworth",
+   "role": "inventor",
+   "look": "an old pawn with brass goggles and a lab coat",
+   "personality": "builds silly chess gadgets that go wrong in funny ways"
+  },
+  {
+   "name": "Mister Zugzwang",
+   "role": "playful villain",
+   "look": "a grumpy dark-green bishop with a curly moustache and a top hat",
+   "personality": "loves sneaky traps and riddles, never mean, always outsmarted in the end"
+  },
+  {
+   "name": "Tilly",
+   "role": "Playground referee pawn",
+   "look": "A spunky yellow pawn wearing mismatched striped tube socks and an oversized silver referee whistle.",
+   "personality": "Cheerfully bossy, strictly enforces backyard rules, and loves awarding recess privileges to whoever spots the sharpest tactical move."
+  }
+ ],
+ "updated": "2026-10-12"
+}

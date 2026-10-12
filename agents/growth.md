@@ -1,7 +1,5 @@
-# Growth notebook (2026-10-11)
+# Growth notebook (2026-10-12)
 
-# Growth notebook (2026-10-11)
-
-• Keep doing: Family-friendly, lighthearted content—our top 2 domestic posts drove all recorded shares.
-• Stop doing: Asking viewers to type algebraic notation or multi-move combinations; viewers do not write out moves.
-• Try next: Converting heavy DM-bot/sharing behavior into real leads with an automated keyword CTA: "Comment PUZZLE to get the animated solution sent to your inbox!"
+• Keep doing: Wholesome, family-friendly hooks—our domestic top two posts drove all organic shares.
+• Stop doing: Asking viewers to write out algebraic notation; zero viewers leave move-by-move text.
+• Try next: Harnessing the comment feed's heavy DM-bot activity by using an explicit keyword lead-magnet CTA: "Comment PUZZLE to get the animated solution sent to your inbox!"

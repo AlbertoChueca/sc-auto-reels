@@ -1,0 +1,35 @@
+{
+ "hook_style": [
+  "mystery: open on something strange or unexpected that makes kids ask 'what happened?'",
+  "challenge: open by daring the viewer ('only true chess heroes can solve this')",
+  "funny_fail: open on Vektor's funny little disaster",
+  "cliffhanger: open at the most tense moment, then rewind a bit",
+  "big_dream: open on Vektor's dream of becoming World Champion, then today's obstacle",
+  "rival: open with Bishop Blaze showing off and challenging Vektor",
+  "countdown_trap: An urgent timer alarm sounds mid-play, showing Vektor seconds away from a sneaky trap."
+ ],
+ "theme": [
+  "tournament game with everything at stake",
+  "blitz battle against Bishop Blaze",
+  "lesson or secret test from Coach King",
+  "daily training to keep the streak alive",
+  "school chess club with friends",
+  "travelling to a new place for a tournament",
+  "helping Pip or a friend who is stuck",
+  "cracking Bishop Blaze's secret playbook: Vektor decodes Blaze's hidden notebook of trick openings to save the club."
+ ],
+ "difficulty": [
+  "basic",
+  "intermediate",
+  "advanced"
+ ],
+ "think_time": [
+  "fast",
+  "normal",
+  "long"
+ ],
+ "story_length": [
+  "short",
+  "normal"
+ ]
+}
