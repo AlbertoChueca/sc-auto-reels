@@ -1,5 +1,5 @@
-# Growth notebook (2026-10-12)
+# Growth notebook (2026-10-13)
 
-• Keep doing: Wholesome, family-friendly hooks—our domestic top two posts drove all organic shares.
-• Stop doing: Asking viewers to write out algebraic notation; zero viewers leave move-by-move text.
-• Try next: Harnessing the comment feed's heavy DM-bot activity by using an explicit keyword lead-magnet CTA: "Comment PUZZLE to get the animated solution sent to your inbox!"
+• Keep doing: Wholesome, parent-friendly narratives that generate organic shares (all 3 shares came from top domestic posts).
+• Stop doing: Expecting viewers to comment full chess notation; viewers never type move sequences.
+• Try next: Capitalizing on automated comment activity by testing a direct keyword DM trigger: "Comment PUZZLE to get the animated solution sent to your inbox!".

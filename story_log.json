@@ -167,5 +167,13 @@
 "format": "spotlight: today a side character is the hero and Vektor supports them",
 "spotlight": "Grandma Queen",
 "setting": "a flower garden in spring"
+},
+{
+"title": "The Aquarium Tunnel Riddle",
+"summary": "While travelling to his tournament through an aquarium tunnel, Vektor is ambushed by Mister Zugzwang's ticking puzzle trap and must spot Black's mate in two before the gate seals shut.",
+"puzzle": "2rMwn",
+"format": "race against the clock: Vektor must solve something before time runs out",
+"spotlight": "Mister Zugzwang",
+"setting": "an underwater aquarium tunnel"
 }
 ]

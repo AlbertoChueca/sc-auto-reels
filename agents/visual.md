@@ -1,5 +1,5 @@
-# Visual notebook (2026-10-12)
+# Visual notebook (2026-10-13)
 
-• Keep doing: Cozy, warm, storybook environments (kitchen counters, rain-streaked window nooks) that capture peak impressions in the feed.
-• Stop doing: Cavernous, sterile arenas and giant stadium boards that cause immediate drop-off (sub-2.3s watch time).
-• Try next: Mobile-first close-ups of Vektor's emotional reactions right before piece movement, set against high-contrast, uncluttered boards to push watch times past 6 seconds.
+• Keep doing: Warm, cozy domestic framing (kitchen counters, rain-streaked windows) that attracts top feed attention.
+• Stop doing: Cavernous tournament halls and sterile, oversized boards that drop retention below 2.3 seconds.
+• Try next: High-contrast mobile framing pairing expressive Vektor close-ups directly beside clean, uncluttered board tactical highlights to maintain 6s+ watch time.

@@ -1,5 +1,5 @@
-# Hook notebook (2026-10-12)
+# Hook notebook (2026-10-13)
 
-• Keep doing: Collaborative questions pairing Vektor with tangible domestic goals or move counts ("Can you help Vektor win the cookie challenge? 🍪", "Can you spot the four moves with Vektor? ♟️"), driving our top scores (8.09, 7.89).
-• Stop doing: Detached third-person prompts ("spot White's winning move for Luna?") that crashed retention to 2294 ms, and alarmist rescue hooks ("Save Pip!").
-• Try next: Tangible food or friendly challenges with concrete numbers: "Can you help Vektor solve the 3-move snack puzzle? 🍎".
+• Keep doing: "Can you help Vektor..." phrasing paired with tangible rewards or clear move counts ("Cookie Challenge" 8.09, "Rainy Day Riddle" 7.89), which drive peak views and all shares.
+• Stop doing: Detached third-person hooks featuring side characters ("for Luna", score 5.14, 2294 ms) and generic rescue cries.
+• Try next: Combining cozy stakes with an explicit short move count: "Can you help Vektor find the 2 winning snack moves? 🍪".

@@ -1,5 +1,5 @@
-# Story notebook (2026-10-12)
+# Story notebook (2026-10-13)
 
-• Keep doing: Warm, domestic mini-arcs (baking with Grandma Queen, indoor rainy day games), which secured 100% of recorded shares (3) and our highest views (254–338).
-• Stop doing: Formal tournament championship themes ("The Giant Board Showdown", score 5.14) and repetitive friend rescue crises that sit at the bottom of our rankings.
-• Try next: Everyday childhood situations where finding a tactical sequence earns an immediate, fun reward (e.g., winning extra recess time or choosing the after-school game).
+• Keep doing: Cozy, low-stakes domestic settings (baking cookies, indoor rainy day games) that drove 100% of organic shares (3) and top views (254–338).
+• Stop doing: High-stakes tournament deciders ("Giant Board Showdown", score 5.14) and repetitive crisis rescues that sit at the bottom of rankings.
+• Try next: Everyday childhood scenarios where finding tactical moves unlocks an immediate, fun reward (e.g., winning breakfast pancakes or extra recess board time).
