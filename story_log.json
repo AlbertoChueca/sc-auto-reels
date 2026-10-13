@@ -175,5 +175,13 @@
 "format": "race against the clock: Vektor must solve something before time runs out",
 "spotlight": "Mister Zugzwang",
 "setting": "an underwater aquarium tunnel"
+},
+{
+"title": "The Moonlit Playbook Mystery",
+"summary": "At the moonlit observatory, Bishop Blaze challenges Vektor with his locked playbook until referee Tilly enforces a tactical puzzle duel.",
+"puzzle": "B7rVs",
+"format": "mystery: something is missing or strange in Chessville and a chess position is the clue",
+"spotlight": "Tilly",
+"setting": "a moonlit observatory"
 }
 ]

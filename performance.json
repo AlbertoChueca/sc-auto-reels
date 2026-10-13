@@ -239,14 +239,14 @@
 "date": "2026-10-03",
 "permalink": "https://www.instagram.com/reel/DeDPqgqiRQE/",
 "type": "REELS",
-"views": 338,
-"reach": 285,
+"views": 339,
+"reach": 286,
 "likes": 3,
 "comments": 4,
 "shares": 2,
 "saved": 0,
 "total_interactions": 9,
-"ig_reels_avg_watch_time": 4452
+"ig_reels_avg_watch_time": 4530
 },
 "18101079257545227": {
 "slot": "storytag",
@@ -320,14 +320,14 @@
 "date": "2026-10-06",
 "permalink": "https://www.instagram.com/reel/DeIu-gsgaD5/",
 "type": "REELS",
-"views": 150,
+"views": 151,
 "reach": 128,
 "likes": 2,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 2,
-"ig_reels_avg_watch_time": 7233
+"ig_reels_avg_watch_time": 7190
 },
 "18125440855852532": {
 "slot": "story",
@@ -536,14 +536,14 @@
 "date": "2026-10-08",
 "permalink": "https://www.instagram.com/reel/DeP3M1EETnE/",
 "type": "REELS",
-"views": 141,
-"reach": 126,
+"views": 142,
+"reach": 127,
 "likes": 0,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 0,
-"ig_reels_avg_watch_time": 2294
+"ig_reels_avg_watch_time": 2296
 },
 "18124182511909029": {
 "slot": "storytag",
@@ -644,14 +644,14 @@
 "date": "2026-10-10",
 "permalink": "https://www.instagram.com/reel/DeU4AF7ANT8/",
 "type": "REELS",
-"views": 115,
+"views": 116,
 "reach": 105,
 "likes": 1,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 1,
-"ig_reels_avg_watch_time": 4843
+"ig_reels_avg_watch_time": 4834
 },
 "18189576841411716": {
 "slot": "story",
@@ -733,5 +733,59 @@
 "saved": 0,
 "total_interactions": 5,
 "ig_reels_avg_watch_time": 6620
+},
+"18142987255559001": {
+"slot": "storytag",
+"story": "The Aquarium Tunnel Riddle",
+"hook": "Can you help Vektor find mate in two? \u23f1\ufe0f",
+"level": "intermediate",
+"mode": "tagfriend",
+"engine": "story",
+"review_score": 9.0,
+"arms": {
+"hook_style": "mystery: open on something strange or unexpected that makes kids ask 'what happened?'",
+"theme": "travelling to a new place for a tournament",
+"difficulty": "intermediate",
+"think_time": "long",
+"story_length": "normal"
+},
+"date": "2026-10-13",
+"permalink": "https://www.instagram.com/reel/Dea2AGMDMmc/",
+"type": "REELS",
+"views": 157,
+"reach": 138,
+"likes": 3,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 3,
+"ig_reels_avg_watch_time": 6452
+},
+"18115391171278516": {
+"slot": "story",
+"story": "The Secret Garden Gambit",
+"hook": "Can you help Vektor spot Grandma's two moves? \ud83c\udf38",
+"level": "basic",
+"mode": "level",
+"engine": "story",
+"review_score": 8.7,
+"arms": {
+"hook_style": "funny_fail: open on Vektor's funny little disaster",
+"theme": "lesson or secret test from Coach King",
+"difficulty": "basic",
+"think_time": "long",
+"story_length": "normal"
+},
+"date": "2026-10-12",
+"permalink": "https://www.instagram.com/reel/DeaWLcqCqVq/",
+"type": "REELS",
+"views": 51,
+"reach": 50,
+"likes": 1,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 1,
+"ig_reels_avg_watch_time": 3664
 }
 }

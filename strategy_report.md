@@ -8,7 +8,7 @@ _Updated 2026-10-13 · 17 reels with results (3+ days old) · average score 6.30
 | option | reels | avg score |
 |---|---|---|
 | mystery | 2 | 6.93 |
-| rival | 3 | 6.53 |
+| rival | 3 | 6.54 |
 | big_dream | 6 | 6.32 |
 | cliffhanger | 1 | 6.20 |
 | funny_fail | 4 | 6.04 |
@@ -33,7 +33,7 @@ _Updated 2026-10-13 · 17 reels with results (3+ days old) · average score 6.30
 | option | reels | avg score |
 |---|---|---|
 | basic | 7 | 6.50 |
-| advanced | 5 | 6.19 |
+| advanced | 5 | 6.20 |
 | intermediate | 5 | 6.11 |
 
 ## think_time
