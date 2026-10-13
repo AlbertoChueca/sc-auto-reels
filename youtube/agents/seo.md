@@ -1,8 +1,7 @@
 # Seo Specialist For Youtube - notebook
-_Updated 2026-10-12_
+_Updated 2026-10-13_
 
-# Seo Specialist For Youtube - notebook
-
-- Front-load the primary search keyword in the first 40 characters of the title and first line of the description.
-- Mirror exact YouTube search queries rather than clever puns.
-- Include maximum 3 targeted hashtags and balance broad themes with specific tactical motifs.
+- Front-load the primary search keyword in the first 40 characters of the title and line 1 of the description.
+- Mirror exact YouTube search queries (e.g., 'chess calculation tricks') rather than witty puns.
+- Include maximum 3 targeted hashtags covering broad chess search and the episode's specific theme.
+- Align metadata directly with the video's core tactical motif to boost search-to-view conversion.

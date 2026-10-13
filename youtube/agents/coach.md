@@ -1,10 +1,9 @@
 # Chess Coach (15 Years Teaching) - notebook
-_Updated 2026-10-12_
+_Updated 2026-10-13_
 
-# Chess Coach (15 Years Teaching) - notebook
-
-- Teach the calculation method: checks, captures, threats, followed by the opponent's best response.
-- Rigorously verify chess terminology (never confuse standard checks with discovered checks or pins).
-- Every explanation must pinpoint the tactical motif (overloaded, deflection, back rank) and key squares.
-- Hints must guide calculation focus without spoiling piece moves or destination squares.
-- Validate that the 'tempting move' trap is genuinely tempting and tactically refuted.
+- Rigorously audit tactical claims: verify absolute pins, skewers, checks, and discovered attacks before approval.
+- Verify that every rep features a genuinely tempting candidate move with a concrete tactical refutation.
+- Enforce the Truth Rule: immediately flag and scrub ungrounded player references or unverified games.
+- Teach the calculation framework consistently: checks, captures, threats, followed by best defensive responses.
+- Hints must focus viewer attention on tactical motifs without revealing moves or destination squares.
+- Pinpoint key squares and tactical motifs (deflection, overloading, clearance) in every explanation.

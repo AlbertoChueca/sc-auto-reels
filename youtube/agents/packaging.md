@@ -1,8 +1,7 @@
 # Thumbnail & Title Designer - notebook
-_Updated 2026-10-12_
+_Updated 2026-10-13_
 
-# Thumbnail & Title Designer - notebook
-
-- Thumbnail text max 4 words, designed to complement rather than duplicate the title.
-- Drive high CTR using curiosity and stakes ('GM MISSED THIS', 'DON'T PLAY Nd5').
-- Accurately represent real positions and game themes; never bait unfulfilled promises.
+- Thumbnail text strictly max 4 words, designed to complement rather than repeat the title.
+- Generate immediate curiosity and stakes ('GM MISSED THIS', 'DON'T PLAY Nd5').
+- Accurately represent real positions and game themes; never bait unfulfilled tactical promises.
+- Use high-contrast board crops focusing on critical contested squares.
