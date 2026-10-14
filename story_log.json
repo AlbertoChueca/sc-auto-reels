@@ -183,5 +183,13 @@
 "format": "mystery: something is missing or strange in Chessville and a chess position is the clue",
 "spotlight": "Tilly",
 "setting": "a moonlit observatory"
+},
+{
+"title": "The Campfire Star Gambit",
+"summary": "During a forest camping adventure, Luna presents Coach King's secret riddle where spotting Black's mate in two unlocks roasted marshmallows for Vektor.",
+"puzzle": "HJPqD",
+"format": "adventure trip: Vektor travels somewhere new and exciting",
+"spotlight": "Luna",
+"setting": "a forest camp with a campfire"
 }
 ]

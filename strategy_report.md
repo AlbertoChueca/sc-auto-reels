@@ -23,7 +23,7 @@ _Updated 2026-10-14 · 19 reels with results (3+ days old) · average score 6.31
 | lesson or secret test from Coach King | 2 | 6.73 |
 | blitz battle against Bishop Blaze | 5 | 6.33 |
 | helping Pip or a friend who is stuck | 4 | 6.29 |
-| school chess club with friends | 4 | 6.28 |
+| school chess club with friends | 4 | 6.29 |
 | tournament game with everything at stake | 3 | 5.78 |
 | travelling to a new place for a tournament | 0 | - |
 | cracking Bishop Blaze's secret playbook | 0 | - |
