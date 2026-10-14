@@ -1,5 +1,5 @@
-# Visual notebook (2026-10-13)
+# Visual notebook (2026-10-14)
 
-• Keep doing: Warm, cozy domestic framing (kitchen counters, rain-streaked windows) that attracts top feed attention.
-• Stop doing: Cavernous tournament halls and sterile, oversized boards that drop retention below 2.3 seconds.
-• Try next: High-contrast mobile framing pairing expressive Vektor close-ups directly beside clean, uncluttered board tactical highlights to maintain 6s+ watch time.
+• Keep doing: Warm, vibrant, intimate domestic settings (cozy kitchens, rainy indoor windows) that maximize scroll-stopping appeal.
+• Stop doing: Cavernous tournament stages and sterile, oversized boards that resulted in sub-2.3s watch times.
+• Try next: Pairing expressive Vektor close-up reactions with high-contrast, uncluttered tactical boards on mobile to elevate watch time toward the 7s+ benchmark seen in top retention posts.

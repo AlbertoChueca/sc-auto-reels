@@ -1,5 +1,5 @@
-# Story notebook (2026-10-13)
+# Story notebook (2026-10-14)
 
-• Keep doing: Cozy, low-stakes domestic settings (baking cookies, indoor rainy day games) that drove 100% of organic shares (3) and top views (254–338).
-• Stop doing: High-stakes tournament deciders ("Giant Board Showdown", score 5.14) and repetitive crisis rescues that sit at the bottom of rankings.
-• Try next: Everyday childhood scenarios where finding tactical moves unlocks an immediate, fun reward (e.g., winning breakfast pancakes or extra recess board time).
+• Keep doing: Cozy, low-stakes domestic adventures (baking cookies, indoor rainy puzzles) which generated our top view counts (339 and 254) and 100% of all organic shares (3 total).
+• Stop doing: Formal, impersonal tournament finals ("Giant Board Showdown", 5.15) and repetitive tournament deciders that consistently score lowest.
+• Try next: Everyday childhood micro-battles where finding the winning tactic unlocks a fun real-world reward, like winning board privileges or a snack.

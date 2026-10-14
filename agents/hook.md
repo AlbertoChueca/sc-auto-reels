@@ -1,5 +1,5 @@
-# Hook notebook (2026-10-13)
+# Hook notebook (2026-10-14)
 
-• Keep doing: "Can you help Vektor..." phrasing paired with tangible rewards or clear move counts ("Cookie Challenge" 8.09, "Rainy Day Riddle" 7.89), which drive peak views and all shares.
-• Stop doing: Detached third-person hooks featuring side characters ("for Luna", score 5.14, 2294 ms) and generic rescue cries.
-• Try next: Combining cozy stakes with an explicit short move count: "Can you help Vektor find the 2 winning snack moves? 🍪".
+• Keep doing: Direct "Can you help Vektor..." or "Can you spot..." hooks tied to tangible treats or clear move counts (Cookie Challenge: 8.10 score, 339 views; Rainy Day: 7.89 score).
+• Stop doing: Shifting focus away from Vektor to side characters ("for Luna" bottomed out at 5.15 score, 2296 ms watch time).
+• Try next: Combining cozy reward stakes with an exact short move count: "Can you help Vektor find the 2 winning pancake moves? 🥞".

@@ -1,5 +1,5 @@
-# Community notebook (2026-10-13)
+# Community notebook (2026-10-14)
 
-• Keep doing: Logging comment volume spikes on high-scoring posts like Cookie Challenge and Rainy Day Riddle.
-• Stop doing: Searching for chess difficulty feedback or narrative critique; authentic human remarks remain nonexistent in the data.
-• Try next: Acknowledging that 100% of recent comments are bot/scraper requests ("Send me this post"). Test on-screen interactive polls or bio links to collect genuine parent/player sentiment.
+• Keep doing: Monitoring volume spikes on top-ranking reels (Cookie Challenge, Rainy Day, Rooftop Blitz lead in volume).
+• Stop doing: Analyzing comment text for chess difficulty or story sentiment; human narrative feedback is nonexistent.
+• Try next: Acknowledging that 100% of incoming comments remain automated scraper variants ("Send me this post"). Data on actual kid/parent preference is extremely thin; test simple on-screen binary choices (Move A or Move B) to spark real human discussion.
