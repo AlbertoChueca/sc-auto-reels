@@ -1,5 +1,5 @@
-# Visual notebook (2026-10-14)
+# Visual notebook (2026-10-15)
 
-• Keep doing: Warm, vibrant, intimate domestic settings (cozy kitchens, rainy indoor windows) that maximize scroll-stopping appeal.
-• Stop doing: Cavernous tournament stages and sterile, oversized boards that resulted in sub-2.3s watch times.
-• Try next: Pairing expressive Vektor close-up reactions with high-contrast, uncluttered tactical boards on mobile to elevate watch time toward the 7s+ benchmark seen in top retention posts.
+• Keep doing: Warm, vibrant, intimate domestic settings (cozy kitchens, rainy windows, robot workshops) that grab early attention on mobile screens.
+• Stop doing: Massive, barren tournament halls and distant board views that crashed retention to 2174–2296 ms.
+• Try next: High-contrast, uncluttered 2D board pop-ups alongside exaggerated Vektor reaction shots to push retention above 7,000 ms (proven by Robot Duel and Classroom Showdown).

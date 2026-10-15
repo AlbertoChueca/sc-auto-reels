@@ -191,5 +191,13 @@
 "format": "adventure trip: Vektor travels somewhere new and exciting",
 "spotlight": "Luna",
 "setting": "a forest camp with a campfire"
+},
+{
+"title": "The Clock Tower Gear Trial",
+"summary": "Inside a sunlit clock tower, Coach King triggers a ticking gear challenge mid-game, and Vektor must spot White's mate in one before the clockwork gate closes on Pip.",
+"puzzle": "H01Km",
+"format": "training with a twist: a strange new training method from Coach King",
+"spotlight": "Coach King",
+"setting": "a giant clock tower"
 }
 ]
