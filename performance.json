@@ -644,14 +644,14 @@
 "date": "2026-10-10",
 "permalink": "https://www.instagram.com/reel/DeU4AF7ANT8/",
 "type": "REELS",
-"views": 116,
-"reach": 105,
+"views": 117,
+"reach": 106,
 "likes": 1,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 1,
-"ig_reels_avg_watch_time": 4834
+"ig_reels_avg_watch_time": 4797
 },
 "18189576841411716": {
 "slot": "story",
@@ -800,14 +800,14 @@
 "date": "2026-10-14",
 "permalink": "https://www.instagram.com/reel/DedNks9E7L4/",
 "type": "REELS",
-"views": 145,
-"reach": 127,
+"views": 161,
+"reach": 140,
 "likes": 6,
 "comments": 2,
 "shares": 0,
 "saved": 0,
 "total_interactions": 8,
-"ig_reels_avg_watch_time": 6338
+"ig_reels_avg_watch_time": 6548
 },
 "18218686066353070": {
 "slot": "story",
@@ -835,5 +835,59 @@
 "saved": 0,
 "total_interactions": 3,
 "ig_reels_avg_watch_time": 3110
+},
+"17884552707690332": {
+"slot": "storytag",
+"story": "The Clock Tower Gear Trial",
+"hook": "Can you help Vektor spot White's winning mate? \u23f3",
+"level": "basic",
+"mode": "tagfriend",
+"engine": "story",
+"review_score": 5.0,
+"arms": {
+"hook_style": "countdown_trap: An urgent timer alarm sounds mid-play, showing Vektor seconds away from a sneaky trap.",
+"theme": "helping Pip or a friend who is stuck",
+"difficulty": "basic",
+"think_time": "normal",
+"story_length": "short"
+},
+"date": "2026-10-15",
+"permalink": "https://www.instagram.com/reel/DefwBWfihxn/",
+"type": "REELS",
+"views": 132,
+"reach": 121,
+"likes": 4,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 4,
+"ig_reels_avg_watch_time": 5150
+},
+"18123901750717028": {
+"slot": "story",
+"story": "The Campfire Star Gambit",
+"hook": "Can you help Vektor win toasted marshmallows? \u26fa",
+"level": "intermediate",
+"mode": "level",
+"engine": "story",
+"review_score": 9.0,
+"arms": {
+"hook_style": "big_dream: open on Vektor's dream of becoming World Champion, then today's obstacle",
+"theme": "lesson or secret test from Coach King",
+"difficulty": "intermediate",
+"think_time": "fast",
+"story_length": "normal"
+},
+"date": "2026-10-14",
+"permalink": "https://www.instagram.com/reel/DefMTeKlWgv/",
+"type": "REELS",
+"views": 45,
+"reach": 34,
+"likes": 1,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 1,
+"ig_reels_avg_watch_time": 2665
 }
 }
