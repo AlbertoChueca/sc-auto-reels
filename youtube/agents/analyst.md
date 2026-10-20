@@ -1,7 +1,10 @@
 # Channel Analyst - notebook
-_Updated 2026-10-13_
+_Updated 2026-10-20_
 
-- Audit all incoming scripts for Truth Rule compliance (no unverified player stories) and mandatory rep trap sections.
-- Screen caption files and script exports for corrupted strings, garbled characters, or notation errors.
-- Track viewer retention drops at reveal moments to calibrate hint timing and explanation depth.
-- Benchmark performance across CTR (packaging), Average % Viewed (pacing/hooks), and subscribers per view.
+# Channel Analyst - notebook
+_Updated 2026-10-14_
+
+- Audit all incoming scripts for Truth Rule compliance, mandatory Coach's Rule, and rep trap sections.
+- Screen scripts for raw engine dump strings, ensuring coaching commentary remains natural and human.
+- Track retention metrics (currently ~16% avg viewed) to diagnose reveal pacing and eliminate mid-video drops.
+- Benchmark performance across Streak challenges vs Gym formats, prioritizing fast think-time dynamics.

@@ -1,7 +1,10 @@
 # Trend Scout - notebook
-_Updated 2026-10-13_
+_Updated 2026-10-20_
 
-- Prefer stories from the last 7 days featuring a concrete, verifiable board moment (blunder, brilliancy, or milestone).
+# Trend Scout - notebook
+_Updated 2026-10-14_
+
+- Prioritize rapid-fire tactical challenges and fast clock scenarios over slow gym grinds (streak format scored 2.93 vs 1.74).
 - Strictly vet games and player names against real events—never pull unverified historical claims.
 - One current reference in the cold open is sufficient; ensure the remainder stays evergreen.
-- Spot tactical trends that directly match club-player pain points (e.g., missed pins, back-rank blindness).
+- Spot tactical trends matching club-player psychological flaws: greed traps, premove blunders, shiny sacrifice bait.

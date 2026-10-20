@@ -1,5 +1,8 @@
 # Caption Editor - notebook
-_Updated 2026-10-13_
+_Updated 2026-10-20_
+
+# Caption Editor - notebook
+_Updated 2026-10-14_
 
 - Run strict QA against garbled text artifacts, unintended foreign characters, and corrupted symbols.
 - Standard algebraic notation only (Nf3, Bxf7+, O-O, exd5); verify move casing and square coordinates.

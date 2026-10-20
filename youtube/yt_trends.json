@@ -1,92 +1,81 @@
 {
- "date": "2026-10-13",
+ "date": "2026-10-20",
  "news": {
   "items": [
    {
-    "headline": "2026 U.S. Chess Championships Kick Off in Saint Louis",
-    "detail": "The 2026 U.S. Championship and U.S. Women's Championship opened at the Saint Louis Chess Club, featuring a 12-player round-robin format with elite competitors like Wesley So, Fabiano Caruana, and Hans Niemann. Wesley So and Awonder Liang set an early pace in the open section, while 13-year-old Megan Paragua scored notable upsets in the women's event.",
-    "date": "2026-10-10",
+    "headline": "2026 U.S. Chess Championships Reach Final Rounds in Saint Louis",
+    "detail": "The 2026 U.S. Chess Championship and U.S. Women's Championship are concluding at the Saint Louis Chess Club, featuring 12-player round-robins headlined by Fabiano Caruana, Wesley So, Levon Aronian, Carissa Yip, and Alice Lee. The tournament marks the pinnacle classical showdown for America's top grandmasters.",
+    "date": "2026-10-20",
     "people": [
-     "Wesley So",
-     "Awonder Liang",
      "Fabiano Caruana",
-     "Hans Niemann",
-     "Megan Paragua"
-    ],
-    "event": "2026 U.S. Chess Championships",
-    "why_viewers_care": "It is America's premier national tournament, deciding the national titles with crucial classical rating and qualification stakes."
-   },
-   {
-    "headline": "Media Accreditation and Final Preparations Open for Gukesh vs. Sindarov World Championship",
-    "detail": "FIDE opened media accreditation and finalized scheduling for the Salesforce FIDE World Championship match in Geneva. The November clash between defending champion Gukesh Dommaraju and challenger Javokhir Sindarov will be the youngest title match in chess history, with both players aged 20.",
-    "date": "2026-10-13",
-    "people": [
-     "Gukesh Dommaraju",
-     "Javokhir Sindarov"
-    ],
-    "event": "2026 FIDE World Chess Championship",
-    "why_viewers_care": "Fans are tracking the historic upcoming contest between two young prodigies battling for undisputed world chess supremacy."
-   },
-   {
-    "headline": "FIDE General Assembly Passes Major Resolution on Shorter Classical Time Controls",
-    "detail": "The FIDE General Assembly formally adopted a resolution addressing regulations for shorter classical time controls. The move is aimed at modernizing tournament lengths and adapting classical broadcasts to digital audiences.",
-    "date": "2026-10-12",
-    "people": [],
-    "event": "FIDE General Assembly 2026",
-    "why_viewers_care": "Changes to classical time control standards directly impact top tournament schedules, player fatigue, and spectator experience."
-   },
-   {
-    "headline": "Record 140 Teams Enter 6th Intercontinental Chess Championship for Prisoners",
-    "detail": "FIDE and the Cook County Sheriff's Office announced a record entry of 140 teams representing 56 countries for the 6th Intercontinental Online Chess Championship for Prisoners. The three-day global initiative highlights chess as an educational and rehabilitation platform inside correctional institutions.",
-    "date": "2026-10-10",
-    "people": [],
-    "event": "6th Intercontinental Online Chess Championship for Prisoners",
-    "why_viewers_care": "It marks the largest-ever international correctional chess event, demonstrating the expanding global reach of the game."
-   },
-   {
-    "headline": "Abdusattorov and Erdo\u011fmu\u015f Reach New Milestones on October FIDE Rating List",
-    "detail": "FIDE's official rating updates saw Nodirbek Abdusattorov return to world No. 5 following an Olympiad Board 1 gold performance. Meanwhile, 15-year-old Turkish prodigy Ya\u011f\u0131z Kaan Erdo\u011fmu\u015f surged to world No. 17, becoming the highest-rated 15-year-old in chess history.",
-    "date": "2026-10-05",
-    "people": [
-     "Nodirbek Abdusattorov",
-     "Ya\u011f\u0131z Kaan Erdo\u011fmu\u015f",
+     "Wesley So",
+     "Levon Aronian",
+     "Carissa Yip",
      "Alice Lee"
     ],
-    "event": "FIDE Rating List Publication",
-    "why_viewers_care": "It marks a generational transition as teenage stars break into the top 20 of global classical chess."
+    "event": "2026 U.S. Chess Championship",
+    "why_viewers_care": "It decides the national classical chess champion of the United States among many of the world's highest-rated players."
    },
    {
-    "headline": "Ray Robson and Andy Woodward Clash in Sharp U.S. Championship Encounter",
-    "detail": "Round 3 of the U.S. Chess Championship featured an intense King's Pawn duel between tactician Ray Robson and rising junior Andy Woodward. The razor-sharp endgame tactical slugfest gained rapid traction across social media and game recaps.",
-    "date": "2026-10-11",
+    "headline": "European Chess Club Cup Sets Participation Record in Budva",
+    "detail": "The 41st European Chess Club Cup and 30th Women's Club Cup began in Budva, Montenegro, establishing a new record with 130 participating teams. Elite squads such as Bayegan Pendik, SuperChess Romania, and Alkaloid are battling over seven Swiss rounds.",
+    "date": "2026-10-16",
+    "people": [],
+    "event": "41st European Chess Club Cup",
+    "why_viewers_care": "It is the strongest annual club team event in Europe, bringing together world-class grandmasters representing elite clubs."
+   },
+   {
+    "headline": "FIDE Opens Ticket Sales and Unveils Fan Side Events for 2026 World Championship",
+    "detail": "FIDE announced ticket availability and a fan activity lineup for the Salesforce FIDE World Championship match in Geneva. Highlights include tandem simultaneous exhibitions featuring Anish Giri and Anna Muzychuk alongside masterclasses with Yannick Pelletier.",
+    "date": "2026-10-20",
     "people": [
-     "Ray Robson",
-     "Andy Woodward"
+     "Anish Giri",
+     "Anna Muzychuk",
+     "Yannick Pelletier"
     ],
-    "event": "2026 U.S. Chess Championships",
-    "why_viewers_care": "Sharp, decisive battles between tactical prodigies drive major engagement on chess YouTube and streaming channels."
+    "event": "Salesforce FIDE World Championship Match 2026",
+    "why_viewers_care": "Fans are getting their first access to tickets and interactive grandmaster events ahead of the cycle's world title match."
+   },
+   {
+    "headline": "Total Chess Proposes Unified Rating System Across All Formats",
+    "detail": "A new proposal by Total Chess introduced a composite ranking system combining classical, rapid, and blitz ratings. The formula ranks Magnus Carlsen, Hikaru Nakamura, and Nodirbek Abdusattorov as the top three overall performers worldwide.",
+    "date": "2026-10-19",
+    "people": [
+     "Magnus Carlsen",
+     "Hikaru Nakamura",
+     "Nodirbek Abdusattorov"
+    ],
+    "event": null,
+    "why_viewers_care": "Debates over unified ratings ignite huge community discussion about how to definitively measure all-around chess supremacy."
+   },
+   {
+    "headline": "Vladislav Artemiev Tops Hikaru Nakamura in Online Blitz Showdown",
+    "detail": "In Chess.com's competitive circuit recap, Vladislav Artemiev clinched a Titled Tuesday victory by defeating Hikaru Nakamura in the deciding final round. Meanwhile, Parham Maghsoodloo took the latest Freestyle Friday title in the race for 2027 Freestyle World Championship spots.",
+    "date": "2026-10-14",
+    "people": [
+     "Vladislav Artemiev",
+     "Hikaru Nakamura",
+     "Parham Maghsoodloo"
+    ],
+    "event": "Titled Tuesday / Freestyle Friday",
+    "why_viewers_care": "The world's fastest players regularly face off online in high-stakes blitz and Fischer Random events streamed to massive audiences."
    }
   ],
   "search_terms": [
-   "US Chess Championship 2026",
-   "Gukesh vs Sindarov 2026",
-   "Wesley So US Championship 2026",
-   "Fabiano Caruana live chess",
-   "Agadmator US Chess Championship 2026"
+   "US Chess Championship 2026 live",
+   "European Chess Club Cup 2026",
+   "Hikaru Nakamura Titled Tuesday",
+   "FIDE World Championship 2026 Geneva tickets",
+   "Magnus Carlsen chess highlights"
   ],
   "sources": [
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGLO1hEWhC8YLh6A-uz0G7LXVkrFbgFnFBisE_SiwU0s_XhgD7iX8-WYINTL5fASGZgBEC5s_AJBsVeLe1As7Pl8tv-dovH-Oy54J_csRph-KkiotMrpVVCMv6FUJK0u-57HAYwGUC9aM5PKnqw",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEiU1s4_B7xY6C0ejdS1omxMby3NjdzumB7g4gxhBPHKB2EvgLLI_ZENFO6I1n27AqZNYX7ima6mZnDgEeGfCPsntg7JB0FASm_wnievBtN-fbPJHfYsuchn8JMl1WOKtlR8w_4kP8QjaNVCOqUVSl3xoixC31Rqw==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGHtmBnEKc3SFM6Wgb3iiR-e4fjkCAJnncwZNL6tWki6gMYMxm7h3A7BzgPEiXAB7LYV3KYFXAFt2pGe2EBtKNNZf-Ezl4itL1aqCLZK8LCSUlkmic6hMAwmEsVFrGfxvCRXDBXx6W9BiZbcSo20CAuWHzgjDctNbH5FfXNygxyG8GMLS4MiQCGUJ5ch4po6k36i4qvvmaeRUyQAP6T0IPfKHIFNTvpwuKXo-jFLFOrG4kdfZ6Tb06ak43IH_qKNFWQVEzw6w==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG5U1DFXcj426bYIe5TzBTE8mxzZFhjKI6OBz04iYZ9r1w2jg5oBl3hUA496q8mO4v7NbZYTMaLgf60KdQKD-RLBzkxYupomGts3dz679uXRsV_3soHqW9IOUoKtsBg-VER",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGf0smwYrkHgrPHQjsNz4UcpK65hXQe8nCk28gdj7jghxbA3_EOS90IUsLKeOcXgic5ddQF_647kLiIi-o5UPZiXwyDKjIJkaZ323M-ln5wddjVYgdx9Hd1N5J2rPvn1r8=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWDsoH1tvEInyip71pDj-T6nKfGcqtfTE74obOUr7V6RMLW0oN8BWoEozJz8pHsZ-nhrl-RRtZaoleQ8rtLWkVi3ty0CATKRDjkl1-tUxH",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6cVwJvykbvVEtXLVvXlsGtUGRC9pH3Tv7yDJTsxRAzZfgGXxEdQt6Dcyxx1WAGxSaRmwned77GCKEEBlG6RgiWoOEL9SOw035N200MxpWJg==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFP4CqQ3GUpOevObmM-hgyaB-Ski1c4SUFSm7IvMqLkSUYNCTzk3eKyKy3mX_8hgJ_i2B59kdGx0kTgLq_oOxia_XRKxXfRlJ6zVHytmoI0FRQTzLF5r2IKo3f3v0cvOdjFEDDjgdTEPXmUH6vMUSf9U8M4NegQWJIVtY8nyvBpkfiWNPFtty5BeIDeGpTv4KREUki513-MDbt6INh3bMe7AmRN3QztzQUanfHD32TKK56MMjDQqWVd8O2D7IGUGFQD",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHKxZTuKHUIJRLoC4JNUtuEJHzvhnrjWrq0DLYkKBBNMfjf4BVmtaO3WdRt6PckuGpgBZOBWA1WeEAh3UPU--d4LljUcgitp4VnuzYmng6O76aRTvKqmOAYZruKb0aWJ8Rulp6r87XFEJ1AYg12eqRtbVitDD3_dThj9cEvTBGCJUTyniaJ_gGvM2monDChIfOhDVGLCkw3DuhR-lsnHbjLul48Ndgm8iEU0Wlw7ecgh63KaJFSpaFFgE609KYV_Duu",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHEJMFptrz9EHbH1D_i-EU59GkIptKRhZ7BCmEVF5pCZtXqMuIY-XbgK_XcA20_5WWO6izenl5XwgYnXQEC5ckNrfT_xlb87xlvn4IJRmzbTbjT7C-NR-XA4SurgPyiEN3ov7ctDzwSfoNdIx161Ba0wIPgWi5OGD3IpbcSZWi4q8jEO2JcIIkGM9YlOVo5o2K2NYEUjQ==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEd9xthc_HRzBs4T2KwAguxosC2PqALLUR5mtQgK_W__AlHw7_SVbekbAT6AO0Epl2N62ZfESp4CgyT2lDxEcc-xQO0Og6ti24rzIg5xpT7QUh-arFrsLJaXP7ijfqXNqJ-fQLm_BGykmyE0EGTeFbPJyX_",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFuCiTmuhC4FP30fjIlSFASGy4yPoe8kCwEX47jVcwjbH5Duug87HvlaoQLNgEnL4Lp_1rgDCiHAB4isklUZMYyCuaTIIDhtmTYARCs05ZQwJnrUl5CF7wEKMICy4lATnlTb3uMTDD3BsjIPlybQG382ATP"
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfH9ezJqoGX7566Q2Qp1JH4cc-ir5XAd6jh_y15tz8vt_bLgq_VMfZvs5FgNLcKSU5nskePWytt1nmiROUr1-Icy-QU0Rmz56xVtygZLGzXKoa1jpb74lWoiUvxmCOJYK1Z8_i7lag6qZzWiO9",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGEKcV74guV5JapWqLkTQiVrP-A0rZWLMKkI3jaWPAqWe2bvanWUaSIR_JUZ1lsz8D1jBQgZ--5vBt7fR-fzGILlHQZJWcpxazsC6ySDBgsmDkFRSSdcw0U0Re3xP3as7e7nRaRbwVRPi02YVane2kCxhr28V2TKudrIkCh27dEP5KMdiXl6hpKGAjCyOTkROBcuzc=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFlNJV4voCgZTMUN3rqu9L_MW_Ldqo0ORQMDXjV2DNnMa0HuscCl-VivQmeOLqCP2C-_iLhr7jyBYAT6g725J5qtSe4145ubmAGjoXS1qGMapJGlWYZIx2gRiKuhO6Udb5xlK_ahYIkpp86mvnR--39FyAxLLtoOmGLGV7EqGEPUXYWcnVoiZ4o9i6tJoxvNZ2TnQAevRHSdnyjGTK2z1AMnUdVBw0F",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF8PDjVQHSR-Y0MfQZwo8EOqnEF7vnGZKy6HYg-EOlIXpxQulyvI80MWhC1vdk93cE90YChh44bXO4cMPHqIg6turPg0J1hdNS_DR9zFf4IJvbWsZQcqTnPu0rxiGbB5SmWj5se0ScgytSIXX7xbnGe1zqciQbrO7MtIpDZXIjlpjZVQs-1etEQnQ==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHYwMW7zi1Qmsw_0Crh6_cgmke1IQoAg0dvI1T3TH_ga1rOz2z6F7rEqVwlMpilsVDGUUNx7Imemf-NnL9QmDy65iH0ot3ZCRBMR6W3GCz7YMdn_jam9UhJVGZZi2-wwYBxO3eXHdIzOPTopO_ABv7wMfpNno2AGuiFZnUS3EhYpI-qnhWMZjG1QXgEo38wJA7AoQiEY9EwDV9X",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGI0fvXqHPOaC_zybAlcPrTCYRSzmfcpgI7T5Lp5AFe2uYYpubnVlQZOb9XPxeX3YfEQ0WecGn03FWhVYnVHQ6uVs75mRIb4bLmy-qKepN88xAL68svXwfmLuLkh4YK1JY0vosNul8LbOPH86l4zcRPCfnIdg==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhfjGLpUoQkP_67WMSaTWl7MtKyd7e4cqe-rHhdo9Xz3RcFC9D8zElXfMZ9umQW3TxKLSYhPDlocxBNXrLBqC8aojaZ41f-g_Popi_qxfWbjBIJJ4UMbZ5oJuB7_CW3XXNZafR9XLhcKGPum0CxeYa6-8N7w=="
   ]
  },
  "suggest": {
@@ -95,8 +84,8 @@
    "chess tactics for beginners",
    "chess tactics training",
    "chess tactics and strategy",
+   "chess tactics explained",
    "chess tactics gothamchess",
-   "chess tactics for intermediate players",
    "chess tactics for kids",
    "chess tactics hikaru",
    "chess tactics from scratch",
@@ -128,29 +117,30 @@
   ],
   "chess tricks": [
    "chess tricks",
-   "chess tricks to win fast",
    "chess tricks for beginners",
+   "chess tricks checkmate",
    "chess tricks and traps",
+   "chess tricks to win fast",
    "chess tricks for black",
+   "chess tricks and tips",
    "chess tricks in hindi",
    "chess tricks to win",
-   "chess tricks to win fast for beginners",
-   "chess tricks in telugu",
-   "chess tricks in tamil"
+   "chess tricks to win fast for beginners"
   ],
-  "US Chess Championship 2026": [
-   "us chess championship 2026",
-   "us chess championship 2026 round 4",
-   "us chess championship 2026 recap",
-   "us chess championship 2026 round 5",
-   "us chess championship 2023",
-   "us chess championship",
-   "us chess championship 2022"
+  "US Chess Championship 2026 live": [
+   "us chess championship 2026 live",
+   "us chess championship 2023"
   ],
-  "Gukesh vs Sindarov 2026": [
-   "gukesh vs sindarov tata steel 2026",
-   "sindarov vs gukesh 2026"
+  "European Chess Club Cup 2026": [
+   "european chess club cup 2026"
   ],
-  "Wesley So US Championship 2026": []
+  "Hikaru Nakamura Titled Tuesday": [
+   "hikaru nakamura titled tuesday",
+   "gm hikaru nakamura titled tuesday",
+   "magnus carlsen vs hikaru nakamura titled tuesday",
+   "alexandra botez vs hikaru nakamura titled tuesday",
+   "l\u00ea quang li\u00eam vs hikaru nakamura titled tuesday",
+   "hikaru wins titled tuesday"
+  ]
  }
 }

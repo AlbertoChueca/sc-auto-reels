@@ -1,1 +1,40 @@
-{}
+{
+ "V65krSM7iZ8": {
+  "views": 2,
+  "estimatedMinutesWatched": 1,
+  "averageViewDuration": 90,
+  "averageViewPercentage": 16.07,
+  "subscribersGained": 0,
+  "likes": 0,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-10-13",
+  "arms": {
+   "format": "gym",
+   "hook_style": "shock_stat: open with a surprising, true observation about how club players lose games to missed tactics",
+   "title_style": "challenge: dares the viewer (can you...?)",
+   "thumb_style": "big_number",
+   "think_time": "long"
+  },
+  "title": "Chess Tactics Training: 3 Tactical Reps"
+ },
+ "r0sOyXIyBNM": {
+  "views": 9,
+  "estimatedMinutesWatched": 16,
+  "averageViewDuration": 111,
+  "averageViewPercentage": 15.64,
+  "subscribersGained": 0,
+  "likes": 0,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-10-13",
+  "arms": {
+   "format": "streak",
+   "hook_style": "challenge: dare the viewer to beat the video and keep score",
+   "title_style": "curiosity: a curiosity gap that makes people need to know the answer",
+   "thumb_style": "big_number",
+   "think_time": "fast"
+  },
+  "title": "Chess Calculation: Can You Survive 10 Seconds?"
+ }
+}

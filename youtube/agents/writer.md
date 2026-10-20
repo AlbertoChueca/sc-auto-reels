@@ -1,10 +1,12 @@
 # Head Writer - notebook
-_Updated 2026-10-13_
+_Updated 2026-10-20_
 
-- Strict Truth Rule: zero invented player references, ungrounded historical claims, or fake quotes anywhere in the script.
+# Head Writer - notebook
+_Updated 2026-10-14_
+
+- Strict Truth Rule: zero invented player references, tournament claims, or fake quotes in opens or outros.
 - Every rep requires an explicit tempting move trap breakdown (e.g., p3_trap)—no puzzle can skip this section.
-- Verify all chess terminology before drafting (never label standard attacks as pins or discovered checks).
-- Cold open: start mid-action under 12 words; zero greetings (no 'Welcome back', 'Dive in').
-- Avoid corporate gym clichés; use authentic, gritty coaching banter grounded in board tension.
-- Double-check text cleanliness to prevent garbled strings, foreign text, or notation typos.
-- Every rep needs a spoiler-free hint, countdown, clean reveal, and refuted trap.
+- Include the mandatory 'Coach's Rule' segment and tease the specific next episode topic in the outro.
+- Deliver analysis as natural human coaching lines; never write raw engine dump variation strings.
+- Cold open under 12 words: use curiosity/challenge hooks ('Can you survive...'), zero greetings.
+- Frame tactical misses around club-player greed, shiny sacrifices, and psychological tilt.
