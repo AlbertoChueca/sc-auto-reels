@@ -1,0 +1,432 @@
+{
+ "date": "2026-10-20",
+ "scores": {
+  "design": 7.76,
+  "video": 7.35,
+  "script": 7.83
+ },
+ "weakest": [
+  [
+   1.0,
+   "video.stray_spoken_words_audio_quality"
+  ],
+  [
+   1.0,
+   "video.audio_and_stray_words"
+  ],
+  [
+   3.0,
+   "video.sound_quality"
+  ],
+  [
+   4.0,
+   "video.cta_clarity"
+  ],
+  [
+   4.0,
+   "video.voice_natural_matching"
+  ],
+  [
+   4.0,
+   "video.voice_matching"
+  ],
+  [
+   4.5,
+   "video.audio_voice"
+  ],
+  [
+   5.0,
+   "video.likelihood_comment_share_follow"
+  ],
+  [
+   5.5,
+   "design.layout_inside_safe_zone"
+  ],
+  [
+   6.0,
+   "video.voice_naturalness"
+  ],
+  [
+   6.0,
+   "video.engagement"
+  ],
+  [
+   6.6,
+   "video.subtitles_sync_readability"
+  ]
+ ],
+ "answers": {
+  "hook": {
+   "diagnosis": "Hooks are currently failing in two critical ways: (1) Copy misalignment and abstract phrasing—hooks use vague, low-urgency tropes ('crack the secret playbook', 'find mate', 'reverse Blaze's win') rather than tactile, high-stakes challenges tied to concrete move counts, and the on-screen text frequently mismatches the spoken opening sentence; (2) Platform UI and visual overlap—subtitles and hook text either obscure props/character faces or disconnect from the caption's call-to-action.",
+   "proposals": [
+    {
+     "title": "Strict 1:1 Audio-Visual Hook Synchronization",
+     "change": "Enforce a pipeline validation gate where the first spoken sentence (0:00-0:02) and the on-screen hook overlay share the identical core 4 to 6 words. For example, if on-screen text reads 'CAN VEKTOR SAVE THE CLOCK IN 2 MOVES?', the opening TTS voiceover must start verbatim with 'Can you help Vektor save the clock in two moves?' Reject and regenerate any script where on-screen text and voiceover diverge.",
+     "why": "QA flagged clear mismatches (e.g., text asking 'CAN YOU CRACK THE SECRET FORMULA?' while audio said 'trapped Blaze's secret playbook'). Dual-coding theory shows audio-visual mismatch in the first 1.5 seconds creates cognitive friction that triggers immediate scroll-away on Shorts and Reels.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Mandate Tactile Micro-Stakes + Exact Move Count Formula",
+     "change": "Update the script prompt template to enforce the proven high-scoring hook syntax for all story reels: 'Can you help Vektor [tactile physical action with prop/gadget] in [N] moves?'. Explicitly ban abstract phrases ('playbook', 'championship decider', 'find mate', 'reverse the win') and ban centering secondary characters ('for Luna'). Whitelist concrete tactile objects from the art prompt (e.g., 'stop the ticking clock tower', 'defend the frozen shield', 'save the burning biscuit').",
+     "why": "Notebook data shows tactile stakes tied to move counts crushed generic hooks (Cookie Challenge: 8.10, Rainy Day: 7.89 vs. secondary character hooks at 5.15 and abstract championship hooks at 5.77). QA explicitly criticized 'secret playbook' as abstract and disconnected from mad-science/clocktower visuals.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Implement Binary 'Move A or Move B?' On-Screen Split Hook for Tip Formats",
+     "change": "For calculation/tip reels, replace open-ended questions with an immediate binary choice hook: render two color-coded arrows on the board at 0:00 with on-screen text 'MOVE A OR MOVE B? ⚡' and audio: 'One of these moves wins the Queen in two—can you spot it?'. Ensure the puzzle logic, visual markers, and caption choices strictly match options A and B.",
+     "why": "Community analyst notes that comments are 100% scraper bots and recommends binary prompts to coax real human responses. QA also caught a discrepancy where the caption promised 'Move A or B' while the video asked for a 3-move calculation with notation, confusing viewers.",
+     "impact": "high",
+     "effort": "medium"
+    },
+    {
+     "title": "Standardize Caption Line 1 as a Direct Hook-to-Action Mirror",
+     "change": "Force the pipeline caption generator to make Line 1 a verbatim echo of the opening screen question followed by a single clear action verb and pointer emoji: '[Hook Question]? Drop your move below 👇' (e.g., 'Can Vektor freeze the clock in 2 moves? Drop A or B below 👇'). Never mention FIDE ratings ('1600-1850') or algebraic candidate notation in the first 2 lines.",
+     "why": "QA noted that technical rating tags (1600-1850) alienate 8-12 year olds and casual parents. Keeping line 1 focused purely on solving the immediate mystery converts fleeting views into comments and watch-time completion.",
+     "impact": "medium",
+     "effort": "low"
+    },
+    {
+     "title": "Dedicated Hook Bounding Box & Night-Blue Pill Scrim",
+     "change": "Lock the hook overlay bounding box to y=280px to y=480px (Inter Bold 52px, champagne gold #F4E8C1) centered inside a rounded 40% translucent night-blue (#0B132B) background pill. In the Python/PIL renderer, block any character heads or hero props from rendering within this 200px vertical corridor on frame 0.",
+     "why": "QA repeatedly flagged text overlapping hero props (stone chessboard, origami, Grandma's shawl) and cutting into character expressions at y=1270. Locking the hook to the upper-middle safe zone keeps character art unobstructed and guarantees 100% legibility across all mobile aspect ratios.",
+     "impact": "medium",
+     "effort": "medium"
+    }
+   ]
+  },
+  "story": {
+   "diagnosis": "Storytelling currently suffers from three major flaws: meta-prompts ('Warm, friendly storyteller') leaking into TTS narration (causing disastrous 1.0/5.0 audio reviews), narrative stakes that drift into generic/passive chess puzzles ('Can you help Vektor find mate?') rather than the proven cozy domestic micro-stakes, and a disconnect between the script, on-screen hook, and end CTA (e.g., caption asking for 'A or B' while the video demands complex algebraic mate-in-2 calculations).",
+   "proposals": [
+    {
+     "title": "Strict Script Schema Separation to Eliminate Spoken Voice Prompts",
+     "change": "Revise the script generation schema and prompt to strictly isolate spoken copy into a sanitized `voiceover_text` field that explicitly prohibits inline director notes, parenthetical cues (e.g., '(warmly)', '(excited)'), or persona prefixes ('Warm, friendly storyteller:'). Inject vocal style instructions exclusively into Gemini TTS API configuration parameters rather than the text string.",
+     "why": "Multiple reels received catastrophic review scores (1.0 in audio quality, 4.5-5.2 overall) because the TTS engine read production stage directions and voice personas aloud, which were then mirrored verbatim in subtitles.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Standardize Binary Narrative Choice ('Move A or Move B?') Hook and CTA",
+     "change": "Refactor the puzzle presentation and CTA from open-ended 'find mate' into a clear narrative binary dilemma: Frame the puzzle around two candidate moves (e.g., 'Option A: The Queen Sacrifice, or Option B: The Knight Fork?') and unify the end card and caption CTA to: 'Which move saves Vektor's cookies: A or B? Comment below before the oven dings!'",
+     "why": "The community analyst reported 100% bot/scraper comments and specifically recommended binary 'A or B' choices to trigger human comments. It also resolves QA flags where captions mentioned 'A or B' but the video asked for a multi-move mate sequence.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Mandate Cozy Domestic Stakes with Bishop Blaze's Secret Playbook Under 50s",
+     "change": "Enforce a story arc template where Vektor faces micro-domestic dilemmas (e.g., baking cookies, unlocking a treehouse gadget, deciphering a rainy-day kitchen riddle) caused by Bishop Blaze's hidden trick playbook. Limit the story intro strictly to frames 1-3 (total <= 12 seconds) and overall reel length to <= 50 seconds.",
+     "why": "Story notebook data confirms domestic micro-adventures generate the highest views (339) and shares (6), while tournament finals score lowest (5.15) with zero shares. Cutting run-time solves the QA complaint that 1:17 reels drag and lose kid viewers.",
+     "impact": "high",
+     "effort": "medium"
+    },
+    {
+     "title": "Enforce 1:1 Synchronized Punchy Hook Copy",
+     "change": "Implement a pipeline validation check requiring the on-screen hook text (0:00-0:02) to match the first 4 to 6 spoken words of dialogue verbatim (e.g., On-screen: 'CAN VEKTOR SOLVE BLAZE'S KITCHEN TRICK?' / Spoken: 'Can Vektor solve Blaze's kitchen trick before breakfast?'). Reject generic templates like 'Can you help Vektor find mate?' or 'Can Vektor reverse Blaze's win?'.",
+     "why": "QA reviewers repeatedly penalized generic hook copy and flagged glaring mismatches where the on-screen text showed 'CAN YOU CRACK THE SECRET FORMULA?' while the voiceover said 'trapped Blaze's secret playbook'.",
+     "impact": "medium",
+     "effort": "low"
+    },
+    {
+     "title": "Replace Intimidating Algebraic Jargon with Narrative Tactical Nicknames",
+     "change": "Ban rating badges (e.g., 'Club 1600-1850' or 'Expert 1850-2100') from the story format and translate raw algebraic notation into descriptive action names (e.g., instead of 'Qxh7+ / Step 2 Candidate moves', use 'The Sneaky Rook Elevator' or 'The Lightning Knight Fork'). Include an explicit reminder in the script: 'Pause the video if you need more calculation time!'",
+     "why": "QA flagged that rating tiers and dry algebraic sequences alienate casual viewers, kids aged 8-12, and parents, disrupting the story immersion and creating anxiety during the fast 8-second puzzle countdown.",
+     "impact": "medium",
+     "effort": "medium"
+    }
+   ]
+  },
+  "visual": {
+   "diagnosis": "Visual quality suffers from persistent safe-zone clipping (subtitles at y=1270 covering character props/anatomy, end-card elements encroaching into the 420px mobile UI dead zone), unreadable AI-rendered 3D chessboards on mobile screens, and inconsistent image prompt framing that places focal subjects directly beneath subtitle overlays rather than in cinema-grade safe thirds.",
+   "proposals": [
+    {
+     "title": "Strict Mobile Safe-Zone Clamping in PIL Layout Engine",
+     "change": "Enforce a hard safe-zone boundary in the Python/PIL rendering script: clamp all end-card badges, CTA copy, and UI text above y=1470 (strictly leaving the bottom 450px blank for Instagram/TikTok UI overlays). Shift `story_caption_y` or make it dynamic, lowering subtitle font size by 15% and anchoring it within a dedicated lower-third pill with 40% translucent night-blue backing.",
+     "why": "QA repeatedly penalizes Reels for bottom CTA text clipping under platform audio/caption banners and subtitles crossing props, origami, and character chests.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Compositional Negative Space & Lighting Directives in Image Prompts",
+     "change": "Update Gemini image generation prompts with strict framing rules: mandate intimate camera distance ('medium close-up, Dutch angle or eye-level portrait, cinematic depth of field'), enforce atmospheric warm lighting ('golden hour lantern glow against deep night-blue shadows, cozy workshop/rainy room'), and explicitly require focal subjects (Vektor's head, hands, props) to sit in the upper 60% of the canvas (y: 150–1100), leaving the lower 40% as soft, out-of-focus background.",
+     "why": "Stops captions from occluding key character acting and props, while anchoring the warm intimate settings proven to drive watch time from 2,200 ms up to 6,500 ms.",
+     "impact": "high",
+     "effort": "medium"
+    },
+    {
+     "title": "High-Contrast 2D Cutaway Vector Board for Calculation Phase",
+     "change": "Deprecate AI-generated in-scene 3D chessboards during the calculation and countdown beats. Replace with an automated high-contrast 2D cutaway board styled in the app's night-blue and champagne-gold theme (rendered via Python-Chess/PIL), paired with an expressive animated character close-up in the top corner (Vektor calculating or reacting).",
+     "why": "AI 3D boards have distorted perspectives, illegible piece positions on phone screens, and clutter the frame; crisp 2D cutaways improve mobile calculation speed and sustain retention past 7,000 ms.",
+     "impact": "high",
+     "effort": "medium"
+    },
+    {
+     "title": "Streamlined Minimalist End-Card Visual Hierarchy",
+     "change": "Redesign the end-card template: strip away competing badges and multi-button stacks. Standardize to a single champagne-gold interactive prompt container ('Move A or Move B? Comment below'), Inter Bold typography, subtle edge vignette, and a clear daily streak counter badge, all centered between y=600 and y=1400.",
+     "why": "Resolves QA complaints about visually cluttered end cards, coordinates with the community analyst's push for binary A/B prompts to beat bot spam, and directs viewer focus immediately to the comment CTA.",
+     "impact": "medium",
+     "effort": "low"
+    },
+    {
+     "title": "Opening 1.5s High-Impact Cinematic Hook Card Overlay",
+     "change": "Implement an automated hook frame overlay for 0.0s–1.5s: high-contrast Inter Black typography in champagne gold, maximum 2 lines, supported by a subtle radial dark gradient behind the text. The visual must pair with a tight, high-emotion close-up of Vektor (e.g. flame mane flaring, wide eyes, intense expression) rather than wide room views.",
+     "why": "Eliminates generic visual hooks, instantly stops the feed scroll, and ensures 100% text readability regardless of background brightness.",
+     "impact": "medium",
+     "effort": "low"
+    }
+   ]
+  },
+  "growth": {
+   "diagnosis": "Engagement and conversion are severely throttled by a disconnect between video CTAs and captions, friction-heavy comment asks (demanding complex algebraic chess notation instead of tap-friendly responses), and passive follow/share end-card copy that fails to trigger algorithmic momentum or convert bot traffic into DMs.",
+   "proposals": [
+    {
+     "title": "Standardize 'Keyword DM Trigger' and Binary Choices in Captions and Voiceover",
+     "change": "Deprecate all requests for full algebraic chess notation in copy templates. Update the caption and script generator prompt to enforce a synchronized binary prompt ('Comment A or B') and keyword DM lead magnet: 'Comment [KEYWORD] (e.g., MATE, BLITZ) to get the engine solution in your DMs right now!'. Ensure the on-screen candidate cards, voiceover outro, and caption callout use the exact same choice labels (A vs B).",
+     "why": "The notebooks show asking for algebraic notation yields zero human answers, while 100% of current comments are bot scrapers. A single-word keyword or A/B comment reduces cognitive friction for kids and adults, coaxes real comments, and capitalizes on DM automation bots to drive app funnel conversion.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Replace Passive End-Card CTAs with 'Daily Streak' Retention Hooks",
+     "change": "In the end-card copy generator, replace passive copy like 'Follow for Vektor's next day!' with an active streak challenge template: 'Day {streak_day} of training with Vektor. Follow to build your calculation streak 🔥' paired with 'Tomorrow: Can Vektor break out of the dungeon?'. Keep text strictly above y=1500 to clear the 420px bottom safe zone.",
+     "why": "QA sub-scores for cta_clarity (4.0) and likelihood_comment_share_follow (5.0) are critically low. Linking the follow CTA directly to the app's core concept (daily calculation streaks) and the narrative cliffhanger gives viewers a tangible reason to follow.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Implement Relational 'Challenge a Rival' Share Line Architecture",
+     "change": "Update the end-card and caption share prompt from generic 'Share with friends' to relational challenge hooks: 'Send this to someone who blunders their Queen under 10 seconds' or 'Send this to your chess rival—can they beat the clock?'. Add dynamic parameters to randomly rotate these 3 high-performing archetypes.",
+     "why": "Top-performing reels (Science Fair Spark, Cookie Challenge) proved that shares drive organic reach. Chess players share content to flex puzzle speed or tease rivals/parents, not to passively broadcast chess tips.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Overhaul Hook Formula to Ban Generic Chess Questions and Ban Intimidating Rating Labels",
+     "change": "In the hook generation prompt, blacklist phrases like 'Can you help Vektor find mate?' or 'Can you crack the secret playbook?'. Enforce a formula: [High-Stakes Character Crisis] + [Time/Visual Object] (e.g., 'Vektor has 8 seconds to disarm the gear trap!'). Additionally, replace intimidating Elo tags like 'Club 1600-1850' with gamified tier badges: 'Level: Tricky Tactics' or 'Puzzle Tier: Challenger'.",
+     "why": "QA repeatedly flagged hooks as generic and rating numbers as intimidating to casual players and kids (8-12). High-stakes story stakes stop the initial scroll, while approachable rating names reduce bounce rates before the puzzle countdown.",
+     "impact": "medium",
+     "effort": "low"
+    },
+    {
+     "title": "Automated 3-Tier Hashtag & SEO Caption Structuring",
+     "change": "Restructure the automated caption template into 3 distinct sections: (1) Scroll-stopping story hook + binary challenge prompt in the first 80 characters, (2) 'Comment [KEYWORD] for the answer + app link', (3) Fixed SEO cluster of 6 hashtags balancing broad reach and niche intent: #streakchess #chesstok #chesspuzzle #chessforkids #dailychess #chesscalculation.",
+     "why": "Current captions get truncated before the CTA is visible and lack search discoverability on TikTok/Reels. Front-loading the A/B choice ensures immediate engagement before the 'more' button cut-off.",
+     "impact": "medium",
+     "effort": "low"
+    }
+   ]
+  },
+  "community": {
+   "diagnosis": "Audience engagement is crippled by two compounding factors: 100% of organic comments are currently automated scraper bots ('Send me this post'), while real human viewers face excessive friction to participate. Reels demand full multi-step algebraic notation calculations under tight countdowns (8-12s) accompanied by intimidating rating badges ('Club 1600-1850'), creating high barrier-to-entry. Furthermore, copy discrepancies (e.g. caption promising 'A or B' while video demands full Mate-in-2) and passive, cluttered CTAs depress human comment conversion.",
+   "proposals": [
+    {
+     "title": "Standardize On-Screen Binary Comment Mechanics (Option A vs B)",
+     "change": "Enforce a strict pipeline rule across script and video rendering: every puzzle countdown must present exactly two labeled candidate moves on screen (A: [Move 1] vs B: [Move 2]). Ban requests for multi-step algebraic sequences in the main call to action. Align the audio and pinned caption to ask specifically: 'Are you playing Move A or Move B? Drop your letter below!'",
+     "why": "Human viewers on mobile feeds rarely type full notation like '1...Qh4+ 2.Kg1 Nf3#'. Lowering cognitive and input friction to a single character ('A' or 'B') directly breaks through passive viewing, drowns out repetitive bot spam, and directly fixes the QA bug where captions and video prompts were out of sync.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Replace Intimidating Elo Badges with Gamified Audience Tiers",
+     "change": "Update the Python/PIL overlay template to replace numerical rating badges (e.g., 'Club 1600-1850', 'Expert 1850-2100') with gamified story ranks: 'Apprentice Puzzle' (<1200), 'Knight Quest' (1200-1600), and 'Grandmaster Trial' (1600+).",
+     "why": "QA repeatedly flagged that rating tags intimidate younger viewers (ages 8-12) and casual adult players. Gamified ranks fit Vektor's fantasy lore, validate beginner audiences, and encourage participation without inducing chess math anxiety.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Automate First Pinned Comment as a Conversation Starter",
+     "change": "Add an automated post-publish step via social API to publish and pin a 1-sentence prompt on every reel: 'Vektor needs your vote: Did you spot Move A or Move B? 👇 (Answer pinned tomorrow at 10 AM!)'.",
+     "why": "Zero real comment threads exist currently because scrapers dominate the top comment slots. An author-pinned, immediate conversational question anchors the comment section, establishes expectations for the next-day reveal bot, and primes real humans to respond.",
+     "impact": "medium",
+     "effort": "low"
+    },
+    {
+     "title": "Add Standardized 'Pause & Calculate' Audio-Visual Cue",
+     "change": "In the countdown sequence, mandate an animated 'PAUSE & CALCULATE' badge at top center during the first 2 seconds, while the voiceover specifically reminds: 'Hit pause if you need more time to calculate!'",
+     "why": "QA highlighted that 8-12 seconds is too brief for intermediate tactical calculation. Viewers who feel rushed leave without solving; explicitly granting permission to pause increases watch time, calculation success, and viewer confidence to comment their answer.",
+     "impact": "medium",
+     "effort": "low"
+    },
+    {
+     "title": "Refactor End-Card Copy to a Habit-Building Streak CTA",
+     "change": "Replace passive copy like 'Follow for Vektor's next day!' and cluttered button stacks with a single high-contrast prompt: 'Day [X] Complete! Tap Follow to protect your puzzle streak tomorrow.' Move all CTA text at least 450px above the bottom boundary.",
+     "why": "QA scored cta_clarity at 4.0 and likelihood_comment_share_follow at 5.0, noting end card text encroaches into Instagram UI cutoffs and fails to hook daily retention. Tying the follow CTA to the user's daily streak habit directly improves community conversion.",
+     "impact": "medium",
+     "effort": "medium"
+    }
+   ]
+  },
+  "producer": {
+   "diagnosis": "The automated pipeline is severely dragged down by two critical flaws: catastrophic voiceover prompt leaks where Gemini TTS reads director instructions aloud (dropping audio sub-scores to 1.0/10 and video ratings to 4.5), and UI safe-zone clipping on Instagram/TikTok where subtitles overlap character art and end cards collide with bottom platform controls. Secondary drags include reel bloat (stretching past 1:15 vs. the 55s target) and mismatched hook/caption copy.",
+   "proposals": [
+    {
+     "title": "Strict Regex Sanitization and Automated Blocklist Assertion on TTS Scripts",
+     "change": "Insert a deterministic Python cleaning step immediately prior to TTS generation and subtitle alignment: use regex to strip all parentheticals `\\(.*\\)`, brackets `\\[.*\\]`, and key patterns like `Director's notes:?`, `Warm, friendly storyteller.*?:`, or `Narrator:`. Add an automated assertion that halts rendering if any known prompt keywords ('storyteller', 'cousin', 'tone:', 'director') exist in the voice input string.",
+     "why": "Prompt leakages ('Warm, friendly storyteller', 'Like a fun older cousin') have repeatedly occurred in production audio and subtitles, driving audio quality sub-scores directly to 1.0 and ruining viewer immersion.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Enforce Safe-Zone Bounds (Bottom 440px & Story Caption y=1040)",
+     "change": "In the PIL rendering script, elevate the fixed `story_caption_y` coordinate from 1270 to 1040 (or dynamically anchor it 60px below the central focal box) to clear character hands, props, and boards. For the end card template, establish a hard floor at y=1480 (leaving a strict 440px margin from the 1920 bottom) for all follow/share buttons and CTAs to avoid platform overlays.",
+     "why": "QA flagged layout safe zone issues across nearly every design review (score 5.5), where subtitles obscure character faces/props at y=1270 and bottom CTA text is cut off by Reels/Shorts user interface elements.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Strict Word-Count Clamping to Enforce <=52s Total Duration",
+     "change": "Enforce a strict 110-word ceiling on script generation prompts and add a pipeline timing check: clamp the story section to 12s, the calculation breakdown to 15s (restricting it to 2 candidate moves rather than intimidating multi-step notation), the countdown to 7s with an explicit 'Pause to solve' badge, and the end card to 5s. Auto-reject or re-prompt scripts exceeding 52s total audio runtime.",
+     "why": "Recent reels dragged out to 1:03–1:17 with technical chess jargon ('Expert 1850-2100') that kills narrative momentum for younger viewers and drops pacing scores.",
+     "impact": "high",
+     "effort": "medium"
+    },
+    {
+     "title": "Direct Binding of On-Screen Hook Text to Spoken Hook Audio",
+     "change": "Refactor the video compositor so on-screen Hook text is programmatically derived from the spoken line (e.g. `hook_headline = spoken_line_1[:45]`) instead of being generated as a disconnected metadata field. In the script prompt, enforce high-stakes story cliffhangers tied directly to the episode's antagonist/reward rather than abstract lines like 'Can you crack the secret playbook?'.",
+     "why": "Recent QA caught discrepancies between spoken audio ('trapped Blaze's secret playbook') and visual title cards ('CAN YOU CRACK THE SECRET FORMULA?'), confusing viewers in the first 2 seconds.",
+     "impact": "medium",
+     "effort": "low"
+    },
+    {
+     "title": "Synchronize End-Card CTA and Instagram Caption Mechanics",
+     "change": "Dynamically template the end-card copy and social caption directly from the puzzle engine output: if the puzzle is a 'Mate in 2', display 'Comment your winning move sequence below!' and sync the caption template. Eliminate conflicting boilerplate copy (such as asking for 'Move A or B' when the video displays a mate sequence) and highlight the daily streak habit.",
+     "why": "CTA clarity (4.0) and comment/follow likelihood (5.0) suffer when the spoken call to action, end-card text, and caption instructions contradict each other.",
+     "impact": "medium",
+     "effort": "medium"
+    }
+   ]
+  },
+  "art_director": {
+   "diagnosis": "Design sub-scores suffer primarily from safe-zone violations (layout_inside_safe_zone is at an unacceptable 5.5) and visual clutter. Story subtitles hardcoded at y=1270 routinely collide with character faces, props, and chessboards because image prompts lack composition rules. Meanwhile, end-card elements bleed into the bottom 420px mobile UI overlay with competing CTA badges, and opening hook titles lack the typographic punch and narrative alignment needed for 0.5s scroll-stopping impact.",
+   "proposals": [
+    {
+     "title": "Strict Safe-Zone Clamping for End Card and Platform UI",
+     "change": "In the PIL rendering script, set a strict lower boundary of y=1470 (450px bottom safe zone on 1080x1920 reels). Re-anchor all end-card assets: place the board recap/branding between y=400 and y=1100, and clamp the comment CTA and follow streak badge strictly between y=1150 and y=1420.",
+     "why": "QA repeatedly flagged that the end card text creeps into the bottom 420px Instagram/TikTok dead zone (obscured by account names, captions, audio marquee), directly causing the 5.5 safe-zone score.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "Negative-Space Image Prompts & Adaptive Subtitle Pill at y=1360",
+     "change": "Add a mandatory compositional constraint to the Gemini image generation prompt: 'Vertical 9:16 composition, main character action and props framed tightly between y=25% and y=65%, leave bottom 35% clean with low-detail floor/background'. In the renderer, move story subtitle baseline from y=1270 to y=1360, reduce font scale from 1.0 to 0.88 Inter Bold, and enclose text in a frosted night-blue pill (rgba(10, 18, 36, 0.82)) with champagne gold stroke.",
+     "why": "Subtitles currently cut straight through key illustrated props (origami, spellbooks, 3D boards) and character chests at y=1270. Ensuring image negative space and lowering/boxing the text eliminates visual collisions entirely.",
+     "impact": "high",
+     "effort": "medium"
+    },
+    {
+     "title": "Standardized 2-Line Dynamic Hook Banner Card",
+     "change": "Replace arbitrary hook text placement with a fixed top-third visual template at y=220-y=400 for the first 2.0s: Line 1 in champagne gold (#E5C158, 48px Inter ExtraBold, uppercase) stating the story conflict ('VEKTOR VS. THE CLOCK TOWER'); Line 2 in clean white (#FFFFFF, 64px Inter Black) asking the concrete puzzle question ('CAN YOU FIND MATE IN 2?'). Pass the exact voiceover hook line to this graphic so spoken and written hooks match verbatim.",
+     "why": "Current hooks are generic ('Can you unlock the secret playbook?'), fail to stop the scroll, and occasionally mismatch audio. A high-contrast two-tier banner establishes dramatic stakes instantly.",
+     "impact": "high",
+     "effort": "low"
+    },
+    {
+     "title": "End-Card CTA Hierarchy Simplification",
+     "change": "Declutter the end-card layout to only two visual elements: (1) A primary high-contrast comment button: champagne background, night-blue text reading '💬 COMMENT YOUR MOVE' (y=1220, h=96px), and (2) A single subline in champagne gold: 'Next episode reveals answer • Follow for Daily Streak 🔥' (y=1340, 36px Inter Medium). Remove all auxiliary buttons, secondary badges, and rating tags from this frame.",
+     "why": "Reviewers noted end cards are visually heavy with competing badges and passive follow text. A singular, bold directive maximizes comments without cognitive overload.",
+     "impact": "medium",
+     "effort": "low"
+    },
+    {
+     "title": "Gamified Difficulty Badge & Board Presentation Clean-up",
+     "change": "Replace raw algebraic rating labels like 'Club 1600-1850' or 'Expert 1850-2100' with a visual arcade-style rank pill positioned at y=260: an icon + badge style (e.g., '⚡ PUZZLE RANK: MASTER (1600+)'). Standardize the chessboard container to 860x860 centered at y=780 with a 6px night-blue/champagne beveled border and coordinate notations positioned outside the active squares.",
+     "why": "Raw rating bands intimidate younger casual players and parents. A stylized gamified pill feels like an app achievement rather than a math textbook, improving aesthetic polish and watch time.",
+     "impact": "medium",
+     "effort": "medium"
+    }
+   ]
+  }
+ },
+ "plan": {
+  "summary": "This consolidated 8-step roadmap directly addresses critical quality bottlenecks—eliminating stray TTS stage directions (1.0/5.0 audio defect), synchronizing hook copy 1:1 with audio, implementing mobile safe-zone clamping, and replacing intimidating algebraic notation with high-engagement binary choices ('Move A vs Move B') and tactile domestic micro-stakes under 50 seconds.",
+  "plan": [
+   {
+    "rank": 1,
+    "title": "Strict Schema Sanitization to Eliminate Stray Spoken Stage Directions",
+    "owners": [
+     "story"
+    ],
+    "change": "Isolate spoken narration into a strictly validated `voiceover_text` field in the script schema. Strip inline parentheticals, tone cues, and persona prefixes ('Warm, friendly storyteller:'), passing vocal instructions strictly via Gemini TTS API configuration parameters.",
+    "expected_effect": "Instantly eliminates stray stage directions being spoken aloud, driving the critical audio quality and voice matching scores from 1.0 to 8.0+.",
+    "effort": "low"
+   },
+   {
+    "rank": 2,
+    "title": "Strict 1:1 Audio-Visual Hook Synchronization and Safe Positioning",
+    "owners": [
+     "hook",
+     "story"
+    ],
+    "change": "Enforce a pipeline validation gate where the first spoken voiceover sentence (0:00-0:02) and the on-screen hook overlay share the identical core 4 to 6 words verbatim. Render this text in Inter Bold champagne gold over a translucent night-blue scrim pill restricted to y=280–480px.",
+    "expected_effect": "Eliminates cognitive dissonance between text and voice at 0:00, drastically curbing first-second feed drop-off and visual occlusion of hero props.",
+    "effort": "low"
+   },
+   {
+    "rank": 3,
+    "title": "Standardize Binary 'Move A vs Move B' Dilemma & DM Keyword CTA",
+    "owners": [
+     "hook",
+     "story",
+     "growth"
+    ],
+    "change": "Replace open-ended multi-move calculations and algebraic notation asks with a unified binary choice ('Option A or Option B?'). Synchronize on-screen arrows, voiceover CTA, and caption Line 1 with a keyword DM hook: 'Which move saves Vektor: A or B? Comment A, B, or MATE below for the engine answer 👇'.",
+    "expected_effect": "Removes friction for casual viewers and kids, transforming bot-dominated comment sections into active human engagement and raising CTA clarity from 4.0 to 8.0+.",
+    "effort": "low"
+   },
+   {
+    "rank": 4,
+    "title": "Hard Mobile Safe-Zone Clamping in PIL Layout Engine",
+    "owners": [
+     "visual",
+     "hook"
+    ],
+    "change": "Clamp all interactive text, end-card containers, and subtitles above y=1470 in the PIL renderer, leaving the bottom 450px reserved for platform UI overlays. Shift subtitles into an anchored lower-third pill with 40% translucent night-blue backing and 15% reduced font size.",
+    "expected_effect": "Resolves safe-zone layout violations (5.5) and ensures 100% subtitle legibility without clipping underneath Instagram/TikTok interface elements.",
+    "effort": "low"
+   },
+   {
+    "rank": 5,
+    "title": "Mandate Tactile Domestic Micro-Stakes and Sub-50s Runtime",
+    "owners": [
+     "hook",
+     "story"
+    ],
+    "change": "Refactor script prompt templates to ban abstract championship tropes ('secret playbook', 'find mate') in favor of tactile micro-stakes ('Can you help Vektor freeze the ticking oven in 2 moves?'). Restrict narrative setups to frames 1–3 (under 12s) and cap total reel duration at <= 50 seconds.",
+    "expected_effect": "Replicates proven high-retention domestic themes, preventing kid drop-off caused by pacing drag and boosting completion rate.",
+    "effort": "low"
+   },
+   {
+    "rank": 6,
+    "title": "Automated High-Contrast 2D Cutaway Vector Board for Calculation Beat",
+    "owners": [
+     "visual"
+    ],
+    "change": "Deprecate AI-generated 3D in-scene chessboards during the calculation and countdown beats. Replace them with programmatic 2D vector boards rendered via Python-Chess in night-blue and champagne-gold, paired with an expressive animated Vektor reaction close-up in the top corner.",
+    "expected_effect": "Solves distorted piece perspective and visual clutter, ensuring instant mobile calculation legibility and sustaining retention past 7 seconds.",
+    "effort": "medium"
+   },
+   {
+    "rank": 7,
+    "title": "Replace Rating Badges and Algebraic Jargon with Narrative Tactical Nicknames",
+    "owners": [
+     "story",
+     "hook"
+    ],
+    "change": "Strip technical FIDE rating tiers ('1600-1850') from visuals and captions. Translate dry notation (e.g., 'Qxh7+') into descriptive action phrases ('The Sneaky Rook Elevator', 'The Lightning Knight Fork') and add an explicit pause reminder during countdowns.",
+    "expected_effect": "Removes calculation anxiety for young players and parents, keeping casual viewers immersed in the narrative without feeling intimidated.",
+    "effort": "low"
+   },
+   {
+    "rank": 8,
+    "title": "Streamlined Minimalist End-Card with Active Daily Streak Challenge",
+    "owners": [
+     "visual",
+     "growth"
+    ],
+    "change": "Clean up end-card clutter by stripping competing badges down to a single champagne-gold container between y=600 and y=1400. Replace passive follow copy with an active streak challenge: 'Day {streak_day} of training with Vektor. Follow to build your calculation streak 🔥'.",
+    "expected_effect": "Focuses attention on a singular action, directly driving follow conversion and lifting likelihood_comment_share_follow from 5.0 to 7.5+.",
+    "effort": "low"
+   }
+  ]
+ }
+}
