@@ -347,12 +347,21 @@ def _clean_edges(a, text):
         return a
     hw = [_spoken(w) for w, _, _ in heard]
     start = end = None
-    for j in range(min(4, len(hw))):                       # first spoken word of the line
-        if hw[j] and (hw[j] == ws[0] or (len(ws) > 1 and hw[j] == ws[1] and j > 0)):
-            start = j if hw[j] == ws[0] else j - 1; break
-    for j in range(len(hw) - 1, max(-1, len(hw) - 5), -1):  # last spoken word of the line
-        if hw[j] and hw[j] == ws[-1]:
+    k = min(2, len(ws))                                    # where the line really starts: its first words, anywhere
+    for j in range(len(hw) - k + 1):                       # (acting notes read aloud can be 10+ words long)
+        if hw[j:j + k] == ws[:k]:
+            start = j; break
+    if start is None:
+        for j in range(min(4, len(hw))):
+            if hw[j] and (hw[j] == ws[0] or (len(ws) > 1 and hw[j] == ws[1] and j > 0)):
+                start = j if hw[j] == ws[0] else j - 1; break
+    for j in range(len(hw) - 1, k - 2, -1):                # where it ends: its last words (drops repeats after)
+        if hw[j - k + 1:j + 1] == ws[-k:]:
             end = j; break
+    if end is None:
+        for j in range(len(hw) - 1, max(-1, len(hw) - 5), -1):
+            if hw[j] and hw[j] == ws[-1]:
+                end = j; break
     t0 = heard[start][1] - 0.08 if start else 0.0
     t1 = heard[end][2] + 0.25 if end is not None and end < len(hw) - 1 else None
     if start or t1:
@@ -361,6 +370,23 @@ def _clean_edges(a, text):
         b = a[int(max(0, t0) * SR): int(t1 * SR) if t1 else len(a)]
         return b if len(b) > SR * 0.3 else a
     return a
+
+
+LEAK_WORDS = {"director", "directors", "notes", "storyteller", "transcript", "delivery", "narrator", "paragraph",
+              "pace", "tone", "warm"}
+
+
+def _leaked(a, text):
+    """True when the take contains prompt words that are not in the line (the model read its instructions)."""
+    heard = _asr(a)
+    if not heard:
+        return False
+    mine = {_spoken(w) for w in text.split()}
+    extra = [w for w in (_spoken(x) for x, _, _ in heard) if w in LEAK_WORDS and w not in mine]
+    if len(extra) >= 2 or ("director" in extra or "directors" in extra or "transcript" in extra):
+        print(f"voice: take read the instructions aloud ({' '.join(extra)}), rejected", flush=True)
+        return True
+    return False
 
 
 def _gemini_line(text, style, key, pace):
@@ -379,6 +405,8 @@ def _gemini_line(text, style, key, pace):
             if "unreachable" in str(e) or "no Gemini TTS" in str(e):
                 raise
             print("voice: take error:", str(e)[:150], flush=True); continue
+        if _leaked(a, text):
+            continue
         sim = _similarity(a, text)
         if (sim is None or sim >= 0.7) and _sane(a, text):
             return a
@@ -425,7 +453,7 @@ def _split_takes(a, texts):
     parts = [_clean_edges(_tighten(_trim(a[edges[k]:edges[k + 1]])), texts[k]) for k in range(n)]
     for p, t in zip(parts, texts):
         sim = _similarity(p, t)
-        if not _sane(p, t, 3.2) or (sim is not None and sim < 0.7):
+        if not _sane(p, t, 3.2) or (sim is not None and sim < 0.7) or _leaked(p, t):
             raise RuntimeError("split pieces do not match the text")
     return parts
 
