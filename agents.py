@@ -146,7 +146,8 @@ Current caption:
 
 QA notes on the finished reel: {json.dumps(review, ensure_ascii=False)[:600]}
 Rewrite the caption for maximum comments, shares, saves and follows from chess players and chess parents.
-Rules: English; first line max 12 words (hook, max one emoji); a line inviting people to comment their move;
+Rules: English; first line max 12 words (hook, max one emoji); a line inviting people to comment their answer (if the caption offers lettered options, keep exactly those letters,
+e.g. A, B, C or D - never reduce them to 'A or B');
 a line inviting to share with a chess friend; keep one line for every chess player (kids, adults and chess parents alike, never addressed
 to parents only) that StreakChess is free with the founder offer and link in bio; end with 3-5 chess hashtags (you may swap them). Max 600 characters. Kid-safe, no fake claims.
 Return JSON: {{"caption": str, "why": str}}""", 0.6)

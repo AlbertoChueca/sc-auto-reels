@@ -215,7 +215,8 @@ subtitles readable and in sync with the voice, voice natural and matching the wo
 to follow, visuals consistent and attractive, call to action clear, likelihood viewers comment/share/follow.
 "critical" = true ONLY if the reel is clearly broken (silent, frozen/black, unreadable, wrong/garbled voice,
 inappropriate content). Then write a better FIRST caption line (max 12 words, one emoji max, written for chess players of every age,
-kids and adults, invites commenting the answer) and a short comment prompt line (max 12 words).
+kids and adults, invites commenting the answer; when the puzzle has lettered options it asks for A, B, C or D - never "A or B")
+and a short comment prompt line (max 12 words).
 Return JSON: {{"overall": number, "scores": {{...}}, "critical": bool, "issues": [str], "suggestions": [str],
 "caption_first_line": str, "comment_prompt": str}}"""},
                     {"inline_data": {"mime_type": "video/mp4", "data": data}}], 0.4)
@@ -281,7 +282,8 @@ LAYOUT FACTS (measured by the layout engine, do not guess them from the small fr
 between y=250 and y=1470 of 1920 (Instagram/TikTok bottom UI starts around y=1500), the board sits at y=490-1410,
 puzzle subtitles at y~1450, story subtitles at story_caption_y. The end card is fixed: one panel with the streak line
 ("Day N of training with Vektor"), "Follow to build your streak", the streakchess.com button and the founder offer.
-The puzzle asks "A or B?" on purpose (two labelled candidate arrows; viewers comment A or B).
+The puzzle asks "A, B, C or D?" on purpose: the four candidate moves from the lesson are shown as four labelled,
+colour-coded arrows and viewers comment one letter. Four arrows are the intended design, not clutter.
 Judge 1-10: scroll-stopping hook (on-screen text in the first frames), copy quality (short, punchy, clear for chess
 players of every age), typography & readability on a phone, layout inside the safe zone, visual polish / premium
 feel, clarity of the chess board, strength of the end card (follow + share + app), overall shareability.

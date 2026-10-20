@@ -349,7 +349,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     ask = f"Which candidate wins? {say_opts}?" if AB else f"Find {goal_say}."
     lines = ([] if skip_hook else [("h1", h1), ("h2", h2)]) + [
              ("lvl", f"{LV['name'].title()} level. {side} to move. {ask}"),
-             ("go", f"{numw.capitalize()} seconds. Go!"),
+             ("go", "Your time starts now. Go!"),        # no number: the timer length is set after recording
              ("up", "Time's up!")]
     shown = sans if reveal else []            # reveal=False: the answer goes in the comments (more comments!)
     lines += [(f"m{i}", R.san_say(s)) for i, s in enumerate(shown)]
