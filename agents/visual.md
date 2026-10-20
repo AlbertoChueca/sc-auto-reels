@@ -1,5 +1,7 @@
-# Visual notebook (2026-10-15)
+# Visual notebook (2026-10-20)
 
-• Keep doing: Warm, vibrant, intimate domestic settings (cozy kitchens, rainy windows, robot workshops) that grab early attention on mobile screens.
-• Stop doing: Massive, barren tournament halls and distant board views that crashed retention to 2174–2296 ms.
-• Try next: High-contrast, uncluttered 2D board pop-ups alongside exaggerated Vektor reaction shots to push retention above 7,000 ms (proven by Robot Duel and Classroom Showdown).
+# Visual notebook (2026-10-16)
+
+• Keep doing: Intimate, warm environments (kitchens, rainy rooms, workshops) that keep retention strong (4,500–6,500 ms).
+• Stop doing: Vast, sterile tournament halls and wide-angle boards that crater watch time to ~2,200 ms (Campfire Gambit, Giant Board Showdown).
+• Try next: High-contrast, mobile-first 2D board cutaways with expressive character close-ups to sustain watch time past 7,000 ms (seen in Pirate Dream and Chess Club Show-Off).

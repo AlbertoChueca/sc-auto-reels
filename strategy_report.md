@@ -1,55 +1,69 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-10-15 · 22 reels with results (3+ days old) · average score 6.22_
+_Updated 2026-10-20 · 27 reels with results (3+ days old) · average score 6.24_
 
 
 ## hook_style
 
 | option | reels | avg score |
 |---|---|---|
-| mystery | 2 | 6.93 |
-| big_dream | 7 | 6.43 |
-| rival | 4 | 6.32 |
+| mystery | 4 | 6.87 |
+| countdown_trap | 1 | 6.35 |
+| big_dream | 8 | 6.33 |
+| rival | 5 | 6.24 |
 | cliffhanger | 1 | 6.20 |
-| funny_fail | 7 | 5.89 |
+| funny_fail | 7 | 5.90 |
 | challenge | 1 | 5.33 |
-| countdown_trap | 0 | - |
 
 ## theme
 
 | option | reels | avg score |
 |---|---|---|
 | daily training to keep the streak alive | 1 | 7.08 |
-| blitz battle against Bishop Blaze | 5 | 6.33 |
-| helping Pip or a friend who is stuck | 4 | 6.29 |
+| cracking Bishop Blaze's secret playbook | 2 | 6.55 |
+| travelling to a new place for a tournament | 1 | 6.43 |
+| blitz battle against Bishop Blaze | 5 | 6.34 |
+| helping Pip or a friend who is stuck | 5 | 6.30 |
 | school chess club with friends | 4 | 6.29 |
-| lesson or secret test from Coach King | 5 | 6.10 |
+| lesson or secret test from Coach King | 6 | 6.03 |
 | tournament game with everything at stake | 3 | 5.78 |
-| travelling to a new place for a tournament | 0 | - |
-| cracking Bishop Blaze's secret playbook | 0 | - |
 
 ## difficulty
 
 | option | reels | avg score |
 |---|---|---|
-| basic | 11 | 6.33 |
+| basic | 13 | 6.40 |
 | advanced | 5 | 6.20 |
-| intermediate | 6 | 6.04 |
+| intermediate | 9 | 6.02 |
 
 ## think_time
 
 | option | reels | avg score |
 |---|---|---|
-| normal | 9 | 6.25 |
-| fast | 4 | 6.23 |
-| long | 9 | 6.19 |
+| long | 11 | 6.31 |
+| normal | 10 | 6.26 |
+| fast | 6 | 6.08 |
 
 ## story_length
 
 | option | reels | avg score |
 |---|---|---|
-| normal | 13 | 6.25 |
-| short | 9 | 6.19 |
+| normal | 16 | 6.28 |
+| short | 11 | 6.18 |
+
+## format
+
+| option | reels | avg score |
+|---|---|---|
+| story | 0 | - |
+| tip | 0 | - |
+
+## reveal
+
+| option | reels | avg score |
+|---|---|---|
+| in_video | 0 | - |
+| comments | 0 | - |
 
 ---
 # Playbook (updated 2026-10-12)

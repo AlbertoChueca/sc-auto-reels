@@ -1,5 +1,7 @@
-# Community notebook (2026-10-15)
+# Community notebook (2026-10-20)
 
-• Keep doing: Tracking comment spikes on top-scoring reels (Rainy Day and Rooftop Blitz lead with 6 comments).
-• Stop doing: Trying to extract narrative or difficulty insights from comments; human sentiment data is currently nonexistent.
-• Try next: Acknowledging 100% of recent audience comments are scraper/bot loops ("Send me this post", "Amazing 😍, send me this post ⚡"). Real human data is too thin; test simple on-screen A/B choices to elicit genuine human replies.
+# Community notebook (2026-10-16)
+
+• Keep doing: Tracking high-engagement reel themes (Rainy Day Riddle and Rooftop Blitz led with 6 comments).
+• Stop doing: Attempting to evaluate puzzle difficulty or narrative reception from comments; genuine human feedback is currently absent.
+• Try next: Acknowledging 100% of recent audience comments are repetitive bot/scraper requests ("Send me this post"). Test simple on-screen binary prompts (e.g., "A or B?") to coax out real human responses.
