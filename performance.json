@@ -938,7 +938,7 @@
 "permalink": "https://www.instagram.com/reel/Des2HOagivt/",
 "type": "REELS",
 "views": 230,
-"reach": 199,
+"reach": 201,
 "likes": 1,
 "comments": 0,
 "shares": 0,
@@ -995,14 +995,14 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/DestB5Viazc/",
 "type": "REELS",
-"views": 161,
-"reach": 142,
+"views": 162,
+"reach": 143,
 "likes": 2,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 2,
-"ig_reels_avg_watch_time": 6732
+"ig_reels_avg_watch_time": 6690
 },
 "18226502452327757": {
 "slot": "story",
@@ -1053,13 +1053,42 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/DesibekDgFO/",
 "type": "REELS",
-"views": 1248,
-"reach": 1079,
+"views": 1249,
+"reach": 1081,
 "likes": 17,
 "comments": 4,
 "shares": 1,
 "saved": 0,
 "total_interactions": 22,
-"ig_reels_avg_watch_time": 13167
+"ig_reels_avg_watch_time": 13157
+},
+"18162040678498342": {
+"slot": "story",
+"story": "The Festival Tower Riddle",
+"hook": "Can you find move A or B for Vektor? \u265f\ufe0f",
+"level": "basic",
+"mode": "level",
+"engine": "story",
+"review_score": 8.9,
+"arms": {
+"hook_style": "cliffhanger: open at the most tense moment, then rewind a bit",
+"theme": "daily training to keep the streak alive",
+"difficulty": "basic",
+"think_time": "long",
+"story_length": "normal",
+"format": "story",
+"reveal": "in_video"
+},
+"date": "2026-10-20",
+"permalink": "https://www.instagram.com/reel/Des7OekEh-d/",
+"type": "REELS",
+"views": 133,
+"reach": 123,
+"likes": 0,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 0,
+"ig_reels_avg_watch_time": 3895
 }
 }
