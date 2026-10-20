@@ -496,7 +496,7 @@ def build(P, seed, out, mode="level"):
     # ---- static layers
     bgO = bg_dark().convert("RGBA")
     lvl_chip = Image.new("RGBA", (10, 10))
-    _t1 = text_img(f"{LV['name']}", 40, NAVY); _t2 = text_img(f"{LV['rng']}", 40, WHITE)
+    _t1 = text_img(f"{LV['name']}", 40, NAVY); _t2 = text_img("LEVEL", 40, WHITE)
     lvl_chip = Image.new("RGBA", (_t1.width + _t2.width + 110, max(_t1.height, _t2.height) + 28), (0, 0, 0, 0))
     _d = ImageDraw.Draw(lvl_chip); _h = lvl_chip.height
     _d.rounded_rectangle([0, 0, lvl_chip.width - 1, _h - 1], _h // 2, fill=(14, 12, 28, 235), outline=LV["color"], width=4)
@@ -648,7 +648,7 @@ def build(P, seed, out, mode="level"):
     os.remove(wav)
     rng = random.Random(f"{P['id']}-{seed}-{mode}")
     first = rng.choice(TAG_CAPTIONS) if tag else hook_txt
-    ig = (f"{first}\n{LV['name'].title()} puzzle ({LV['rng']}). {side.title()} to move, {goal_say}.\n\n"
+    ig = (f"{first}\n{LV['name'].title()} level puzzle. {side.title()} to move, {goal_say}.\n\n"
           + ("Comment the move and tag a friend to challenge them!\n\n" if tag else "Comment your move before watching the solution!\n\n")
           + "Train your calculation every day on StreakChess. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
           + " ".join(hashtags(rng)))

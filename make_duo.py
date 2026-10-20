@@ -195,7 +195,7 @@ def build(P, seed, out, mode="level"):
     logo = Image.open(os.path.join(HERE, "assets", "logo_h.png")).convert("RGBA")
     logo = logo.crop(logo.getbbox())
     logo = logo.resize((360, int(logo.height * 360 / logo.width)), Image.LANCZOS)
-    chip = R.pill(f"{LV['name']}  {LV['rng']}", 34, LV["color"], fg=(255, 255, 255))
+    chip = R.pill(f"{LV['name']} LEVEL", 34, LV["color"], fg=(255, 255, 255))
     states = [board.copy()]
     for m in moves:
         s2 = states[-1].copy(); s2.push(m); states.append(s2)
@@ -346,7 +346,7 @@ def build(P, seed, out, mode="level"):
     proc.stdin.close(); proc.wait(); os.remove(wav)
 
     cap_first = rng.choice(R.TAG_CAPTIONS) if mode == "tagfriend" else hook.replace("three percent", "3%")
-    ig = (f"{cap_first}\n{LV['name'].title()} puzzle ({LV['rng']}). {side} to move, {goal_say}.\n\n"
+    ig = (f"{cap_first}\n{LV['name'].title()} level puzzle. {side} to move, {goal_say}.\n\n"
           + ("Comment the move and tag a friend to challenge them!\n\n" if mode == "tagfriend" else "Comment your move before watching the solution!\n\n")
           + "Train your calculation every day on StreakChess. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
           + " ".join(R.hashtags(rng)))

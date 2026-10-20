@@ -51,7 +51,8 @@ WORLD = """VEKTOR'S WORLD (keep it consistent, this is an ongoing series):
   Solving the puzzle helps Vektor improve and get one step closer to his dream."""
 
 STORY_PROMPT = """You write 10-second micro episodes for vertical chess reels starring Vektor the knight.
-AUDIENCE: kids aged 8-12 who play chess (their parents watch too). Think of a great kids' animated show: funny, exciting, warm.
+AUDIENCE: chess players of every age (kids 8+, teens, adults, chess parents). Think of a prestige animated short that
+families and adult players both enjoy: witty, exciting, warm, never babyish.
 {character}
 
 {world}
@@ -84,8 +85,15 @@ TODAY'S CREATIVE BRIEF (an experiment): opening hook style = {hook_style}; extra
 today's format) = {theme}.
 The chess problem he faces IS the puzzle that follows: {level} level, {side} to move, goal: {goal}.
 Rules:
-- Exactly 4 scenes. Total narration {words} words. Narration is a fun, warm storyteller in English, like a favourite
-  YouTuber for kids: simple words a 9-year-old knows, energetic but conversational, never babyish.
+- Exactly 4 scenes. Total narration {words} words. Narration is a warm, witty storyteller in English: simple clear
+  words, energetic but conversational, smart enough for adults and easy for a 9-year-old. Narration contains ONLY the
+  words to be spoken: no speaker names, no "Narrator:", no stage directions, no parentheses or acting notes
+  (acting notes go in the "delivery" field only).
+- SCENE 1 NARRATION MUST START WITH THE EXACT WORDS OF screen_hook (the text on screen and the voice say the same
+  thing at second zero), then continue the sentence or add one short line.
+- STAKES MUST BE CONCRETE AND TANGIBLE, something you can picture in one frame (a trophy about to be lost, the last
+  bus leaving, a cake about to burn, a friend's medal on the line). Avoid abstract tropes like "secret playbook",
+  "his destiny", "the ultimate challenge".
 - The story must clearly be about chess and getting better at it (why this position matters today for Vektor:
   a tournament game, Coach King's challenge, a bet with Bishop Blaze, a puzzle he must crack to keep his streak...).
 - Scene 4 narration: Vektor is stuck on the position and decides to use the method, step by step
@@ -97,24 +105,27 @@ Rules:
 - Each scene is a different moment/action with a clear story beat (setup, twist, rising tension, call for help).
   Make it visual and specific (props, weather, expressions, the spotlight character's personality).
 - Shots must vary: scene 1 wide establishing shot, scene 2 medium action shot, scene 3 close-up on emotion,
-  scene 4 dramatic shot of Vektor (upright) facing a glowing chessboard.
+  scene 4 dramatic shot of Vektor (upright), seen from a low angle, with the chessboard only as a soft out-of-focus
+  glow behind him (the real board is shown right after by the app).
 - Surprise the viewer: no generic "Vektor is sad / falls down" beats; find a fresh, funny or exciting idea every day.
 - Do NOT reuse any of these previous episode ideas: {avoid}
 - image_prompt: describe ONE vertical 9:16 frame: action, setting, camera framing (close-up / wide / low angle), lighting, mood.
-  Always say "the knight mascot from the reference images, standing upright" for Vektor. Describe other characters
+  Always say "the knight mascot from the reference images, standing upright" for Vektor. NEVER a close-up of a
+  chessboard or pieces on a board (AI boards look wrong): if a board appears it is small, distant or out of focus. Describe other characters
   exactly as in the CAST. Same art style. No text, letters or logos in the image.
 - camera: one of push_in, pull_out, pan_left, pan_right, tilt_up.
 - sfx: one of whoosh, boom, none (use boom at most once).
 - delivery: 3-8 word acting direction for the voice actor for that scene, varied across scenes (e.g. "hushed, building
   suspense", "excited, almost laughing", "warm and proud", "worried, then hopeful").
 - summary: one sentence describing what happened in this episode (for continuity).
-- caption_hook: short Instagram first line inviting kids to help Vektor (max 10 words, one emoji allowed).
+- caption_hook: short Instagram first line inviting viewers to help Vektor (max 10 words, one emoji allowed).
 - previously: max 9 words recap of the last episode for an on-screen "Previously" label ("" for episode 1).
 - lesson_line: max 7 words on-screen version of today's lesson (e.g. "Check every capture first").
 - lesson_scene: 1, 2 or 3 = the scene where the lesson is taught.
 - teaser: one sentence about what will happen next episode (a cliffhanger that makes people follow).
 - screen_hook: the BIG on-screen text shown in the first 2 seconds (max 6 words, no emoji): a curiosity gap that
-  stops the scroll (e.g. "Vektor has 10 seconds left", "His rival found a trap").
+  stops the scroll with concrete stakes (e.g. "Vektor has 10 seconds left", "His trophy is about to fall").
+  Scene 1 narration begins with exactly these words.
 Return JSON: {{"title": str, "summary": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str, "delivery": str}}], "caption_hook": str, "screen_hook": str, "previously": str, "lesson_line": str, "lesson_scene": int, "teaser": str}}"""
 
 
@@ -188,6 +199,43 @@ def gen_image(prompt, refs):
         except Exception as e:
             last = e
     raise last
+
+
+STAGE = re.compile(r"\b(director'?s? notes?|narrator|storyteller|voice ?over|transcript)\b|\b(delivery|tone|pace|v\.?o\.?)\s*:", re.I)
+
+
+def clean_narration(t):
+    """Strip anything that is not meant to be spoken: (parentheses), [brackets], *asterisks*, 'Name:' prefixes and
+    stage-direction words. Gemini TTS reads everything it is given, so the text must be pure speech."""
+    t = re.sub(r"\([^)]*\)|\[[^\]]*\]|\*[^*]*\*", " ", str(t))
+    t = re.sub(r"(^|(?<=[.!?]))\s*(narrator|storyteller|voice ?over|v\.?o\.?)\s*:\s*", " ", t, flags=re.I)
+    parts = re.split(r"(?<=[.!?])\s+", t.strip())
+    keep = [x for x in parts if not STAGE.search(x)]           # drop whole sentences that are acting notes
+    t = " ".join(keep) if keep else STAGE.sub(" ", t)
+    t = re.sub(r"^\s*[A-Z][\w' ]{0,24}:\s*", "", t)              # "Narrator: ..." / "Vektor: ..."
+    return re.sub(r"\s+", " ", t).strip(" -:")
+
+
+def _norm_words(t):
+    return re.sub(r"[^a-z0-9' ]", "", t.lower()).split()
+
+
+def sync_hook(story, scenes):
+    """The on-screen hook and the first spoken words must be the same (no mismatch at second zero)."""
+    hook = re.sub(r"[^\w\s'?!,.-]", "", story.get("screen_hook") or "").strip()
+    if not hook or not scenes:
+        return
+    hw, nw_ = _norm_words(hook), _norm_words(scenes[0]["narration"])
+    if nw_[:len(hw)] == hw:
+        return
+    first = re.split(r"(?<=[.!?])\s+", scenes[0]["narration"].strip(), maxsplit=1)
+    lead = _norm_words(first[0])
+    if 2 <= len(lead) <= 7:                         # short first sentence: it becomes the on-screen hook
+        story["screen_hook"] = first[0].strip()
+    else:                                           # otherwise the voice opens with the hook words
+        end = hook if hook[-1:] in ".!?" else hook + "."
+        scenes[0]["narration"] = f"{end} {scenes[0]['narration']}"
+    print("hook synced with the voice:", story["screen_hook"], "|", scenes[0]["narration"][:60], flush=True)
 
 
 def mock_story(rng):
@@ -296,7 +344,10 @@ def build(P, seed, out, mode="level", arms=None):
         story = agents.hook_pass(story)
         story = agents.visual_prompts_pass(story, CHARACTER)
     scenes = story["scenes"][:4]
-    print("Story:", story["title"], flush=True)
+    for sc in scenes:                               # narration = only words to be spoken (no names, notes, cues)
+        sc["narration"] = clean_narration(sc.get("narration", ""))
+    sync_hook(story, scenes)
+    print("Story:", story["title"], "| hook:", story.get("screen_hook"), flush=True)
     def one_image(i):
         for attempt in range(2):
             try:
@@ -337,11 +388,12 @@ def build(P, seed, out, mode="level", arms=None):
     think = __import__("strategy").THINK_FACTOR.get(arms.get("think_time"), 1.0)
     hook0 = story.get("screen_hook") or re.sub(r"[^\w\s'?!,.-]", "", story.get("caption_hook", "")).strip()
     style = {**HY.DEFAULT_STYLE, "screen_hook": " ".join(hook0.split()[:7]),
-             "follow_line": "Follow for Vektor's next day", "share_line": "Send this to a chess friend"}
+             "follow_line": "Follow to build your calculation streak", "share_line": "Send this to a chess friend",
+             "streak_line": f"Day {episode} of training with Vektor"}
     if review_on:                                   # growth marketer writes the end-card lines
         style.update(agents.growth_lines(story, mode))
 
-    MAX_TOTAL = float(os.environ.get("REEL_MAX_SECONDS", "55"))
+    MAX_TOTAL = float(os.environ.get("REEL_MAX_SECONDS", "50"))
     import lesson_anim                              # Vektor's method, step by step, animated on the real position
     LS = lesson_anim.Lesson(b, ep["lesson"], 2, cover=False, mock=mock, hide=lesson_anim.solution_move(P))
     lesson_mp4 = out.replace(".mp4", "_lesson.mp4")
@@ -349,7 +401,7 @@ def build(P, seed, out, mode="level", arms=None):
     def render_puzzle(st):
         story_len = sum(max(len(a) / SR + 0.35, 2.0) for a in A) + 0.3 + LS.length()
         return HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
-                        cta_lead="You helped Vektor get stronger! ", think_factor=think, style=st,
+                        cta_lead="You helped Vektor! ", think_factor=think, style=st,
                         max_len=MAX_TOTAL - story_len, reveal=False)
 
     for attempt in range(3):
@@ -415,7 +467,7 @@ def build(P, seed, out, mode="level", arms=None):
         tz = R.card(R.draw_board(b, b.turn == chess.BLACK, (b.peek().from_square, b.peek().to_square)))
         tz = tz.resize((int(tz.width * 0.30), int(tz.height * 0.30)), Image.LANCZOS)
         tz = R.shadowed(tz, 24, (0, 16), 170)[0]
-        tz_pill = R.pill(f"CAN YOU SOLVE IT? · {LV['name']} {LV.get('rng', '')}".strip(), 36, HY.RED, fg=HY.WHITE, padx=30, pady=12)
+        tz_pill = R.pill(f"CAN YOU SOLVE IT? · {LV['name']} LEVEL", 36, HY.RED, fg=HY.WHITE, padx=30, pady=12)
         proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
                                  "-r", str(FPS), "-i", "-", "-i", wav, "-shortest"] + HY.enc_args(story_mp4),
                                 stdin=subprocess.PIPE)
@@ -441,8 +493,8 @@ def build(P, seed, out, mode="level", arms=None):
                 R.paste_center(fr, HY.band_img(hook_img.height + 70), W / 2, hook_y, a_)
                 R.paste_center(fr, hook_img, W / 2, hook_y, a_)
                 if a_ > 0.05:
-                    R.paste_center(fr, tz, W / 2 + 250, 1250, a_)
-                    R.paste_center(fr, tz_pill, W / 2, 1462, a_)
+                    R.paste_center(fr, tz, W / 2 + 250, 1215, a_)
+                    R.paste_center(fr, tz_pill, W / 2, 1420, a_)
             cur = [(ts, w) for si, ts, w in words if si == i and ts <= t and not (hook_on and ts < HOOK_T)]
             if cur and not (hook_on and t < HOOK_T):
                 idx = len(cur) - 1; st_ = (idx // 3) * 3
@@ -468,6 +520,8 @@ def build(P, seed, out, mode="level", arms=None):
     art = {}
     if review_on:                     # 2nd agent (art director): checks copy + design on real frames, one revision
         new_style, art = reviewer.art_direct(out, story, style, starts, total)
+        if new_style:
+            new_style["screen_hook"] = style.get("screen_hook", "")   # voice already says these words
         if new_style and new_style != style:
             print("art director: re-rendering with", {k: v for k, v in new_style.items() if style.get(k) != v}, flush=True)
             style = new_style

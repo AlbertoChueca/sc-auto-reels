@@ -77,8 +77,20 @@ def got_it(text, first_move):
     return any(norm(t) == target for t in tokens) and len(target) >= 2
 
 
+def ab_pick(text):
+    """'A' or 'B' when the comment answers an A-or-B reel ("A", "b!", "option B", "I think A"), else None."""
+    t = text.strip()
+    m = re.search(r"\b(?:option|move|answer|choice)\s*([AB])\b", t, re.I) or re.fullmatch(r"\W*([AaBb])\W*", t) \
+        or (len(t.split()) <= 4 and re.search(r"(?<![\w'])([AB])(?![\w'])(?!\s+\w{3,})", t))
+    return m.group(1).upper() if m else None
+
+
 def load(path, default):
     return json.load(open(path)) if os.path.exists(path) else default
+
+
+def hide_hint(mid, hidden, answered):
+    return mid in hidden and mid not in answered
 
 
 def main():
@@ -89,12 +101,14 @@ def main():
     uid = me["user_id"]; myname = me["username"]
     handled = load(HANDLED, {"comments": [], "dm": {}})
     done = set(handled["comments"])
-    solutions, hidden = {}, {}
+    solutions, hidden, abs_ = {}, {}, {}
     if os.path.exists("log.jsonl"):
         for line in open("log.jsonl"):
             e = json.loads(line)
             if e.get("media_id") and e.get("sans"):
                 solutions[e["media_id"]] = e["sans"][0]
+                if e.get("ab"):
+                    abs_[e["media_id"]] = e["ab"]
                 if e.get("reveal") is False:          # answer was held back: post it in the comments later
                     hidden[e["media_id"]] = e["sans"]
     answered = set(handled.get("answered", []))
@@ -108,7 +122,9 @@ def main():
     for m in media:
         ts = datetime.datetime.fromisoformat(m["timestamp"].replace("+0000", "+00:00"))
         if m["id"] in hidden and m["id"] not in answered and now - ts >= datetime.timedelta(hours=20):
-            msg = random.choice(ANSWER_POSTS).format(sol=" ".join(hidden[m["id"]]))
+            ab = abs_.get(m["id"])
+            sol = " ".join(hidden[m["id"]])
+            msg = random.choice(ANSWER_POSTS).format(sol=f"{ab['correct']} ({sol})" if ab else sol)
             print(f"answer for {m['id']}: {msg}")
             if not DRY:
                 try:
@@ -131,6 +147,12 @@ def main():
             user = c.get("username", "")
             move = solutions.get(m["id"])
             ok = got_it(c.get("text", ""), move)
+            ab = abs_.get(m["id"])
+            if ab and not ok:                     # A-or-B reels: the right letter counts as correct
+                pick = ab_pick(c.get("text", ""))
+                ok = pick == ab["correct"]
+                if ok:
+                    move = f"{pick} ({move})" if not hide_hint(m["id"], hidden, answered) else pick
             hide = m["id"] in hidden and m["id"] not in answered      # never spoil before the answer is posted
             if re.search(r"\bstreak\b", c.get("text", ""), re.I):
                 pub = random.choice(PUBLIC_STREAK)

@@ -193,7 +193,7 @@ def daily_learning(force=False):
     old = {n: notebook(n) for n in NAMES}
     try:
         res = _ask(f"""You coordinate a writers' room of 5 specialist agents for "Vektor", a daily animated chess series
-for kids 8-12 and chess parents (StreakChess app). Roles:
+for chess players of every age and chess parents (StreakChess app). Roles:
 {json.dumps(ROLES, indent=1)}
 
 REAL INSTAGRAM RESULTS (best first; score = views + weighted shares/saves/comments + watch time):

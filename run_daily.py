@@ -198,4 +198,4 @@ if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (neve
 meta["voice"] = voice_used
 meta["arms"] = arms if engine in ("story", "tip") else {}
 log({k: meta.get(k) for k in ("engine", "voice", "review_score", "design_score", "arms", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
-                              "media_id", "sans", "reveal", "story_share", "zernio")})
+                              "media_id", "sans", "reveal", "ab", "story_share", "zernio")})

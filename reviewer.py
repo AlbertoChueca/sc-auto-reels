@@ -17,9 +17,10 @@ REVIEW_LOG = os.path.join(HERE, "review_log.jsonl")
 PERF = os.path.join(HERE, "performance.json")
 MIN_SCORE = float(os.environ.get("REVIEW_MIN_SCORE", "4"))   # below this the reel is re-rendered
 
-PRODUCER = """You are a senior producer of viral short-form videos for kids aged 8-12 (and their parents), working on
+PRODUCER = """You are a senior producer of premium short-form chess videos for chess players of every age (kids 8+, teens,
+adults and chess parents), working on
 "Vektor", an ongoing animated chess series for the StreakChess app (Instagram Reels, TikTok, YouTube Shorts).
-Your goals, in order: kid-safe and kind; instantly clear; a scroll-stopping first 1.5 seconds; a story kids care about
+Your goals, in order: family-safe and kind; instantly clear; a scroll-stopping first 1.5 seconds; a story viewers care about
 that naturally leads into the chess puzzle; the viewer feels Vektor needs THEIR help; viewers comment their answer,
 share with a friend and follow to see Vektor's next day."""
 
@@ -135,7 +136,7 @@ DRAFT:
    words, max 9 words per sentence, last scene has Vektor turn to the step-by-step method (no chess details in the story), image prompts describe one vertical
    frame and say "the knight mascot from the reference images" for Vektor, no text in images, camera in
    [push_in, pull_out, pan_left, pan_right, tilt_up], sfx in [whoosh, boom, none], delivery = short acting direction.
-   caption_hook: max 10 words, one emoji allowed, makes kids want to comment their answer.
+   caption_hook: max 10 words, one emoji allowed, makes viewers want to comment their answer.
    screen_hook: big on-screen text for the first 2 seconds, max 6 words, no emoji, a curiosity gap that stops the scroll.
 Return JSON: {{"scores": {{...}}, "overall": number, "changes": [str], "story": <the full improved story object>}}"""}])
         new = res.get("story") or {}
@@ -208,10 +209,10 @@ def review_video(path, story, caption):
 Watch this finished reel (story about Vektor + chess puzzle + call to action). Story title: {story.get('title')}.
 Current Instagram caption first line: {first!r}
 
-Check and score 1-10: hook in the first 1.5 s, story clarity, pacing (nothing too slow or too fast for kids),
+Check and score 1-10: hook in the first 1.5 s, story clarity, pacing (nothing too slow or too fast),
 any stray spoken words that are not part of the story (e.g. "say") or hiss/noise in the sound,
 subtitles readable and in sync with the voice, voice natural and matching the words, the chess board and moves easy
-to follow, visuals consistent and attractive, call to action clear, likelihood kids comment/share/follow.
+to follow, visuals consistent and attractive, call to action clear, likelihood viewers comment/share/follow.
 "critical" = true ONLY if the reel is clearly broken (silent, frozen/black, unreadable, wrong/garbled voice,
 inappropriate content). Then write a better FIRST caption line (max 12 words, one emoji max, written for chess players of every age,
 kids and adults, invites commenting the answer) and a short comment prompt line (max 12 words).
@@ -243,8 +244,8 @@ Return JSON: {{"overall": number, "scores": {{...}}, "critical": bool, "issues":
 
 
 # ------------------------------------------------------------------ 4. art director (copy + design on real frames)
-ART_DIRECTOR = """You are the ART DIRECTOR and COPY CHIEF of a top kids' edutainment channel (think the polish of
-Duolingo, Pixar shorts and MrBeast-level hooks). You review real frames of a vertical reel before it goes live.
+ART_DIRECTOR = """You are the ART DIRECTOR and COPY CHIEF of a premium chess edutainment brand for all ages (think the
+polish of a prestige animated short, Apple-level restraint, night blue + champagne gold, with scroll-stopping hooks). You review real frames of a vertical reel before it goes live.
 Phone reality: Instagram/TikTok UI covers the top ~250 px, the bottom ~420 px (caption, username, music) and a
 column of buttons on the right; anything important there is lost."""
 

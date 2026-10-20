@@ -317,7 +317,7 @@ The lesson: {name} - {idea}
 The position: {me} to move. These facts are COMPUTED by an engine - use them exactly, do not add others:
 {facts}
 Write narration: {intro}one line per step ({n} lines){outro}.
-Rules: each line 10-22 words, spoken style, confident and precise, numbers as words, NO square names or notation
+Rules: each line {words} words, spoken style, confident and precise, numbers as words, NO square names or notation
 (the notation is on screen), no invented statistics, no hype words like 'insane'. Each step line starts with
 'Step one', 'Step two'... and explains HOW to do that step and what it shows here.
 Return JSON: {{{keys}}}"""
@@ -325,7 +325,8 @@ Return JSON: {{{keys}}}"""
 
 def write_lines(steps, tip, me, intro=True, mock=False):
     fallback = {"intro": f"Strong players never guess. They run the same checklist every move: {tip[1].lower()}.",
-                "steps": [s["say"] for s in steps], "outro": "Your turn. Calculate your candidates and find the winning move."}
+                "steps": [s["say"] for s in steps],
+                "outro": "Your turn. Calculate your candidates and find the winning move." if intro else "Your turn. Calculate!"}
     if mock:
         return fallback
     facts = "\n".join(f"Step {i + 1} ({s['title'].lower()}): {s['fact']}" for i, s in enumerate(steps))
@@ -333,11 +334,12 @@ def write_lines(steps, tip, me, intro=True, mock=False):
     try:
         import reviewer
         res = reviewer._ask([{"text": PROMPT.format(name=tip[1], idea=tip[2], me=me, facts=facts, n=len(steps),
+                                                    words="10-20" if intro else "7-13",
                                                     intro="one hook line on why this method matters, then " if intro else "",
                                                     outro=", then one short line handing over to the puzzle", keys=keys)}], 0.6)
         st = [l.strip() for l in res.get("steps", []) if isinstance(l, str)]
         lines = st + [res.get("outro", "")] + ([res.get("intro", "")] if intro else [])
-        bad = (len(st) != len(steps) or any(not l or len(l.split()) > 26 for l in lines)
+        bad = (len(st) != len(steps) or any(not l or len(l.split()) > (24 if intro else 16) for l in lines)
                or re.search(r"\b[a-h][1-8]\b|\d|%|percent", " ".join(lines)))
         if bad:
             raise RuntimeError("lesson lines invalid")
@@ -528,14 +530,14 @@ class Lesson:
         bg.alpha_composite(glow.filter(ImageFilter.GaussianBlur(150)))
         last = self.b.peek() if self.b.move_stack else None
         base = R.draw_board(self.b, self.flip, (last.from_square, last.to_square) if last else ())
-        SC, CY = 0.82, 955                                # bigger board (was 0.74)
+        SC, CY = 0.80, 925                                # bigger board (was 0.74), inside the safe zone
         title = R.pill(self.tip[1].upper()[:34], 38, HY.YEL, fg=HY.INK, padx=34, pady=12)
         lists = [checklist(self.steps, k) for k in range(len(self.steps))] + [checklist(self.steps, 99, True)]
         counts = [big_count(s["count"], s["color"]) for s in self.steps]
         chips = [chips_img(s["chips"], s["color"]) for s in self.steps]
         your_turn = big_count("YOUR TURN", HY.YEL)
         cover = self._cover_frame(bg, base) if self.cover else None
-        sub_y = 1480
+        sub_y = 1418
 
         def card_of(img):
             c = R.card(img); c = c.resize((int(c.width * SC), int(c.height * SC)), Image.LANCZOS)
@@ -575,7 +577,7 @@ class Lesson:
                 if chips[seg] is not None:
                     a = R.clamp((lt - ARROW_T0 - 0.2) / 0.3)
                     if a > 0:
-                        R.paste_center(fr, chips[seg], W / 2, 1394, R.ease_out_back(a))
+                        R.paste_center(fr, chips[seg], W / 2, 1338, R.ease_out_back(a))
             else:                                            # outro: all steps ticked, candidates kept on the board
                 st = self.steps[-1]
                 key = ("s", len(self.steps) - 1)
@@ -588,7 +590,7 @@ class Lesson:
             if cur:
                 idx = len(cur) - 1; s0 = (idx // 3) * 3
                 grp = [w for _, w in cur[s0:idx + 1]]
-                for fs in (70, 58, 48, 40):                  # always one line (never touches the chips)
+                for fs in (58, 50, 44, 38):                  # always one line (never touches the chips)
                     ph = HY.phrase_img(grp, t - cur[-1][0], fs, 1040)
                     if ph.height < 150: break
                 R.paste_center(fr, HY.band_img(ph.height + 60), W / 2, sub_y)

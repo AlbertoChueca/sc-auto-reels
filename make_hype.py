@@ -137,7 +137,7 @@ def enc_args(out, scale=True):
 # Design tokens the art-director agent may tune (copy + layout), within safe limits.
 DEFAULT_STYLE = {"caption_scale": 1.0, "screen_hook": "", "follow_line": "", "share_line": "",
                  "story_caption_y": 1270}
-SAFE_TOP, SAFE_BOTTOM = 250, 1500   # Instagram/TikTok UI covers the top bar, bottom caption area and right buttons
+SAFE_TOP, SAFE_BOTTOM = 250, 1470   # Instagram/TikTok UI covers the top bar, bottom caption area and right buttons
 
 _VIG = []
 
@@ -331,15 +331,30 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     numw = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
             "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen"][min(COUNT, 18)]
 
+    # A or B: the winning first move vs. the most tempting other candidate (a real check/capture/threat when there is one)
+    AB = None
+    if not reveal and moves:
+        try:
+            import lesson_anim as _LA
+            cands = [m for m in _LA._ranked_candidates(board, 6) if m != moves[0]]
+            if cands:
+                dec = cands[0]; ab_letter = rng.choice("AB")
+                AB = {"A": moves[0] if ab_letter == "A" else dec, "B": dec if ab_letter == "A" else moves[0],
+                      "correct": ab_letter}
+                AB["san"] = {k: board.san(AB[k]) for k in "AB"}
+        except Exception as e:
+            print("A/B choice skipped:", str(e)[:120], flush=True)
+    ask = "Move A, or move B?" if AB else f"Find {goal_say}."
     lines = ([] if skip_hook else [("h1", h1), ("h2", h2)]) + [
-             ("lvl", f"{LV['name'].title()} level. {side} to move. Find {goal_say}."),
-             ("go", f"You've got {numw} seconds. Go!"),
+             ("lvl", f"{LV['name'].title()} level. {side} to move. {ask}"),
+             ("go", f"{numw.capitalize()} seconds. Go!"),
              ("up", "Time's up!")]
     shown = sans if reveal else []            # reveal=False: the answer goes in the comments (more comments!)
     lines += [(f"m{i}", R.san_say(s)) for i, s in enumerate(shown)]
-    lines += [("fin", finale if reveal else "What's your move? Comment it below. The answer drops in the comments tomorrow!"),
-              ("cta", (cta_lead or ("Send this to a friend and see who's faster! " if mode == "tagfriend" else "Did you get it? "))
-               + "Play a new puzzle every day on StreakChess. It's free, for every chess player. Link in bio.")]
+    lines += [("fin", finale if reveal else ("A or B? Comment your answer. We reveal it tomorrow!" if AB else
+                                             "What's your move? Comment it. We reveal it tomorrow!")),
+              ("cta", (cta_lead or ("Send this to a friend and see who's faster! " if mode == "tagfriend" else ""))
+               + "Train free every day on StreakChess. Link in bio.")]
 
     STY = {"h1": "excited, playful challenge", "h2": "fun, with a big smile", "lvl": "clear and friendly, like a cool teacher",
            "go": "upbeat, cheering them on", "up": "playful, a bit dramatic", "fin": "amazed and proud",
@@ -368,7 +383,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     add("up", D["up"] + 0.25)
     for i in range(len(shown)): add(f"m{i}", max(D[f"m{i}"] + 0.5, MOVE_MIN))  # time to follow every move
     add("fin", D["fin"] + 0.6)
-    add("cta", D["cta"] + 1.2)
+    add("cta", max(D["cta"] + 0.9, 3.2))
     total = t
     VO_AT = {k: T[k][0] + 0.05 for k in A}
 
@@ -450,10 +465,21 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
         s2 = states[-1].copy(); s2.push(m); states.append(s2)
     cache = {}
 
+    def ab_board(p):
+        im = R.draw_board(board, flip, (last.from_square, last.to_square))
+        if AB and p > 0:
+            import lesson_anim as _LA
+            for k, col in (("A", YEL), ("B", (122, 170, 226))):
+                m = AB[k]; _LA.arrow_partial(im, m.from_square, m.to_square, flip, col, min(1, p * 1.4), 20)
+                _LA.num_badge(im, m.to_square, flip, k, col, 1.4 * min(1, p))
+        return R.card(im)
+
     def board_card(tt):
         if not shown or tt < T["m0"][0] + 0.35:
-            if "s" not in cache: cache["s"] = R.card(R.draw_board(board, flip, (last.from_square, last.to_square)))
-            return cache["s"], None
+            p = 1.0 if not AB else min(1, max(0, (tt - T["lvl"][0] - 0.2) / 0.8))
+            key = ("s", round(p, 1))
+            if key not in cache: cache[key] = ab_board(p)
+            return cache[key], None
         i = max(j for j in range(len(moves)) if tt >= T[f"m{j}"][0] + 0.35)
         m = moves[i]; prog = eio((tt - T[f"m{i}"][0] - 0.35) / 0.6); st = states[i]   # slow, easy-to-follow slide
         if prog >= 1:
@@ -500,7 +526,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
         tt = fi / FPS
         mouth = float(env[fi]) * (0.75 + 0.25 * math.sin(tt * 41))
         zoom, cxo, cyo, shake, flash = 1.0, 0.0, 0.0, 0.0, 0.0
-        BOARD_CY = 1000                                  # board kept inside Instagram's safe zone
+        BOARD_CY = 950                                   # board kept inside Instagram's safe zone
 
         if tt < T["h1"][1]:                                   # hook line 1: spotlight stage
             lt = tt
@@ -516,7 +542,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
         elif tt < T["go"][1]:                                 # level reveal on sunburst
             lt = tt - T["lvl"][0]
             fr = back(tt, True) if bd_soft is not None else bg.burst(tt, tuple(min(255, c + 30) for c in LV["color"]), LV["color"])
-            chip = R.pill(f"{LV['name']}  {LV['rng']}", 52, WHITE, fg=INK, padx=44, pady=18)
+            chip = R.pill(f"{LV['name']} LEVEL", 52, WHITE, fg=INK, padx=44, pady=18)
             R.paste_center(fr, chip, W / 2, 330, eob(lt / 0.35))
             goal = word_img(f"MATE IN {mate_n}!" if mate_n else "WIN!", 150, YEL)
             R.paste_center(fr, goal, W / 2, 560, eob((lt - 0.5) / 0.35), 1.0, -3)
@@ -533,12 +559,12 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                 # board stage
                 card, focus = board_card(tt)
                 enter = eo((tt - T["count"][0] + 0.6) / 0.5) if tt < T["count"][0] + 0.5 else 1
-                R.paste_center(fr, R.shadowed(card, 30, (0, 20), 160)[0], W / 2, BOARD_CY + (1 - enter) * 1100, 0.98)   # bigger board
+                R.paste_center(fr, R.shadowed(card, 30, (0, 20), 160)[0], W / 2, BOARD_CY + (1 - enter) * 1100, 0.94)   # bigger board
                 mood, look = "thinking", (0.5 * math.sin(tt * 1.4), 0.7)
                 if tt >= T["up"][0]: mood, look = "surprised", (0.6, 0.7)
                 if tt >= T["fin"][0]: mood = "star" if reveal else "thinking"
                 bounce = 50 * abs(math.sin((tt - T["fin"][0]) * 7)) * max(0, 1 - (tt - T["fin"][0]) / 1.4) if tt >= T["fin"][0] else 0
-                put_mascot(fr, tt, 0.42, 165, 520, mood, look, mouth, bounce=bounce, tilt=3 * math.sin(tt * 2))
+                put_mascot(fr, tt, 0.40, 165, 478, mood, look, mouth, bounce=bounce, tilt=0)
                 if T["count"][0] <= tt < T["count"][1]:     # ring countdown
                     lt = tt - T["count"][0]; remain = COUNT - int(lt); ph = lt % 1
                     ring = Image.new("RGBA", (300, 300), (0, 0, 0, 0)); rd = ImageDraw.Draw(ring)
@@ -548,13 +574,14 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                     rd.arc([24, 24, 276, 276], -90, -90 + 360 * (1 - lt / COUNT), fill=col, width=9)
                     txt = str(remain); tw = ring_font.getlength(txt)
                     rd.text((150 - tw / 2, 70), txt, font=ring_font, fill=WHITE)
-                    R.paste_center(fr, ring, 820, 330, 1 + (0.04 if remain <= 3 else 0.0) * max(0, 1 - ph * 5))
+                    R.paste_center(fr, ring, 820, 318, 1 + (0.04 if remain <= 3 else 0.0) * max(0, 1 - ph * 5))
                     zoom = 1.0   # board stays perfectly still while the viewer thinks
-                    cap = word_img("PAUSE IF YOU NEED TIME" if lt < COUNT / 2 else "COMMENT YOUR MOVE!", 54, WHITE, 7)
-                    R.paste_center(fr, cap, W / 2, 1540, eob(((lt % (COUNT / 2))) / 0.3))
+                    cap = word_img("PAUSE IF YOU NEED TIME" if lt < COUNT / 2 else
+                                   ("COMMENT A OR B!" if AB else "COMMENT YOUR MOVE!"), 54, WHITE, 7)
+                    R.paste_center(fr, cap, W / 2, 1448, eo(((lt % (COUNT / 2))) / 0.4))
                 if T["up"][0] <= tt < T["up"][1]:
                     lt = tt - T["up"][0]; flash = max(0, 0.3 - lt * 1.5); shake = 5 * max(0, 1 - lt / 0.3)
-                    R.paste_center(fr, word_img("TIME'S UP!", 130, RED), W / 2 + 160, 330, eob(lt / 0.3), 1, -4)
+                    R.paste_center(fr, word_img("TIME'S UP!", 120, RED), W / 2 + 160, 318, eo(lt / 0.3))
                 for i in range(len(shown)):
                     a, b = T[f"m{i}"]
                     if a <= tt < b:
@@ -572,7 +599,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                     plate = Image.new("RGBA", (860, 330), (0, 0, 0, 0))
                     ImageDraw.Draw(plate).rounded_rectangle([0, 0, 859, 329], 36, fill=(10, 10, 18, 225), outline=YEL + (200,), width=2)
                     R.paste_center(fr, plate, W / 2, BOARD_CY + 60, 1, a_)
-                    R.paste_center(fr, word_img("YOUR MOVE?", 130, YEL), W / 2, BOARD_CY, 1, a_)
+                    R.paste_center(fr, word_img("A OR B?" if AB else "YOUR MOVE?", 130, YEL), W / 2, BOARD_CY, 1, a_)
                     R.paste_center(fr, R.pill("COMMENT IT BELOW", 46, WHITE, fg=INK, padx=40, pady=16), W / 2, BOARD_CY + 140, 1, eo((lt - 0.4) / 0.4))
                 if T["fin"][0] <= tt < T["fin"][1] and reveal:
                     lt = tt - T["fin"][0]
@@ -586,27 +613,35 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
             else:                                           # CTA on sunburst
                 lt = tt - T["cta"][0]
                 fr = back(tt, True) if bd_soft is not None else bg.burst(tt, (255, 140, 50), (235, 92, 40))
-                R.paste_center(fr, logo_v, W / 2, 330, eob(lt / 0.4), 1, -3)
-                put_mascot(fr, tt, 0.46, W / 2, 1035, "excited", (0, 0), mouth, bounce=6 * abs(math.sin(lt * 4)), rim=False)
-                if S.get("follow_line"):            # growth: follow for the next episode
-                    R.paste_center(fr, R.pill(S["follow_line"].upper(), 40, INK, fg=WHITE, padx=40, pady=16), W / 2, 1090, eo((lt - 0.8) / 0.5))
-                R.paste_center(fr, word_img("FREE TO PLAY  ·  ALL AGES", 40, WHITE, 0), W / 2, 1185, eo((lt - 1.3) / 0.5))
-                R.paste_center(fr, R.pill("FOUNDER OFFER · FIRST 500 ACCOUNTS", 32, INK, fg=YEL, padx=32, pady=12), W / 2, 1270, eo((lt - 1.7) / 0.5))
-                R.paste_center(fr, R.pill("streakchess.com", 58, WHITE, fg=INK, padx=48, pady=16), W / 2, 1375, eo((lt - 2.1) / 0.5))
+                R.paste_center(fr, logo_v, W / 2, 300, eo(lt / 0.5))
+                if "panel" not in cache:            # ONE elegant container (y 600-1400) holds the whole call to action
+                    pn = Image.new("RGBA", (900, 800), (0, 0, 0, 0)); pd = ImageDraw.Draw(pn)
+                    pd.rounded_rectangle([0, 0, 899, 799], 44, fill=(12, 12, 20, 215), outline=YEL + (210,), width=2)
+                    pd.rounded_rectangle([10, 10, 889, 789], 36, outline=YEL + (60,), width=1)
+                    cache["panel"] = pn
+                R.paste_center(fr, cache["panel"], W / 2, 1000, 1, eo(lt / 0.5))
+                put_mascot(fr, tt, 0.34, W / 2, 860, "excited", (0, 0), mouth, bounce=4 * abs(math.sin(lt * 3)), rim=False)
+                streak = S.get("streak_line") or "A NEW PUZZLE EVERY DAY"
+                R.paste_center(fr, word_img(streak.upper(), 50, YEL, 0), W / 2, 935, eo((lt - 0.5) / 0.5))
+                R.paste_center(fr, word_img((S.get("follow_line") or "Follow to build your calculation streak").upper(), 34, WHITE, 0),
+                               W / 2, 1005, eo((lt - 0.8) / 0.5))
+                R.paste_center(fr, R.pill("streakchess.com", 58, WHITE, fg=INK, padx=52, pady=18), W / 2, 1115, eo((lt - 1.2) / 0.5))
+                R.paste_center(fr, word_img("FREE TO PLAY  ·  ALL AGES", 36, WHITE, 0), W / 2, 1215, eo((lt - 1.6) / 0.5))
+                R.paste_center(fr, R.pill("FOUNDER OFFER · FIRST 500 ACCOUNTS", 30, INK, fg=YEL, padx=30, pady=11), W / 2, 1285, eo((lt - 1.9) / 0.5))
                 if S.get("share_line"):             # shares: the strongest growth signal
-                    R.paste_center(fr, word_img(S["share_line"].upper(), 38, WHITE, 0), W / 2, 1460, eo((lt - 2.6) / 0.5))
+                    R.paste_center(fr, word_img(S["share_line"].upper(), 32, WHITE, 0), W / 2, 1355, eo((lt - 2.3) / 0.5))
                 zoom = 1.06 - 0.06 * eo(lt / 0.5)
 
         # kinetic captions for spoken lines
         cap = caption(tt)
         if cap and not (T["count"][0] <= tt < T["count"][1]):
             words, nt = cap
-            y = 330 if tt < T["h2"][1] else (1000 if tt < T["go"][1] else (1540 if tt < T["cta"][0] else 1080))
+            y = 330 if tt < T["h2"][1] else (1000 if tt < T["go"][1] else (1448 if tt < T["cta"][0] else 1080))
             if T["lvl"][0] <= tt < T["go"][1]: y = 880
-            if T["fin"][0] <= tt < T["cta"][0]: y = 1540
-            if tt >= T["cta"][0]: y = 545
+            if T["fin"][0] <= tt < T["cta"][0]: y = 1448
+            if tt >= T["cta"][0]: y = 505
             if not (T["up"][0] <= tt < T["fin"][0]):
-                ph = phrase_img(words, nt, int((104 if tt < T["h2"][1] else (72 if tt >= T["cta"][0] else 84)) * S["caption_scale"]))
+                ph = phrase_img(words, nt, int((104 if tt < T["h2"][1] else (64 if tt >= T["cta"][0] else 80)) * S["caption_scale"]))
                 R.paste_center(fr, band_img(ph.height + 80), W / 2, y)
                 R.paste_center(fr, ph, W / 2, y)
         # fire wipes between acts
@@ -629,14 +664,16 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     proc.stdin.close(); proc.wait(); os.remove(wav)
 
     first = rng.choice(R.TAG_CAPTIONS) if mode == "tagfriend" else f"{h1} {h2}"
-    ig = (f"{first}\n{LV['name'].title()} puzzle ({LV['rng']}). {side} to move, {goal_say}.\n\n"
+    ig = (f"{first}\n{LV['name'].title()} level puzzle. {side} to move, {goal_say}.\n\n"
           + ("Comment the move and tag a friend to challenge them!\n\n" if mode == "tagfriend" else
              ("Comment your move before watching the solution!\n\n" if reveal else
-              "Comment your move! The answer drops in the comments tomorrow.\n\n"))
+              ("Which move wins: A or B? Comment your answer! We reveal it in the comments tomorrow.\n\n" if AB else
+               "Comment your move! The answer drops in the comments tomorrow.\n\n")))
           + "For every chess player, kids and adults: StreakChess turns calculation practice into a daily game. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
           + " ".join(R.hashtags(rng)))
     open(out.replace(".mp4", ".txt"), "w").write(ig)
-    return dict(mode=mode, puzzle=P.get("id"), level=P["level"], rating=P.get("rating"), hook=f"{h1} {h2}", sans=sans, reveal=reveal,
+    ab_meta = {"A": AB["san"]["A"], "B": AB["san"]["B"], "correct": AB["correct"]} if AB else None
+    return dict(mode=mode, puzzle=P.get("id"), level=P["level"], rating=P.get("rating"), hook=f"{h1} {h2}", sans=sans, reveal=reveal, ab=ab_meta,
                 duration=round(total, 1))
 
 

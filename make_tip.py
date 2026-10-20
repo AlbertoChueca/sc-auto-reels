@@ -88,11 +88,11 @@ def build(P, seed, out, mode="level", arms=None):
         board = chess.Board()
         for m in P["pgn"].split(): board.push_san(m)
     _lv = R.LEVELS.get(P.get("level"), {})
-    lvl = f"{_lv.get('name', '')} {_lv.get('rng', '')}".strip()
+    lvl = f"{_lv.get('name', '')} LEVEL".strip()
     L = lesson_anim.Lesson(board, tip, 3, cover=True, hook=script["screen_hook"], level_label=lvl.upper(), mock=mock,
                            hide=lesson_anim.solution_move(P))
     puzzle_mp4 = out.replace(".mp4", "_puzzle.mp4"); tip_mp4 = out.replace(".mp4", "_tip.mp4")
-    MAX = float(os.environ.get("REEL_MAX_SECONDS", "55"))
+    MAX = float(os.environ.get("REEL_MAX_SECONDS", "50"))
     voice.reset()
     for attempt in range(3):
         try:
@@ -100,7 +100,8 @@ def build(P, seed, out, mode="level", arms=None):
             meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, keep_voice=True,
                             cta_lead="Save this method and use it in your next game! ",
                             think_factor=strategy.THINK_FACTOR.get(arms.get("think_time"), 1.0),
-                            style={"follow_line": "Follow for a new masterclass every week", "share_line": "Send this to a chess friend"},
+                            style={"follow_line": "Follow to build your calculation streak", "share_line": "Send this to a chess friend",
+                                   "streak_line": "Calculation masterclass"},
                             max_len=MAX - L.length(), reveal=False)
             break
         except voice.VoiceError as e:
