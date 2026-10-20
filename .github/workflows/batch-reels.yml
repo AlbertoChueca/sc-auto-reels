@@ -120,6 +120,19 @@ jobs:
           retention-days: 14
           if-no-files-found: ignore
 
+      - name: Preview frames (test runs)
+        if: always() && inputs.dry_run
+        run: |
+          mkdir -p previews
+          for f in out/*.mp4; do
+            [ -f "$f" ] || continue
+            case "$f" in *_story.mp4|*_lesson.mp4|*_puzzle.mp4|*_tip.mp4) continue;; esac
+            d=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$f")
+            ffmpeg -loglevel error -y -i "$f" -vf "fps=14/${d%.*},scale=270:-1,tile=7x2" -frames:v 1 "previews/batch-${{ matrix.item.i }}.png" || true
+            cp "${f%.mp4}.txt" "previews/batch-${{ matrix.item.i }}.txt" 2>/dev/null || true
+          done
+          git add previews 2>/dev/null || true
+
       - name: Remember used puzzles and stories
         if: always()
         run: |

@@ -125,7 +125,8 @@ Rules:
 - teaser: one sentence about what will happen next episode (a cliffhanger that makes people follow).
 - screen_hook: the BIG on-screen text shown in the first 2 seconds (max 6 words, no emoji): a curiosity gap that
   stops the scroll with concrete stakes (e.g. "Vektor has 10 seconds left", "His trophy is about to fall").
-  Scene 1 narration begins with exactly these words.
+  Scene 1 narration begins with exactly these words. Max 5 words is best. No app jargon (streak, badge, XP, level up):
+  emotional, visual stakes instead.
 Return JSON: {{"title": str, "summary": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str, "delivery": str}}], "caption_hook": str, "screen_hook": str, "previously": str, "lesson_line": str, "lesson_scene": int, "teaser": str}}"""
 
 
@@ -388,7 +389,7 @@ def build(P, seed, out, mode="level", arms=None):
     think = __import__("strategy").THINK_FACTOR.get(arms.get("think_time"), 1.0)
     hook0 = story.get("screen_hook") or re.sub(r"[^\w\s'?!,.-]", "", story.get("caption_hook", "")).strip()
     style = {**HY.DEFAULT_STYLE, "screen_hook": " ".join(hook0.split()[:7]),
-             "follow_line": "Follow to build your calculation streak", "share_line": "Send this to a chess friend",
+             "follow_line": "Follow to build your calculation streak", "share_line": "Challenge a chess friend now",
              "streak_line": f"Day {episode} of training with Vektor"}
     if review_on:                                   # growth marketer writes the end-card lines
         style.update(agents.growth_lines(story, mode))
@@ -461,7 +462,7 @@ def build(P, seed, out, mode="level", arms=None):
         hook_img = hook_y = None
         HOOK_T = 2.3                                    # the hook is the only big text on screen while shown
         if st.get("screen_hook"):
-            hook_img = HY.fit_phrase(st["screen_hook"].split(), int(112 * st.get("caption_scale", 1.0)), 960, 2, 64)
+            hook_img = HY.fit_phrase(st["screen_hook"].split(), int(108 * st.get("caption_scale", 1.0)), 980, 2, 46)   # max 2 lines
             hook_y = badge_y + badge.height // 2 + 30 + (hook_img.height + 70) // 2
         # cover teaser (frame 0 = grid thumbnail): the real puzzle board + its level, under the hook
         tz = R.card(R.draw_board(b, b.turn == chess.BLACK, (b.peek().from_square, b.peek().to_square)))
@@ -539,7 +540,7 @@ def build(P, seed, out, mode="level", arms=None):
     open(out.replace(".mp4", ".txt"), "w").write(caption)
     for f in (story_mp4, lesson_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):
         if os.path.exists(f): os.remove(f)
-    if not mock:
+    if not mock and os.environ.get("DRY_RUN") != "true":      # test renders never enter the series continuity
         log.append({"title": story["title"], "summary": story.get("summary", ""), "puzzle": P.get("id"),
                     "format": ep["format"], "spotlight": ep["spotlight"], "setting": ep["setting"],
                     "lesson": ep["lesson"][0], "teaser": story.get("teaser", "")})

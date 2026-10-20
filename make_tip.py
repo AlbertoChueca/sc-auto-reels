@@ -100,7 +100,7 @@ def build(P, seed, out, mode="level", arms=None):
             meta = HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, keep_voice=True,
                             cta_lead="Save this method and use it in your next game! ",
                             think_factor=strategy.THINK_FACTOR.get(arms.get("think_time"), 1.0),
-                            style={"follow_line": "Follow to build your calculation streak", "share_line": "Send this to a chess friend",
+                            style={"follow_line": "Follow to build your calculation streak", "share_line": "Challenge a chess friend now",
                                    "streak_line": "Calculation masterclass"},
                             max_len=MAX - L.length(), reveal=False)
             break
@@ -122,13 +122,23 @@ def build(P, seed, out, mode="level", arms=None):
            + "Save this for your next game and send it to a chess friend.\n\n"
            "For every chess player, kids and adults: StreakChess turns calculation practice into a daily game. Free to play, founder offer for the first 500 accounts, link in bio.\n\n"
            + " ".join(R.hashtags(rng)))
+    review = {}
+    if not mock and os.environ.get("REVIEWER", "on") != "off" and os.environ.get("GEMINI_API_KEY"):
+        import reviewer                             # same QA as the story reels: watch it, score it, polish caption
+        try:
+            cap, review = reviewer.review_video(out, {"title": f"Calculation masterclass: {tip[1]}"}, cap)
+        except reviewer.RejectReel:
+            raise
+        except Exception as e:
+            print("tip review skipped:", str(e)[:150], flush=True)
     open(out.replace(".mp4", ".txt"), "w").write(cap)
     for f in (tip_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):
         if os.path.exists(f): os.remove(f)
     if not mock:
         log = json.load(open(LOG)) if os.path.exists(LOG) else []
         log.append({"tip": tip[0]}); json.dump(log[-100:], open(LOG, "w"), indent=0)
-    meta.update(story=f"Tip: {tip[1]}", hook=script.get("caption_hook"), mode="tip", arms=arms, thumb_offset_ms=0)
+    meta.update(story=f"Tip: {tip[1]}", hook=script.get("caption_hook"), mode="tip", arms=arms, thumb_offset_ms=0,
+                review_score=review.get("overall"))
     return meta
 
 

@@ -125,7 +125,8 @@ def growth_lines(story, mode):
         res = _ask(f"""{_brief('growth')}
 Episode: "{story.get('title')}" ({'friend challenge' if mode == 'tagfriend' else 'normal puzzle'}).
 Write the end-card lines: follow_line (max 6 words, makes people follow for Vektor's next day) and share_line
-(max 7 words, makes people send the reel to a chess friend). Return JSON: {{"follow_line": str, "share_line": str}}""", 0.7)
+(max 7 words, an ACTIVE challenge that starts with a verb like Challenge, Dare or Tag - never a passive
+"send this"). Return JSON: {{"follow_line": str, "share_line": str}}""", 0.7)
         out = {}
         if _words(res.get("follow_line"), 6): out["follow_line"] = re.sub(r"[^\w\s'?!,.-]", "", res["follow_line"]).strip()
         if _words(res.get("share_line"), 7): out["share_line"] = re.sub(r"[^\w\s'?!,.-]", "", res["share_line"]).strip()
