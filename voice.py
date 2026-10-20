@@ -142,6 +142,13 @@ def align(a, text):
                 if op == "equal":
                     word = ws[i1 + (j - j1)]
                 elif op == "replace":
+                    pair = None                              # one heard word = two script words ("Lincoln" = "link in")
+                    for i in range(i1, i2 - 1):
+                        jn = sn[i] + sn[i + 1]
+                        if jn[:3] == hn[j][:3] and difflib.SequenceMatcher(None, jn, hn[j]).ratio() >= 0.6:
+                            pair = i; break
+                    if pair is not None:
+                        out.append((st, ws[pair])); out.append((st + 0.12, ws[pair + 1])); continue
                     best, br = None, 0.0                     # closest script word in the replaced span
                     for i in range(i1, i2):
                         r = difflib.SequenceMatcher(None, sn[i], hn[j]).ratio()

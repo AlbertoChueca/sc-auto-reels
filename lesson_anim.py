@@ -334,12 +334,12 @@ def write_lines(steps, tip, me, intro=True, mock=False):
     try:
         import reviewer
         res = reviewer._ask([{"text": PROMPT.format(name=tip[1], idea=tip[2], me=me, facts=facts, n=len(steps),
-                                                    words="10-20" if intro else "7-13",
+                                                    words="8-15" if intro else "7-12",
                                                     intro="one hook line on why this method matters, then " if intro else "",
                                                     outro=", then one short line handing over to the puzzle", keys=keys)}], 0.6)
         st = [l.strip() for l in res.get("steps", []) if isinstance(l, str)]
         lines = st + [res.get("outro", "")] + ([res.get("intro", "")] if intro else [])
-        bad = (len(st) != len(steps) or any(not l or len(l.split()) > (24 if intro else 16) for l in lines)
+        bad = (len(st) != len(steps) or any(not l or len(l.split()) > (18 if intro else 15) for l in lines)
                or re.search(r"\b[a-h][1-8]\b|\d|%|percent", " ".join(lines)))
         if bad:
             raise RuntimeError("lesson lines invalid")

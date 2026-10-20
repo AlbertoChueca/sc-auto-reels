@@ -621,15 +621,11 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                     cache["panel"] = pn
                 R.paste_center(fr, cache["panel"], W / 2, 1000, 1, eo(lt / 0.5))
                 put_mascot(fr, tt, 0.34, W / 2, 860, "excited", (0, 0), mouth, bounce=4 * abs(math.sin(lt * 3)), rim=False)
-                streak = S.get("streak_line") or "A NEW PUZZLE EVERY DAY"
-                R.paste_center(fr, word_img(streak.upper(), 50, YEL, 0), W / 2, 935, eo((lt - 0.5) / 0.5))
-                R.paste_center(fr, word_img((S.get("follow_line") or "Follow to build your calculation streak").upper(), 34, WHITE, 0),
-                               W / 2, 1005, eo((lt - 0.8) / 0.5))
-                R.paste_center(fr, R.pill("streakchess.com", 58, WHITE, fg=INK, padx=52, pady=18), W / 2, 1115, eo((lt - 1.2) / 0.5))
-                R.paste_center(fr, word_img("FREE TO PLAY  ·  ALL AGES", 36, WHITE, 0), W / 2, 1215, eo((lt - 1.6) / 0.5))
-                R.paste_center(fr, R.pill("FOUNDER OFFER · FIRST 500 ACCOUNTS", 30, INK, fg=YEL, padx=30, pady=11), W / 2, 1285, eo((lt - 1.9) / 0.5))
-                if S.get("share_line"):             # shares: the strongest growth signal
-                    R.paste_center(fr, word_img(S["share_line"].upper(), 32, WHITE, 0), W / 2, 1355, eo((lt - 2.3) / 0.5))
+                streak = S.get("streak_line") or "A NEW PUZZLE EVERY DAY"       # one clear action, 4 elements only
+                R.paste_center(fr, fit_phrase(streak.upper().split(), 56, 800, 2, 40), W / 2, 960, eo((lt - 0.4) / 0.5))
+                R.paste_center(fr, word_img("FOLLOW TO BUILD YOUR STREAK", 36, WHITE, 0), W / 2, 1060, eo((lt - 0.7) / 0.5))
+                R.paste_center(fr, R.pill("streakchess.com", 60, WHITE, fg=INK, padx=56, pady=20), W / 2, 1185, eo((lt - 1.0) / 0.5))
+                R.paste_center(fr, R.pill("FREE · FOUNDER OFFER FOR THE FIRST 500", 30, INK, fg=YEL, padx=30, pady=11), W / 2, 1300, eo((lt - 1.3) / 0.5))
                 zoom = 1.06 - 0.06 * eo(lt / 0.5)
 
         # kinetic captions for spoken lines
