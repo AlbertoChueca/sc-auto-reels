@@ -277,8 +277,13 @@ def art_direct(path, story, style, starts, story_len):
 Frames (in order) of today's reel. Story: "{story.get('title')}". Current tokens:
 {json.dumps({k: style.get(k) for k in ('screen_hook', 'caption_scale', 'story_caption_y', 'follow_line', 'share_line')})}
 
-Judge 1-10: scroll-stopping hook (on-screen text in the first frames), copy quality (short, punchy, kid-friendly,
-clear for parents too), typography & readability on a phone, layout inside the safe zone, visual polish / premium
+LAYOUT FACTS (measured by the layout engine, do not guess them from the small frames): every text element is kept
+between y=250 and y=1470 of 1920 (Instagram/TikTok bottom UI starts around y=1500), the board sits at y=490-1410,
+puzzle subtitles at y~1450, story subtitles at story_caption_y. The end card is fixed: one panel with the streak line
+("Day N of training with Vektor"), "Follow to build your streak", the streakchess.com button and the founder offer.
+The puzzle asks "A or B?" on purpose (two labelled candidate arrows; viewers comment A or B).
+Judge 1-10: scroll-stopping hook (on-screen text in the first frames), copy quality (short, punchy, clear for chess
+players of every age), typography & readability on a phone, layout inside the safe zone, visual polish / premium
 feel, clarity of the chess board, strength of the end card (follow + share + app), overall shareability.
 Then propose improvements ONLY through these tokens (leave a token out to keep it):
 - screen_hook: max 6 words, no emoji, a curiosity gap (it is shown big over the first scene)
