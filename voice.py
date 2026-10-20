@@ -136,14 +136,23 @@ def align(a, text):
         out = []
         sm = difflib.SequenceMatcher(None, sn, hn, autojunk=False)
         for op, i1, i2, j1, j2 in sm.get_opcodes():
+            skip = set()
+            if op == "replace":                              # two heard words = one script word ("Street chats" = "StreakChess")
+                for j in range(j1, j2 - 1):
+                    jn = hn[j] + hn[j + 1]
+                    for i in range(i1, i2):
+                        if jn[:3] == sn[i][:3] and difflib.SequenceMatcher(None, jn, sn[i]).ratio() >= 0.6:
+                            heard[j] = (ws[i], heard[j][1], heard[j + 1][2]); hn[j] = sn[i]; skip.add(j + 1); break
             for j in range(j1, j2):
+                if j in skip:
+                    continue
                 hw, st, _ = heard[j]
                 word = hw
                 if op == "equal":
                     word = ws[i1 + (j - j1)]
                 elif op == "replace":
                     pair = None                              # one heard word = two script words ("Lincoln" = "link in")
-                    for i in range(i1, i2 - 1):
+                    for i in (range(i1, i2 - 1) if hn[j] not in sn[i1:i2] else ()):
                         jn = sn[i] + sn[i + 1]
                         if jn[:3] == hn[j][:3] and difflib.SequenceMatcher(None, jn, hn[j]).ratio() >= 0.6:
                             pair = i; break

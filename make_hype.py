@@ -344,7 +344,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                 AB["san"] = {k: board.san(AB[k]) for k in "AB"}
         except Exception as e:
             print("A/B choice skipped:", str(e)[:120], flush=True)
-    ask = "Two candidates. Move A, or move B?" if AB else f"Find {goal_say}."
+    ask = "Down to the final two. Move A, or move B?" if AB else f"Find {goal_say}."
     lines = ([] if skip_hook else [("h1", h1), ("h2", h2)]) + [
              ("lvl", f"{LV['name'].title()} level. {side} to move. {ask}"),
              ("go", f"{numw.capitalize()} seconds. Go!"),
