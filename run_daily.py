@@ -15,11 +15,13 @@ slot = sys.argv[1]
 dry = "--dry-run" in sys.argv or os.environ.get("DRY_RUN") == "true"
 now = datetime.datetime.utcnow()
 today = now.date()
-seed = today.toordinal() * 24 + now.hour
+BATCH = os.environ.get("BATCH_INDEX", "")            # "Batch reels" workflow: several different reels in one go
+seed = today.toordinal() * 24 + now.hour + (int(BATCH) * 7919 if BATCH.isdigit() else 0)
+_B = f"-b{BATCH}" if BATCH else ""
 os.makedirs("out", exist_ok=True)
 
 locs = [l for l in json.load(open("locations.json")) if l.get("id")] if os.path.exists("locations.json") else []
-loc = random.Random(f"{now:%Y-%m-%d-%H}-{slot}-loc").choice(locs) if locs else None
+loc = random.Random(f"{now:%Y-%m-%d-%H}-{slot}-loc{_B}").choice(locs) if locs else None
 
 
 def log(entry):
@@ -67,7 +69,9 @@ try:
     fixed = {}
     if os.environ.get("LEVEL_OVERRIDE", "auto") in LEVELS or slot not in ("story",):
         fixed["difficulty"] = level                       # manual choice / tag-a-friend keep their level
-    arms = strategy.choose(seed=f"{now:%Y-%m-%d-%H}-{slot}", fixed=fixed)
+    if os.environ.get("FORMAT_OVERRIDE") in ("story", "tip"):
+        fixed["format"] = os.environ["FORMAT_OVERRIDE"]
+    arms = strategy.choose(seed=f"{now:%Y-%m-%d-%H}-{slot}{_B}", fixed=fixed)
     level = arms.get("difficulty", level)
     if slot == "story":
         strat_msg = strategy.weekly_strategist()
@@ -76,8 +80,8 @@ try:
 except Exception as e:
     strat_msg = f"strategy skipped: {str(e)[:150]}"; print(strat_msg, flush=True)
 
-P = pick(level, seed=f"{today}-{slot}-{now.hour}")
-out = f"out/{today}_{slot}_{now.hour:02d}.mp4"
+P = pick(level, seed=f"{today}-{slot}-{now.hour}{_B}")
+out = f"out/{today}_{slot}_{now.hour:02d}{_B}.mp4"
 
 # ---- render with fallbacks
 meta, engine = None, None
@@ -130,8 +134,12 @@ print("engine:", engine, flush=True)
 try:
     import voice as _v
     voice_used = _v.ENGINE_USED
+    _st = getattr(_v, "ALIGN_STATS", {})
+    subs_msg = (f"subtitles: {_st.get('asr', 0)} lines from speech recognition (exact words), "
+                f"{_st.get('fallback', 0)} estimated" + (" ⚠️ speech recognition unavailable" if _st.get("fallback") else ""))
 except Exception:
-    voice_used = None
+    voice_used, subs_msg = None, "subtitles: unknown"
+print(subs_msg, flush=True)
 summary = os.environ.get("GITHUB_STEP_SUMMARY")
 if summary:  # visible on the run page in GitHub
     with open(summary, "a") as f:
@@ -141,7 +149,7 @@ if summary:  # visible on the run page in GitHub
                 + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
                 + (f"- Reviewer score: {meta.get('review_score')}/10\n" if meta.get("review_score") is not None else "")
                 + (f"- Art director (copy + design): {meta.get('design_score')}/10\n" if meta.get("design_score") is not None else "")
-                + f"- {insights_msg}\n" + f"- {agents_msg}\n"
+                + f"- {subs_msg}\n" + f"- {insights_msg}\n" + f"- {agents_msg}\n"
                 + (f"- Experiment: {', '.join(f'{k}={v.split(chr(58))[0]}' for k, v in arms.items())}\n" if arms else "")
                 + (f"- {strat_msg}\n" if strat_msg else "")
                 + "".join(f"- Error: `{e}`\n" for e in errors))

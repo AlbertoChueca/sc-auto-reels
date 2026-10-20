@@ -1,0 +1,130 @@
+name: Batch reels
+
+# One click = several DIFFERENT reels (Vektor episodes and calculation masterclasses alternating), published one
+# after another with a gap between them so Instagram does not treat them as spam and each one gets its own reach.
+on:
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "How many reels (1-6)"
+        type: choice
+        options: ["1", "2", "3", "4", "5", "6"]
+        default: "6"
+      gap_minutes:
+        description: "Minutes between posts (0 = all at once; 20-40 recommended)"
+        type: choice
+        options: ["0", "10", "20", "30", "45", "60"]
+        default: "30"
+      dry_run:
+        description: "Only generate the videos (do not publish)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reels
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      items: ${{ steps.p.outputs.items }}
+    steps:
+      - id: p
+        shell: python
+        env:
+          N: ${{ inputs.count }}
+        run: |
+          import json, os
+          mix = [("story", "story"), ("story", "tip"), ("storytag", "story"), ("story", "tip"), ("story", "story"), ("storytag", "tip")]
+          items = [{"i": i, "slot": s, "format": f} for i, (s, f) in enumerate(mix[: int(os.environ["N"])])]
+          open(os.environ["GITHUB_OUTPUT"], "a").write("items=" + json.dumps(items) + "\n")
+
+  reel:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      max-parallel: 1          # one after another: each episode continues the previous one
+      fail-fast: false
+      matrix:
+        item: ${{ fromJSON(needs.plan.outputs.items) }}
+    steps:
+      - name: Wait between posts
+        if: matrix.item.i > 0 && inputs.gap_minutes != '0'
+        run: sleep $(( ${{ inputs.gap_minutes }} * 60 ))
+
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref_name }}      # latest commit: sees the episode/puzzle logs of the previous reel
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: System packages
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libcairo2 espeak-ng
+
+      - name: Python packages
+        run: pip install -r requirements.txt
+
+      - name: Cache voice models
+        uses: actions/cache@v4
+        with:
+          path: |
+            models
+            ~/.cache/huggingface
+          key: voices-v4
+
+      - name: Download Kokoro voice
+        run: |
+          mkdir -p models
+          [ -f models/kokoro.onnx ] || curl -sSL -o models/kokoro.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
+          [ -f models/voices.bin ]  || curl -sSL -o models/voices.bin  https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
+
+      - name: Monthly cache key
+        id: month
+        run: echo "m=$(date +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache puzzle database
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: puzzles-${{ steps.month.outputs.m }}
+          restore-keys: puzzles-
+
+      - name: Generate and publish
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          VOICE_ENGINE: gemini
+          LEVEL_OVERRIDE: auto
+          GEMINI_VOICE: ${{ vars.GEMINI_VOICE || 'Fenrir' }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          BATCH_INDEX: ${{ matrix.item.i }}
+          FORMAT_OVERRIDE: ${{ matrix.item.format }}
+          BENEFIT_DAYS: none
+        run: python run_daily.py ${{ matrix.item.slot }}
+
+      - name: Save video for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-reel-${{ matrix.item.i }}
+          path: out/**
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Remember used puzzles and stories
+        if: always()
+        run: |
+          git config user.name "reels-bot"
+          git config user.email "reels-bot@users.noreply.github.com"
+          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json tip_log.json answers_announced.json; do [ -f "$f" ] && git add "$f"; done
+          [ -d agents ] && git add agents
+          git diff --cached --quiet || (git commit -m "Batch reel ${{ matrix.item.i }} $(date +%F)" && (git push || (git pull --rebase && git push)))

@@ -129,10 +129,10 @@ DRAFT:
 {json.dumps(story, ensure_ascii=False, indent=1)}
 
 1) Score the draft 1-10 for: hook (first scene grabs attention in 1.5 s), clarity for a 9-year-old, story arc,
-   link between the story and the chess puzzle, the final ask for the viewer's help, voice-friendliness
+   link between the story and the chess puzzle, the hand-over to the step-by-step method that follows, voice-friendliness
    (short spoken sentences, numbers as words, no chess notation), kid safety.
 2) Rewrite it to fix every weakness. Keep EXACTLY the same JSON schema and rules: 4 scenes, total narration 24-34
-   words, max 9 words per sentence, last scene asks the viewer to help Vektor, image prompts describe one vertical
+   words, max 9 words per sentence, last scene has Vektor turn to the step-by-step method (no chess details in the story), image prompts describe one vertical
    frame and say "the knight mascot from the reference images" for Vektor, no text in images, camera in
    [push_in, pull_out, pan_left, pan_right, tilt_up], sfx in [whoosh, boom, none], delivery = short acting direction.
    caption_hook: max 10 words, one emoji allowed, makes kids want to comment their answer.

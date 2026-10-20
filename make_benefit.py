@@ -165,7 +165,7 @@ def build(seed, out, mode="level"):
     cams = ["push_in", "pan_left", "pull_out", "push_in"]
     badge = R.pill("WHY STREAKCHESS?", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
     badge_y = HY.SAFE_TOP + badge.height // 2
-    hook_img = HY.fit_phrase(script.get("screen_hook", "").split() or ["StreakChess"], 92, 900, 2)
+    hook_img = HY.fit_phrase(script.get("screen_hook", "").split() or ["StreakChess"], 112, 960, 2, 64)
     hook_y = badge_y + badge.height // 2 + 30 + (hook_img.height + 70) // 2
     HOOK_T = 2.3
     lg = Image.open(os.path.join(HERE, "assets", "logo_h.png")).convert("RGBA"); lg = lg.crop(lg.getbbox())
@@ -184,7 +184,7 @@ def build(seed, out, mode="level"):
             fr.alpha_composite(HY.vignette())
             hook_on = i == 0 and t < HOOK_T + 0.3
             if hook_on:                                  # hook only (badge above it, measured layout)
-                a_ = HY.eob(t / 0.25) * (1 if t < HOOK_T else max(0, 1 - (t - HOOK_T) / 0.3))
+                a_ = 1.0 if t < HOOK_T else max(0, 1 - (t - HOOK_T) / 0.3)   # fully visible on frame 0 (cover)
                 R.paste_center(fr, badge, W / 2, badge_y, a_)
                 R.paste_center(fr, HY.band_img(hook_img.height + 70), W / 2, hook_y, a_)
                 R.paste_center(fr, hook_img, W / 2, hook_y, a_)

@@ -87,8 +87,9 @@ Rules:
   YouTuber for kids: simple words a 9-year-old knows, energetic but conversational, never babyish.
 - The story must clearly be about chess and getting better at it (why this position matters today for Vektor:
   a tournament game, Coach King's challenge, a bet with Bishop Blaze, a puzzle he must crack to keep his streak...).
-- Scene 4 narration: Vektor is stuck on the position and the narrator asks the viewer to help him,
-  e.g. "Can you help Vektor find the winning move?" (vary the wording every episode).
+- Scene 4 narration: Vektor is stuck on the position and decides to use the method, step by step
+  (e.g. "Time for the method. Step by step."). Right after the story, an animated board breaks the method down
+  with real arrows and counts, so the story only NAMES the method; do not try to explain the chess details in it.
 - Positive and safe: no violence, scary horror, romance, brands or real people.
 - Write numbers as words. Write narration to be SPOKEN: short sentences (max 9 words), natural rhythm, contractions,
   commas for breaths. No hashtags, emojis, abbreviations or chess notation in narration.
@@ -340,9 +341,12 @@ def build(P, seed, out, mode="level", arms=None):
         style.update(agents.growth_lines(story, mode))
 
     MAX_TOTAL = float(os.environ.get("REEL_MAX_SECONDS", "55"))
+    import lesson_anim                              # Vektor's method, step by step, animated on the real position
+    LS = lesson_anim.Lesson(b, ep["lesson"], 2, cover=False, mock=mock)
+    lesson_mp4 = out.replace(".mp4", "_lesson.mp4")
 
     def render_puzzle(st):
-        story_len = sum(max(len(a) / SR + 0.35, 2.0) for a in A) + 0.3
+        story_len = sum(max(len(a) / SR + 0.35, 2.0) for a in A) + 0.3 + LS.length()
         return HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
                         cta_lead="You helped Vektor get stronger! ", think_factor=think, style=st,
                         max_len=MAX_TOTAL - story_len, reveal=arms.get("reveal", "in_video") != "comments")
@@ -351,6 +355,7 @@ def build(P, seed, out, mode="level", arms=None):
         try:
             A = voice.say_many([sc["narration"] for sc in scenes], speed=1.08,
                                styles=[sc.get("delivery") for sc in scenes], one_take=True)
+            LS.record()
             meta = render_puzzle(style)
             break
         except voice.VoiceError as e:
@@ -403,8 +408,13 @@ def build(P, seed, out, mode="level", arms=None):
         hook_img = hook_y = None
         HOOK_T = 2.3                                    # the hook is the only big text on screen while shown
         if st.get("screen_hook"):
-            hook_img = HY.fit_phrase(st["screen_hook"].split(), int(96 * st.get("caption_scale", 1.0)), 900, 2)
+            hook_img = HY.fit_phrase(st["screen_hook"].split(), int(112 * st.get("caption_scale", 1.0)), 960, 2, 64)
             hook_y = badge_y + badge.height // 2 + 30 + (hook_img.height + 70) // 2
+        # cover teaser (frame 0 = grid thumbnail): the real puzzle board + its level, under the hook
+        tz = R.card(R.draw_board(b, b.turn == chess.BLACK, (b.peek().from_square, b.peek().to_square)))
+        tz = tz.resize((int(tz.width * 0.30), int(tz.height * 0.30)), Image.LANCZOS).rotate(-4, Image.BICUBIC, expand=True)
+        tz = R.shadowed(tz, 24, (0, 16), 170)[0]
+        tz_pill = R.pill(f"CAN YOU SOLVE IT? · {LV['name']} {LV.get('rng', '')}".strip(), 36, HY.RED, fg=HY.WHITE, padx=30, pady=12)
         proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
                                  "-r", str(FPS), "-i", "-", "-i", wav, "-shortest"] + HY.enc_args(story_mp4),
                                 stdin=subprocess.PIPE)
@@ -426,9 +436,12 @@ def build(P, seed, out, mode="level", arms=None):
             fr.alpha_composite(HY.vignette())
             hook_on = hook_img is not None and t < HOOK_T + 0.3
             if hook_on:                                  # on-screen hook: the first thing people read
-                a_ = HY.eob(t / 0.25) * (1 if t < HOOK_T else max(0, 1 - (t - HOOK_T) / 0.3))
+                a_ = 1.0 if t < HOOK_T else max(0, 1 - (t - HOOK_T) / 0.3)   # fully visible on frame 0 (cover)
                 R.paste_center(fr, HY.band_img(hook_img.height + 70), W / 2, hook_y, a_)
                 R.paste_center(fr, hook_img, W / 2, hook_y, a_)
+                if a_ > 0.05:
+                    R.paste_center(fr, tz, W / 2 + 250, 1250, a_)
+                    R.paste_center(fr, tz_pill, W / 2, 1462, a_)
             cur = [(ts, w) for si, ts, w in words if si == i and ts <= t and not (hook_on and ts < HOOK_T)]
             if cur and not (hook_on and t < HOOK_T):
                 idx = len(cur) - 1; st_ = (idx // 3) * 3
@@ -436,7 +449,7 @@ def build(P, seed, out, mode="level", arms=None):
                 R.paste_center(fr, HY.band_img(ph.height + 80), W / 2, cy)
                 R.paste_center(fr, ph, W / 2, cy)
             if i == 0 and lt < 2.6:   # series badge (always above the hook, measured)
-                R.paste_center(fr, badge, W / 2, badge_y, HY.eob(lt / 0.3))
+                R.paste_center(fr, badge, W / 2, badge_y)
             elif prev_pill is not None and i != lesson_scene and HOOK_T + 0.3 <= t < HOOK_T + 3.2:   # "previously on..."
                 R.paste_center(fr, prev_pill, W / 2, HY.SAFE_TOP + 30, HY.eob((t - HOOK_T - 0.3) / 0.3))
             if i == lesson_scene and i < len(scenes):     # the calculation lesson, on screen
@@ -445,10 +458,11 @@ def build(P, seed, out, mode="level", arms=None):
         proc.stdin.close(); proc.wait(); os.remove(wav)
 
     def join():
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", story_mp4, "-i", puzzle_mp4, "-filter_complex",
-                        "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]"]
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", story_mp4, "-i", lesson_mp4, "-i", puzzle_mp4,
+                        "-filter_complex", "[0:v][0:a][1:v][1:a][2:v][2:a]concat=n=3:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]"]
                        + HY.enc_args(out, scale=False), check=True)
 
+    LS.render(lesson_mp4)
     render_story(style); join()
     art = {}
     if review_on:                     # 2nd agent (art director): checks copy + design on real frames, one revision
@@ -459,7 +473,8 @@ def build(P, seed, out, mode="level", arms=None):
             meta = render_puzzle(style)            # voice takes are cached: no new recording
             render_story(style); join()
     cap_old = open(puzzle_mp4.replace(".mp4", ".txt")).read().split("\n", 1)[1]
-    tip_line = f"📌 Today's calculation tip: {ep['lesson'][1]}. {ep['lesson'][2]}"
+    tip_line = (f"📌 Today's calculation method: {ep['lesson'][1]}. {ep['lesson'][2]}\n"
+                + "\n".join(f"{k + 1}️⃣ {s_['title'].title()}: {s_['fact']}" for k, s_ in enumerate(LS.steps)))
     nxt = f"\n👀 Next episode: {story['teaser']} Follow so you don't miss it." if story.get("teaser") else ""
     caption = f"{story.get('caption_hook', story['title'])}\n{tip_line}{nxt}\n{cap_old}"
     review = {}
@@ -467,7 +482,7 @@ def build(P, seed, out, mode="level", arms=None):
         caption, review = reviewer.review_video(out, story, caption)   # raises RejectReel if clearly broken
         caption = agents.growth_caption(caption, story, review)         # growth marketer: final caption
     open(out.replace(".mp4", ".txt"), "w").write(caption)
-    for f in (story_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):
+    for f in (story_mp4, lesson_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):
         if os.path.exists(f): os.remove(f)
     if not mock:
         log.append({"title": story["title"], "summary": story.get("summary", ""), "puzzle": P.get("id"),

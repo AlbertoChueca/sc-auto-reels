@@ -40,6 +40,7 @@ def reset(force=None):
     global LOCK
     LOCK = force
     _CLIPS.clear()
+    ALIGN_STATS.update(asr=0, fallback=0)
 
 
 # ------------------------------------------------------------------ speech recognition (captions + checks)
@@ -115,27 +116,48 @@ def _similarity(a, text):
     return difflib.SequenceMatcher(None, x, y, autojunk=False).ratio()
 
 
+ALIGN_STATS = {"asr": 0, "fallback": 0}
+_ALIASES = {"victor": "Vektor", "vector": "Vektor", "vecktor": "Vektor", "zugswang": "Zugzwang", "zoogzwang": "Zugzwang",
+            "streak": "Streak", "streakchess": "StreakChess", "streakches": "StreakChess"}
+
+
 def align(a, text):
-    """Word timings for captions: [(t_seconds, word)] matching what is actually heard in the clip."""
+    """Subtitles = exactly what the voice SAYS, with the script's spelling where the words match.
+    Timings and words come from speech recognition (Whisper). Script spelling is kept for words the voice really
+    said (so names like Vektor, Zugzwang, Pip are written right); words the voice skipped are not shown, and
+    words it added are shown. Without speech recognition we fall back to timing proportional to characters."""
+    import difflib
     ws = text.split()
     heard = _asr(a)
     if heard:
-        import difflib
-        sm = difflib.SequenceMatcher(None, [_norm(w) for w in ws], [_norm(w) for w, _, _ in heard])
-        if _similarity(a, text) < 0.6:                         # voice said something else: show what it said
-            return [(st, w) for w, st, _ in heard]
-        t = [None] * len(ws)
-        for i, j, n in sm.get_matching_blocks():
-            for d in range(n):
-                t[i + d] = heard[j + d][1]
-        dur = len(a) / SR
-        known = [(i, v) for i, v in enumerate(t) if v is not None]
-        xs = [-1] + [i for i, _ in known] + [len(ws)]
-        ys = [0.0] + [v for _, v in known] + [dur * 0.95]
-        t = list(np.interp(range(len(ws)), xs, ys))
-        for i in range(1, len(t)):                             # keep order
-            t[i] = max(t[i], t[i - 1] + 0.05)
-        return list(zip(t, ws))
+        ALIGN_STATS["asr"] += 1
+        hn = [_norm(w) for w, _, _ in heard]
+        sn = [_norm(w) for w in ws]
+        out = []
+        sm = difflib.SequenceMatcher(None, sn, hn, autojunk=False)
+        for op, i1, i2, j1, j2 in sm.get_opcodes():
+            for j in range(j1, j2):
+                hw, st, _ = heard[j]
+                word = hw
+                if op == "equal":
+                    word = ws[i1 + (j - j1)]
+                elif op == "replace":
+                    best, br = None, 0.0                     # closest script word in the replaced span
+                    for i in range(i1, i2):
+                        r = difflib.SequenceMatcher(None, sn[i], hn[j]).ratio()
+                        if _spoken(ws[i]) == _spoken(hw): r = 1.0
+                        if r > br: best, br = ws[i], r
+                    if best is not None and br >= 0.6:
+                        word = best
+                alias = _ALIASES.get(_norm(word))
+                if alias and alias.lower() in text.lower():
+                    word = re.sub(r"[A-Za-z]+", alias, word, count=1)
+                out.append((st, word))
+        for k in range(1, len(out)):                         # keep order
+            if out[k][0] < out[k - 1][0] + 0.04:
+                out[k] = (out[k - 1][0] + 0.04, out[k][1])
+        return out
+    ALIGN_STATS["fallback"] += 1
     L = sum(len(w) + 1 for w in ws); acc = 0; out = []        # fallback: proportional to characters
     for w in ws:
         out.append(((len(a) / SR) * acc / L * 0.95, w)); acc += len(w) + 1

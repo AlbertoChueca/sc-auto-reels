@@ -97,7 +97,9 @@ def publish_reel(video_path, caption, token=None, location_id=None):
     uid = me["user_id"]
     print(f"Publishing as @{me['username']}", flush=True)
     video_path = ig_safe(video_path)
-    fields = {"media_type": "REELS", "caption": caption, "share_to_feed": "true"}
+    # cover = the designed first frame (big hook + board teaser), picked explicitly for the profile grid
+    fields = {"media_type": "REELS", "caption": caption, "share_to_feed": "true",
+              "thumb_offset": os.environ.get("REEL_THUMB_OFFSET_MS", "300")}
     if location_id:
         fields["location_id"] = str(location_id)
     cid = _container_upload_wait(uid, token, video_path, fields, "reel")
