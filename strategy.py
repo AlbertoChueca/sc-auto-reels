@@ -39,6 +39,8 @@ DEFAULT_ARMS = {
     "difficulty": ["basic", "intermediate", "advanced"],
     "think_time": ["fast", "normal", "long"],
     "story_length": ["short", "normal"],
+    "format": ["story", "tip"],                 # Vektor story + puzzle, or calculation tip + puzzle
+    "reveal": ["in_video", "comments"],         # show the solution, or hold it back for the comments (no spoiler)
 }
 THINK_FACTOR = {"fast": 0.75, "normal": 1.0, "long": 1.3}
 WORDS = {"short": "18-24", "normal": "24-34"}

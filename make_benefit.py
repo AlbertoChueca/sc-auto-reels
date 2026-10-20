@@ -31,8 +31,8 @@ DEFAULT_FACTS = [
     "It is made by a chess academy coach.",
 ]
 
-SCRIPT_PROMPT = """You write a 20-30 second vertical reel where Vektor (the StreakChess mascot) explains ONE clear,
-honest benefit of training with StreakChess to young chess players (8-12) and their parents.
+SCRIPT_PROMPT = """You write a 25-35 second vertical reel where Vektor (the StreakChess mascot) explains the benefits of
+training calculation with StreakChess AND their real consequences on the board. This week's audience: {audience}.
 {character}
 
 TRUE FACTS you may use (do not claim anything else about the app):
@@ -42,11 +42,16 @@ TRUE FACTS you may use (do not claim anything else about the app):
 Recent benefit reels (do NOT repeat their angle): {recent}
 
 Rules:
-- Pick ONE angle (e.g. why calculating before moving matters in real games, how a daily streak builds the habit,
-  how levels grow with you, why a few minutes a day beats one long session, how puzzles train pattern spotting).
+- Structure: benefit -> consequence -> consequence -> invitation. Pick ONE angle (e.g. calculating before moving,
+  spotting tactics faster, a daily habit, playing faster under time pressure) and show what it changes in real games:
+  fewer blunders, converting winning positions, finding tactics your opponent misses, managing the clock, more
+  confidence in sharp positions, enjoying chess more. Speak to this week's audience:
+  kids -> fun, school chess club and tournaments, beating friends, parents can relax it is healthy screen time
+  well spent; adults -> short sessions that fit a busy day, steady improvement, club and online games.
+- Do NOT claim effects outside chess (no grades, IQ, memory, dementia, "smarter") and no numbers or guarantees.
 - NEVER invent numbers, ratings, rating gains, user counts, testimonials, studies or guarantees. General chess advice
   is fine when phrased as advice ("players who check every capture blunder less").
-- Exactly 4 scenes. Total narration 40-60 words, spoken style, short sentences, numbers as words, no chess notation.
+- Exactly 4 scenes. Total narration 45-65 words, spoken style, short sentences, numbers as words, no chess notation.
 - image_prompt: ONE vertical 9:16 illustrated frame showing the idea as a fun visual metaphor with "the knight mascot
   from the reference images, standing upright" (e.g. lifting a glowing brain dumbbell, guarding a streak flame,
   climbing level stairs made of chessboards). NEVER draw phones, app screens, user interfaces, text, letters,
@@ -74,13 +79,17 @@ def write_script(seed):
     except Exception:
         brief = ""
     log = json.load(open(LOG)) if os.path.exists(LOG) else []
+    import datetime
+    audience = ("kids aged 8-12 who play chess, and their parents" if datetime.date.today().isocalendar()[1] % 2 == 0
+                else "adult chess players (club and online), including busy adults and adult beginners")
     res = reviewer._ask([{"text": SCRIPT_PROMPT.format(
-        character=MS.CHARACTER, facts="\n".join(f"- {f}" for f in facts()), brief=brief,
+        audience=audience, character=MS.CHARACTER, facts="\n".join(f"- {f}" for f in facts()), brief=brief,
         recent="; ".join(e.get("angle", "") for e in log[-8:]) or "none")}], 0.9)
     sc = [s for s in res.get("scenes", []) if s.get("narration") and s.get("image_prompt")]
     if len(sc) < 3:
         raise RuntimeError("benefit script incomplete")
-    bad = re.compile(r"\b(\d{2,}|percent|%|rating|elo|guarantee|studies show|proven|scientifically)\b", re.I)
+    bad = re.compile(r"\b(\d{2,}|percent|%|elo|guarantee|guaranteed|studies show|proven|scientifically|iq|grades|"
+                     r"dementia|alzheimer|smarter)\b", re.I)
     if any(bad.search(s["narration"]) for s in sc):
         raise RuntimeError("benefit script made a numeric/unsupported claim")
     res["scenes"] = sc[:4]

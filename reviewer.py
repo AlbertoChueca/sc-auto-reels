@@ -94,6 +94,9 @@ def _plan_text(ep, recent):
         return ""
     import series
     return (f"TODAY'S EPISODE PLAN (keep it): format = {ep['format']}; spotlight = {ep['spotlight']}; setting = {ep['setting']}.\n"
+            f"SERIAL CONTINUITY (keep it): last episode = {ep.get('previously') or 'none'}; its teaser = {ep.get('teaser') or 'none'}. "
+            f"Today's lesson (must stay, taught in the story and used on the puzzle): {ep['lesson'][1]} - {ep['lesson'][2]}. "
+            f"Keep the fields previously, lesson_line, lesson_scene and teaser.\n"
             f"CAST (keep looks exactly): \n{series.cast_sheet()}\n"
             f"RECENT EPISODES - the new one must feel clearly DIFFERENT (plot, place, gag, emotion):\n"
             + "\n".join(f"- {r}" for r in list(recent)[-6:]) +
@@ -146,7 +149,7 @@ Return JSON: {{"scores": {{...}}, "overall": number, "changes": [str], "story": 
         if not ok:
             print("reviewer: script rewrite rejected (format), keeping draft", flush=True)
             return story
-        for k in ("title", "summary", "screen_hook"):
+        for k in ("title", "summary", "screen_hook", "previously", "lesson_line", "lesson_scene", "teaser"):
             new.setdefault(k, story.get(k))
         print(f"reviewer: script {res.get('overall')}/10 -> improved ({'; '.join((res.get('changes') or [])[:3])})", flush=True)
         return new

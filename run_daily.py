@@ -84,17 +84,26 @@ meta, engine = None, None
 # Every slot gets the premium story reel (same as "Story reel test"). If the story pipeline has a transient
 # problem it is retried once; only then does it fall back so a post always goes out.
 chain = ["story", "story", "hype", "classic"]
+if arms.get("format") == "tip" and slot in ("story", "storytag"):
+    chain = ["tip"] + chain                      # calculation-tip reel (falls back to a story if anything fails)
 # Benefit reels: on chosen weekdays the evening slot has Vektor explain a real benefit of StreakChess
 # (illustrated scenes, only true facts from assets/app/facts.md). BENEFIT_DAYS=none disables them.
-_bdays = {int(d) for d in os.environ.get("BENEFIT_DAYS", "2,5").split(",") if d.strip().isdigit()}   # 0=Mon .. 6=Sun
-if slot == "benefit" or (slot == "storytag" and today.weekday() in _bdays
+_bdays = {int(d) for d in os.environ.get("BENEFIT_DAYS", "2").split(",") if d.strip().isdigit()}   # 0=Mon .. 6=Sun
+from zoneinfo import ZoneInfo as _ZI
+_la_day = datetime.datetime.now(_ZI("America/Los_Angeles")).date()        # weekly benefit reel: Wednesday 5 PM PT
+if slot == "benefit" or (slot == "storytag" and _la_day.weekday() in _bdays
                          and os.environ.get("LEVEL_OVERRIDE", "auto") == "auto"):
     chain = ["benefit"] + chain
     print("today's evening reel: StreakChess benefits", flush=True)
 errors = []
 for eng in chain:
     try:
-        if eng == "benefit":
+        if eng == "tip":
+            if not os.environ.get("GEMINI_API_KEY"):
+                raise RuntimeError("GEMINI_API_KEY not set")
+            from make_tip import build as b
+            meta = b(P, seed, out, mode=mode, arms=arms)
+        elif eng == "benefit":
             if not os.environ.get("GEMINI_API_KEY"):
                 raise RuntimeError("GEMINI_API_KEY not set")
             from make_benefit import build as b
@@ -126,7 +135,7 @@ except Exception:
 summary = os.environ.get("GITHUB_STEP_SUMMARY")
 if summary:  # visible on the run page in GitHub
     with open(summary, "a") as f:
-        ok = engine in ("story", "benefit")
+        ok = engine in ("story", "benefit", "tip")
         f.write(f"## {'✅ Premium story reel' if ok else '⚠️ Fallback reel (story failed)'}\n\n"
                 f"- Slot: `{slot}` · level: `{level}` · mode: `{mode}`\n- Engine: `{engine}` · voice: `{voice_used}`\n"
                 + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
@@ -137,6 +146,21 @@ if summary:  # visible on the run page in GitHub
                 + (f"- {strat_msg}\n" if strat_msg else "")
                 + "".join(f"- Error: `{e}`\n" for e in errors))
 caption = open(out.replace(".mp4", ".txt")).read()
+# Held-back answers are also revealed in the NEXT post's caption (works on Instagram, TikTok and YouTube alike).
+try:
+    _prev = None
+    for _l in open("log.jsonl"):
+        _e = json.loads(_l)
+        if _e.get("reveal") is False and _e.get("sans") and _e.get("media_id"):
+            _prev = _e
+    _ann = json.load(open("answers_announced.json")) if os.path.exists("answers_announced.json") else []
+    if _prev and _prev["media_id"] not in _ann and _prev.get("date") != str(today):
+        _first, _rest = (caption.split("\n", 1) + [""])[:2]
+        caption = f"{_first}\n✅ Yesterday's answer: {' '.join(_prev['sans'])}\n{_rest}"
+        if not dry:
+            json.dump((_ann + [_prev["media_id"]])[-200:], open("answers_announced.json", "w"))
+except Exception as _e:
+    print("previous answer skipped:", _e)
 print(caption)
 
 if dry:
@@ -163,6 +187,6 @@ if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (neve
         print("Zernio failed:", e); meta["zernio"] = f"error: {e}"
 
 meta["voice"] = voice_used
-meta["arms"] = arms if engine == "story" else {}
+meta["arms"] = arms if engine in ("story", "tip") else {}
 log({k: meta.get(k) for k in ("engine", "voice", "review_score", "design_score", "arms", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
-                              "media_id", "sans", "story_share", "zernio")})
+                              "media_id", "sans", "reveal", "story_share", "zernio")})

@@ -11,8 +11,8 @@ FILTERED = os.path.join(DATA, "puzzles_filtered.csv")
 USED = os.path.join(HERE, "used.json")
 DB_URL = "https://database.lichess.org/lichess_db_puzzle.csv.zst"
 
-LEVEL_RANGES = {"basic": (800, 1200), "intermediate": (1200, 1900), "advanced": (1900, 2500)}
-MAX_PLIES = {"basic": 5, "intermediate": 7, "advanced": 7}   # solution length incl. replies
+LEVEL_RANGES = {"basic": (1600, 1850), "intermediate": (1850, 2100), "advanced": (2100, 2500)}   # 1600+ only
+MAX_PLIES = {"basic": 7, "intermediate": 7, "advanced": 7}   # solution length incl. replies
 
 
 def good(row):

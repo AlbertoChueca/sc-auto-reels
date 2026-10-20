@@ -272,17 +272,16 @@ THEME = [("smotheredMate", "The king got trapped by his own pieces!"), ("backRan
          ("hangingPiece", "A free piece! Grab it!")]
 # Audience: kids 8-12 (and their parents). Friendly challenge, never mocking.
 HOOKS = {
-    "basic": [("Can you beat the knight?", "Let's see!"), ("Quick brain challenge!", "Ready?"),
-              ("Only real chess heroes see this.", "Are you one?")],
-    "intermediate": [("This one tricks most grown-ups.", "Can you do it?"), ("Level up time!", "Ready?"),
-                     ("Your brain versus the knight.", "Go!")],
-    "advanced": [("Boss level puzzle!", "Only champions solve it."), ("This is the hardest one today.", "Ready?")],
-    "tagfriend": [("Challenge a friend!", "Who solves it first?"), ("You versus your best friend.", "Go!")],
+    "basic": [("Club player test!", "Ready?"), ("It looks quiet...", "It isn't."), ("One move wins.", "Find it!")],
+    "intermediate": [("Expert level puzzle.", "Calculate it all."), ("Checks, captures, threats.", "Go!"),
+                     ("Your calculation versus Vektor's.", "Go!")],
+    "advanced": [("Master level puzzle!", "Deep calculation needed."), ("The hardest one today.", "Ready?")],
+    "tagfriend": [("Challenge a chess friend!", "Who solves it first?"), ("You versus your chess buddy.", "Go!")],
 }
 
 
 def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False, cta_lead=None, think_factor=1.0,
-          style=None, max_len=None):
+          style=None, max_len=None, reveal=True):
     S = {**DEFAULT_STYLE, **(style or {})}
     import voice
     if not keep_voice:
@@ -312,8 +311,9 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
              ("lvl", f"{LV['name'].title()} level. {side} to move. Find {goal_say}."),
              ("go", f"You've got {numw} seconds. Go!"),
              ("up", "Time's up!")]
-    lines += [(f"m{i}", R.san_say(s)) for i, s in enumerate(sans)]
-    lines += [("fin", finale),
+    shown = sans if reveal else []            # reveal=False: the answer goes in the comments (more comments!)
+    lines += [(f"m{i}", R.san_say(s)) for i, s in enumerate(shown)]
+    lines += [("fin", finale if reveal else "What's your move? Comment it below. The answer drops in the comments tomorrow!"),
               ("cta", (cta_lead or ("Send this to a friend and see who's faster! " if mode == "tagfriend" else "Did you get it? "))
                + "Play a new puzzle every day on StreakChess. It's free! Parents, the link is in bio.")]
 
@@ -326,7 +326,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     D = {k: len(a) / SR for k, a in A.items()}
 
     if max_len:                    # keep the whole reel short enough (retention + Stories max 60 s)
-        mv = sum(max(D[f"m{i}"] + 0.5, 1.8) for i in range(len(sans)))
+        mv = sum(max(D[f"m{i}"] + 0.5, 1.8) for i in range(len(shown)))
         fixed = (0 if skip_hook else D["h1"] + D["h2"] + 0.6) + D["lvl"] + D["go"] + D["up"] + D["fin"] + D["cta"] + 2.4 + mv
         COUNT = int(max(5, min(COUNT, max_len - fixed)))
     MOVE_MIN = 2.1 if not max_len else 1.8
@@ -342,7 +342,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     add("go", D["go"] + 0.1)
     add("count", COUNT)
     add("up", D["up"] + 0.25)
-    for i in range(len(sans)): add(f"m{i}", max(D[f"m{i}"] + 0.5, MOVE_MIN))  # time to follow every move
+    for i in range(len(shown)): add(f"m{i}", max(D[f"m{i}"] + 0.5, MOVE_MIN))  # time to follow every move
     add("fin", D["fin"] + 0.6)
     add("cta", D["cta"] + 1.2)
     total = t
@@ -362,9 +362,12 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     for i in range(COUNT): put(fx, R.tick(i >= COUNT - 3), T["count"][0] + i, 1.3)
     put(fx, riser(3.0), T["count"][1] - 3.0, 1.0)
     put(fx, boom(), T["up"][0], 1.0)
-    for i in range(len(sans)):
+    for i in range(len(shown)):
         put(fx, R.whoosh(0.5), T[f"m{i}"][0] + 0.4, 0.5); put(fx, R.place(), T[f"m{i}"][0] + 0.93, 1.0)
-    put(fx, boom(), T["fin"][0], 1.0); put(fx, R.ding(), T["fin"][0], 0.7)
+    if reveal:
+        put(fx, boom(), T["fin"][0], 1.0); put(fx, R.ding(), T["fin"][0], 0.7)
+    else:
+        put(fx, R.shimmer(587.3), T["fin"][0], 0.8)
     put(fx, R.whoosh(0.6), T["cta"][0] - 0.25, 1.2)
     music = beat(total)[:n]
     music[int(T["count"][0] * SR):int(T["count"][1] * SR)] *= 0.45      # tension: thinner during countdown
@@ -422,7 +425,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     cache = {}
 
     def board_card(tt):
-        if tt < T["m0"][0] + 0.35:
+        if not shown or tt < T["m0"][0] + 0.35:
             if "s" not in cache: cache["s"] = R.card(R.draw_board(board, flip, (last.from_square, last.to_square)))
             return cache["s"], None
         i = max(j for j in range(len(moves)) if tt >= T[f"m{j}"][0] + 0.35)
@@ -507,7 +510,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                 R.paste_center(fr, R.shadowed(card, 30, (0, 20), 160)[0], W / 2, BOARD_CY + (1 - enter) * 1100, 0.88)
                 mood, look = "thinking", (0.5 * math.sin(tt * 1.4), 0.7)
                 if tt >= T["up"][0]: mood, look = "surprised", (0.6, 0.7)
-                if tt >= T["fin"][0]: mood = "star"
+                if tt >= T["fin"][0]: mood = "star" if reveal else "thinking"
                 bounce = 50 * abs(math.sin((tt - T["fin"][0]) * 7)) * max(0, 1 - (tt - T["fin"][0]) / 1.4) if tt >= T["fin"][0] else 0
                 put_mascot(fr, tt, 0.42, 165, 520, mood, look, mouth, bounce=bounce, tilt=3 * math.sin(tt * 2))
                 if T["count"][0] <= tt < T["count"][1]:     # ring countdown
@@ -525,7 +528,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                 if T["up"][0] <= tt < T["up"][1]:
                     lt = tt - T["up"][0]; flash = max(0, 0.3 - lt * 1.5); shake = 5 * max(0, 1 - lt / 0.3)
                     R.paste_center(fr, word_img("TIME'S UP!", 130, RED), W / 2 + 160, 330, eob(lt / 0.3), 1, -4)
-                for i in range(len(sans)):
+                for i in range(len(shown)):
                     a, b = T[f"m{i}"]
                     if a <= tt < b:
                         lt = tt - a
@@ -536,7 +539,11 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                         # very subtle push-in, centred on the board, so the whole board always stays in view
                         zoom = 1 + 0.015 * eio(min(1, (tt - T["m0"][0]) / (T[f"m{len(sans) - 1}"][1] - T["m0"][0])))
                         cyo = (BOARD_CY - H / 2) * (1 - 1 / zoom)
-                if T["fin"][0] <= tt < T["fin"][1]:
+                if T["fin"][0] <= tt < T["fin"][1] and not reveal:   # no spoiler: invite the comment
+                    lt = tt - T["fin"][0]
+                    R.paste_center(fr, word_img("YOUR MOVE?", 140, YEL), W / 2, BOARD_CY, eob(lt / 0.3), 1, -4)
+                    R.paste_center(fr, R.pill("COMMENT IT BELOW", 46, WHITE, fg=INK, padx=40, pady=16), W / 2, BOARD_CY + 150, eob((lt - 0.4) / 0.3))
+                if T["fin"][0] <= tt < T["fin"][1] and reveal:
                     lt = tt - T["fin"][0]
                     flash = max(flash, 0.35 - lt * 1.5); shake = max(shake, 6 * max(0, 1 - lt / 0.4))
                     d = ImageDraw.Draw(fr)
@@ -591,11 +598,13 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
 
     first = rng.choice(R.TAG_CAPTIONS) if mode == "tagfriend" else f"{h1} {h2}"
     ig = (f"{first}\n{LV['name'].title()} puzzle ({LV['rng']}). {side} to move, {goal_say}.\n\n"
-          + ("Comment the move and tag a friend to challenge them!\n\n" if mode == "tagfriend" else "Comment your move before watching the solution!\n\n")
+          + ("Comment the move and tag a friend to challenge them!\n\n" if mode == "tagfriend" else
+             ("Comment your move before watching the solution!\n\n" if reveal else
+              "Comment your move! The answer drops in the comments tomorrow.\n\n"))
           + "Parents: StreakChess turns chess practice into a fun daily game for kids. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
           + " ".join(R.hashtags(rng)))
     open(out.replace(".mp4", ".txt"), "w").write(ig)
-    return dict(mode=mode, puzzle=P.get("id"), level=P["level"], rating=P.get("rating"), hook=f"{h1} {h2}", sans=sans,
+    return dict(mode=mode, puzzle=P.get("id"), level=P["level"], rating=P.get("rating"), hook=f"{h1} {h2}", sans=sans, reveal=reveal,
                 duration=round(total, 1))
 
 

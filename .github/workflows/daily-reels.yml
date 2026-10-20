@@ -2,8 +2,14 @@ name: Daily reels
 
 on:
   schedule:
-    - cron: "0 16 * * *"   # story reel     -> 12:00 New York (level rotates basic/intermediate/advanced)
-    - cron: "0 23 * * *"   # story tag reel -> 19:00 New York ("tag a friend" challenge)
+    # 9 AM, 1 PM and 5 PM Los Angeles time. GitHub cron is UTC, so both summer (PDT) and winter (PST) hours are
+    # listed; the "gate" job below only lets through the 3 that match Los Angeles time today.
+    - cron: "0 16 * * *"
+    - cron: "0 17 * * *"
+    - cron: "0 20 * * *"
+    - cron: "0 21 * * *"
+    - cron: "0 0 * * *"
+    - cron: "0 1 * * *"
   workflow_dispatch:
     inputs:
       level:
@@ -29,7 +35,36 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    outputs:
+      run: ${{ steps.g.outputs.run }}
+      level: ${{ steps.g.outputs.level }}
+    steps:
+      - id: g
+        shell: python
+        env:
+          SCHED: ${{ github.event.schedule }}
+          MANUAL: ${{ inputs.level }}
+        run: |
+          import os, datetime
+          from zoneinfo import ZoneInfo
+          out = open(os.environ["GITHUB_OUTPUT"], "a")
+          sched = os.environ.get("SCHED", "")
+          if not sched:                                   # manual run
+              out.write(f"run=true\nlevel={os.environ.get('MANUAL') or 'story'}\n"); raise SystemExit
+          h = int(sched.split()[1])                       # the UTC hour this trigger was scheduled for
+          now = datetime.datetime.now(datetime.timezone.utc)
+          planned = now.replace(hour=h, minute=0, second=0, microsecond=0)
+          if planned - now > datetime.timedelta(hours=12): planned -= datetime.timedelta(days=1)
+          local = planned.astimezone(ZoneInfo("America/Los_Angeles")).hour
+          slots = {9: "story", 13: "story", 17: "storytag"}   # 9 AM, 1 PM, 5 PM Pacific
+          print("planned UTC", planned, "-> Los Angeles hour", local)
+          out.write(f"run={'true' if local in slots else 'false'}\nlevel={slots.get(local, 'story')}\n")
+
   reel:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 75
     steps:
@@ -37,13 +72,7 @@ jobs:
 
       - name: Choose slot
         id: lvl
-        run: |
-          case "${{ github.event.schedule }}" in
-            "0 16 * * *") L=story ;;
-            "0 23 * * *") L=storytag ;;
-            *)            L="${{ inputs.level }}" ;;
-          esac
-          echo "level=$L" >> "$GITHUB_OUTPUT"
+        run: echo "level=${{ needs.gate.outputs.level }}" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-python@v6
         with:
@@ -106,6 +135,6 @@ jobs:
         run: |
           git config user.name "reels-bot"
           git config user.email "reels-bot@users.noreply.github.com"
-          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json; do [ -f "$f" ] && git add "$f"; done
+          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json tip_log.json answers_announced.json; do [ -f "$f" ] && git add "$f"; done
           [ -d agents ] && git add agents
           git diff --cached --quiet || (git commit -m "Reel ${{ steps.lvl.outputs.level }} $(date +%F)" && (git push || (git pull --rebase && git push)))

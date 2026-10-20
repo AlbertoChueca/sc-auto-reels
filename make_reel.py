@@ -293,19 +293,19 @@ def pop():
     return (np.sin(2 * np.pi * (300 + 2500 * t) * t) * np.exp(-30 * t) * 0.4).astype(np.float32)
 
 # ---------------------------------------------------------------- variants
-LEVELS = {
-    "basic": dict(name="BEGINNER", rng="800-1200", count=8, color=(70, 190, 130), hooks=[
-        ("EASY... OR IS IT?", "This one looks easy. But most beginners miss it.", "thinking"),
-        ("BEGINNER TEST", "Beginner test. If you're under twelve hundred, this one is for you.", "happy"),
-        ("DON'T BLUNDER THIS", "Don't blunder this one. Beginners, can you find it?", "angry")]),
-    "intermediate": dict(name="INTERMEDIATE", rng="1200-1900", count=10, color=(90, 160, 255), hooks=[
-        ("CLUB PLAYER TEST", "Club players, this one's for you. Can you find the win?", "angry"),
-        ("ONLY 3% SEE IT", "Only three percent of club players find this. Are you one of them?", "thinking"),
-        ("1500+ ONLY", "If you're rated under fifteen hundred, you won't see this. Prove me wrong.", "crown2")]),
-    "advanced": dict(name="ADVANCED", rng="1900-2500", count=12, color=(235, 80, 90), hooks=[
-        ("MASTER LEVEL", "Master level puzzle. Only strong players find this.", "crown3"),
-        ("GRANDMASTER MOVE", "Grandmasters see this in seconds. Do you?", "angry"),
-        ("2000+ ONLY", "This is a two thousand plus puzzle. Think you can crack it?", "thinking")]),
+LEVELS = {   # internal keys kept for compatibility; every puzzle is now 1600+
+    "basic": dict(name="CLUB", rng="1600-1850", count=10, color=(70, 190, 130), hooks=[
+        ("CLUB PLAYER TEST", "Club players, this one's for you. Can you find the win?", "thinking"),
+        ("LOOKS QUIET...", "It looks quiet. It isn't. Find the strongest move.", "happy"),
+        ("DON'T MISS THIS", "One move changes everything. Can you see it?", "angry")]),
+    "intermediate": dict(name="EXPERT", rng="1850-2100", count=12, color=(90, 160, 255), hooks=[
+        ("EXPERT LEVEL", "Expert level. Calculate before you move.", "angry"),
+        ("CALCULATE IT ALL", "Checks, captures, threats. Calculate it to the end.", "thinking"),
+        ("1850+ PUZZLE", "An eighteen fifty plus puzzle. Can you crack it?", "crown2")]),
+    "advanced": dict(name="MASTER", rng="2100-2500", count=14, color=(235, 80, 90), hooks=[
+        ("MASTER LEVEL", "Master level puzzle. Only strong calculators find this.", "crown3"),
+        ("DEEP CALCULATION", "This one needs deep calculation. Take your time.", "angry"),
+        ("2100+ ONLY", "A twenty one hundred plus puzzle. Think you can crack it?", "thinking")]),
 }
 
 def logo_glow(path, width, glow=60):

@@ -62,6 +62,15 @@ SEASON {season} ARC: {arc}
 This is episode {episode}. Recent episodes (continue the journey naturally, NEVER repeat their plot, place or gag):
 {recent}
 
+THIS IS A SERIALISED SHOW: every episode is the next chapter of one big story.
+- LAST EPISODE ("{prev_title}"): {previously}
+- It ended teasing: {teaser}
+Start today's episode as a direct continuation of that (pay off the teaser), move the season arc forward,
+and end today's story with a new small teaser for tomorrow (in the "teaser" field, not in the narration).
+
+TODAY'S LESSON (a real calculation habit; one character teaches it naturally inside the story and Vektor must use it
+to solve today's puzzle): {lesson_name} - {lesson_idea}
+
 TODAY'S EPISODE PLAN (mandatory, this guarantees variety):
 - Format: {format}
 - Spotlight character (must have a real role and a memorable moment): {spotlight}{extra}
@@ -98,9 +107,13 @@ Rules:
   suspense", "excited, almost laughing", "warm and proud", "worried, then hopeful").
 - summary: one sentence describing what happened in this episode (for continuity).
 - caption_hook: short Instagram first line inviting kids to help Vektor (max 10 words, one emoji allowed).
+- previously: max 9 words recap of the last episode for an on-screen "Previously" label ("" for episode 1).
+- lesson_line: max 7 words on-screen version of today's lesson (e.g. "Check every capture first").
+- lesson_scene: 1, 2 or 3 = the scene where the lesson is taught.
+- teaser: one sentence about what will happen next episode (a cliffhanger that makes people follow).
 - screen_hook: the BIG on-screen text shown in the first 2 seconds (max 6 words, no emoji): a curiosity gap that
   stops the scroll (e.g. "Vektor has 10 seconds left", "His rival found a trap").
-Return JSON: {{"title": str, "summary": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str, "delivery": str}}], "caption_hook": str, "screen_hook": str}}"""
+Return JSON: {{"title": str, "summary": str, "scenes": [{{"narration": str, "image_prompt": str, "camera": str, "sfx": str, "delivery": str}}], "caption_hook": str, "screen_hook": str, "previously": str, "lesson_line": str, "lesson_scene": int, "teaser": str}}"""
 
 
 # ----------------------------------------------------------------- Gemini
@@ -128,7 +141,9 @@ def write_story(level, side, goal, avoid, episode=1, recent=(), arms=None, ep=No
                 character=CHARACTER, world=WORLD, level=level, side=side, goal=goal, episode=episode,
                 cast=series.cast_sheet(), season=ep["season"], arc=ep["arc"], format=ep["format"],
                 spotlight=ep["spotlight"], extra=(f" (also appearing: {ep['extra']})" if ep.get("extra") else ""),
-                setting=ep["setting"],
+                setting=ep["setting"], prev_title=ep.get("prev_title") or "none (this is the pilot)",
+                previously=ep.get("previously") or "nothing yet, this is the first episode",
+                teaser=ep.get("teaser") or "nothing yet", lesson_name=ep["lesson"][1], lesson_idea=ep["lesson"][2],
                 playbook=("WHAT WORKS FOR OUR AUDIENCE (from real results):\n" + pb) if pb else "",
                 hook_style=arms.get("hook_style", "your best idea"), theme=arms.get("theme", "your best idea"),
                 words=strategy.WORDS.get(arms.get("story_length"), "24-34"),
@@ -180,7 +195,8 @@ def mock_story(rng):
                 ("Day three hundred of Vektor's training.", poses[0], "push_in", "none"),
                 ("Then the alarm didn't ring.", poses[1], "shake", "boom"),
                 ("Eleven fifty-nine. One puzzle left.", poses[2], "pan_left", "whoosh"),
-                ("Can you help Vektor find the move?", poses[3], "push_in", "boom")], ["proud, cozy", "sudden panic", "hushed, tense", "slow, dramatic reveal"])]}
+                ("Can you help Vektor find the move?", poses[3], "push_in", "boom")], ["proud, cozy", "sudden panic", "hushed, tense", "slow, dramatic reveal"])], "previously": "Vektor lost his first blitz to Bishop Blaze", "lesson_line": "Check every capture first",
+            "lesson_scene": 2, "teaser": "Mister Zugzwang has a new trap ready."}
 
 
 def mock_image(pose, i):
@@ -191,6 +207,18 @@ def mock_image(pose, i):
     m = Image.open(os.path.join(HERE, "assets", "mascot", f"{pose}.png")).convert("RGBA").resize((760, 760))
     im.paste(m, (70, 520), m)
     return im
+
+
+def fit_pill(text, size, bg, fg, maxw=980):
+    """Pill label that shrinks to fit the width; never cuts a word in half."""
+    words = text.upper().split()
+    while True:
+        for n in range(len(words), 0, -1):
+            t = " ".join(words[:n]) + ("..." if n < len(words) else "")
+            im = R.pill(t, size, bg, fg=fg, padx=int(size * 0.8), pady=int(size * 0.32))
+            if im.width <= maxw and (n == len(words) or size <= 24):
+                return im
+        size -= 2
 
 
 # ----------------------------------------------------------------- animation
@@ -317,7 +345,7 @@ def build(P, seed, out, mode="level", arms=None):
         story_len = sum(max(len(a) / SR + 0.35, 2.0) for a in A) + 0.3
         return HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
                         cta_lead="You helped Vektor get stronger! ", think_factor=think, style=st,
-                        max_len=MAX_TOTAL - story_len)
+                        max_len=MAX_TOTAL - story_len, reveal=arms.get("reveal", "in_video") != "comments")
 
     for attempt in range(3):
         try:
@@ -362,7 +390,15 @@ def build(P, seed, out, mode="level", arms=None):
         wav = out.replace(".mp4", "_s.wav"); sf.write(wav, mix, SR)
         cy = int(min(max(st.get("story_caption_y", 1270), 1000), HY.SAFE_BOTTOM - 120))
         # ---- top block layout (measured, never overlapping): badge, then the hook (max 2 lines)
-        badge = R.pill(f"VEKTOR · DAY {episode}", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
+        badge = R.pill(f"VEKTOR · EPISODE {episode}", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
+        prev_txt = (story.get("previously") or "").strip()
+        prev_pill = fit_pill("PREVIOUSLY: " + prev_txt, 32, (20, 16, 28), HY.WHITE) if prev_txt else None
+        try:
+            lesson_scene = int(story.get("lesson_scene") or 2)
+        except Exception:
+            lesson_scene = 2
+        lesson_txt = (story.get("lesson_line") or ep["lesson"][1]).strip()
+        lesson_pill = fit_pill("TIP: " + lesson_txt, 40, HY.YEL, HY.INK)
         badge_y = HY.SAFE_TOP + badge.height // 2
         hook_img = hook_y = None
         HOOK_T = 2.3                                    # the hook is the only big text on screen while shown
@@ -401,6 +437,10 @@ def build(P, seed, out, mode="level", arms=None):
                 R.paste_center(fr, ph, W / 2, cy)
             if i == 0 and lt < 2.6:   # series badge (always above the hook, measured)
                 R.paste_center(fr, badge, W / 2, badge_y, HY.eob(lt / 0.3))
+            elif prev_pill is not None and i != lesson_scene and HOOK_T + 0.3 <= t < HOOK_T + 3.2:   # "previously on..."
+                R.paste_center(fr, prev_pill, W / 2, HY.SAFE_TOP + 30, HY.eob((t - HOOK_T - 0.3) / 0.3))
+            if i == lesson_scene and i < len(scenes):     # the calculation lesson, on screen
+                R.paste_center(fr, lesson_pill, W / 2, HY.SAFE_TOP + 40, HY.eob(lt / 0.3))
             proc.stdin.write(HY.grain(fr, fi))
         proc.stdin.close(); proc.wait(); os.remove(wav)
 
@@ -419,7 +459,9 @@ def build(P, seed, out, mode="level", arms=None):
             meta = render_puzzle(style)            # voice takes are cached: no new recording
             render_story(style); join()
     cap_old = open(puzzle_mp4.replace(".mp4", ".txt")).read().split("\n", 1)[1]
-    caption = f"{story.get('caption_hook', story['title'])}\n{cap_old}"
+    tip_line = f"📌 Today's calculation tip: {ep['lesson'][1]}. {ep['lesson'][2]}"
+    nxt = f"\n👀 Next episode: {story['teaser']} Follow so you don't miss it." if story.get("teaser") else ""
+    caption = f"{story.get('caption_hook', story['title'])}\n{tip_line}{nxt}\n{cap_old}"
     review = {}
     if review_on:                                   # 2nd agent: watch the finished reel, polish the caption
         caption, review = reviewer.review_video(out, story, caption)   # raises RejectReel if clearly broken
@@ -429,7 +471,8 @@ def build(P, seed, out, mode="level", arms=None):
         if os.path.exists(f): os.remove(f)
     if not mock:
         log.append({"title": story["title"], "summary": story.get("summary", ""), "puzzle": P.get("id"),
-                    "format": ep["format"], "spotlight": ep["spotlight"], "setting": ep["setting"]})
+                    "format": ep["format"], "spotlight": ep["spotlight"], "setting": ep["setting"],
+                    "lesson": ep["lesson"][0], "teaser": story.get("teaser", "")})
         json.dump(log[-200:], open(STORY_LOG, "w"), indent=0)
         for k, im in enumerate(imgs):
             im.save(out.replace(".mp4", f"_scene{k + 1}.jpg"), quality=88)

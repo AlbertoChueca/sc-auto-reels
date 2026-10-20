@@ -81,7 +81,13 @@ def plan(log, seed):
     spot = rng.choice([n for n in names if n not in used_s] or names)
     setting = rng.choice([x for x in SETTINGS if x not in used_set] or SETTINGS)
     extra = rng.choice([n for n in names if n != spot]) if rng.random() < 0.5 else None
-    return {"format": fmt, "spotlight": spot, "extra": extra, "setting": setting, "arc": s["arc"], "season": s["season"]}
+    from make_tip import TIPS                        # every episode teaches one real calculation habit
+    used_l = [e.get("lesson") for e in log[-6:]]
+    lesson = rng.choice([t for t in TIPS if t[0] not in used_l] or TIPS)
+    prev = log[-1] if log else {}
+    return {"format": fmt, "spotlight": spot, "extra": extra, "setting": setting, "arc": s["arc"], "season": s["season"],
+            "lesson": lesson, "previously": prev.get("summary", ""), "teaser": prev.get("teaser", ""),
+            "prev_title": prev.get("title", "")}
 
 
 def cast_sheet(names=None):
