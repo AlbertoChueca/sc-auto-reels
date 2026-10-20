@@ -28,6 +28,8 @@ TIP_STEPS = {
     "loose": ["loose", "captures", "candidates"], "count": ["count", "captures", "candidates"],
     "king": ["king", "checks", "candidates"], "end": ["checks", "captures", "candidates"],
     "threat": ["their_threats", "loose", "candidates"], "overload": ["overload", "captures", "candidates"],
+    "pin": ["pins", "candidates"], "xray": ["lines", "candidates"], "fork": ["loose", "candidates"],
+    "sac": ["king", "candidates"], "deflect": ["overload", "candidates"],
     "visual": ["checks", "captures", "candidates"], "slow": ["their_threats", "checks", "candidates"],
 }
 
@@ -143,7 +145,21 @@ def _ranked_candidates(b, n=3):
     return out
 
 
-def step_facts(b, kind):
+OPT_COL = [(212, 175, 106), (122, 170, 226), (176, 140, 230), (110, 188, 140)]     # A gold, B blue, C violet, D green
+
+
+def options(b, solution, n=4, seed=0):
+    """The 4 candidate moves shown in the lesson AND asked in the puzzle (A-D). Always contains the solution, the
+    others are the most forcing alternatives; the order is shuffled so the answer is not always A."""
+    import random as _r
+    ms = [m for m in _ranked_candidates(b, n + 3) if m != solution][: n - 1]
+    if solution is not None and solution in b.legal_moves:
+        ms.append(solution)
+    _r.Random(f"{b.fen()}-{seed}").shuffle(ms)
+    return ms[:n]
+
+
+def step_facts(b, kind, options=None):
     """One lesson step: what to draw and the true facts to narrate."""
     me, opp = _side(b.turn), _side(not b.turn)
     s = {"kind": kind, "arrows": [], "rings": [], "chips": [], "badges": []}
@@ -263,15 +279,53 @@ def step_facts(b, kind):
         s["fact"] = f"One {opp} {PN[b.piece_at(sq).piece_type]} is the only defender of {nw(len(g))} attacked pieces."
         s["say"] = (f"This {PN[b.piece_at(sq).piece_type]} guards {nw(len(g))} pieces alone. "
                     f"It cannot do both jobs.")
+    elif kind == "pins":
+        pins = []
+        for sq, p in b.piece_map().items():
+            if p.color != b.turn and p.piece_type != chess.KING and b.is_pinned(p.color, sq):
+                ray = [x for x in b.pin(p.color, sq) if b.piece_at(x) and b.piece_at(x).color == b.turn
+                       and b.piece_at(x).piece_type in (chess.BISHOP, chess.ROOK, chess.QUEEN)]
+                if ray: pins.append((ray[0], sq, b.king(p.color)))
+        if not pins:
+            return step_facts(b, "loose")
+        s.update(title="PINS", count=f"{len(pins)} PINNED", color=C_THREAT,
+                 arrows=[(a, k, C_THREAT) for a, sq, k in pins[:3]], rings=[(sq, C_CHECK) for a, sq, k in pins[:3]],
+                 chips=[f"{PN[b.piece_at(sq).piece_type].upper()} {chess.square_name(sq)} PINNED" for a, sq, k in pins[:3]])
+        nm = PN[b.piece_at(pins[0][1]).piece_type]
+        s["fact"] = f"The {opp} {nm} is pinned to its king: it cannot move, so it does not really defend."
+        s["say"] = f"That {nm} is pinned. It looks like a defender, but it cannot move. Count it as zero."
+    elif kind == "lines":
+        xr = []
+        for sq, p in b.piece_map().items():
+            if p.color != b.turn or p.piece_type not in (chess.BISHOP, chess.ROOK, chess.QUEEN):
+                continue
+            for d in ([1, -1, 8, -8] if p.piece_type == chess.ROOK else [7, 9, -7, -9] if p.piece_type == chess.BISHOP
+                      else [1, -1, 8, -8, 7, 9, -7, -9]):
+                x, hit = sq, []
+                while True:
+                    f0 = chess.square_file(x); x += d
+                    if not 0 <= x < 64 or abs(chess.square_file(x) - f0) > 1: break
+                    if b.piece_at(x): hit.append(x)
+                    if len(hit) == 2: break
+                if len(hit) == 2 and b.piece_at(hit[1]).color != b.turn and \
+                        VAL[b.piece_at(hit[1]).piece_type] >= 3:
+                    xr.append((sq, hit[0], hit[1]))
+        if not xr:
+            return step_facts(b, "king")
+        s.update(title="HIDDEN LINES", count=f"{len(xr)} X-RAY{'S' if len(xr) != 1 else ''}", color=C_CAND,
+                 arrows=[(a, t, C_CAND) for a, mid, t in xr[:3]], rings=[(mid, C_LOOSE) for a, mid, t in xr[:3]],
+                 chips=[f"{PN[b.piece_at(a).piece_type].upper()} → {PN[b.piece_at(t).piece_type].upper()}" for a, mid, t in xr[:3]])
+        s["fact"] = (f"{me} has {plural(len(xr), 'line')} where one piece stands between a long-range piece and a "
+                     f"valuable target: if it moves or is removed, the line opens.")
+        s["say"] = "Look through the pieces, not at them. One piece is blocking a line. Move it, and the line explodes."
     elif kind == "candidates":
-        ms = _ranked_candidates(b, 3)
+        ms = options or _ranked_candidates(b, 4)
         s.update(title="CANDIDATES", count=f"{len(ms)} CANDIDATE{'S' if len(ms) != 1 else ''}", color=C_CAND,
-                 arrows=[(m.from_square, m.to_square, C_CAND) for m in ms],
-                 badges=[(m.to_square, str(k + 1)) for k, m in enumerate(ms)],
-                 chips=[f"{k + 1}. {_san(b, m)}" for k, m in enumerate(ms)], moves=ms)
-        s["fact"] = f"The {plural(len(ms), 'candidate move')} to calculate, most forcing first."
-        s["say"] = (f"Pick {nw(len(ms))} candidates, most forcing first. "
-                    f"Calculate each one to the end, then choose.")
+                 arrows=[(m.from_square, m.to_square, OPT_COL[k % 4]) for k, m in enumerate(ms)],
+                 badges=[(m.to_square, "ABCD"[k]) for k, m in enumerate(ms)],
+                 chips=[f"{'ABCD'[k]}  {_san(b, m)}" for k, m in enumerate(ms)], moves=ms)
+        s["fact"] = f"The {plural(len(ms), 'candidate move')} worth calculating, labelled A to D."
+        s["say"] = (f"{nw(len(ms)).capitalize()} candidates, A to D. Calculate each one to the end before you choose.")
     return s
 
 
@@ -301,32 +355,54 @@ def hide_solution(s, hide):
     return s
 
 
-def lesson_steps(b, tip_key, n=3, hide=None):
+def lesson_steps(b, tip_key, n=2, hide=None):
     kinds = TIP_STEPS.get(tip_key, ["checks", "captures", "candidates"])
     if n < len(kinds):                      # compact version keeps the first step and the candidates
         kinds = [kinds[0], kinds[-1]] if n == 2 else kinds[:n]
-    steps = [hide_solution(step_facts(b, k), hide) for k in kinds]
-    for i, s in enumerate(steps):
-        s["say"] = f"Step {nw(i + 1)}, {s['title'].lower()}. " + s["say"]
+    opts = options(b, hide) if hide is not None else None
+    steps = [hide_solution(step_facts(b, k, opts) if k == "candidates" else step_facts(b, k), hide) for k in kinds]
     return steps
 
 
 # ------------------------------------------------------------------ narration (Gemini, from the computed facts)
-PROMPT = """You are a strong chess coach recording a premium, technical calculation lesson for club players (1600+).
-The lesson: {name} - {idea}
+PROMPT = """You are a brilliant, funny chess coach recording a short calculation lesson for a vertical reel
+(chess players of every age, club level). The lesson: {name} - {idea}
 The position: {me} to move. These facts are COMPUTED by an engine - use them exactly, do not add others:
 {facts}
 Write narration: {intro}one line per step ({n} lines){outro}.
-Rules: each line {words} words, spoken style, confident and precise, numbers as words, NO square names or notation
-(the notation is on screen), no invented statistics, no hype words like 'insane'. Each step line starts with
-'Step one', 'Step two'... and explains HOW to do that step and what it shows here.
+GOAL: the viewer learns HOW to calculate (a concrete action they can repeat in their own games) AND has fun.
+Rules: each line {words} words, spoken style, witty and vivid (a metaphor, a playful image, a tiny joke is welcome),
+precise chess, numbers as words, NO square names or notation (the notation is on screen), no invented facts or
+statistics, no hype words like 'insane'. Do NOT start lines with 'Step one/two' (the screen shows the step).
+Never give away which candidate wins. Each line explains what to DO in this position and why it matters here.
+Be ORIGINAL: do not reuse these lines or their structure from our recent reels:
+{recent}
 Return JSON: {{{keys}}}"""
+
+LINES_LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lesson_lines.json")
+
+
+def _recent_lines(n=24):
+    try:
+        import json as _j
+        return _j.load(open(LINES_LOG))[-n:]
+    except Exception:
+        return []
+
+
+def remember_lines(lines):
+    """Keep the last spoken lesson lines so tomorrow's lesson sounds different."""
+    try:
+        import json as _j
+        _j.dump((_recent_lines(200) + [l for l in lines if l])[-120:], open(LINES_LOG, "w"), indent=0)
+    except Exception:
+        pass
 
 
 def write_lines(steps, tip, me, intro=True, mock=False):
     fallback = {"intro": f"Strong players never guess. They run the same checklist every move: {tip[1].lower()}.",
                 "steps": [s["say"] for s in steps],
-                "outro": "Your turn. Calculate your candidates and find the winning move." if intro else "Your turn. Calculate!"}
+                "outro": "Your turn. Four candidates, one winner. Calculate!" if intro else "Your turn. Calculate!"}
     if mock:
         return fallback
     facts = "\n".join(f"Step {i + 1} ({s['title'].lower()}): {s['fact']}" for i, s in enumerate(steps))
@@ -335,6 +411,7 @@ def write_lines(steps, tip, me, intro=True, mock=False):
         import reviewer
         res = reviewer._ask([{"text": PROMPT.format(name=tip[1], idea=tip[2], me=me, facts=facts, n=len(steps),
                                                     words="8-15" if intro else "7-12",
+                                                    recent="\n".join("- " + l for l in _recent_lines()) or "- (none yet)",
                                                     intro="one hook line on why this method matters, then " if intro else "",
                                                     outro=", then one short line handing over to the puzzle", keys=keys)}], 0.6)
         st = [l.strip() for l in res.get("steps", []) if isinstance(l, str)]
@@ -343,7 +420,9 @@ def write_lines(steps, tip, me, intro=True, mock=False):
                or re.search(r"\b[a-h][1-8]\b|\d|%|percent", " ".join(lines)))
         if bad:
             raise RuntimeError("lesson lines invalid")
-        return {"intro": res.get("intro", fallback["intro"]) if intro else "", "steps": st, "outro": res["outro"]}
+        out = {"intro": res.get("intro", fallback["intro"]) if intro else "", "steps": st, "outro": res["outro"]}
+        remember_lines([out["intro"]] + st + [out["outro"]])
+        return out
     except Exception as e:
         print("lesson narration: using computed fallback lines (", str(e)[:120], ")", flush=True)
         return fallback
@@ -372,10 +451,15 @@ def ring(im, sq, flip, color, pulse):
     im.alpha_composite(ov)
 
 
-def num_badge(im, sq, flip, txt, color, s=1.0):
+CORNERS = [(R.SQ - 26, 26), (26, 26), (26, R.SQ - 26), (R.SQ - 26, R.SQ - 26)]
+
+
+def num_badge(im, sq, flip, txt, color, s=1.0, slot=0):
+    """Letter badge on a square; slot picks another corner when two options land on the same square."""
     x, y = R.sq_xy(sq, flip); r = int(30 * s)
     if r < 3: return
-    cx, cy = x + R.SQ - 26, y + 26
+    ox, oy = CORNERS[slot % 4]
+    cx, cy = x + ox, y + oy
     d = ImageDraw.Draw(im)
     d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color + (255,), outline=(245, 240, 230, 255), width=3)
     t = R.text_img(txt, int(34 * s), (255, 255, 255))
@@ -447,9 +531,11 @@ def board_overlay(base, step, lt, flip, show_all=False):
         p = 1.0 if show_all else R.ease_out((lt - ARROW_T0 - ARROW_DT * k) / ARROW_GROW)
         if p > 0:
             arrow_partial(im, f, t, flip, col, p)
+    seen = {}
     for k, (sq, txt) in enumerate(step.get("badges", [])):
         s = 1.0 if show_all else R.ease_out_back(R.clamp((lt - ARROW_T0 - ARROW_DT * k - ARROW_GROW) / 0.25))
-        num_badge(im, sq, flip, txt, C_CAND, s)
+        col = OPT_COL["ABCD".index(txt) % 4] if txt in "ABCD" else C_CAND
+        num_badge(im, sq, flip, txt, col, s, seen.get(sq, 0)); seen[sq] = seen.get(sq, 0) + 1
     return im
 
 

@@ -138,6 +138,6 @@ jobs:
         run: |
           git config user.name "reels-bot"
           git config user.email "reels-bot@users.noreply.github.com"
-          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json tip_log.json answers_announced.json; do [ -f "$f" ] && git add "$f"; done
+          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json tip_log.json lesson_lines.json answers_announced.json; do [ -f "$f" ] && git add "$f"; done
           [ -d agents ] && git add agents
           git diff --cached --quiet || (git commit -m "Batch reel ${{ matrix.item.i }} $(date +%F)" && (git push || (git pull --rebase && git push)))

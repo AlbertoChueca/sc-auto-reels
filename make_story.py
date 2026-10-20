@@ -72,6 +72,9 @@ and end today's story with a new small teaser for tomorrow (in the "teaser" fiel
 
 TODAY'S LESSON (a real calculation habit; one character teaches it naturally inside the story and Vektor must use it
 to solve today's puzzle): {lesson_name} - {lesson_idea}
+Make the story a playful VISUAL METAPHOR of this idea (e.g. a pinned piece = a character stuck to a magnet and unable
+to help; an overloaded defender = a waiter juggling two tables), so the viewer understands the calculation idea
+through the story and remembers it. Fun first, but the idea must be clear.
 
 TODAY'S EPISODE PLAN (mandatory, this guarantees variety):
 - Format: {format}
@@ -334,6 +337,8 @@ def build(P, seed, out, mode="level", arms=None):
               f"spotlight: {s.get('spotlight', '?')}, setting: {s.get('setting', '?')}]" for s in log[-6:]]
     import series
     ep = series.plan(log, f"{P.get('id')}-{seed}")
+    import make_tip                                 # today's lesson comes from this puzzle's own themes
+    ep["lesson"] = make_tip.pick_tip(f"{P.get('id')}-{seed}", P, [e.get("lesson") for e in log[-8:]])
     print(f"episode plan: {ep['format'].split(':')[0]} | spotlight {ep['spotlight']} | {ep['setting']}", flush=True)
     story = mock_story(rng) if mock else write_story(LV["name"].title(), side, goal, [s["title"] for s in log],
                                                      episode, recent, arms, ep)

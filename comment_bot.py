@@ -78,10 +78,10 @@ def got_it(text, first_move):
 
 
 def ab_pick(text):
-    """'A' or 'B' when the comment answers an A-or-B reel ("A", "b!", "option B", "I think A"), else None."""
+    """'A'-'D' when the comment answers a lettered reel ("A", "c!", "option B", "I think D"), else None."""
     t = text.strip()
-    m = re.search(r"\b(?:option|move|answer|choice)\s*([AB])\b", t, re.I) or re.fullmatch(r"\W*([AaBb])\W*", t) \
-        or (len(t.split()) <= 4 and re.search(r"(?<![\w'])([AB])(?![\w'])(?!\s+\w{3,})", t))
+    m = re.search(r"\b(?:option|move|answer|choice|candidate)\s*([A-D])\b", t, re.I) or re.fullmatch(r"\W*([A-Da-d])\W*", t) \
+        or (len(t.split()) <= 4 and re.search(r"(?<![\w'])([A-D])(?![\w'])(?!\s+\w{3,})", t))
     return m.group(1).upper() if m else None
 
 

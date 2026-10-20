@@ -331,27 +331,29 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     numw = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
             "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen"][min(COUNT, 18)]
 
-    # A or B: the winning first move vs. the most tempting other candidate (a real check/capture/threat when there is one)
+    # A, B, C or D: the same four candidates the lesson just showed (one of them wins)
     AB = None
     if not reveal and moves:
         try:
             import lesson_anim as _LA
-            cands = [m for m in _LA._ranked_candidates(board, 6) if m != moves[0]]
-            if cands:
-                dec = cands[0]; ab_letter = rng.choice("AB")
-                AB = {"A": moves[0] if ab_letter == "A" else dec, "B": dec if ab_letter == "A" else moves[0],
-                      "correct": ab_letter}
-                AB["san"] = {k: board.san(AB[k]) for k in "AB"}
+            opts = _LA.options(board, moves[0])
+            if len(opts) >= 2 and moves[0] in opts:
+                L_ = "ABCD"[:len(opts)]
+                AB = {L_[k]: m for k, m in enumerate(opts)}
+                AB["correct"] = L_[opts.index(moves[0])]; AB["letters"] = L_
+                AB["san"] = {k: board.san(AB[k]) for k in L_}
         except Exception as e:
-            print("A/B choice skipped:", str(e)[:120], flush=True)
-    ask = "Down to the final two. Move A, or move B?" if AB else f"Find {goal_say}."
+            print("A-D choice skipped:", str(e)[:120], flush=True)
+    LETTERS = AB["letters"] if AB else ""
+    say_opts = (", ".join(LETTERS[:-1]) + ", or " + LETTERS[-1]) if len(LETTERS) > 1 else ""
+    ask = f"Which candidate wins? {say_opts}?" if AB else f"Find {goal_say}."
     lines = ([] if skip_hook else [("h1", h1), ("h2", h2)]) + [
              ("lvl", f"{LV['name'].title()} level. {side} to move. {ask}"),
              ("go", f"{numw.capitalize()} seconds. Go!"),
              ("up", "Time's up!")]
     shown = sans if reveal else []            # reveal=False: the answer goes in the comments (more comments!)
     lines += [(f"m{i}", R.san_say(s)) for i, s in enumerate(shown)]
-    lines += [("fin", finale if reveal else ("A or B? Comment your answer. We reveal it tomorrow!" if AB else
+    lines += [("fin", finale if reveal else (f"{say_opts}? Comment your letter. We reveal it tomorrow!" if AB else
                                              "What's your move? Comment it. We reveal it tomorrow!")),
               ("cta", (cta_lead or ("Send this to a friend and see who's faster! " if mode == "tagfriend" else ""))
                + "Train free every day on StreakChess. Link in bio.")]
@@ -469,9 +471,14 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
         im = R.draw_board(board, flip, (last.from_square, last.to_square))
         if AB and p > 0:
             import lesson_anim as _LA
-            for k, col in (("A", YEL), ("B", (122, 170, 226))):
-                m = AB[k]; _LA.arrow_partial(im, m.from_square, m.to_square, flip, col, min(1, p * 1.4), 20)
-                _LA.num_badge(im, m.to_square, flip, k, col, 1.4 * min(1, p))
+            for n_, k in enumerate(LETTERS):
+                m = AB[k]; col = _LA.OPT_COL[n_ % 4]
+                _LA.arrow_partial(im, m.from_square, m.to_square, flip, col, min(1, p * 1.4), 18)
+            seen = {}
+            for n_, k in enumerate(LETTERS):
+                sq = AB[k].to_square
+                _LA.num_badge(im, sq, flip, k, _LA.OPT_COL[n_ % 4], 1.25 * min(1, p), seen.get(sq, 0))
+                seen[sq] = seen.get(sq, 0) + 1
         return R.card(im)
 
     def board_card(tt):
@@ -577,7 +584,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                     R.paste_center(fr, ring, 820, 318, 1 + (0.04 if remain <= 3 else 0.0) * max(0, 1 - ph * 5))
                     zoom = 1.0   # board stays perfectly still while the viewer thinks
                     cap = word_img("PAUSE IF YOU NEED TIME" if lt < COUNT / 2 else
-                                   ("COMMENT A OR B!" if AB else "COMMENT YOUR MOVE!"), 54, WHITE, 7)
+                                   (f"COMMENT {' · '.join(LETTERS)}!" if AB else "COMMENT YOUR MOVE!"), 54, WHITE, 7)
                     R.paste_center(fr, cap, W / 2, 1448, eo(((lt % (COUNT / 2))) / 0.4))
                 if T["up"][0] <= tt < T["up"][1]:
                     lt = tt - T["up"][0]; flash = max(0, 0.3 - lt * 1.5); shake = 5 * max(0, 1 - lt / 0.3)
@@ -599,7 +606,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                     plate = Image.new("RGBA", (860, 330), (0, 0, 0, 0))
                     ImageDraw.Draw(plate).rounded_rectangle([0, 0, 859, 329], 36, fill=(10, 10, 18, 225), outline=YEL + (200,), width=2)
                     R.paste_center(fr, plate, W / 2, BOARD_CY + 60, 1, a_)
-                    R.paste_center(fr, word_img("A OR B?" if AB else "YOUR MOVE?", 130, YEL), W / 2, BOARD_CY, 1, a_)
+                    R.paste_center(fr, word_img(f"{'·'.join(LETTERS)}?" if AB else "YOUR MOVE?", 120, YEL), W / 2, BOARD_CY, 1, a_)
                     R.paste_center(fr, R.pill("COMMENT IT BELOW", 46, WHITE, fg=INK, padx=40, pady=16), W / 2, BOARD_CY + 140, 1, eo((lt - 0.4) / 0.4))
                 if T["fin"][0] <= tt < T["fin"][1] and reveal:
                     lt = tt - T["fin"][0]
@@ -663,12 +670,12 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     ig = (f"{first}\n{LV['name'].title()} level puzzle. {side} to move, {goal_say}.\n\n"
           + ("Comment the move and tag a friend to challenge them!\n\n" if mode == "tagfriend" else
              ("Comment your move before watching the solution!\n\n" if reveal else
-              ("Which move wins: A or B? Comment your answer! We reveal it in the comments tomorrow.\n\n" if AB else
+              (f"Which candidate wins: {say_opts}? Comment your letter! We reveal it in the comments tomorrow.\n\n" if AB else
                "Comment your move! The answer drops in the comments tomorrow.\n\n")))
           + "For every chess player, kids and adults: StreakChess turns calculation practice into a daily game. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
           + " ".join(R.hashtags(rng)))
     open(out.replace(".mp4", ".txt"), "w").write(ig)
-    ab_meta = {"A": AB["san"]["A"], "B": AB["san"]["B"], "correct": AB["correct"]} if AB else None
+    ab_meta = {**AB["san"], "correct": AB["correct"]} if AB else None
     return dict(mode=mode, puzzle=P.get("id"), level=P["level"], rating=P.get("rating"), hook=f"{h1} {h2}", sans=sans, reveal=reveal, ab=ab_meta,
                 duration=round(total, 1))
 

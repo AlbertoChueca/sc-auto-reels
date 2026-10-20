@@ -122,53 +122,40 @@ _ALIASES = {"victor": "Vektor", "vector": "Vektor", "vecktor": "Vektor", "zugswa
 
 
 def align(a, text):
-    """Subtitles = exactly what the voice SAYS, with the script's spelling where the words match.
-    Timings and words come from speech recognition (Whisper). Script spelling is kept for words the voice really
-    said (so names like Vektor, Zugzwang, Pip are written right); words the voice skipped are not shown, and
-    words it added are shown. Without speech recognition we fall back to timing proportional to characters."""
+    """Subtitles = the SCRIPT's words (never a misheard word like 'Lincoln bio'), timed by speech recognition.
+    Matched words take the time the voice said them; script words in a mismatched stretch are spread over the
+    time of that stretch; skipped words are interpolated between their neighbours. Without speech recognition we
+    fall back to timing proportional to characters."""
     import difflib
     ws = text.split()
     heard = _asr(a)
-    if heard:
+    if heard and ws:
         ALIGN_STATS["asr"] += 1
         hn = [_norm(w) for w, _, _ in heard]
         sn = [_norm(w) for w in ws]
-        out = []
+        tt = [None] * len(ws)
         sm = difflib.SequenceMatcher(None, sn, hn, autojunk=False)
         for op, i1, i2, j1, j2 in sm.get_opcodes():
-            skip = set()
-            if op == "replace":                              # two heard words = one script word ("Street chats" = "StreakChess")
-                for j in range(j1, j2 - 1):
-                    jn = hn[j] + hn[j + 1]
-                    for i in range(i1, i2):
-                        if jn[:3] == sn[i][:3] and difflib.SequenceMatcher(None, jn, sn[i]).ratio() >= 0.6:
-                            heard[j] = (ws[i], heard[j][1], heard[j + 1][2]); hn[j] = sn[i]; skip.add(j + 1); break
-            for j in range(j1, j2):
-                if j in skip:
-                    continue
-                hw, st, _ = heard[j]
-                word = hw
-                if op == "equal":
-                    word = ws[i1 + (j - j1)]
-                elif op == "replace":
-                    pair = None                              # one heard word = two script words ("Lincoln" = "link in")
-                    for i in (range(i1, i2 - 1) if hn[j] not in sn[i1:i2] else ()):
-                        jn = sn[i] + sn[i + 1]
-                        if jn[:3] == hn[j][:3] and difflib.SequenceMatcher(None, jn, hn[j]).ratio() >= 0.6:
-                            pair = i; break
-                    if pair is not None:
-                        out.append((st, ws[pair])); out.append((st + 0.12, ws[pair + 1])); continue
-                    best, br = None, 0.0                     # closest script word in the replaced span
-                    for i in range(i1, i2):
-                        r = difflib.SequenceMatcher(None, sn[i], hn[j]).ratio()
-                        if _spoken(ws[i]) == _spoken(hw): r = 1.0
-                        if r > br: best, br = ws[i], r
-                    if best is not None and br >= 0.6:
-                        word = best
-                alias = _ALIASES.get(_norm(word))
-                if alias and alias.lower() in text.lower():
-                    word = re.sub(r"[A-Za-z]+", alias, word, count=1)
-                out.append((st, word))
+            if op == "equal":
+                for k in range(i2 - i1):
+                    tt[i1 + k] = heard[j1 + k][1]
+            elif op == "replace":
+                t0, t1 = heard[j1][1], heard[j2 - 1][2]
+                n = i2 - i1
+                for k in range(n):
+                    tt[i1 + k] = t0 + (t1 - t0) * k / max(1, n)
+        dur = len(a) / SR
+        for k in range(len(ws)):                              # words the voice skipped: interpolate
+            if tt[k] is None:
+                prev = next((tt[q] for q in range(k - 1, -1, -1) if tt[q] is not None), 0.0)
+                nxt = next((tt[q] for q in range(k + 1, len(ws)) if tt[q] is not None), dur)
+                tt[k] = prev + (nxt - prev) * 0.5
+        out = []
+        for k, w in enumerate(ws):
+            alias = _ALIASES.get(_norm(w))
+            if alias and alias.lower() in text.lower():
+                w = re.sub(r"[A-Za-z]+", alias, w, count=1)
+            out.append((tt[k], w))
         for k in range(1, len(out)):                         # keep order
             if out[k][0] < out[k - 1][0] + 0.04:
                 out[k] = (out[k - 1][0] + 0.04, out[k][1])

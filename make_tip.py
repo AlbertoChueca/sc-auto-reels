@@ -31,7 +31,20 @@ TIPS = [
     ("overload", "Overloaded defenders", "A piece defending two things cannot do both. Attack one of them."),
     ("visual", "Move pieces in your head", "Practise visualising moves without touching the pieces: that is calculation."),
     ("slow", "Slow down when it's sharp", "In sharp positions use your time: one careful minute beats ten fast mistakes."),
+    ("pin", "A pinned piece is not a defender", "A pinned piece cannot move, so count it as zero when you count defenders."),
+    ("xray", "Look through the pieces", "Long-range pieces work through other pieces: find the line that opens when one moves."),
+    ("fork", "Two targets, one move", "Look for undefended pieces and a square that attacks two of them at once."),
+    ("sac", "Calculate the sacrifice", "A sacrifice is only good if you calculate the forced replies to the end."),
+    ("deflect", "Pull the defender away", "If one piece holds the position together, find the move that drags it away."),
 ]
+
+# The puzzle's own themes decide what today's lesson teaches, so every reel explains something different and real.
+THEME_TIP = [("pin", "pin"), ("xRayAttack", "xray"), ("skewer", "xray"), ("discoveredAttack", "xray"),
+             ("fork", "fork"), ("doubleCheck", "xray"), ("sacrifice", "sac"), ("deflection", "deflect"),
+             ("attraction", "deflect"), ("overloading", "overload"), ("hangingPiece", "loose"),
+             ("backRankMate", "king"), ("smotheredMate", "king"), ("kingsideAttack", "king"), ("trappedPiece", "count"),
+             ("defensiveMove", "threat"), ("quietMove", "candidates"), ("intermezzo", "forcing"),
+             ("mateIn2", "forcing"), ("mateIn3", "end"), ("long", "end"), ("crushing", "cct")]
 
 PROMPT = """You write the hooks of a premium chess reel: a step-by-step calculation masterclass for club players
 (1600+) and chess parents. TIP: {name} - {idea}
@@ -41,9 +54,16 @@ screen_hook: the BIG cover text, max 6 words, a curiosity gap or bold promise, n
 Return JSON: {{"screen_hook": str, "caption_hook": str}}"""
 
 
-def pick_tip(seed):
-    log = json.load(open(LOG)) if os.path.exists(LOG) else []
-    recent = [e.get("tip") for e in log[-6:]]
+def pick_tip(seed, P=None, recent=None):
+    """Prefer a lesson that fits THIS puzzle's themes and was not used recently; otherwise any fresh one."""
+    if recent is None:
+        log = json.load(open(LOG)) if os.path.exists(LOG) else []
+        recent = [e.get("tip") or e.get("lesson") for e in log[-8:]]
+    by = {t[0]: t for t in TIPS}
+    themes = set(((P or {}).get("themes") or "").split())
+    fit = [by[k] for th, k in THEME_TIP if th in themes and k not in recent]
+    if fit:
+        return fit[0]
     pool = [t for t in TIPS if t[0] not in recent] or TIPS
     return random.Random(seed).choice(pool)
 
@@ -76,7 +96,7 @@ def build(P, seed, out, mode="level", arms=None):
     import lesson_anim, voice, strategy
     arms = arms or {}
     mock = os.environ.get("TIP_MOCK") == "1"
-    tip = pick_tip(seed)
+    tip = pick_tip(seed, P)
     try:
         script = {"screen_hook": tip[1], "caption_hook": "Save this calculation method ♟️"} if mock else write_script(tip)
     except Exception as e:
@@ -89,7 +109,7 @@ def build(P, seed, out, mode="level", arms=None):
         for m in P["pgn"].split(): board.push_san(m)
     _lv = R.LEVELS.get(P.get("level"), {})
     lvl = f"{_lv.get('name', '')} LEVEL".strip()
-    L = lesson_anim.Lesson(board, tip, 3, cover=True, hook=script["screen_hook"], level_label=lvl.upper(), mock=mock,
+    L = lesson_anim.Lesson(board, tip, 2, cover=True, hook=script["screen_hook"], level_label=lvl.upper(), mock=mock,
                            hide=lesson_anim.solution_move(P))
     puzzle_mp4 = out.replace(".mp4", "_puzzle.mp4"); tip_mp4 = out.replace(".mp4", "_tip.mp4")
     MAX = float(os.environ.get("REEL_MAX_SECONDS", "50"))
