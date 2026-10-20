@@ -11,7 +11,12 @@ import soundfile as sf
 HERE = os.path.dirname(os.path.abspath(__file__))
 W, H, FPS = 1080, 1920, 30
 SR = 24000
-FONT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts", "Poppins-Bold.ttf")
+FONT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts", "Inter-SemiBold.otf")
+if not os.path.exists(FONT):
+    FONT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts", "Poppins-Bold.ttf")
+# Premium design system (black + champagne gold): every pill, board and caption goes through these tokens.
+P_GOLD = (212, 175, 106); P_GOLD_HI = (232, 204, 150); P_IVORY = (245, 240, 230); P_INK = (12, 11, 18)
+P_GLASS = (16, 16, 26, 232)
 def font(s): return ImageFont.truetype(FONT, s)
 
 ORANGE = (242, 98, 46); YELLOW = (255, 216, 77); PURPLE = (143, 135, 241)
@@ -128,11 +133,24 @@ def text_img(txt, size, fill=WHITE, stroke=0, stroke_fill=DARK, maxw=None):
         d.text((x, stroke + i * lh), l, font=f, fill=fill, stroke_width=stroke, stroke_fill=stroke_fill)
     return im
 
+def _lum(c):
+    return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
+
+
 def pill(txt, size, bg, fg=WHITE, padx=36, pady=16, radius=None):
-    t = text_img(txt, size, fg)
+    """Premium pills, only two looks: bright requests -> solid champagne gold with ink text;
+    dark / coloured requests -> dark glass with a fine gold hairline and ivory (or gold) text."""
+    solid = _lum(bg) >= 140
+    if solid:
+        bgc, fgc, line = P_GOLD, P_INK, None
+    else:
+        bgc, line = P_GLASS, P_GOLD + (200,)
+        fgc = P_GOLD_HI if _lum(fg) > 170 and fg[2] < 150 else (fg if _lum(fg) < 170 else P_IVORY)
+    t = text_img(txt, size, fgc)
     w, h = t.width + 2 * padx, t.height + 2 * pady
     im = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    ImageDraw.Draw(im).rounded_rectangle([0, 0, w - 1, h - 1], radius or h // 2, fill=bg)
+    ImageDraw.Draw(im).rounded_rectangle([0, 0, w - 1, h - 1], radius or h // 2, fill=bgc,
+                                         outline=line, width=2 if line else 0)
     im.alpha_composite(t, (padx, pady - int(size * 0.08)))
     return im
 
@@ -148,7 +166,7 @@ def shadowed(im, blur=18, off=(0, 14), alpha=110):
 def paste_center(canvas, im, cx, cy, scale=1.0, alpha=1.0, rot=0):
     if scale <= 0.01 or alpha <= 0.01: return
     if scale != 1: im = im.resize((max(1, int(im.width * scale)), max(1, int(im.height * scale))), Image.BILINEAR)
-    if rot: im = im.rotate(rot, Image.BICUBIC, expand=True)
+    # premium look: everything sits straight (no jaunty tilted text)
     if alpha < 1:
         im = im.copy(); im.putalpha(im.getchannel("A").point(lambda a: int(a * alpha)))
     canvas.alpha_composite(im, (int(cx - im.width / 2), int(cy - im.height / 2)))
@@ -163,7 +181,7 @@ def caption(canvas, txt, y=300):
 
 # ---------------------------------------------------------------- board
 SQ = 118; BOARD = SQ * 8
-LIGHT = (246, 244, 255); DARKSQ = PURPLE
+LIGHT = (232, 226, 212); DARKSQ = (74, 86, 108)        # ivory + slate
 
 def sq_xy(sq, flip):
     f, r = chess.square_file(sq), chess.square_rank(sq)
@@ -178,17 +196,17 @@ def draw_board(board, flip, highlights=(), red=None, hide=None):
         d.rectangle([x, y, x + SQ, y + SQ], fill=LIGHT if light else DARKSQ)
     ov = Image.new("RGBA", im.size, (0, 0, 0, 0)); od = ImageDraw.Draw(ov)
     for s in highlights:
-        x, y = sq_xy(s, flip); od.rectangle([x, y, x + SQ, y + SQ], fill=(255, 196, 40, 130))
+        x, y = sq_xy(s, flip); od.rectangle([x, y, x + SQ, y + SQ], fill=(212, 175, 106, 125))
     if red is not None:
-        x, y = sq_xy(red, flip); od.rectangle([x, y, x + SQ, y + SQ], fill=(235, 40, 40, 170))
+        x, y = sq_xy(red, flip); od.rectangle([x, y, x + SQ, y + SQ], fill=(180, 60, 60, 160))
     im.alpha_composite(ov)
     fl = font(22)
     for i in range(8):
         # file letters bottom row, rank numbers left col
         fx = i; file_char = "abcdefgh"[7 - i if flip else i]
         rank_char = str(i + 1 if flip else 8 - i)
-        d.text((i * SQ + SQ - 20, BOARD - 30), file_char, font=fl, fill=(90, 80, 150))
-        d.text((6, i * SQ + 4), rank_char, font=fl, fill=(90, 80, 150))
+        d.text((i * SQ + SQ - 20, BOARD - 30), file_char, font=fl, fill=(120, 116, 110))
+        d.text((6, i * SQ + 4), rank_char, font=fl, fill=(120, 116, 110))
     for s, p in board.piece_map().items():
         if s == hide: continue
         x, y = sq_xy(s, flip)
@@ -207,9 +225,11 @@ def draw_arrow(im, frm, to, flip, color=(242, 98, 46, 220)):
     im.alpha_composite(ov)
 
 def card(board_img):
-    pad = 22
+    pad = 16                                   # premium frame: dark ebony with a fine gold line
     c = Image.new("RGBA", (BOARD + 2 * pad, BOARD + 2 * pad), (0, 0, 0, 0))
-    ImageDraw.Draw(c).rounded_rectangle([0, 0, c.width - 1, c.height - 1], 34, fill=WHITE)
+    d = ImageDraw.Draw(c)
+    d.rounded_rectangle([0, 0, c.width - 1, c.height - 1], 26, fill=(18, 18, 28), outline=P_GOLD, width=3)
+    d.rounded_rectangle([7, 7, c.width - 8, c.height - 8], 21, outline=P_GOLD + (90,), width=1)
     mask = Image.new("L", board_img.size, 0); ImageDraw.Draw(mask).rounded_rectangle([0, 0, BOARD - 1, BOARD - 1], 18, fill=255)
     c.paste(board_img, (pad, pad), mask)
     return c

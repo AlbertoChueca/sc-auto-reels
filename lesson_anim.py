@@ -17,8 +17,8 @@ W, H, FPS, SR = HY.W, HY.H, HY.FPS, HY.SR
 VAL = {chess.PAWN: 1, chess.KNIGHT: 3, chess.BISHOP: 3, chess.ROOK: 5, chess.QUEEN: 9, chess.KING: 100}
 PN = {chess.PAWN: "pawn", chess.KNIGHT: "knight", chess.BISHOP: "bishop", chess.ROOK: "rook", chess.QUEEN: "queen",
       chess.KING: "king"}
-C_CHECK, C_CAP, C_THREAT = (236, 64, 64), (245, 152, 40), (165, 110, 255)
-C_ATT, C_DEF, C_CAND, C_LOOSE = (52, 199, 120), (165, 110, 255), (56, 182, 255), (255, 214, 64)
+C_CHECK, C_CAP, C_THREAT = (206, 92, 92), (222, 168, 92), (156, 130, 224)          # premium, slightly muted
+C_ATT, C_DEF, C_CAND, C_LOOSE = (110, 188, 140), (156, 130, 224), (122, 170, 226), (232, 204, 150)
 NUMW = "zero one two three four five six seven eight nine ten eleven twelve".split()
 
 # which computed steps illustrate each tip (keys from make_tip.TIPS)
@@ -143,7 +143,7 @@ def step_facts(b, kind):
     if kind == "checks":
         ms = _checks(b)
         s.update(title="CHECKS", count=f"{len(ms)} CHECK{'S' if len(ms) != 1 else ''}" if ms else "NO CHECKS", color=C_CHECK,
-                 arrows=[(m.from_square, m.to_square, C_CHECK) for m in ms[:5]], chips=[_san(b, m) for m in ms[:5]])
+                 arrows=[(m.from_square, m.to_square, C_CHECK) for m in ms[:5]], chips=[_san(b, m) for m in ms[:5]], moves=ms[:5])
         pieces = sorted({PN[b.piece_at(m.from_square).piece_type] for m in ms})
         s["fact"] = (f"{me} has {plural(len(ms), 'check')} here, with the {' and the '.join(pieces)}."
                      if ms else f"{me} has no checks here, so move straight on.")
@@ -155,7 +155,7 @@ def step_facts(b, kind):
         s.update(title="CAPTURES", count=f"{len(ms)} CAPTURE{'S' if len(ms) != 1 else ''}" if ms else "NO CAPTURES", color=C_CAP,
                  arrows=[(m.from_square, m.to_square, C_CAP) for m in ms],
                  rings=[(m.to_square, C_CAP) for m in ms],
-                 chips=[_san(b, m) + (" FREE" if m in free else "") for m in ms])
+                 chips=[_san(b, m) + (" FREE" if m in free else "") for m in ms], moves=ms)
         s["fact"] = (f"{me} has {plural(len(ms), 'capture')}; {nw(len(free))} of them win{'s' if len(free) == 1 else ''} "
                      f"a piece that is not defended." if ms else f"{me} has no captures.")
         s["say"] = (f"{plural(len(ms), 'capture').capitalize()}, and {nw(len(free))} "
@@ -165,7 +165,7 @@ def step_facts(b, kind):
         ts = _quiet_threats(b)[:3]
         s.update(title="THREATS", count=f"{len(ts)} THREAT{'S' if len(ts) != 1 else ''}" if ts else "NO THREATS", color=C_THREAT,
                  arrows=[(m.from_square, m.to_square, C_THREAT) for m, _ in ts],
-                 rings=[(sq, C_THREAT) for _, sq in ts], chips=[_san(b, m) for m, _ in ts])
+                 rings=[(sq, C_THREAT) for _, sq in ts], chips=[_san(b, m) for m, _ in ts], moves=[m for m, _ in ts])
         s["fact"] = (f"{me} has {plural(len(ts), 'quiet move')} that attack an undefended or bigger enemy piece."
                      if ts else "There are no strong quiet threats.")
         s["say"] = (f"Quiet moves that attack something. {plural(len(ts), 'move').capitalize()} like that here."
@@ -258,21 +258,47 @@ def step_facts(b, kind):
                     f"It cannot do both jobs.")
     elif kind == "candidates":
         ms = _ranked_candidates(b, 3)
-        s.update(title="CANDIDATES", count=f"{len(ms)} CANDIDATES", color=C_CAND,
+        s.update(title="CANDIDATES", count=f"{len(ms)} CANDIDATE{'S' if len(ms) != 1 else ''}", color=C_CAND,
                  arrows=[(m.from_square, m.to_square, C_CAND) for m in ms],
                  badges=[(m.to_square, str(k + 1)) for k, m in enumerate(ms)],
-                 chips=[f"{k + 1}. {_san(b, m)}" for k, m in enumerate(ms)])
+                 chips=[f"{k + 1}. {_san(b, m)}" for k, m in enumerate(ms)], moves=ms)
         s["fact"] = f"The {plural(len(ms), 'candidate move')} to calculate, most forcing first."
         s["say"] = (f"Pick {nw(len(ms))} candidates, most forcing first. "
                     f"Calculate each one to the end, then choose.")
     return s
 
 
-def lesson_steps(b, tip_key, n=3):
+def solution_move(P):
+    """First move of the puzzle's solution (the one the viewer must find), or None."""
+    try:
+        u = P["moves"].split()[1] if "fen" in P else P["sol"][0]
+        return chess.Move.from_uci(u)
+    except Exception:
+        return None
+
+
+def hide_solution(s, hide):
+    """No spoilers: the solution move is never drawn or written. Counts stay true; its chip becomes '?'
+    (the viewer knows it is among the options, but has to find which one and why)."""
+    mv = s.pop("moves", None) or []
+    if hide is None:
+        return s
+    key = (hide.from_square, hide.to_square)
+    s["arrows"] = [a for a in s["arrows"] if (a[0], a[1]) != key]
+    for i, m in enumerate(mv):
+        if m == hide and i < len(s["chips"]):
+            s["chips"][i] = (s["chips"][i].split(".")[0] + ". ?") if s["kind"] == "candidates" else "?"
+            s["badges"] = [bd for bd in s["badges"] if bd[0] != m.to_square]
+            if s["kind"] == "captures" and not any(o.to_square == m.to_square for o in mv if o != hide):
+                s["rings"] = [r for r in s["rings"] if r[0] != m.to_square]
+    return s
+
+
+def lesson_steps(b, tip_key, n=3, hide=None):
     kinds = TIP_STEPS.get(tip_key, ["checks", "captures", "candidates"])
     if n < len(kinds):                      # compact version keeps the first step and the candidates
         kinds = [kinds[0], kinds[-1]] if n == 2 else kinds[:n]
-    steps = [step_facts(b, k) for k in kinds]
+    steps = [hide_solution(step_facts(b, k), hide) for k in kinds]
     for i, s in enumerate(steps):
         s["say"] = f"Step {nw(i + 1)}, {s['title'].lower()}. " + s["say"]
     return steps
@@ -342,7 +368,7 @@ def num_badge(im, sq, flip, txt, color, s=1.0):
     if r < 3: return
     cx, cy = x + R.SQ - 26, y + 26
     d = ImageDraw.Draw(im)
-    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color + (255,), outline=(255, 255, 255, 255), width=5)
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color + (255,), outline=(245, 240, 230, 255), width=3)
     t = R.text_img(txt, int(34 * s), (255, 255, 255))
     im.alpha_composite(t, (int(cx - t.width / 2), int(cy - t.height / 2) - 2))
 
@@ -352,15 +378,15 @@ def checklist(steps, cur, done_all=False):
     items = []
     for k, s in enumerate(steps):
         state = "done" if (k < cur or done_all) else ("cur" if k == cur else "next")
-        bg = {"done": (40, 170, 100), "cur": HY.YEL, "next": (60, 54, 84)}[state]
-        fg = HY.INK if state == "cur" else (255, 255, 255)
+        bg = {"done": (20, 20, 30), "cur": (255, 255, 255), "next": (20, 20, 30)}[state]
+        fg = {"done": HY.YEL, "cur": HY.INK, "next": (140, 136, 150)}[state]
         txt = f"{k + 1}  {s['title']}"
         p = R.pill(txt, 30, bg, fg=fg, padx=26, pady=10)
         if state == "done":                                    # little tick drawn as lines (no emoji font needed)
             q = Image.new("RGBA", (p.width + 44, p.height), (0, 0, 0, 0)); q.alpha_composite(p, (44, 0))
             d = ImageDraw.Draw(q); h = p.height
-            d.ellipse([0, h / 2 - 19, 38, h / 2 + 19], fill=(40, 170, 100))
-            d.line([(9, h / 2), (17, h / 2 + 8), (30, h / 2 - 8)], fill=(255, 255, 255), width=6)
+            d.ellipse([0, h / 2 - 19, 38, h / 2 + 19], fill=HY.YEL)
+            d.line([(9, h / 2), (17, h / 2 + 8), (30, h / 2 - 8)], fill=HY.INK, width=5)
             p = q
         items.append(p)
     gap = 14
@@ -378,10 +404,10 @@ def checklist(steps, cur, done_all=False):
 def chips_img(chips, color, maxw=1000):
     if not chips:
         return None
-    ims = [R.pill(c, 34, (255, 255, 255), fg=HY.INK, padx=22, pady=9) for c in chips]
+    ims = [R.pill(c, 34, (20, 20, 30), fg=HY.WHITE, padx=22, pady=9) for c in chips]
     for k, im in enumerate(ims):                               # coloured dot on each chip
         q = Image.new("RGBA", (im.width + 22, im.height), (0, 0, 0, 0)); q.alpha_composite(im, (22, 0))
-        ImageDraw.Draw(q).ellipse([0, im.height / 2 - 14, 28, im.height / 2 + 14], fill=color, outline=(255, 255, 255), width=4)
+        ImageDraw.Draw(q).ellipse([0, im.height / 2 - 14, 28, im.height / 2 + 14], fill=color, outline=(245, 240, 230), width=2)
         ims[k] = q
     total = sum(i.width for i in ims) + 12 * (len(ims) - 1)
     sc = min(1.0, maxw / total)
@@ -427,10 +453,10 @@ def pop_times(step):
 class Lesson:
     """Record with .record() (inside the caller's voice retry loop), then .render(out_mp4)."""
 
-    def __init__(self, board, tip, n_steps=3, cover=True, hook="", level_label="", mock=False):
+    def __init__(self, board, tip, n_steps=3, cover=True, hook="", level_label="", mock=False, hide=None):
         self.b, self.tip, self.cover, self.mock = board, tip, cover, mock
         self.flip = board.turn == chess.BLACK
-        self.steps = lesson_steps(board, tip[0], n_steps)
+        self.steps = lesson_steps(board, tip[0], n_steps, hide=hide)
         self.hook = hook or tip[1]
         self.level_label = level_label
         self.lines = write_lines(self.steps, tip, _side(board.turn), intro=cover, mock=mock)
@@ -491,7 +517,7 @@ class Lesson:
         y = np.linspace(0, 1, H)[:, None, None]
         bg = Image.fromarray(((np.array([24, 20, 44]) * (1 - y) + np.array([8, 7, 16]) * y) * np.ones((1, W, 3))).astype(np.uint8)).convert("RGBA")
         glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        ImageDraw.Draw(glow).ellipse([W * 0.02, H * 0.28, W * 0.98, H * 0.72], fill=(120, 90, 255, 70))
+        ImageDraw.Draw(glow).ellipse([W * 0.02, H * 0.28, W * 0.98, H * 0.72], fill=(212, 175, 106, 34))
         bg.alpha_composite(glow.filter(ImageFilter.GaussianBlur(150)))
         last = self.b.peek() if self.b.move_stack else None
         base = R.draw_board(self.b, self.flip, (last.from_square, last.to_square) if last else ())
@@ -582,7 +608,7 @@ class Lesson:
                 arrow_partial(im, f, t, self.flip, col, 1.0)
         c = R.card(im); sc = 0.64
         c = c.resize((int(c.width * sc), int(c.height * sc)), Image.LANCZOS)
-        c = c.rotate(-3, Image.BICUBIC, expand=True)
+        # premium: board sits straight
         by = hy + hook.height // 2 + 40 + c.height // 2
         R.paste_center(fr, R.shadowed(c, 30, (0, 22), 170)[0], W / 2 + 40, by)
         tag = R.pill(f"{len(self.steps)} STEPS" + (f" · {self.level_label}" if self.level_label else ""), 36, HY.RED, fg=HY.WHITE, padx=30, pady=12)

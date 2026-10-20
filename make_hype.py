@@ -14,22 +14,27 @@ from mascot_rig import Mascot
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 W, H, FPS, SR = 1080, 1920, 25, 24000
-F900 = os.path.join(HERE, "fonts", "Nunito-900.ttf")
+F900 = os.path.join(HERE, "fonts", "InterDisplay-Bold.otf")
 if not os.path.exists(F900):   # fallback so a missing font never breaks a run
     F900 = next((p for p in (os.path.join(HERE, "Nunito-900.ttf"), os.path.join(HERE, "fonts", "Poppins-Bold.ttf"),
                              os.path.join(HERE, "Poppins-Bold.ttf")) if os.path.exists(p)), F900)
-YEL, ORA, RED, WHITE, INK = (255, 214, 64), (242, 98, 46), (255, 70, 70), (255, 255, 255), (20, 16, 28)
+# premium palette: champagne gold, deep gold, muted crimson, ivory, ink
+YEL, ORA, RED, WHITE, INK = (212, 175, 106), (176, 138, 74), (190, 72, 72), (245, 240, 230), (12, 11, 18)
 VOICE = os.environ.get("HYPE_VOICE", "am_fenrir")
 clamp, eob, eo, eio = R.clamp, R.ease_out_back, R.ease_out, R.ease_in_out
 
 
 # ----------------------------------------------------------------- typography
 def word_img(word, size, color=WHITE, stroke=10):
+    """Premium type: Inter Display, no thick cartoon outline; a soft blurred shadow keeps it readable."""
     fo = ImageFont.truetype(F900, size)
-    w = int(fo.getlength(word)) + 2 * stroke + 20
-    im = Image.new("RGBA", (w, int(size * 1.35) + 2 * stroke), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    d.text((stroke + 10 + 6, stroke + 8), word, font=fo, fill=(0, 0, 0, 160))          # drop shadow
-    d.text((stroke + 10, stroke), word, font=fo, fill=color, stroke_width=stroke, stroke_fill=INK)
+    pad = 10 + max(stroke, 6)
+    w = int(fo.getlength(word)) + 2 * pad + 20
+    im = Image.new("RGBA", (w, int(size * 1.35) + 2 * pad), (0, 0, 0, 0))
+    sh = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    ImageDraw.Draw(sh).text((pad + 10, pad + 6), word, font=fo, fill=(0, 0, 0, 190))
+    im.alpha_composite(sh.filter(ImageFilter.GaussianBlur(max(4, size // 18))))
+    ImageDraw.Draw(im).text((pad + 10, pad), word, font=fo, fill=color, stroke_width=1, stroke_fill=(0, 0, 0, 120))
     return im
 
 
@@ -168,12 +173,12 @@ class BG:
         self.rad = np.sqrt((x - W / 2) ** 2 + (y - H * 0.42) ** 2) / (H * 0.7)
         # dark stage with spotlight cone from top-right
         base = np.zeros((H, W, 3), np.float32)
-        base[:] = np.array([12, 11, 18])
+        base[:] = np.array([9, 10, 17])
         cone = Image.new("L", (W, H), 0); cd = ImageDraw.Draw(cone)
         cd.polygon([(W * 0.62, -50), (W * 1.05, -50), (W * 0.95, H * 0.95), (W * 0.05, H * 0.95)], fill=70)
         cone = np.array(cone.filter(ImageFilter.GaussianBlur(60)), np.float32)[..., None] / 255
         floor = np.clip((y - H * 0.78) / (H * 0.22), 0, 1)[..., None]
-        stage = base + cone * np.array([255, 230, 160]) * 0.55 + floor * np.array([40, 34, 52])
+        stage = base + cone * np.array([212, 180, 120]) * 0.32 + floor * np.array([22, 22, 34])
         vig = np.clip(1 - self.rad[..., None] * 0.55, 0.35, 1)
         self.stage = Image.fromarray(np.clip(stage * vig, 0, 255).astype(np.uint8)).convert("RGBA")
         rng = np.random.RandomState(3)
@@ -194,17 +199,29 @@ class BG:
         im = self.stage.copy(); d = ImageDraw.Draw(im)
         for x, y, r, sp in self.dust:
             yy = (y - t * sp) % H; xx = x + 12 * math.sin(t * 0.7 + y)
-            d.ellipse([xx - r, yy - r, xx + r, yy + r], fill=(255, 235, 180, 60))
+            d.ellipse([xx - r * 0.6, yy - r * 0.6, xx + r * 0.6, yy + r * 0.6], fill=(232, 204, 150, 38))
         return im
 
-    def burst(self, t, c1, c2, rays=18):
-        a = (self.ang + t * 0.35) % (2 * math.pi / rays) < (math.pi / rays)
-        col = np.where(a[..., None], np.array(c1, np.float32), np.array(c2, np.float32))
-        glow = np.clip(1.25 - self.rad[..., None], 0.45, 1.25)
-        return Image.fromarray(np.clip(col * glow, 0, 255).astype(np.uint8)).convert("RGBA")
+    def burst(self, t, c1=None, c2=None, rays=18):
+        """Premium backdrop (replaces the old sunburst): deep night-blue radial light with a faint gold halo."""
+        if not hasattr(self, "_lux"):
+            r = self.rad[..., None]
+            col = np.array([30, 32, 50], np.float32) * np.clip(1.15 - r, 0.25, 1) \
+                + np.array([212, 175, 106], np.float32) * 0.10 * np.clip(1 - r * 1.6, 0, 1) ** 2
+            self._lux = Image.fromarray(np.clip(col, 0, 255).astype(np.uint8)).convert("RGBA")
+        im = self._lux.copy(); d = ImageDraw.Draw(im)
+        for x, y, r, sp in self.dust[:30]:
+            yy = (y - t * sp * 0.6) % H
+            d.ellipse([x - r * 0.5, yy - r * 0.5, x + r * 0.5, yy + r * 0.5], fill=(232, 204, 150, 30))
+        return im
 
     def fire(self, p):
-        """Full-screen fire wipe; p 0..1 (rises from bottom, covers, exits top)."""
+        """Premium transition (replaces the fire wipe): a slow dip to black and back; p 0..1."""
+        a = int(240 * math.sin(math.pi * min(max(p, 0), 1)) ** 1.4)
+        return Image.new("RGBA", (W, H), (6, 6, 12, a))
+
+    def _fire_old(self, p):
+        """Old full-screen fire wipe (kept for reference)."""
         off = int(p * H * 0.8) % H
         nz = self.noise[off:off + H]
         nz = np.array(Image.fromarray((nz * 255).astype(np.uint8)).resize((W, H), Image.BILINEAR), np.float32) / 255
@@ -233,7 +250,7 @@ def boom():
     t = np.arange(int(SR * 1.2)) / SR
     f = 30 + 120 * np.exp(-t * 6)
     s = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 3)
-    return (s * 0.8).astype(np.float32)                 # pure low tone, no noise
+    return (s * 0.45).astype(np.float32)                # soft low tone (premium: no hard impacts)
 
 
 def riser(d):
@@ -244,22 +261,29 @@ def riser(d):
     return ((s * 0.7 + s2) * (t / d) ** 2).astype(np.float32)          # tonal rise, no noise
 
 
-def beat(total, bpm=124):
+def beat(total, bpm=92):
+    """Premium score: slow, warm chord pads (Am9 - Fmaj7 - Cmaj7 - G6) over a soft, sparse pulse."""
     n = int(SR * (total + 1)); out = np.zeros(n, np.float32)
     step = 60 / bpm / 2; i = 0; tt = 0.0
-    bassline = [55.0, 55.0, 65.41, 49.0]
     K, Hh = kick(), hat()
     while tt < total:
         k = int(tt * SR)
-        if i % 2 == 0:
-            out[k:k + len(K)] += K[: n - k] * 0.7
-        else:
-            out[k:k + len(Hh)] += Hh[: n - k]
-        if i % 4 == 2:
-            b = R.tone(bassline[(i // 8) % 4] * 2, step * 1.8, 5, 0.35)
-            b = np.sign(b) * np.abs(b) ** 0.7 * 0.6
-            out[k:k + len(b)] += b[: n - k]
+        if i % 4 == 0:
+            out[k:k + len(K)] += K[: n - k] * 0.32
+        elif i % 4 == 2:
+            out[k:k + len(Hh)] += Hh[: n - k] * 0.6
         tt += step; i += 1
+    chords = [(110.0, 164.81, 196.0, 246.94), (87.31, 130.81, 164.81, 220.0),
+              (130.81, 164.81, 196.0, 246.94), (98.0, 146.83, 196.0, 246.94)]
+    bar = 60 / bpm * 4; t = np.arange(n) / SR
+    for ci in range(int(total / bar) + 2):
+        a, b = int(ci * bar * SR), min(n, int((ci + 1) * bar * SR) + SR // 2)
+        if a >= n: break
+        tl = t[a:b] - ci * bar
+        env = np.clip(tl / 0.8, 0, 1) * np.clip((bar + 0.5 - tl) / 0.9, 0, 1)
+        sig = sum(np.sin(2 * np.pi * f * tl) + 0.25 * np.sin(4 * np.pi * f * tl) for f in chords[ci % 4])
+        out[a:b] += (sig * env * 0.022).astype(np.float32)
+        out[a:b] += (np.sin(2 * np.pi * chords[ci % 4][0] / 2 * tl) * env * 0.07).astype(np.float32)
     return out
 
 
@@ -414,11 +438,13 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
         for x, y, r, sp in bg.dust[:40]:
             yy = (y - tt * sp) % H; d.ellipse([x - r, yy - r, x + r, yy + r], fill=(255, 235, 180, 50))
         return im
-    lg = Image.open(os.path.join(HERE, "assets", "logo_h.png")).convert("RGBA"); lg = lg.crop(lg.getbbox())
-    lg = lg.resize((620, int(lg.height * 620 / lg.width)), Image.LANCZOS)
-    logo_v = Image.new("RGBA", (lg.width + 80, lg.height + 60), (0, 0, 0, 0))
-    ImageDraw.Draw(logo_v).rounded_rectangle([0, 0, logo_v.width - 1, logo_v.height - 1], 40, fill=(255, 255, 255, 255), outline=INK, width=8)
-    logo_v.alpha_composite(lg, (40, 30))
+    _lp = os.path.join(HERE, "assets", "logo_h_white.png")
+    lg = Image.open(_lp if os.path.exists(_lp) else os.path.join(HERE, "assets", "logo_h.png")).convert("RGBA")
+    lg = lg.crop(lg.getbbox()); lg = lg.resize((600, int(lg.height * 600 / lg.width)), Image.LANCZOS)
+    logo_v = Image.new("RGBA", (lg.width + 40, lg.height + 60), (0, 0, 0, 0))       # premium: logo alone + gold rule
+    logo_v.alpha_composite(lg, (20, 0))
+    ImageDraw.Draw(logo_v).line([(logo_v.width / 2 - 90, logo_v.height - 14), (logo_v.width / 2 + 90, logo_v.height - 14)],
+                                fill=YEL, width=3)
     states = [board.copy()]
     for m in moves:
         s2 = states[-1].copy(); s2.push(m); states.append(s2)
@@ -516,12 +542,13 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                 if T["count"][0] <= tt < T["count"][1]:     # ring countdown
                     lt = tt - T["count"][0]; remain = COUNT - int(lt); ph = lt % 1
                     ring = Image.new("RGBA", (300, 300), (0, 0, 0, 0)); rd = ImageDraw.Draw(ring)
-                    rd.ellipse([10, 10, 290, 290], fill=(20, 16, 28, 230))
-                    col = RED if remain <= 3 else YEL
-                    rd.arc([18, 18, 282, 282], -90, -90 + 360 * (1 - lt / COUNT), fill=col, width=22)
+                    rd.ellipse([10, 10, 290, 290], fill=(12, 12, 20, 225))
+                    rd.ellipse([24, 24, 276, 276], outline=(245, 240, 230, 40), width=4)
+                    col = (232, 204, 150) if remain <= 3 else YEL
+                    rd.arc([24, 24, 276, 276], -90, -90 + 360 * (1 - lt / COUNT), fill=col, width=9)
                     txt = str(remain); tw = ring_font.getlength(txt)
                     rd.text((150 - tw / 2, 70), txt, font=ring_font, fill=WHITE)
-                    R.paste_center(fr, ring, 820, 330, 1 + (0.15 if remain <= 3 else 0.06) * max(0, 1 - ph * 5))
+                    R.paste_center(fr, ring, 820, 330, 1 + (0.04 if remain <= 3 else 0.0) * max(0, 1 - ph * 5))
                     zoom = 1.0   # board stays perfectly still while the viewer thinks
                     cap = word_img("PAUSE IF YOU NEED TIME" if lt < COUNT / 2 else "COMMENT YOUR MOVE!", 54, WHITE, 7)
                     R.paste_center(fr, cap, W / 2, 1500, eob(((lt % (COUNT / 2))) / 0.3))
@@ -541,8 +568,12 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                         cyo = (BOARD_CY - H / 2) * (1 - 1 / zoom)
                 if T["fin"][0] <= tt < T["fin"][1] and not reveal:   # no spoiler: invite the comment
                     lt = tt - T["fin"][0]
-                    R.paste_center(fr, word_img("YOUR MOVE?", 140, YEL), W / 2, BOARD_CY, eob(lt / 0.3), 1, -4)
-                    R.paste_center(fr, R.pill("COMMENT IT BELOW", 46, WHITE, fg=INK, padx=40, pady=16), W / 2, BOARD_CY + 150, eob((lt - 0.4) / 0.3))
+                    a_ = eo(lt / 0.4)
+                    plate = Image.new("RGBA", (860, 330), (0, 0, 0, 0))
+                    ImageDraw.Draw(plate).rounded_rectangle([0, 0, 859, 329], 36, fill=(10, 10, 18, 225), outline=YEL + (200,), width=2)
+                    R.paste_center(fr, plate, W / 2, BOARD_CY + 60, 1, a_)
+                    R.paste_center(fr, word_img("YOUR MOVE?", 130, YEL), W / 2, BOARD_CY, 1, a_)
+                    R.paste_center(fr, R.pill("COMMENT IT BELOW", 46, WHITE, fg=INK, padx=40, pady=16), W / 2, BOARD_CY + 140, 1, eo((lt - 0.4) / 0.4))
                 if T["fin"][0] <= tt < T["fin"][1] and reveal:
                     lt = tt - T["fin"][0]
                     flash = max(flash, 0.35 - lt * 1.5); shake = max(shake, 6 * max(0, 1 - lt / 0.4))
@@ -556,14 +587,14 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                 lt = tt - T["cta"][0]
                 fr = back(tt, True) if bd_soft is not None else bg.burst(tt, (255, 140, 50), (235, 92, 40))
                 R.paste_center(fr, logo_v, W / 2, 330, eob(lt / 0.4), 1, -3)
-                put_mascot(fr, tt, 0.56, W / 2, 1010, "excited", (0, 0), mouth, bounce=12 * abs(math.sin(lt * 5)), rim=False)
+                put_mascot(fr, tt, 0.46, W / 2, 1035, "excited", (0, 0), mouth, bounce=6 * abs(math.sin(lt * 4)), rim=False)
                 if S.get("follow_line"):            # growth: follow for the next episode
-                    R.paste_center(fr, R.pill(S["follow_line"].upper(), 44, YEL, fg=INK, padx=40, pady=16), W / 2, 1090, eob((lt - 0.8) / 0.35))
-                R.paste_center(fr, R.pill("100% FREE TO PLAY", 40, (88, 204, 2), fg=WHITE, padx=36, pady=14), W / 2, 1185, eob((lt - 1.3) / 0.35))
-                R.paste_center(fr, R.pill("FOUNDER OFFER - FIRST 500 ACCOUNTS", 34, INK, fg=YEL, padx=32, pady=12), W / 2, 1270, eob((lt - 1.7) / 0.35))
-                R.paste_center(fr, R.pill("streakchess.com", 62, WHITE, fg=ORA, padx=48, pady=16), W / 2, 1375, eob((lt - 2.1) / 0.35) * (1 + 0.03 * math.sin(lt * 7)))
+                    R.paste_center(fr, R.pill(S["follow_line"].upper(), 40, INK, fg=WHITE, padx=40, pady=16), W / 2, 1090, eo((lt - 0.8) / 0.5))
+                R.paste_center(fr, word_img("FREE TO PLAY  ·  ALL AGES", 40, WHITE, 0), W / 2, 1185, eo((lt - 1.3) / 0.5))
+                R.paste_center(fr, R.pill("FOUNDER OFFER · FIRST 500 ACCOUNTS", 32, INK, fg=YEL, padx=32, pady=12), W / 2, 1270, eo((lt - 1.7) / 0.5))
+                R.paste_center(fr, R.pill("streakchess.com", 58, WHITE, fg=INK, padx=48, pady=16), W / 2, 1375, eo((lt - 2.1) / 0.5))
                 if S.get("share_line"):             # shares: the strongest growth signal
-                    R.paste_center(fr, word_img(S["share_line"].upper(), 44, WHITE, 7), W / 2, 1460, eob((lt - 2.6) / 0.35))
+                    R.paste_center(fr, word_img(S["share_line"].upper(), 38, WHITE, 0), W / 2, 1460, eo((lt - 2.6) / 0.5))
                 zoom = 1.06 - 0.06 * eo(lt / 0.5)
 
         # kinetic captions for spoken lines
@@ -573,9 +604,9 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
             y = 330 if tt < T["h2"][1] else (1000 if tt < T["go"][1] else (1500 if tt < T["cta"][0] else 1080))
             if T["lvl"][0] <= tt < T["go"][1]: y = 880
             if T["fin"][0] <= tt < T["cta"][0]: y = 1500
-            if tt >= T["cta"][0]: y = 560
+            if tt >= T["cta"][0]: y = 545
             if not (T["up"][0] <= tt < T["fin"][0]):
-                ph = phrase_img(words, nt, int((104 if tt < T["h2"][1] else 84) * S["caption_scale"]))
+                ph = phrase_img(words, nt, int((104 if tt < T["h2"][1] else (72 if tt >= T["cta"][0] else 84)) * S["caption_scale"]))
                 R.paste_center(fr, band_img(ph.height + 80), W / 2, y)
                 R.paste_center(fr, ph, W / 2, y)
         # fire wipes between acts
@@ -584,7 +615,8 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
             if 0 <= ft < dur:
                 fr.alpha_composite(bg.fire(ft / dur))
 
-        # camera
+        # camera (premium: smooth only - no shake, no white flashes)
+        shake = 0.0; flash = 0.0
         if abs(zoom - 1) > 0.002 or cxo or cyo or shake:
             sx = (random.uniform(-1, 1) * shake); sy = (random.uniform(-1, 1) * shake)
             zw, zh = W / zoom, H / zoom

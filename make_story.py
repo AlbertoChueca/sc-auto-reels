@@ -36,8 +36,9 @@ CHARACTER = (
     "he hops, slides and tilts like a chess piece. He ALWAYS stands upright on his round base: never lying down, "
     "tipped over, fallen, sideways or upside down. He shows emotion with his eyes, his flame mane, tilting, hopping "
     "and leaning. Personality: brave, funny, a bit dramatic, kind, never gives up. "
-    "Style: bold flat 2D cartoon with clean thick outlines, vibrant colors, cinematic lighting, like a high-quality "
-    "animated short.")
+    "Style: polished 2D animation with clean outlines and a refined, premium palette (deep night blues, warm "
+    "champagne golds, ivory; Vektor's flame mane stays its usual colours), elegant cinematic lighting with soft rim "
+    "light and depth, like a prestige feature-animation short. Tasteful and classy, never garish or neon.")
 
 WORLD = """VEKTOR'S WORLD (keep it consistent, this is an ongoing series):
 - Vektor is a young chess knight who lives in Chessville, a cozy town where chess pieces live, go to school and play chess.
@@ -342,7 +343,7 @@ def build(P, seed, out, mode="level", arms=None):
 
     MAX_TOTAL = float(os.environ.get("REEL_MAX_SECONDS", "55"))
     import lesson_anim                              # Vektor's method, step by step, animated on the real position
-    LS = lesson_anim.Lesson(b, ep["lesson"], 2, cover=False, mock=mock)
+    LS = lesson_anim.Lesson(b, ep["lesson"], 2, cover=False, mock=mock, hide=lesson_anim.solution_move(P))
     lesson_mp4 = out.replace(".mp4", "_lesson.mp4")
 
     def render_puzzle(st):
@@ -412,7 +413,7 @@ def build(P, seed, out, mode="level", arms=None):
             hook_y = badge_y + badge.height // 2 + 30 + (hook_img.height + 70) // 2
         # cover teaser (frame 0 = grid thumbnail): the real puzzle board + its level, under the hook
         tz = R.card(R.draw_board(b, b.turn == chess.BLACK, (b.peek().from_square, b.peek().to_square)))
-        tz = tz.resize((int(tz.width * 0.30), int(tz.height * 0.30)), Image.LANCZOS).rotate(-4, Image.BICUBIC, expand=True)
+        tz = tz.resize((int(tz.width * 0.30), int(tz.height * 0.30)), Image.LANCZOS)
         tz = R.shadowed(tz, 24, (0, 16), 170)[0]
         tz_pill = R.pill(f"CAN YOU SOLVE IT? · {LV['name']} {LV.get('rng', '')}".strip(), 36, HY.RED, fg=HY.WHITE, padx=30, pady=12)
         proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",

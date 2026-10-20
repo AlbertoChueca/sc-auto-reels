@@ -89,7 +89,8 @@ def build(P, seed, out, mode="level", arms=None):
         for m in P["pgn"].split(): board.push_san(m)
     _lv = R.LEVELS.get(P.get("level"), {})
     lvl = f"{_lv.get('name', '')} {_lv.get('rng', '')}".strip()
-    L = lesson_anim.Lesson(board, tip, 3, cover=True, hook=script["screen_hook"], level_label=lvl.upper(), mock=mock)
+    L = lesson_anim.Lesson(board, tip, 3, cover=True, hook=script["screen_hook"], level_label=lvl.upper(), mock=mock,
+                           hide=lesson_anim.solution_move(P))
     puzzle_mp4 = out.replace(".mp4", "_puzzle.mp4"); tip_mp4 = out.replace(".mp4", "_tip.mp4")
     MAX = float(os.environ.get("REEL_MAX_SECONDS", "55"))
     voice.reset()
