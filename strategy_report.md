@@ -10,7 +10,7 @@ _Updated 2026-10-20 · 27 reels with results (3+ days old) · average score 6.24
 | mystery | 4 | 6.89 |
 | countdown_trap | 1 | 6.35 |
 | big_dream | 8 | 6.33 |
-| rival | 5 | 6.24 |
+| rival | 5 | 6.25 |
 | cliffhanger | 1 | 6.20 |
 | funny_fail | 7 | 5.90 |
 | challenge | 1 | 5.33 |
@@ -20,7 +20,7 @@ _Updated 2026-10-20 · 27 reels with results (3+ days old) · average score 6.24
 | option | reels | avg score |
 |---|---|---|
 | daily training to keep the streak alive | 1 | 7.08 |
-| cracking Bishop Blaze's secret playbook | 2 | 6.59 |
+| cracking Bishop Blaze's secret playbook | 2 | 6.60 |
 | travelling to a new place for a tournament | 1 | 6.43 |
 | blitz battle against Bishop Blaze | 5 | 6.34 |
 | helping Pip or a friend who is stuck | 5 | 6.30 |
@@ -34,7 +34,7 @@ _Updated 2026-10-20 · 27 reels with results (3+ days old) · average score 6.24
 |---|---|---|
 | basic | 13 | 6.41 |
 | advanced | 5 | 6.20 |
-| intermediate | 9 | 6.02 |
+| intermediate | 9 | 6.03 |
 
 ## think_time
 
