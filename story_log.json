@@ -207,5 +207,15 @@
 "format": "invention gone wrong: one of Professor Pawnsworth's gadgets causes chaos",
 "spotlight": "Tilly",
 "setting": "the school science fair"
+},
+{
+"title": "The Sunny Park Clash",
+"summary": "During a giant outdoor blitz duel against Bishop Blaze in the park, twin rooks Rooky and Rocco remind Vektor to slow down in sharp positions to find the checkmate.",
+"puzzle": "ORc8N",
+"format": "rival showdown: a challenge from Bishop Blaze or a trap from Mister Zugzwang",
+"spotlight": "Rooky and Rocco",
+"setting": "a sunny chess park with giant outdoor boards",
+"lesson": "slow",
+"teaser": "A mysterious sealed letter arrives from the town castle."
 }
 ]
