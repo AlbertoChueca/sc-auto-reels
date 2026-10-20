@@ -217,5 +217,15 @@
 "setting": "a sunny chess park with giant outdoor boards",
 "lesson": "slow",
 "teaser": "A mysterious sealed letter arrives from the town castle."
+},
+{
+"title": "The Garden Playbook Mystery",
+"summary": "In a spring flower garden, Mister Zugzwang traps Bishop Blaze's secret playbook behind thorny roses, forcing Vektor to inspect the king's defenders.",
+"puzzle": "rbNHj",
+"format": "mystery: something is missing or strange in Chessville and a chess position is the clue",
+"spotlight": "Mister Zugzwang",
+"setting": "a flower garden in spring",
+"lesson": "king",
+"teaser": "A mysterious origami riddle from Luna floats across the pond."
 }
 ]
