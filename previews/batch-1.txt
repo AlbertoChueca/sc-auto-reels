@@ -1,9 +1,9 @@
-Can you spot the masterclass move for Vektor: Move A or B? ⚡
-Calculation masterclass: What does my opponent want?. After every enemy move, ask what it threatens before making your plan.
+Can you crack this overloaded defender for Vektor? Drop A or B! ♟️
+Calculation masterclass: Overloaded defenders. A piece defending two things cannot do both. Attack one of them.
 
 The method, step by step, on this position:
-1️⃣ Their Threats: If Black could move again, they would have four dangerous moves (checks or winning captures).
-2️⃣ Loose Pieces: Black has zero undefended pieces, White has one.
+1️⃣ Loose Pieces: Black has zero undefended pieces, White has one.
+2️⃣ Captures: White has no captures.
 3️⃣ Candidates: The three candidate moves to calculate, most forcing first.
 
 Calculate your candidates and comment your move. Answer in the comments tomorrow!
