@@ -247,5 +247,15 @@
 "setting": "a space museum full of planets",
 "lesson": "end",
 "teaser": "A hidden compartment clicks open beneath the celestial board."
+},
+{
+"title": "The Desert Balloon Snag",
+"summary": "At a desert balloon festival, Pip gets snagged by runaway balloons when a countdown puzzle alarm blares, prompting Luna to remind Vektor that loose pieces drop off.",
+"puzzle": "BnwOE",
+"format": "comedy mishap: something silly goes wrong and Vektor has to fix it with chess",
+"spotlight": "Luna",
+"setting": "a desert festival with balloons",
+"lesson": "loose",
+"teaser": "A runaway balloon floats into Bishop Blaze's camp."
 }
 ]
