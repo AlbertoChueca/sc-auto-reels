@@ -1060,7 +1060,7 @@
 "shares": 1,
 "saved": 0,
 "total_interactions": 22,
-"ig_reels_avg_watch_time": 13157
+"ig_reels_avg_watch_time": 13148
 },
 "18162040678498342": {
 "slot": "story",
@@ -1090,5 +1090,34 @@
 "saved": 0,
 "total_interactions": 0,
 "ig_reels_avg_watch_time": 3895
+},
+"18132942274703656": {
+"slot": "storytag",
+"story": "Tip: Find 2-3 candidates",
+"hook": "Can you help Vektor unlock the secret move? \u26a1",
+"level": "intermediate",
+"mode": "tip",
+"engine": "tip",
+"review_score": null,
+"arms": {
+"hook_style": "mystery: open on something strange or unexpected that makes kids ask 'what happened?'",
+"theme": "travelling to a new place for a tournament",
+"difficulty": "intermediate",
+"think_time": "long",
+"story_length": "short",
+"format": "tip",
+"reveal": "comments"
+},
+"date": "2026-10-20",
+"permalink": "https://www.instagram.com/reel/Des_TwbjuLn/",
+"type": "REELS",
+"views": 378,
+"reach": 323,
+"likes": 4,
+"comments": 6,
+"shares": 0,
+"saved": 0,
+"total_interactions": 10,
+"ig_reels_avg_watch_time": 11350
 }
 }
