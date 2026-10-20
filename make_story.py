@@ -349,7 +349,7 @@ def build(P, seed, out, mode="level", arms=None):
         story_len = sum(max(len(a) / SR + 0.35, 2.0) for a in A) + 0.3 + LS.length()
         return HY.build(P, seed, puzzle_mp4, mode=mode, skip_hook=True, backdrop=imgs[-1], keep_voice=True,
                         cta_lead="You helped Vektor get stronger! ", think_factor=think, style=st,
-                        max_len=MAX_TOTAL - story_len, reveal=arms.get("reveal", "in_video") != "comments")
+                        max_len=MAX_TOTAL - story_len, reveal=False)
 
     for attempt in range(3):
         try:

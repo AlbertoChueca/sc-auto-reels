@@ -69,6 +69,7 @@ try:
     fixed = {}
     if os.environ.get("LEVEL_OVERRIDE", "auto") in LEVELS or slot not in ("story",):
         fixed["difficulty"] = level                       # manual choice / tag-a-friend keep their level
+    fixed["reveal"] = "comments"                      # never show the answer in the video: it goes in the comments
     if os.environ.get("FORMAT_OVERRIDE") in ("story", "tip"):
         fixed["format"] = os.environ["FORMAT_OVERRIDE"]
     arms = strategy.choose(seed=f"{now:%Y-%m-%d-%H}-{slot}{_B}", fixed=fixed)

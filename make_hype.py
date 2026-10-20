@@ -281,7 +281,7 @@ HOOKS = {
 
 
 def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice=False, cta_lead=None, think_factor=1.0,
-          style=None, max_len=None, reveal=True):
+          style=None, max_len=None, reveal=False):
     S = {**DEFAULT_STYLE, **(style or {})}
     import voice
     if not keep_voice:
@@ -315,7 +315,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
     lines += [(f"m{i}", R.san_say(s)) for i, s in enumerate(shown)]
     lines += [("fin", finale if reveal else "What's your move? Comment it below. The answer drops in the comments tomorrow!"),
               ("cta", (cta_lead or ("Send this to a friend and see who's faster! " if mode == "tagfriend" else "Did you get it? "))
-               + "Play a new puzzle every day on StreakChess. It's free! Parents, the link is in bio.")]
+               + "Play a new puzzle every day on StreakChess. It's free, for every chess player. Link in bio.")]
 
     STY = {"h1": "excited, playful challenge", "h2": "fun, with a big smile", "lvl": "clear and friendly, like a cool teacher",
            "go": "upbeat, cheering them on", "up": "playful, a bit dramatic", "fin": "amazed and proud",
@@ -601,7 +601,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
           + ("Comment the move and tag a friend to challenge them!\n\n" if mode == "tagfriend" else
              ("Comment your move before watching the solution!\n\n" if reveal else
               "Comment your move! The answer drops in the comments tomorrow.\n\n"))
-          + "Parents: StreakChess turns chess practice into a fun daily game for kids. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
+          + "For every chess player, kids and adults: StreakChess turns calculation practice into a daily game. Free to play. Founder offer for the first 500 accounts, link in bio.\n\n"
           + " ".join(R.hashtags(rng)))
     open(out.replace(".mp4", ".txt"), "w").write(ig)
     return dict(mode=mode, puzzle=P.get("id"), level=P["level"], rating=P.get("rating"), hook=f"{h1} {h2}", sans=sans, reveal=reveal,

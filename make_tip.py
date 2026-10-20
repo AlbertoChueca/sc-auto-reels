@@ -100,7 +100,7 @@ def build(P, seed, out, mode="level", arms=None):
                             cta_lead="Save this method and use it in your next game! ",
                             think_factor=strategy.THINK_FACTOR.get(arms.get("think_time"), 1.0),
                             style={"follow_line": "Follow for a new masterclass every week", "share_line": "Send this to a chess friend"},
-                            max_len=MAX - L.length(), reveal=arms.get("reveal", "in_video") != "comments")
+                            max_len=MAX - L.length(), reveal=False)
             break
         except voice.VoiceError as e:
             nxt = voice.next_engine(); print(f"voice changed ({e}); redoing with {nxt}", flush=True); voice.reset(nxt)
@@ -111,14 +111,14 @@ def build(P, seed, out, mode="level", arms=None):
                     "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]"]
                    + HY.enc_args(out, scale=False), check=True)
     rng = random.Random(seed)
-    reveal = meta.get("reveal", True)
+    reveal = meta.get("reveal", False)
     steps_txt = "\n".join(f"{i + 1}️⃣ {s['title'].title()}: {s['fact']}" for i, s in enumerate(L.steps))
     cap = (f"{script.get('caption_hook', tip[1])}\n"
            f"Calculation masterclass: {tip[1]}. {tip[2]}\n\nThe method, step by step, on this position:\n{steps_txt}\n\n"
            + ("Now calculate your candidates and comment your move!\n\n" if reveal else
               "Calculate your candidates and comment your move. Answer in the comments tomorrow!\n\n")
            + "Save this for your next game and send it to a chess friend.\n\n"
-           "Parents: StreakChess turns chess practice into a fun daily game. Free to play, founder offer for the first 500 accounts, link in bio.\n\n"
+           "For every chess player, kids and adults: StreakChess turns calculation practice into a daily game. Free to play, founder offer for the first 500 accounts, link in bio.\n\n"
            + " ".join(R.hashtags(rng)))
     open(out.replace(".mp4", ".txt"), "w").write(cap)
     for f in (tip_mp4, puzzle_mp4, puzzle_mp4.replace(".mp4", ".txt")):

@@ -219,7 +219,7 @@ def build(seed, out, mode="level"):
     cap = (f"{script.get('caption_hook', 'Train your calculation every day ♟️')}\n"
            "Strong players see the move before they play it. StreakChess trains that habit with a few puzzles a day.\n\n"
            "Comment \"STREAK\" if you're starting today!\n\n"
-           "Parents: StreakChess is free to play, with a founder offer for the first 500 accounts. Link in bio.\n\n"
+           "For every chess player, kids and adults: StreakChess is free to play, with a founder offer for the first 500 accounts. Link in bio.\n\n"
            + " ".join(R.hashtags(rng)))
     open(out.replace(".mp4", ".txt"), "w").write(cap)
     if not mock:

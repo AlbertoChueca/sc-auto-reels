@@ -20,7 +20,7 @@ STAMP = os.path.join(NB_DIR, "last_update.txt")
 
 ROLES = {
     "hook": "HOOK SPECIALIST. You own the first 2 seconds: the big on-screen hook text, the first spoken sentence and "
-            "the first line of the caption. Your only goal is that kids (8-12) and chess parents stop scrolling and keep watching.",
+            "the first line of the caption. Your only goal is that chess players of every age (kids, teens, adults) and chess parents stop scrolling and keep watching.",
     "story": "STORY EDITOR. You own the storytelling: a clear mini arc, emotion, humour, continuity of Vektor's journey "
              "to become World Champion, and a natural reason why today's chess position matters.",
     "visual": "VISUAL DIRECTOR. You own image quality: framing, composition, lighting, colour, consistency of Vektor "
@@ -136,7 +136,7 @@ Write the end-card lines: follow_line (max 6 words, makes people follow for Vekt
 
 
 def growth_caption(caption, story, review):
-    """Growth Marketer (after the QA review): final caption. Keeps the parents line and 3-5 chess hashtags."""
+    """Growth Marketer (after the QA review): final caption. Keeps the StreakChess line and 3-5 chess hashtags."""
     try:
         tags = re.findall(r"#\w+", caption)
         res = _ask(f"""{_brief('growth')}
@@ -146,8 +146,8 @@ Current caption:
 QA notes on the finished reel: {json.dumps(review, ensure_ascii=False)[:600]}
 Rewrite the caption for maximum comments, shares, saves and follows from chess players and chess parents.
 Rules: English; first line max 12 words (hook, max one emoji); a line inviting people to comment their move;
-a line inviting to share with a chess friend; keep a line for parents that StreakChess is free with the founder
-offer and link in bio; end with 3-5 chess hashtags (you may swap them). Max 600 characters. Kid-safe, no fake claims.
+a line inviting to share with a chess friend; keep one line for every chess player (kids, adults and chess parents alike, never addressed
+to parents only) that StreakChess is free with the founder offer and link in bio; end with 3-5 chess hashtags (you may swap them). Max 600 characters. Kid-safe, no fake claims.
 Return JSON: {{"caption": str, "why": str}}""", 0.6)
         cap = (res.get("caption") or "").strip()
         n_tags = len(re.findall(r"#\w+", cap))

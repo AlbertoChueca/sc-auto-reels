@@ -213,8 +213,8 @@ any stray spoken words that are not part of the story (e.g. "say") or hiss/noise
 subtitles readable and in sync with the voice, voice natural and matching the words, the chess board and moves easy
 to follow, visuals consistent and attractive, call to action clear, likelihood kids comment/share/follow.
 "critical" = true ONLY if the reel is clearly broken (silent, frozen/black, unreadable, wrong/garbled voice,
-inappropriate content). Then write a better FIRST caption line (max 12 words, one emoji max, written for kids and
-parents, invites commenting the answer) and a short comment prompt line (max 12 words).
+inappropriate content). Then write a better FIRST caption line (max 12 words, one emoji max, written for chess players of every age,
+kids and adults, invites commenting the answer) and a short comment prompt line (max 12 words).
 Return JSON: {{"overall": number, "scores": {{...}}, "critical": bool, "issues": [str], "suggestions": [str],
 "caption_first_line": str, "comment_prompt": str}}"""},
                     {"inline_data": {"mime_type": "video/mp4", "data": data}}], 0.4)

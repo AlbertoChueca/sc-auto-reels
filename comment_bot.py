@@ -28,8 +28,8 @@ PUBLIC_CORRECT = [
     "Well calculated! {move} 🎯 Join the daily challenge, link in bio",
 ]
 PUBLIC_OTHER = [
-    "Thanks for playing! 🔥 The solution is in the video. More puzzles daily, link in bio",
-    "Nice try! Watch till the end for the answer ♟️ Train daily for free, link in bio",
+    "Thanks for playing! 🔥 The answer drops in the comments tomorrow. More puzzles daily, link in bio",
+    "Nice try! The answer is coming tomorrow ♟️ Train daily for free, link in bio",
     "Love it! 🔥 Train your calculation for free, link in bio",
     "Thanks for the comment! ♟️ New puzzles every day, link in bio",
     "Great to see you here! 👀 Sharpen your calculation daily, link in bio",
