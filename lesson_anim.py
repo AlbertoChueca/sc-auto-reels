@@ -133,6 +133,13 @@ def _ranked_candidates(b, n=3):
     for m in _captures(b): add(m)
     for m, _ in _quiet_threats(b): add(m)
     for m in ch: add(m)
+    if len(out) < n:                       # never leave one lonely candidate (that would give the answer away):
+        def activity(m):                   # fill with the most active quiet moves, like a real player would list
+            b2 = b.copy(); b2.push(m)
+            return len(b2.attacks(m.to_square))
+        quiet = [m for m in b.legal_moves if m.uci() not in seen and b.piece_at(m.from_square).piece_type
+                 not in (chess.KING, chess.PAWN)] or [m for m in b.legal_moves if m.uci() not in seen]
+        for m in sorted(quiet, key=lambda m: -activity(m)): add(m)
     return out
 
 
@@ -278,11 +285,11 @@ def solution_move(P):
 
 
 def hide_solution(s, hide):
-    """No spoilers: the solution move is never drawn or written. Counts stay true; its chip becomes '?'
-    (the viewer knows it is among the options, but has to find which one and why)."""
-    mv = s.pop("moves", None) or []
-    if hide is None:
-        return s
+    """The lesson explains the PROCESS honestly: the winning move is listed like any other check, capture or
+    candidate (never singled out as the answer). Masking it made the method impossible to follow."""
+    s.pop("moves", None)
+    return s
+    mv = []
     key = (hide.from_square, hide.to_square)
     s["arrows"] = [a for a in s["arrows"] if (a[0], a[1]) != key]
     for i, m in enumerate(mv):
@@ -521,14 +528,14 @@ class Lesson:
         bg.alpha_composite(glow.filter(ImageFilter.GaussianBlur(150)))
         last = self.b.peek() if self.b.move_stack else None
         base = R.draw_board(self.b, self.flip, (last.from_square, last.to_square) if last else ())
-        SC, CY = 0.74, 940
+        SC, CY = 0.82, 955                                # bigger board (was 0.74)
         title = R.pill(self.tip[1].upper()[:34], 38, HY.YEL, fg=HY.INK, padx=34, pady=12)
         lists = [checklist(self.steps, k) for k in range(len(self.steps))] + [checklist(self.steps, 99, True)]
         counts = [big_count(s["count"], s["color"]) for s in self.steps]
         chips = [chips_img(s["chips"], s["color"]) for s in self.steps]
         your_turn = big_count("YOUR TURN", HY.YEL)
         cover = self._cover_frame(bg, base) if self.cover else None
-        sub_y = 1452
+        sub_y = 1480
 
         def card_of(img):
             c = R.card(img); c = c.resize((int(c.width * SC), int(c.height * SC)), Image.LANCZOS)
@@ -551,8 +558,8 @@ class Lesson:
             R.paste_center(fr, title, W / 2, HY.SAFE_TOP + 30)
             if isinstance(seg, int):
                 st = self.steps[seg]
-                R.paste_center(fr, lists[seg], W / 2, 375, R.ease_out_back(R.clamp(lt / 0.3)) if lt < 0.3 else 1.0)
-                R.paste_center(fr, counts[seg], W / 2, 480, R.ease_out_back(R.clamp((lt - 0.2) / 0.3)))
+                R.paste_center(fr, lists[seg], W / 2, 365, R.ease_out_back(R.clamp(lt / 0.3)) if lt < 0.3 else 1.0)
+                R.paste_center(fr, counts[seg], W / 2, 468, R.ease_out_back(R.clamp((lt - 0.2) / 0.3)))
                 done = lt > ARROW_T0 + ARROW_DT * len(st["arrows"]) + ARROW_GROW + 0.4
                 if done:
                     key = ("s", seg)
@@ -568,14 +575,14 @@ class Lesson:
                 if chips[seg] is not None:
                     a = R.clamp((lt - ARROW_T0 - 0.2) / 0.3)
                     if a > 0:
-                        R.paste_center(fr, chips[seg], W / 2, 1332, R.ease_out_back(a))
+                        R.paste_center(fr, chips[seg], W / 2, 1394, R.ease_out_back(a))
             else:                                            # outro: all steps ticked, candidates kept on the board
                 st = self.steps[-1]
                 key = ("s", len(self.steps) - 1)
                 if key not in static_cache:
                     static_cache[key] = card_of(board_overlay(base, st, 99, self.flip, True))
-                R.paste_center(fr, lists[-1], W / 2, 375)
-                R.paste_center(fr, your_turn, W / 2, 480, R.ease_out_back(R.clamp(lt / 0.35)))
+                R.paste_center(fr, lists[-1], W / 2, 365)
+                R.paste_center(fr, your_turn, W / 2, 468, R.ease_out_back(R.clamp(lt / 0.35)))
                 R.paste_center(fr, static_cache[key], W / 2, CY)
             cur = [(ts, w) for si, ts, w in words if si == k and ts <= t]
             if cur:

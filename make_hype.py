@@ -533,7 +533,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                 # board stage
                 card, focus = board_card(tt)
                 enter = eo((tt - T["count"][0] + 0.6) / 0.5) if tt < T["count"][0] + 0.5 else 1
-                R.paste_center(fr, R.shadowed(card, 30, (0, 20), 160)[0], W / 2, BOARD_CY + (1 - enter) * 1100, 0.88)
+                R.paste_center(fr, R.shadowed(card, 30, (0, 20), 160)[0], W / 2, BOARD_CY + (1 - enter) * 1100, 0.98)   # bigger board
                 mood, look = "thinking", (0.5 * math.sin(tt * 1.4), 0.7)
                 if tt >= T["up"][0]: mood, look = "surprised", (0.6, 0.7)
                 if tt >= T["fin"][0]: mood = "star" if reveal else "thinking"
@@ -551,7 +551,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
                     R.paste_center(fr, ring, 820, 330, 1 + (0.04 if remain <= 3 else 0.0) * max(0, 1 - ph * 5))
                     zoom = 1.0   # board stays perfectly still while the viewer thinks
                     cap = word_img("PAUSE IF YOU NEED TIME" if lt < COUNT / 2 else "COMMENT YOUR MOVE!", 54, WHITE, 7)
-                    R.paste_center(fr, cap, W / 2, 1500, eob(((lt % (COUNT / 2))) / 0.3))
+                    R.paste_center(fr, cap, W / 2, 1540, eob(((lt % (COUNT / 2))) / 0.3))
                 if T["up"][0] <= tt < T["up"][1]:
                     lt = tt - T["up"][0]; flash = max(0, 0.3 - lt * 1.5); shake = 5 * max(0, 1 - lt / 0.3)
                     R.paste_center(fr, word_img("TIME'S UP!", 130, RED), W / 2 + 160, 330, eob(lt / 0.3), 1, -4)
@@ -601,9 +601,9 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
         cap = caption(tt)
         if cap and not (T["count"][0] <= tt < T["count"][1]):
             words, nt = cap
-            y = 330 if tt < T["h2"][1] else (1000 if tt < T["go"][1] else (1500 if tt < T["cta"][0] else 1080))
+            y = 330 if tt < T["h2"][1] else (1000 if tt < T["go"][1] else (1540 if tt < T["cta"][0] else 1080))
             if T["lvl"][0] <= tt < T["go"][1]: y = 880
-            if T["fin"][0] <= tt < T["cta"][0]: y = 1500
+            if T["fin"][0] <= tt < T["cta"][0]: y = 1540
             if tt >= T["cta"][0]: y = 545
             if not (T["up"][0] <= tt < T["fin"][0]):
                 ph = phrase_img(words, nt, int((104 if tt < T["h2"][1] else (72 if tt >= T["cta"][0] else 84)) * S["caption_scale"]))
