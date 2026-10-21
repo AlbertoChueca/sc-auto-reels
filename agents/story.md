@@ -1,7 +1,5 @@
-# Story notebook (2026-10-20)
+# Story notebook (2026-10-21)
 
-# Story notebook (2026-10-16)
-
-• Keep doing: Domestic micro-adventures (baking cookies, indoor riddles) and gadget-driven mysteries (Science Fair Spark drove 6 shares; Cookie Challenge drove 339 views).
-• Stop doing: High-pressure tournament finals ("The Giant Board Showdown", 5.15; "Championship Decider", 5.77) which consistently drop to the bottom with zero shares.
-• Try next: Pairing cozy domestic stakes with Bishop Blaze's secret playbook to blend our top view-getter with our top shared story.
+• Keep doing: Short tactical tip formats featuring Coach King's lessons ("Loose pieces drop off" at 10.36; "Find 2-3 candidates" at 8.81) and cozy micro-stakes ("Cookie Challenge" at 8.10).
+• Stop doing: Standard high-stakes tournament finals ("The Championship Decider", 5.77) that lack relatable domestic tension.
+• Try next: Blending Bishop Blaze's secret playbook mystery into quick tactical tip arcs, keeping story lengths short to protect 11–13s retention.

@@ -937,14 +937,14 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/Des2HOagivt/",
 "type": "REELS",
-"views": 242,
-"reach": 212,
+"views": 244,
+"reach": 213,
 "likes": 1,
 "comments": 0,
 "shares": 0,
 "saved": 2,
 "total_interactions": 3,
-"ig_reels_avg_watch_time": 11214
+"ig_reels_avg_watch_time": 11178
 },
 "18170282128471731": {
 "slot": "storytag",
@@ -966,14 +966,14 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/Desxsg8DYMj/",
 "type": "REELS",
-"views": 150,
-"reach": 129,
+"views": 151,
+"reach": 130,
 "likes": 3,
-"comments": 0,
+"comments": 1,
 "shares": 0,
 "saved": 0,
-"total_interactions": 3,
-"ig_reels_avg_watch_time": 4117
+"total_interactions": 4,
+"ig_reels_avg_watch_time": 4094
 },
 "17978445114135135": {
 "slot": "story",
@@ -995,14 +995,14 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/DestB5Viazc/",
 "type": "REELS",
-"views": 164,
-"reach": 146,
+"views": 175,
+"reach": 154,
 "likes": 2,
-"comments": 0,
+"comments": 2,
 "shares": 0,
 "saved": 0,
-"total_interactions": 2,
-"ig_reels_avg_watch_time": 6780
+"total_interactions": 4,
+"ig_reels_avg_watch_time": 7786
 },
 "18226502452327757": {
 "slot": "story",
@@ -1024,14 +1024,14 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/Desoz-llDfS/",
 "type": "REELS",
-"views": 138,
-"reach": 105,
+"views": 139,
+"reach": 107,
 "likes": 1,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 1,
-"ig_reels_avg_watch_time": 5175
+"ig_reels_avg_watch_time": 5176
 },
 "18113378402128529": {
 "slot": "story",
@@ -1053,14 +1053,14 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/DesibekDgFO/",
 "type": "REELS",
-"views": 1255,
-"reach": 1085,
+"views": 1257,
+"reach": 1086,
 "likes": 17,
 "comments": 5,
 "shares": 1,
 "saved": 0,
 "total_interactions": 23,
-"ig_reels_avg_watch_time": 13182
+"ig_reels_avg_watch_time": 13204
 },
 "18162040678498342": {
 "slot": "story",
@@ -1082,14 +1082,14 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/Des7OekEh-d/",
 "type": "REELS",
-"views": 133,
-"reach": 123,
+"views": 134,
+"reach": 125,
 "likes": 0,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 0,
-"ig_reels_avg_watch_time": 3895
+"ig_reels_avg_watch_time": 3878
 },
 "18132942274703656": {
 "slot": "storytag",
@@ -1111,13 +1111,42 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/Des_TwbjuLn/",
 "type": "REELS",
-"views": 380,
-"reach": 324,
+"views": 383,
+"reach": 326,
 "likes": 4,
-"comments": 6,
+"comments": 7,
 "shares": 0,
 "saved": 0,
-"total_interactions": 10,
-"ig_reels_avg_watch_time": 11295
+"total_interactions": 11,
+"ig_reels_avg_watch_time": 11301
+},
+"18119424092055193": {
+"slot": "story",
+"story": "The Planetarium Playbook Duel",
+"hook": "Can you help Vektor unlock the secret playbook? \u26a1",
+"level": "basic",
+"mode": "level",
+"engine": "story",
+"review_score": 4.5,
+"arms": {
+"hook_style": "big_dream: open on Vektor's dream of becoming World Champion, then today's obstacle",
+"theme": "cracking Bishop Blaze's secret playbook: Vektor decodes Blaze's hidden notebook of trick openings to save the club.",
+"difficulty": "basic",
+"think_time": "long",
+"story_length": "short",
+"format": "story",
+"reveal": "comments"
+},
+"date": "2026-10-20",
+"permalink": "https://www.instagram.com/reel/Detz00zk5n8/",
+"type": "REELS",
+"views": 167,
+"reach": 138,
+"likes": 3,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 3,
+"ig_reels_avg_watch_time": 8811
 }
 }

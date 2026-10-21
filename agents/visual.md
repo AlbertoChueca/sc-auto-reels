@@ -1,7 +1,5 @@
-# Visual notebook (2026-10-20)
+# Visual notebook (2026-10-21)
 
-# Visual notebook (2026-10-16)
-
-• Keep doing: Intimate, warm environments (kitchens, rainy rooms, workshops) that keep retention strong (4,500–6,500 ms).
-• Stop doing: Vast, sterile tournament halls and wide-angle boards that crater watch time to ~2,200 ms (Campfire Gambit, Giant Board Showdown).
-• Try next: High-contrast, mobile-first 2D board cutaways with expressive character close-ups to sustain watch time past 7,000 ms (seen in Pirate Dream and Chess Club Show-Off).
+• Keep doing: Mobile-optimized 2D board cutaways with extended puzzle think-time, which sustained our longest watch times (11,178–13,204 ms).
+• Stop doing: Rapid-cut scenes and distant wide-angle setups that drop watch time under 4,000 ms.
+• Try next: High-contrast piece highlights with Vektor's expressive thinking poses in the lower third to prompt saves and visual clarity.

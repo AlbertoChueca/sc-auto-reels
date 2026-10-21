@@ -1,7 +1,5 @@
-# Hook notebook (2026-10-20)
+# Hook notebook (2026-10-21)
 
-# Hook notebook (2026-10-16)
-
-• Keep doing: Direct "Can you help Vektor..." hooks tied to tactile stakes or specific move counts (Cookie Challenge: 8.10 score, 339 views; Rainy Day: 7.89 score).
-• Stop doing: Centering the hook on secondary characters ("for Luna" bottomed at 5.15) or vague championship setups ("Championship Decider", 5.77).
-• Try next: Mystery-themed challenge hooks featuring gadgets or secret tactics ("Can you help Vektor unlock the secret move? ⚡"), building on Science Fair Spark's record 6 shares.
+• Keep doing: "Can you help Vektor unlock the secret tactic/move? ⚡" which powered our #1 and #2 reels (10.36 and 8.81 scores; 1,257 views; 13.2s watch time).
+• Stop doing: Generic high-stakes hooks like "The Championship Decider" (5.77 score) or "Sunny Park Clash" (5.77 score).
+• Try next: Combining tactical mystery hooks with specific piece counts or time traps (e.g., "Can you help Vektor spot the loose piece before time runs out? ⚡").

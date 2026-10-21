@@ -1,7 +1,5 @@
-# Community notebook (2026-10-20)
+# Community notebook (2026-10-21)
 
-# Community notebook (2026-10-16)
-
-• Keep doing: Tracking high-engagement reel themes (Rainy Day Riddle and Rooftop Blitz led with 6 comments).
-• Stop doing: Attempting to evaluate puzzle difficulty or narrative reception from comments; genuine human feedback is currently absent.
-• Try next: Acknowledging 100% of recent audience comments are repetitive bot/scraper requests ("Send me this post"). Test simple on-screen binary prompts (e.g., "A or B?") to coax out real human responses.
+• Keep doing: Monitoring tactical tip reels, which are the only posts generating real human chess analysis (viewers submitted specific candidate moves like "Bishop b6", "Qf8+", and "Rook A8").
+• Stop doing: Relying on comments from pure story reels, which produce zero narrative feedback.
+• Try next: Filtering out rampant DM bot spam ("Send me this post") to focus on notation errors, using viewer mistakes to calibrate puzzle difficulty.
