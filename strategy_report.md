@@ -1,6 +1,6 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-10-22 · 27 reels with results (3+ days old) · average score 6.26_
+_Updated 2026-10-22 · 27 reels with results (3+ days old) · average score 6.27_
 
 
 ## hook_style
@@ -12,7 +12,7 @@ _Updated 2026-10-22 · 27 reels with results (3+ days old) · average score 6.26
 | big_dream | 8 | 6.33 |
 | rival | 5 | 6.25 |
 | cliffhanger | 1 | 6.20 |
-| funny_fail | 7 | 5.98 |
+| funny_fail | 7 | 6.00 |
 | challenge | 1 | 5.33 |
 
 ## theme
@@ -21,27 +21,27 @@ _Updated 2026-10-22 · 27 reels with results (3+ days old) · average score 6.26
 |---|---|---|
 | daily training to keep the streak alive | 1 | 7.08 |
 | cracking Bishop Blaze's secret playbook | 2 | 6.60 |
+| helping Pip or a friend who is stuck | 5 | 6.44 |
 | travelling to a new place for a tournament | 1 | 6.43 |
-| helping Pip or a friend who is stuck | 5 | 6.41 |
 | blitz battle against Bishop Blaze | 5 | 6.34 |
 | school chess club with friends | 4 | 6.29 |
 | lesson or secret test from Coach King | 6 | 6.03 |
-| tournament game with everything at stake | 3 | 5.78 |
+| tournament game with everything at stake | 3 | 5.80 |
 
 ## difficulty
 
 | option | reels | avg score |
 |---|---|---|
 | basic | 13 | 6.41 |
-| advanced | 5 | 6.20 |
-| intermediate | 9 | 6.09 |
+| advanced | 5 | 6.21 |
+| intermediate | 9 | 6.10 |
 
 ## think_time
 
 | option | reels | avg score |
 |---|---|---|
-| long | 11 | 6.36 |
-| normal | 10 | 6.26 |
+| long | 11 | 6.38 |
+| normal | 10 | 6.27 |
 | fast | 6 | 6.08 |
 
 ## story_length
@@ -49,7 +49,7 @@ _Updated 2026-10-22 · 27 reels with results (3+ days old) · average score 6.26
 | option | reels | avg score |
 |---|---|---|
 | normal | 16 | 6.32 |
-| short | 11 | 6.18 |
+| short | 11 | 6.20 |
 
 ## format
 
