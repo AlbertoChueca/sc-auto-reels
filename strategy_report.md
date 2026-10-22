@@ -22,7 +22,7 @@ _Updated 2026-10-22 · 27 reels with results (3+ days old) · average score 6.27
 | daily training to keep the streak alive | 1 | 7.08 |
 | cracking Bishop Blaze's secret playbook | 2 | 6.60 |
 | helping Pip or a friend who is stuck | 5 | 6.44 |
-| travelling to a new place for a tournament | 1 | 6.43 |
+| travelling to a new place for a tournament | 1 | 6.44 |
 | blitz battle against Bishop Blaze | 5 | 6.34 |
 | school chess club with friends | 4 | 6.29 |
 | lesson or secret test from Coach King | 6 | 6.03 |
