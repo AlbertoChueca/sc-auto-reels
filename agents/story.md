@@ -1,5 +1,7 @@
-# Story notebook (2026-10-21)
+# Story notebook (2026-10-22)
 
-• Keep doing: Short tactical tip formats featuring Coach King's lessons ("Loose pieces drop off" at 10.36; "Find 2-3 candidates" at 8.81) and cozy micro-stakes ("Cookie Challenge" at 8.10).
-• Stop doing: Standard high-stakes tournament finals ("The Championship Decider", 5.77) that lack relatable domestic tension.
-• Try next: Blending Bishop Blaze's secret playbook mystery into quick tactical tip arcs, keeping story lengths short to protect 11–13s retention.
+# Story notebook (2026-10-22)
+
+• Keep doing: Short tactical tip arcs (`format=tip`, `story_length=short`) centered on Coach King's wisdom ("Loose pieces drop off" at 10.38) or cozy micro-stakes ("Cookie Challenge" at 8.10).
+• Stop doing: Dramatic rescue plots and school rivalry clashes ("Pip's Championship Rescue" at 6.20, "Classroom Showdown" at 6.60).
+• Try next: Weaving Coach King's bite-sized tactical rules into warm moments with Pip or Grandma Queen to maintain short narrative setups that protect retention.

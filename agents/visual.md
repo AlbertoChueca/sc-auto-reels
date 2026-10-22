@@ -1,5 +1,7 @@
-# Visual notebook (2026-10-21)
+# Visual notebook (2026-10-22)
 
-• Keep doing: Mobile-optimized 2D board cutaways with extended puzzle think-time, which sustained our longest watch times (11,178–13,204 ms).
-• Stop doing: Rapid-cut scenes and distant wide-angle setups that drop watch time under 4,000 ms.
-• Try next: High-contrast piece highlights with Vektor's expressive thinking poses in the lower third to prompt saves and visual clarity.
+# Visual notebook (2026-10-22)
+
+• Keep doing: Extended puzzle display with `think_time=long`, sustaining 11,233ms–13,245ms watch time on top performers.
+• Stop doing: Fast puzzle cuts (`think_time=fast`), which crash watch time to ~3,500ms ("The Blunder Check").
+• Try next: High-contrast mobile board framing with subtle piece highlights appearing at second 6 to guide eyes without breaking immersion.

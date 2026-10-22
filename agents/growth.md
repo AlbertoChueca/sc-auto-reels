@@ -1,5 +1,7 @@
-# Growth notebook (2026-10-21)
+# Growth notebook (2026-10-22)
 
-• Keep doing: Hiding solutions with "reveal=comments", which generated our highest authentic comment volumes (5–7 comments).
-• Stop doing: Passive captions on story reels that generate 0 saves and 0 shares.
-• Try next: Tactical save prompts ("Save this pattern for your next match!") to scale up saves following the 2 saves on "Checks, captures, threats", while testing comment triggers for automated DM requests.
+# Growth notebook (2026-10-22)
+
+• Keep doing: Hiding solutions with `reveal=comments`, driving our highest authentic discussions (5–7 comments).
+• Stop doing: In-video answer reveals (`reveal=in_video`), which dropped comments to zero on "Checks, captures, threats".
+• Try next: Explicit save prompts ("Save this pattern before your next tournament!") to improve our flatline saves, and pinned comment prompts to steer DM engagement.
