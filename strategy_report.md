@@ -20,7 +20,7 @@ _Updated 2026-10-23 · 40 reels with results (3+ days old) · average score 6.60
 | option | reels | avg score |
 |---|---|---|
 | travelling to a new place for a tournament | 2 | 7.67 |
-| daily training to keep the streak alive | 4 | 6.68 |
+| daily training to keep the streak alive | 4 | 6.67 |
 | lesson or secret test from Coach King | 7 | 6.66 |
 | cracking Bishop Blaze's secret playbook | 5 | 6.63 |
 | school chess club with friends | 5 | 6.55 |
