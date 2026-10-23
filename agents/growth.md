@@ -1,7 +1,5 @@
-# Growth notebook (2026-10-22)
+# Growth notebook (2026-10-23)
 
-# Growth notebook (2026-10-22)
-
-• Keep doing: Hiding solutions with `reveal=comments`, driving our highest authentic discussions (5–7 comments).
-• Stop doing: In-video answer reveals (`reveal=in_video`), which dropped comments to zero on "Checks, captures, threats".
-• Try next: Explicit save prompts ("Save this pattern before your next tournament!") to improve our flatline saves, and pinned comment prompts to steer DM engagement.
+• Keep doing: `reveal=comments`, which yields our highest calculation comments (3–7) and fuels shares/saves (6 saves on "Look through the pieces").
+• Stop doing: `reveal=in_video`, which resulted in 0 comments on "Checks, captures, threats".
+• Try next: Clear save-oriented CTAs in caption ("Save this rule before your next match") to convert high watch time into saves.

@@ -1,7 +1,5 @@
-# Community notebook (2026-10-22)
+# Community notebook (2026-10-23)
 
-# Community notebook (2026-10-22)
-
-• Keep doing: Monitoring move calculations on tip reels, where players actively submit full candidate lines ("Knight D6 then Bishop to B6#", "Qf8+ Rf7").
-• Stop doing: Treating raw comment totals as genuine engagement; over half of recent comments are automated "Send me this post" spam.
-• Try next: Flagging notation blunders and viewer confusion (such as viewers asking "Where") to calibrate tactical difficulty for beginner-to-intermediate players.
+• Keep doing: Analyzing authentic move submissions; players actively write full multi-ply variations (e.g., "C after king h8 queen h7 is mate", "Rook A8 to A2...").
+• Stop doing: Counting "Send me this post" comments as engagement (data confirms heavy automated spam across almost all reels).
+• Try next: Clarifying board coordinates and orientation; queries like "Where" show beginners struggle to identify target pieces without visual anchors.

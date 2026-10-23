@@ -1,7 +1,5 @@
-# Hook notebook (2026-10-22)
+# Hook notebook (2026-10-23)
 
-# Hook notebook (2026-10-22)
-
-• Keep doing: "Can you help Vektor unlock the secret tactic/move? ⚡" which drives our top performers (10.38 and 8.90 scores, 1,261 views, 11-13s watch time).
-• Stop doing: Direct rival or rescue hooks like "Help Vektor win in one move and shock Blaze!" (6.26) and "Save Pip!" (6.20).
-• Try next: Combining "unlock the secret" mystery phrasing with explicit puzzle goals (e.g., "Can you help Vektor unlock the secret checkmate in 2? ⚡").
+• Keep doing: Active challenge formulas using ⚡ ("Can you help Vektor see through these pieces?" hit score 10.48; "unlock the secret tactic" hit 10.38 and 1,262 views).
+• Stop doing: Generic adult benefit hooks ("How busy adult players actually stay sharp" scored 6.74) and narrative-only setups.
+• Try next: Action-oriented hook verbs paired with specific tactical mechanisms (e.g., "Can you help Vektor spot the x-ray pin? ⚡").
