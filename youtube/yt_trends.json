@@ -1,82 +1,84 @@
 {
- "date": "2026-10-20",
+ "date": "2026-10-23",
  "news": {
   "items": [
    {
-    "headline": "2026 U.S. Chess Championships Reach Final Rounds in Saint Louis",
-    "detail": "The 2026 U.S. Chess Championship and U.S. Women's Championship are concluding at the Saint Louis Chess Club, featuring 12-player round-robins headlined by Fabiano Caruana, Wesley So, Levon Aronian, Carissa Yip, and Alice Lee. The tournament marks the pinnacle classical showdown for America's top grandmasters.",
-    "date": "2026-10-20",
+    "headline": "Wesley So Clinches Fourth U.S. Championship Title in Rapid Playoff",
+    "detail": "After a dramatic final-round defeat against Sam Sevian ended his 48-game unbeaten streak, Wesley So defeated Fabiano Caruana 1.5\u20130.5 in rapid tiebreaks. The playoff victory earned So his fourth U.S. Championship crown and the $56,000 top prize.",
+    "date": "2026-10-22",
     "people": [
-     "Fabiano Caruana",
      "Wesley So",
-     "Levon Aronian",
-     "Carissa Yip",
-     "Alice Lee"
+     "Fabiano Caruana",
+     "Sam Sevian"
     ],
     "event": "2026 U.S. Chess Championship",
-    "why_viewers_care": "It decides the national classical chess champion of the United States among many of the world's highest-rated players."
+    "why_viewers_care": "Caruana's must-win final-round game created high drama, forcing a head-to-head tiebreak between two of America's highest-rated grandmasters."
    },
    {
-    "headline": "European Chess Club Cup Sets Participation Record in Budva",
-    "detail": "The 41st European Chess Club Cup and 30th Women's Club Cup began in Budva, Montenegro, establishing a new record with 130 participating teams. Elite squads such as Bayegan Pendik, SuperChess Romania, and Alkaloid are battling over seven Swiss rounds.",
-    "date": "2026-10-16",
-    "people": [],
-    "event": "41st European Chess Club Cup",
-    "why_viewers_care": "It is the strongest annual club team event in Europe, bringing together world-class grandmasters representing elite clubs."
+    "headline": "11-Year-Old Bodhana Sivanandan Breaks Judit Polgar's Record as Youngest Female IM",
+    "detail": "English prodigy Bodhana Sivanandan scored 5.5/7 at the European Club Cup in Budva, Montenegro, earning her final International Master norm. At age 11, she shattered Judit Polg\u00e1r's long-standing world age record to become the youngest female IM in chess history.",
+    "date": "2026-10-23",
+    "people": [
+     "Bodhana Sivanandan",
+     "Judit Polgar"
+    ],
+    "event": "41st European Club Cup 2026",
+    "why_viewers_care": "Breaking a decades-old record set by the greatest female player of all time marks an extraordinary milestone in chess history."
    },
    {
-    "headline": "FIDE Opens Ticket Sales and Unveils Fan Side Events for 2026 World Championship",
-    "detail": "FIDE announced ticket availability and a fan activity lineup for the Salesforce FIDE World Championship match in Geneva. Highlights include tandem simultaneous exhibitions featuring Anish Giri and Anna Muzychuk alongside masterclasses with Yannick Pelletier.",
-    "date": "2026-10-20",
+    "headline": "16-Year-Old Rachael Li Wins U.S. Women's Chess Championship on Debut",
+    "detail": "WIM Rachael Li won the 2026 U.S. Women's Chess Championship outright without needing tiebreaks, sealing victory in the final round. At just 16 years old, she became the youngest player to capture the national crown in her debut appearance.",
+    "date": "2026-10-21",
+    "people": [
+     "Rachael Li"
+    ],
+    "event": "2026 U.S. Women's Chess Championship",
+    "why_viewers_care": "A major upset by a rising teenage prodigy conquering one of the strongest national women's fields in the world."
+   },
+   {
+    "headline": "Bayegan Pendik and Cercle d'Echecs de Monte-Carlo Win European Club Cup",
+    "detail": "Bayegan Pendik Chess Sports Club, led by Anish Giri and Richard Rapport, edged Novy Bor to claim the Open European Club Cup in Montenegro. In the Women's division, Cercle d'Echecs de Monte-Carlo, starring Aleksandra Goryachkina and Humpy Koneru, captured the title.",
+    "date": "2026-10-23",
     "people": [
      "Anish Giri",
-     "Anna Muzychuk",
-     "Yannick Pelletier"
+     "Richard Rapport",
+     "Aleksandra Goryachkina",
+     "Humpy Koneru"
     ],
-    "event": "Salesforce FIDE World Championship Match 2026",
-    "why_viewers_care": "Fans are getting their first access to tickets and interactive grandmaster events ahead of the cycle's world title match."
+    "event": "41st European Club Cup 2026",
+    "why_viewers_care": "The tournament is Europe's premier club chess championship, featuring elite international grandmasters facing off across seven high-stakes rounds."
    },
    {
-    "headline": "Total Chess Proposes Unified Rating System Across All Formats",
-    "detail": "A new proposal by Total Chess introduced a composite ranking system combining classical, rapid, and blitz ratings. The formula ranks Magnus Carlsen, Hikaru Nakamura, and Nodirbek Abdusattorov as the top three overall performers worldwide.",
-    "date": "2026-10-19",
+    "headline": "Bibisara Assaubayeva Defeats Alexandra Kosteniuk in Freestyle Chess Match",
+    "detail": "Three-time Women's World Blitz Champion Bibisara Assaubayeva beat former World Champion Alexandra Kosteniuk 2.5\u20131.5 in a Freestyle Chess exhibition match. The victory secured Assaubayeva a spot in the upcoming FIDE Freestyle Chess World Championship.",
+    "date": "2026-10-23",
     "people": [
-     "Magnus Carlsen",
-     "Hikaru Nakamura",
-     "Nodirbek Abdusattorov"
+     "Bibisara Assaubayeva",
+     "Alexandra Kosteniuk"
     ],
-    "event": null,
-    "why_viewers_care": "Debates over unified ratings ignite huge community discussion about how to definitively measure all-around chess supremacy."
+    "event": "Freestyle Chess Exhibition",
+    "why_viewers_care": "Freestyle Chess (Chess960) is rapidly growing as a major competitive format, with top female stars now qualifying for world championship stages."
    },
    {
-    "headline": "Vladislav Artemiev Tops Hikaru Nakamura in Online Blitz Showdown",
-    "detail": "In Chess.com's competitive circuit recap, Vladislav Artemiev clinched a Titled Tuesday victory by defeating Hikaru Nakamura in the deciding final round. Meanwhile, Parham Maghsoodloo took the latest Freestyle Friday title in the race for 2027 Freestyle World Championship spots.",
-    "date": "2026-10-14",
+    "headline": "Javokhir Sindarov and Wesley So Lead FIDE Circuit Standings",
+    "detail": "Following Wesley So's national title win and Javokhir Sindarov's strong year across elite tournaments, both players secured the top two positions in the 2026\u20132027 FIDE Circuit. The circuit provides direct qualification spots into the 2028 Candidates Tournament.",
+    "date": "2026-10-23",
     "people": [
-     "Vladislav Artemiev",
-     "Hikaru Nakamura",
-     "Parham Maghsoodloo"
+     "Javokhir Sindarov",
+     "Wesley So"
     ],
-    "event": "Titled Tuesday / Freestyle Friday",
-    "why_viewers_care": "The world's fastest players regularly face off online in high-stakes blitz and Fischer Random events streamed to massive audiences."
+    "event": "2026\u20132027 FIDE Circuit",
+    "why_viewers_care": "Every elite tournament result shifts the leaderboard for crucial qualification berths toward the next World Chess Championship cycle."
    }
   ],
   "search_terms": [
-   "US Chess Championship 2026 live",
-   "European Chess Club Cup 2026",
-   "Hikaru Nakamura Titled Tuesday",
-   "FIDE World Championship 2026 Geneva tickets",
-   "Magnus Carlsen chess highlights"
+   "Wesley So vs Fabiano Caruana playoff 2026",
+   "Bodhana Sivanandan breaks Judit Polgar record",
+   "US Chess Championship 2026 highlights",
+   "Rachael Li US Women's Chess Championship",
+   "European Club Cup 2026 chess recap"
   ],
-  "sources": [
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfH9ezJqoGX7566Q2Qp1JH4cc-ir5XAd6jh_y15tz8vt_bLgq_VMfZvs5FgNLcKSU5nskePWytt1nmiROUr1-Icy-QU0Rmz56xVtygZLGzXKoa1jpb74lWoiUvxmCOJYK1Z8_i7lag6qZzWiO9",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGEKcV74guV5JapWqLkTQiVrP-A0rZWLMKkI3jaWPAqWe2bvanWUaSIR_JUZ1lsz8D1jBQgZ--5vBt7fR-fzGILlHQZJWcpxazsC6ySDBgsmDkFRSSdcw0U0Re3xP3as7e7nRaRbwVRPi02YVane2kCxhr28V2TKudrIkCh27dEP5KMdiXl6hpKGAjCyOTkROBcuzc=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFlNJV4voCgZTMUN3rqu9L_MW_Ldqo0ORQMDXjV2DNnMa0HuscCl-VivQmeOLqCP2C-_iLhr7jyBYAT6g725J5qtSe4145ubmAGjoXS1qGMapJGlWYZIx2gRiKuhO6Udb5xlK_ahYIkpp86mvnR--39FyAxLLtoOmGLGV7EqGEPUXYWcnVoiZ4o9i6tJoxvNZ2TnQAevRHSdnyjGTK2z1AMnUdVBw0F",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF8PDjVQHSR-Y0MfQZwo8EOqnEF7vnGZKy6HYg-EOlIXpxQulyvI80MWhC1vdk93cE90YChh44bXO4cMPHqIg6turPg0J1hdNS_DR9zFf4IJvbWsZQcqTnPu0rxiGbB5SmWj5se0ScgytSIXX7xbnGe1zqciQbrO7MtIpDZXIjlpjZVQs-1etEQnQ==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHYwMW7zi1Qmsw_0Crh6_cgmke1IQoAg0dvI1T3TH_ga1rOz2z6F7rEqVwlMpilsVDGUUNx7Imemf-NnL9QmDy65iH0ot3ZCRBMR6W3GCz7YMdn_jam9UhJVGZZi2-wwYBxO3eXHdIzOPTopO_ABv7wMfpNno2AGuiFZnUS3EhYpI-qnhWMZjG1QXgEo38wJA7AoQiEY9EwDV9X",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGI0fvXqHPOaC_zybAlcPrTCYRSzmfcpgI7T5Lp5AFe2uYYpubnVlQZOb9XPxeX3YfEQ0WecGn03FWhVYnVHQ6uVs75mRIb4bLmy-qKepN88xAL68svXwfmLuLkh4YK1JY0vosNul8LbOPH86l4zcRPCfnIdg==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhfjGLpUoQkP_67WMSaTWl7MtKyd7e4cqe-rHhdo9Xz3RcFC9D8zElXfMZ9umQW3TxKLSYhPDlocxBNXrLBqC8aojaZ41f-g_Popi_qxfWbjBIJJ4UMbZ5oJuB7_CW3XXNZafR9XLhcKGPum0CxeYa6-8N7w=="
-  ]
+  "sources": []
  },
  "suggest": {
   "chess tactics": [
@@ -117,30 +119,30 @@
   ],
   "chess tricks": [
    "chess tricks",
+   "chess tricks to win fast",
    "chess tricks for beginners",
    "chess tricks checkmate",
    "chess tricks and traps",
-   "chess tricks to win fast",
    "chess tricks for black",
    "chess tricks and tips",
    "chess tricks in hindi",
    "chess tricks to win",
    "chess tricks to win fast for beginners"
   ],
-  "US Chess Championship 2026 live": [
-   "us chess championship 2026 live",
-   "us chess championship 2023"
+  "Wesley So vs Fabiano Caruana playoff 2026": [
+   "wesley so vs fabiano caruana"
   ],
-  "European Chess Club Cup 2026": [
-   "european chess club cup 2026"
+  "Bodhana Sivanandan breaks Judit Polgar record": [
+   "judit polgar vs susan polgar",
+   "judit polgar vs ferenc berkes",
+   "judit polgar vs kasparov 2002",
+   "judit polgar vs kasparov 1994",
+   "judit polgar on bobby fischer"
   ],
-  "Hikaru Nakamura Titled Tuesday": [
-   "hikaru nakamura titled tuesday",
-   "gm hikaru nakamura titled tuesday",
-   "magnus carlsen vs hikaru nakamura titled tuesday",
-   "alexandra botez vs hikaru nakamura titled tuesday",
-   "l\u00ea quang li\u00eam vs hikaru nakamura titled tuesday",
-   "hikaru wins titled tuesday"
+  "US Chess Championship 2026 highlights": [
+   "us chess championship 2023",
+   "us chess championship 2021",
+   "us chess championship 2022"
   ]
  }
 }

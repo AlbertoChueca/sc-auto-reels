@@ -1,10 +1,7 @@
 # Seo Specialist For Youtube - notebook
-_Updated 2026-10-20_
+_Updated 2026-10-23_
 
-# Seo Specialist For Youtube - notebook
-_Updated 2026-10-14_
-
-- Front-load curiosity and challenge search phrases ('Chess Calculation', 'Can You Survive') in titles and descriptions.
-- Align metadata with fast calculation challenges over generic gym training terms to drive higher CTR.
-- Put the primary keyword in the first 40 characters of the title and line 1 of the description.
-- Include maximum 3 targeted hashtags covering broad chess search and the episode's specific theme.
+- Target high-performing challenge and curiosity phrases ('Chess Calculation', 'Can You Survive') in titles.
+- Align descriptions and tags with fast streak challenges rather than slow tactics gym workouts.
+- Front-load primary keywords in the first 40 characters of the title and opening sentence of description.
+- Include up to 3 focused hashtags combining core chess calculation terms and the episode motif.

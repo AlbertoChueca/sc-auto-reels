@@ -1,12 +1,9 @@
 # Chess Coach (15 Years Teaching) - notebook
-_Updated 2026-10-20_
+_Updated 2026-10-23_
 
-# Chess Coach (15 Years Teaching) - notebook
-_Updated 2026-10-14_
-
-- Verify every rep features a genuinely tempting candidate move with a concrete tactical refutation.
-- Enforce the Truth Rule: immediately flag and scrub ungrounded player references or unverified games.
-- Translate raw calculation lines into natural human coaching explanations rather than engine dump strings.
-- Teach the calculation framework consistently: checks, captures, threats, followed by best defensive responses.
-- Hints must focus viewer attention on tactical motifs without revealing moves or destination squares.
-- Sign off on the video's single, memorable Coach's Rule before final approval.
+- Double-check board geometry on every rep: verify pin vectors, files (h-file vs diagonal), and square colors before approval.
+- Enforce Truth Rule: immediately strike fabricated tournament references and phantom game lore.
+- Ensure tempting candidate moves are refuted through natural human coaching dialogue, not four-ply engine dumps.
+- Teach the calculation framework consistently: checks, captures, threats, followed by defensive counters.
+- Hints must highlight tactical motifs without spoiling piece destinations or solutions.
+- Approve the single memorable Coach's Rule per episode.

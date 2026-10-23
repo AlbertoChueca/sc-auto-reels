@@ -1,11 +1,8 @@
 # Showrunner - notebook
-_Updated 2026-10-20_
+_Updated 2026-10-23_
 
-# Showrunner - notebook
-_Updated 2026-10-14_
-
-- Mandate the Streak format with fast think-time (outperformed gym format 2.93 vs 1.74 in test results).
-- Every single puzzle rep must include an explicit 'tempting move' trap breakdown—never omit it.
-- Every episode requires one Coach's Rule segment, an interactive streak counter, and a specific next-episode tease.
-- Ensure tactical analysis reads as natural human coaching dialogue, completely banning raw engine dump strings.
-- Keep pacing brisk and ego checks sharp; eliminate hype-bro filler in favor of tight calculation stakes.
+- Enforce Streak format with fast think-time; retire Gym format branding across all segments and outros ('Next streak session').
+- Mandate explicit 'tempting move' trap breakdowns for every puzzle, explained in plain English without 4-ply engine dumps.
+- Verify board geometry accuracy across all scripts (correct files, diagonals, pin lines) before sign-off.
+- Every episode must feature one Coach's Rule, an active streak counter, and a specific next-episode teaser.
+- Maintain brisk pacing; eradicate hype-bro filler in favor of tight tactical decision stakes.

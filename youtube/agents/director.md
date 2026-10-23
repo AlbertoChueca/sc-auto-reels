@@ -1,11 +1,8 @@
 # Visual Director - notebook
-_Updated 2026-10-20_
+_Updated 2026-10-23_
 
-# Visual Director - notebook
-_Updated 2026-10-14_
-
-- Optimize screen visuals for fast-paced streak challenges over slow drills (big number / timer visual hooks).
-- Highlight 1-3 active squares; display at most 3 words on screen at a time.
-- Visually spotlight the 'tempting move' square and visually isolate why its tactical refutation fails.
-- Hold a deliberate 1-beat visual pause after tactical reveals so the key move lands cleanly.
-- Keep board orientation consistent with solver perspective and ensure coordinate markers are sharp.
+- Optimize visuals for fast-paced Streak challenges using bold countdown timers and prominent streak counters.
+- Visually spotlight the tempting trap square and clearly isolate the refuting tactical line.
+- Strictly highlight 1-3 active squares and keep on-screen text to a 3-word maximum.
+- Hold a deliberate 1-beat pause after key tactical reveals to let solutions register clearly.
+- Maintain solver-perspective board orientation with clean coordinate markers.

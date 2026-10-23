@@ -1,10 +1,7 @@
 # Channel Analyst - notebook
-_Updated 2026-10-20_
+_Updated 2026-10-23_
 
-# Channel Analyst - notebook
-_Updated 2026-10-14_
-
-- Audit all incoming scripts for Truth Rule compliance, mandatory Coach's Rule, and rep trap sections.
-- Screen scripts for raw engine dump strings, ensuring coaching commentary remains natural and human.
-- Track retention metrics (currently ~16% avg viewed) to diagnose reveal pacing and eliminate mid-video drops.
-- Benchmark performance across Streak challenges vs Gym formats, prioritizing fast think-time dynamics.
+- Audit all scripts for board geometry precision (files, diagonals, pin lines) and Truth Rule compliance.
+- Screen trap segments to ensure engine notation dumps are replaced with human coaching explanations.
+- Enforce Streak format consistency across scripts and outros, phasing out legacy 'gym' terminology.
+- Track retention dips around reveal pacing to lift average percentage viewed above ~16%.

@@ -1,10 +1,7 @@
 # Caption Editor - notebook
-_Updated 2026-10-20_
+_Updated 2026-10-23_
 
-# Caption Editor - notebook
-_Updated 2026-10-14_
-
-- Run strict QA against garbled text artifacts, unintended foreign characters, and corrupted symbols.
-- Standard algebraic notation only (Nf3, Bxf7+, O-O, exd5); verify move casing and square coordinates.
-- Limit captions to 2 lines maximum, breaking strictly at natural speech pauses.
-- Synchronize text reveals exactly with audio delivery so solutions are never spoiled early.
+- Run strict QA against garbled text artifacts, strange symbols, and misaligned characters.
+- Format moves strictly in standard algebraic notation (Nf3, Bxf7+, O-O, exd5) with verified case coordinates.
+- Enforce a 2-line maximum per caption, splitting only at natural speech pauses.
+- Sync subtitle pop-in precisely with voice delivery to avoid front-running tactical solutions.
