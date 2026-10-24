@@ -1,5 +1,7 @@
-# Community notebook (2026-10-23)
+# Community notebook (2026-10-24)
 
-• Keep doing: Analyzing authentic move submissions; players actively write full multi-ply variations (e.g., "C after king h8 queen h7 is mate", "Rook A8 to A2...").
-• Stop doing: Counting "Send me this post" comments as engagement (data confirms heavy automated spam across almost all reels).
-• Try next: Clarifying board coordinates and orientation; queries like "Where" show beginners struggle to identify target pieces without visual anchors.
+# Community notebook
+
+• Keep doing: Analyzing authentic solver moves; serious players routinely comment multi-ply lines (e.g., "queen e1, king g2...", "Knight D6 then Bishop to B6#").
+• Stop doing: Counting generic "Send me this post" / "Forward it" comments as genuine engagement; they are automated spam.
+• Try next: Addressing beginner orientation confusion (such as "Where" comments) by ensuring puzzle orientation and key target squares are unmistakably clear.

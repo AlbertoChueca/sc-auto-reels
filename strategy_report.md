@@ -1,29 +1,29 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-10-23 · 40 reels with results (3+ days old) · average score 6.60_
+_Updated 2026-10-24 · 43 reels with results (3+ days old) · average score 6.75_
 
 
 ## hook_style
 
 | option | reels | avg score |
 |---|---|---|
-| mystery | 8 | 7.30 |
-| countdown_trap | 3 | 6.97 |
+| countdown_trap | 4 | 7.86 |
+| mystery | 9 | 7.33 |
 | big_dream | 11 | 6.92 |
 | rival | 7 | 6.31 |
+| cliffhanger | 4 | 6.29 |
 | funny_fail | 7 | 6.00 |
-| cliffhanger | 3 | 5.75 |
 | challenge | 1 | 5.33 |
 
 ## theme
 
 | option | reels | avg score |
 |---|---|---|
-| travelling to a new place for a tournament | 2 | 7.67 |
+| travelling to a new place for a tournament | 3 | 7.74 |
+| cracking Bishop Blaze's secret playbook | 6 | 7.28 |
+| school chess club with friends | 6 | 6.72 |
 | daily training to keep the streak alive | 4 | 6.67 |
 | lesson or secret test from Coach King | 7 | 6.66 |
-| cracking Bishop Blaze's secret playbook | 5 | 6.63 |
-| school chess club with friends | 5 | 6.55 |
 | helping Pip or a friend who is stuck | 6 | 6.54 |
 | blitz battle against Bishop Blaze | 7 | 6.48 |
 | tournament game with everything at stake | 4 | 6.23 |
@@ -32,15 +32,15 @@ _Updated 2026-10-23 · 40 reels with results (3+ days old) · average score 6.60
 
 | option | reels | avg score |
 |---|---|---|
-| basic | 23 | 6.78 |
-| intermediate | 12 | 6.42 |
+| basic | 24 | 6.94 |
+| intermediate | 14 | 6.61 |
 | advanced | 5 | 6.21 |
 
 ## think_time
 
 | option | reels | avg score |
 |---|---|---|
-| long | 17 | 6.79 |
+| long | 20 | 7.07 |
 | normal | 15 | 6.59 |
 | fast | 8 | 6.24 |
 
@@ -48,21 +48,21 @@ _Updated 2026-10-23 · 40 reels with results (3+ days old) · average score 6.60
 
 | option | reels | avg score |
 |---|---|---|
+| normal | 27 | 6.76 |
 | short | 16 | 6.72 |
-| normal | 24 | 6.53 |
 
 ## format
 
 | option | reels | avg score |
 |---|---|---|
-| tip | 6 | 8.34 |
+| tip | 9 | 8.45 |
 | story | 7 | 6.38 |
 
 ## reveal
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 10 | 7.57 |
+| comments | 13 | 7.82 |
 
 ---
 # Playbook (updated 2026-10-12)

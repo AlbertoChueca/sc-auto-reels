@@ -1,5 +1,7 @@
-# Visual notebook (2026-10-23)
+# Visual notebook (2026-10-24)
 
-• Keep doing: Full-screen puzzle boards with `think_time=long`, generating our highest watch times (13,233ms to 15,081ms).
-• Stop doing: Fast puzzle transitions (`think_time=fast`), which collapse watch time down to 3,511ms.
-• Try next: Visualizing tactical concepts (e.g., subtle x-ray sightlines or gentle glow on target squares) late in the think timer to aid phone readability.
+# Visual notebook
+
+• Keep doing: Clean, full-board puzzle views with `think_time=long` (delivering 13,000ms–16,983ms watch times).
+• Stop doing: Rushed timers (`think_time=fast` drops retention down to ~3,500ms) and cluttered background animations during puzzle moments.
+• Try next: High-contrast board coordinates (a–h, 1–8) and subtle square highlights mid-timer to ensure fast readability on small phone screens.
