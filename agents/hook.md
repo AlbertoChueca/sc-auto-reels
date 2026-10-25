@@ -1,7 +1,5 @@
-# Hook notebook (2026-10-24)
+# Hook notebook (2026-10-25)
 
-# Hook notebook
-
-• Keep doing: Active challenge formulas using ⚡ ("Can you help Vektor [action verb] [tactic]?"), driving our top scores (10.38–10.53) and 1,200+ views.
-• Stop doing: Broad advice or adult-benefit hooks ("How busy adult players stay sharp" scored only 6.79) and passive narrative questions.
-• Try next: Action verbs targeting specific tactical patterns (e.g., "Can you help Vektor spot the deflection trap? ⚡") paired with large first-frame text.
+• Keep doing: Active tactical challenge hooks using ⚡ ("Can you help Vektor punish the pinned defender?" hit our #1 score of 11.04; "see through these pieces" hit 10.53).
+• Stop doing: Broad advice headlines ("How busy adult players stay sharp" scored only 6.79) and narrative question hooks lacking ⚡.
+• Try next: Action verbs targeting concrete tactical motifs (e.g., "Can you help Vektor trap the overloaded defender? ⚡").

@@ -1,18 +1,18 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-10-24 · 43 reels with results (3+ days old) · average score 6.76_
+_Updated 2026-10-25 · 45 reels with results (3+ days old) · average score 6.84_
 
 
 ## hook_style
 
 | option | reels | avg score |
 |---|---|---|
-| countdown_trap | 4 | 7.86 |
+| countdown_trap | 5 | 7.63 |
 | mystery | 9 | 7.34 |
+| cliffhanger | 5 | 7.22 |
 | big_dream | 11 | 6.92 |
-| cliffhanger | 4 | 6.39 |
 | rival | 7 | 6.31 |
-| funny_fail | 7 | 6.00 |
+| funny_fail | 7 | 6.01 |
 | challenge | 1 | 5.33 |
 
 ## theme
@@ -20,49 +20,49 @@ _Updated 2026-10-24 · 43 reels with results (3+ days old) · average score 6.76
 | option | reels | avg score |
 |---|---|---|
 | travelling to a new place for a tournament | 3 | 7.75 |
+| daily training to keep the streak alive | 5 | 7.54 |
 | cracking Bishop Blaze's secret playbook | 6 | 7.29 |
-| daily training to keep the streak alive | 4 | 6.80 |
 | school chess club with friends | 6 | 6.72 |
 | lesson or secret test from Coach King | 7 | 6.66 |
 | helping Pip or a friend who is stuck | 6 | 6.54 |
 | blitz battle against Bishop Blaze | 7 | 6.48 |
-| tournament game with everything at stake | 4 | 6.23 |
+| tournament game with everything at stake | 5 | 6.32 |
 
 ## difficulty
 
 | option | reels | avg score |
 |---|---|---|
-| basic | 24 | 6.96 |
+| basic | 25 | 6.95 |
+| advanced | 6 | 6.93 |
 | intermediate | 14 | 6.61 |
-| advanced | 5 | 6.21 |
 
 ## think_time
 
 | option | reels | avg score |
 |---|---|---|
-| long | 20 | 7.09 |
-| normal | 15 | 6.59 |
+| long | 20 | 7.10 |
+| normal | 17 | 6.83 |
 | fast | 8 | 6.24 |
 
 ## story_length
 
 | option | reels | avg score |
 |---|---|---|
-| normal | 27 | 6.78 |
-| short | 16 | 6.72 |
+| normal | 28 | 6.92 |
+| short | 17 | 6.72 |
 
 ## format
 
 | option | reels | avg score |
 |---|---|---|
-| tip | 9 | 8.46 |
-| story | 7 | 6.44 |
+| tip | 10 | 8.66 |
+| story | 8 | 6.47 |
 
 ## reveal
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 13 | 7.83 |
+| comments | 15 | 7.93 |
 
 ---
 # Playbook (updated 2026-10-12)
