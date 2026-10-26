@@ -19,7 +19,7 @@ _Updated 2026-10-26 · 48 reels with results (3+ days old) · average score 6.91
 
 | option | reels | avg score |
 |---|---|---|
-| travelling to a new place for a tournament | 4 | 7.70 |
+| travelling to a new place for a tournament | 4 | 7.71 |
 | daily training to keep the streak alive | 5 | 7.55 |
 | cracking Bishop Blaze's secret playbook | 6 | 7.30 |
 | lesson or secret test from Coach King | 8 | 7.00 |

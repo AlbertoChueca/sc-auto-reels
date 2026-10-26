@@ -752,14 +752,14 @@
 "date": "2026-10-13",
 "permalink": "https://www.instagram.com/reel/Dea2AGMDMmc/",
 "type": "REELS",
-"views": 165,
+"views": 166,
 "reach": 142,
 "likes": 3,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 3,
-"ig_reels_avg_watch_time": 6262
+"ig_reels_avg_watch_time": 6223
 },
 "18115391171278516": {
 "slot": "story",
@@ -854,14 +854,14 @@
 "date": "2026-10-15",
 "permalink": "https://www.instagram.com/reel/DefwBWfihxn/",
 "type": "REELS",
-"views": 143,
-"reach": 128,
+"views": 144,
+"reach": 129,
 "likes": 4,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 4,
-"ig_reels_avg_watch_time": 5349
+"ig_reels_avg_watch_time": 5437
 },
 "18123901750717028": {
 "slot": "story",
@@ -1169,14 +1169,14 @@
 "date": "2026-10-21",
 "permalink": "https://www.instagram.com/reel/Deva5l3jrZb/",
 "type": "REELS",
-"views": 322,
-"reach": 284,
+"views": 323,
+"reach": 285,
 "likes": 3,
 "comments": 3,
 "shares": 0,
 "saved": 0,
 "total_interactions": 6,
-"ig_reels_avg_watch_time": 7270
+"ig_reels_avg_watch_time": 7249
 },
 "18427226005144891": {
 "slot": "storytag",
@@ -1285,14 +1285,14 @@
 "date": "2026-10-20",
 "permalink": "https://www.instagram.com/reel/Deunho7jaV7/",
 "type": "REELS",
-"views": 309,
-"reach": 283,
+"views": 313,
+"reach": 284,
 "likes": 1,
 "comments": 3,
 "shares": 0,
 "saved": 1,
 "total_interactions": 5,
-"ig_reels_avg_watch_time": 3499
+"ig_reels_avg_watch_time": 3503
 },
 "18090939917236550": {
 "slot": "story",
@@ -1480,14 +1480,14 @@
 "date": "2026-10-22",
 "permalink": "https://www.instagram.com/reel/DezwcAHEyA-/",
 "type": "REELS",
-"views": 1278,
-"reach": 1028,
+"views": 1279,
+"reach": 1029,
 "likes": 12,
 "comments": 3,
 "shares": 0,
 "saved": 2,
 "total_interactions": 17,
-"ig_reels_avg_watch_time": 16994
+"ig_reels_avg_watch_time": 16978
 },
 "18022371593927377": {
 "slot": "storytag",
@@ -1596,14 +1596,14 @@
 "date": "2026-10-25",
 "permalink": "https://www.instagram.com/reel/De5s_ACCBGk/",
 "type": "REELS",
-"views": 757,
-"reach": 662,
+"views": 771,
+"reach": 678,
 "likes": 7,
 "comments": 3,
 "shares": 2,
 "saved": 0,
 "total_interactions": 12,
-"ig_reels_avg_watch_time": 9208
+"ig_reels_avg_watch_time": 9379
 },
 "18116778230270496": {
 "slot": "story",
@@ -1625,14 +1625,14 @@
 "date": "2026-10-24",
 "permalink": "https://www.instagram.com/reel/De5KsjIGBVo/",
 "type": "REELS",
-"views": 370,
-"reach": 295,
+"views": 374,
+"reach": 300,
 "likes": 4,
 "comments": 3,
 "shares": 0,
 "saved": 1,
 "total_interactions": 8,
-"ig_reels_avg_watch_time": 11058
+"ig_reels_avg_watch_time": 10926
 },
 "18104156189377538": {
 "slot": "story",
@@ -1654,13 +1654,100 @@
 "date": "2026-10-24",
 "permalink": "https://www.instagram.com/reel/De4ypgGE0Hx/",
 "type": "REELS",
-"views": 151,
-"reach": 138,
+"views": 153,
+"reach": 139,
 "likes": 2,
 "comments": 1,
 "shares": 0,
 "saved": 0,
 "total_interactions": 3,
-"ig_reels_avg_watch_time": 3526
+"ig_reels_avg_watch_time": 3544
+},
+"18150187063562797": {
+"slot": "storytag",
+"story": "Tip: Overloaded defenders",
+"hook": "Can you help Vektor exploit the overloaded defender? \u26a1",
+"level": "basic",
+"mode": "tip",
+"engine": "tip",
+"review_score": 9.0,
+"arms": {
+"hook_style": "countdown_trap: An urgent timer alarm sounds mid-play, showing Vektor seconds away from a sneaky trap.",
+"theme": "daily training to keep the streak alive",
+"difficulty": "basic",
+"think_time": "normal",
+"story_length": "normal",
+"format": "tip",
+"reveal": "comments"
+},
+"date": "2026-10-26",
+"permalink": "https://www.instagram.com/reel/De8RvAZgPwf/",
+"type": "REELS",
+"views": 1058,
+"reach": 887,
+"likes": 11,
+"comments": 8,
+"shares": 2,
+"saved": 1,
+"total_interactions": 22,
+"ig_reels_avg_watch_time": 10737
+},
+"18447798001132194": {
+"slot": "story",
+"story": "Tip: Two targets, one move",
+"hook": "Can you help Vektor strike two undefended targets? \u26a1",
+"level": "advanced",
+"mode": "tip",
+"engine": "tip",
+"review_score": 8.5,
+"arms": {
+"hook_style": "mystery: open on something strange or unexpected that makes kids ask 'what happened?'",
+"theme": "tournament game with everything at stake",
+"difficulty": "advanced",
+"think_time": "normal",
+"story_length": "normal",
+"format": "tip",
+"reveal": "comments"
+},
+"date": "2026-10-25",
+"permalink": "https://www.instagram.com/reel/De7wa7VgI_I/",
+"type": "REELS",
+"views": 173,
+"reach": 147,
+"likes": 0,
+"comments": 0,
+"shares": 0,
+"saved": 0,
+"total_interactions": 0,
+"ig_reels_avg_watch_time": 6587
+},
+"18077157602578191": {
+"slot": "story",
+"story": "Tip: Forcing moves first",
+"hook": "Can you help Vektor find the forcing line? \u26a1",
+"level": "intermediate",
+"mode": "tip",
+"engine": "tip",
+"review_score": 8.8,
+"arms": {
+"hook_style": "rival: open with Bishop Blaze showing off and challenging Vektor",
+"theme": "travelling to a new place for a tournament",
+"difficulty": "intermediate",
+"think_time": "fast",
+"story_length": "normal",
+"format": "tip",
+"reveal": "comments"
+},
+"date": "2026-10-25",
+"permalink": "https://www.instagram.com/reel/De7X7raiNYG/",
+"type": "REELS",
+"views": 198,
+"reach": 166,
+"likes": 0,
+"comments": 5,
+"shares": 0,
+"saved": 0,
+"total_interactions": 5,
+"ig_reels_avg_watch_time": 6743
 }
 }
