@@ -1,6 +1,6 @@
 {
  "season": 1,
- "arc": "While training for the Chessville Cup qualifiers, Vektor and his friends turn everyday chores, playground wagers, and cozy clubhouse hangouts into high-spirited puzzle bets where cracking tactics wins extra recess time and the best after-school treats.",
+ "arc": "Aboard the bustling Tournament Express train, Vektor and his crew race to crack Bishop Blaze's secret playbook by mastering named tactical motifs to unlock first-class training carriages and punch their tickets to the Chessville Cup arena.",
  "cast": [
   {
    "name": "Pip",
@@ -55,7 +55,13 @@
    "role": "Playground referee pawn",
    "look": "A spunky yellow pawn wearing mismatched striped tube socks and an oversized silver referee whistle.",
    "personality": "Cheerfully bossy, strictly enforces backyard rules, and loves awarding recess privileges to whoever spots the sharpest tactical move."
+  },
+  {
+   "name": "Barnaby",
+   "role": "Tournament Express Train Conductor",
+   "look": "A shiny brass knight wearing a navy conductor's cap with a golden ticket puncher slung across his chest like a medal.",
+   "personality": "Punctual and rhythm-obsessed, he blows his steam whistle in pure delight whenever someone spots a forced tactical motif before the next station stop."
   }
  ],
- "updated": "2026-10-12"
+ "updated": "2026-10-26"
 }
