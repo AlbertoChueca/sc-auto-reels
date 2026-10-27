@@ -1,10 +1,10 @@
 {
- "date": "2026-10-23",
+ "date": "2026-10-27",
  "news": {
   "items": [
    {
-    "headline": "Wesley So Clinches Fourth U.S. Championship Title in Rapid Playoff",
-    "detail": "After a dramatic final-round defeat against Sam Sevian ended his 48-game unbeaten streak, Wesley So defeated Fabiano Caruana 1.5\u20130.5 in rapid tiebreaks. The playoff victory earned So his fourth U.S. Championship crown and the $56,000 top prize.",
+    "headline": "Wesley So Clinches Fourth U.S. Chess Championship in Rapid Playoff",
+    "detail": "Wesley So defeated defending champion Fabiano Caruana 1.5\u20130.5 in a rapid playoff mini-match to capture his fourth U.S. national championship and the $56,000 top prize. The tiebreak was set up after Caruana won on demand while So suffered his only loss of the tournament against Sam Sevian in the final classical round.",
     "date": "2026-10-22",
     "people": [
      "Wesley So",
@@ -12,71 +12,74 @@
      "Sam Sevian"
     ],
     "event": "2026 U.S. Chess Championship",
-    "why_viewers_care": "Caruana's must-win final-round game created high drama, forcing a head-to-head tiebreak between two of America's highest-rated grandmasters."
+    "why_viewers_care": "Caruana staged a dramatic final-round comeback to force overtime, but So held his composure in blitz-speed mutual time trouble to win his first national title in five years."
    },
    {
-    "headline": "11-Year-Old Bodhana Sivanandan Breaks Judit Polgar's Record as Youngest Female IM",
-    "detail": "English prodigy Bodhana Sivanandan scored 5.5/7 at the European Club Cup in Budva, Montenegro, earning her final International Master norm. At age 11, she shattered Judit Polg\u00e1r's long-standing world age record to become the youngest female IM in chess history.",
+    "headline": "16-Year-Old Rachael Li Wins U.S. Women's Championship on Debut",
+    "detail": "Rookie WIM Rachael Li drew against IM Anna Zatonskih in the final round to win the 2026 U.S. Women's Chess Championship outright, taking home $45,000. In addition to securing the title, Li earned an IM norm with two rounds to spare and qualified for the next FIDE Women's World Cup.",
+    "date": "2026-10-21",
+    "people": [
+     "Rachael Li",
+     "Anna Zatonskih",
+     "Alice Lee"
+    ],
+    "event": "2026 U.S. Women's Chess Championship",
+    "why_viewers_care": "At 16, Li became the youngest first-time winner in the history of the event, completing one of the most stunning debut championship runs in American chess."
+   },
+   {
+    "headline": "11-Year-Old Bodhana Sivanandan Shatters Judit Polgar's Record as Youngest Female IM",
+    "detail": "English prodigy Bodhana Sivanandan scored 5.5/7 at the European Club Cup in Budva, securing her final International Master norm at age 11. The result breaks Judit Polgar's historic record, making Sivanandan the youngest female player ever to achieve the IM title and the seventh-youngest overall.",
     "date": "2026-10-23",
     "people": [
      "Bodhana Sivanandan",
      "Judit Polgar"
     ],
-    "event": "41st European Club Cup 2026",
-    "why_viewers_care": "Breaking a decades-old record set by the greatest female player of all time marks an extraordinary milestone in chess history."
+    "event": "41st European Chess Club Cup",
+    "why_viewers_care": "Sivanandan broke a landmark record held for decades by Judit Polgar, the greatest female chess player in history, cementing her status as a generational prodigy."
    },
    {
-    "headline": "16-Year-Old Rachael Li Wins U.S. Women's Chess Championship on Debut",
-    "detail": "WIM Rachael Li won the 2026 U.S. Women's Chess Championship outright without needing tiebreaks, sealing victory in the final round. At just 16 years old, she became the youngest player to capture the national crown in her debut appearance.",
-    "date": "2026-10-21",
-    "people": [
-     "Rachael Li"
-    ],
-    "event": "2026 U.S. Women's Chess Championship",
-    "why_viewers_care": "A major upset by a rising teenage prodigy conquering one of the strongest national women's fields in the world."
-   },
-   {
-    "headline": "Bayegan Pendik and Cercle d'Echecs de Monte-Carlo Win European Club Cup",
-    "detail": "Bayegan Pendik Chess Sports Club, led by Anish Giri and Richard Rapport, edged Novy Bor to claim the Open European Club Cup in Montenegro. In the Women's division, Cercle d'Echecs de Monte-Carlo, starring Aleksandra Goryachkina and Humpy Koneru, captured the title.",
+    "headline": "Bayegan Pendik and Monte-Carlo Crowned European Club Cup Champions",
+    "detail": "Turkish club Bayegan Pendik edged Novy Bor on tiebreaks to claim the open title after Anish Giri and Amin Tabatabaei scored crucial final-round victories against SuperChess Romania. In the women's event, Cercle d'Echecs de Monte-Carlo completed a 4-0 final-round sweep to successfully defend their European championship.",
     "date": "2026-10-23",
     "people": [
      "Anish Giri",
-     "Richard Rapport",
-     "Aleksandra Goryachkina",
-     "Humpy Koneru"
+     "Nodirbek Abdusattorov",
+     "Amin Tabatabaei",
+     "Aleksandra Goryachkina"
     ],
-    "event": "41st European Club Cup 2026",
-    "why_viewers_care": "The tournament is Europe's premier club chess championship, featuring elite international grandmasters facing off across seven high-stakes rounds."
+    "event": "41st European Chess Club Cup",
+    "why_viewers_care": "Europe's premiere team championship featured record-breaking team participation and came down to dramatic, final-round head-to-head showdowns between elite grandmasters."
    },
    {
-    "headline": "Bibisara Assaubayeva Defeats Alexandra Kosteniuk in Freestyle Chess Match",
-    "detail": "Three-time Women's World Blitz Champion Bibisara Assaubayeva beat former World Champion Alexandra Kosteniuk 2.5\u20131.5 in a Freestyle Chess exhibition match. The victory secured Assaubayeva a spot in the upcoming FIDE Freestyle Chess World Championship.",
-    "date": "2026-10-23",
+    "headline": "Clutch Chess Champions Showdown Kicks Off in Saint Louis",
+    "detail": "The 2026 Clutch Chess: Champions Showdown opened in Saint Louis with an elite four-player field consisting of Fabiano Caruana, Hikaru Nakamura, Praggnanandhaa Rameshbabu, and Javokhir Sindarov. The 18-game rapid event features escalating point values across three double round-robins and rolling bonuses funded by drawn games.",
+    "date": "2026-10-27",
     "people": [
-     "Bibisara Assaubayeva",
-     "Alexandra Kosteniuk"
+     "Fabiano Caruana",
+     "Hikaru Nakamura",
+     "Praggnanandhaa Rameshbabu",
+     "Javokhir Sindarov"
     ],
-    "event": "Freestyle Chess Exhibition",
-    "why_viewers_care": "Freestyle Chess (Chess960) is rapidly growing as a major competitive format, with top female stars now qualifying for world championship stages."
+    "event": "2026 Clutch Chess: Champions Showdown",
+    "why_viewers_care": "Four of the world's most popular and strongest rapid grandmasters face off in an intense, high-stakes spectator format with $425,000 on the line."
    },
    {
-    "headline": "Javokhir Sindarov and Wesley So Lead FIDE Circuit Standings",
-    "detail": "Following Wesley So's national title win and Javokhir Sindarov's strong year across elite tournaments, both players secured the top two positions in the 2026\u20132027 FIDE Circuit. The circuit provides direct qualification spots into the 2028 Candidates Tournament.",
-    "date": "2026-10-23",
+    "headline": "Andy Woodward Wins Titled Tuesday Blitz",
+    "detail": "American teenage grandmaster Andy Woodward took first place in the October 27 edition of Chess.com's weekly Titled Tuesday tournament. The victory caps a stellar month of high-profile performances for the rising young star, who also upset Fabiano Caruana during the U.S. Championship.",
+    "date": "2026-10-27",
     "people": [
-     "Javokhir Sindarov",
-     "Wesley So"
+     "Andy Woodward"
     ],
-    "event": "2026\u20132027 FIDE Circuit",
-    "why_viewers_care": "Every elite tournament result shifts the leaderboard for crucial qualification berths toward the next World Chess Championship cycle."
+    "event": "Titled Tuesday",
+    "why_viewers_care": "Woodward continues to establish himself as one of the fastest-improving junior grandmasters in the world, outperforming elite international competition online."
    }
   ],
   "search_terms": [
-   "Wesley So vs Fabiano Caruana playoff 2026",
-   "Bodhana Sivanandan breaks Judit Polgar record",
-   "US Chess Championship 2026 highlights",
-   "Rachael Li US Women's Chess Championship",
-   "European Club Cup 2026 chess recap"
+   "US Chess Championship 2026 tiebreak",
+   "Wesley So vs Fabiano Caruana playoff",
+   "Bodhana Sivanandan youngest IM record",
+   "Rachael Li US Womens Chess Championship",
+   "Clutch Chess Champions Showdown 2026"
   ],
   "sources": []
  },
@@ -119,30 +122,23 @@
   ],
   "chess tricks": [
    "chess tricks",
-   "chess tricks to win fast",
    "chess tricks for beginners",
    "chess tricks checkmate",
    "chess tricks and traps",
    "chess tricks for black",
+   "chess tricks to win fast",
    "chess tricks and tips",
    "chess tricks in hindi",
    "chess tricks to win",
    "chess tricks to win fast for beginners"
   ],
-  "Wesley So vs Fabiano Caruana playoff 2026": [
+  "US Chess Championship 2026 tiebreak": [
+   "us chess championship 2023",
+   "us chess championship 2022"
+  ],
+  "Wesley So vs Fabiano Caruana playoff": [
    "wesley so vs fabiano caruana"
   ],
-  "Bodhana Sivanandan breaks Judit Polgar record": [
-   "judit polgar vs susan polgar",
-   "judit polgar vs ferenc berkes",
-   "judit polgar vs kasparov 2002",
-   "judit polgar vs kasparov 1994",
-   "judit polgar on bobby fischer"
-  ],
-  "US Chess Championship 2026 highlights": [
-   "us chess championship 2023",
-   "us chess championship 2021",
-   "us chess championship 2022"
-  ]
+  "Bodhana Sivanandan youngest IM record": []
  }
 }

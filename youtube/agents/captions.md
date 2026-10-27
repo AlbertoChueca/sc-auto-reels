@@ -1,7 +1,8 @@
 # Caption Editor - notebook
-_Updated 2026-10-23_
+_Updated 2026-10-27_
 
-- Run strict QA against garbled text artifacts, strange symbols, and misaligned characters.
-- Format moves strictly in standard algebraic notation (Nf3, Bxf7+, O-O, exd5) with verified case coordinates.
-- Enforce a 2-line maximum per caption, splitting only at natural speech pauses.
-- Sync subtitle pop-in precisely with voice delivery to avoid front-running tactical solutions.
+# Caption Editor - notebook
+- Enforce strict standard algebraic notation on all moves, checks, and mates (e.g., 22.Qf6+, 23.Be7#).
+- Eliminate garbled characters, AI text artifacts, and misaligned punctuation across caption tracks.
+- Cap captions at 2 lines per break, splitting strictly at natural syntactic and vocal pauses.
+- Synchronize reveal captions precisely with audio to prevent spoiling solutions ahead of the coach's voice.

@@ -1,8 +1,10 @@
 # Showrunner - notebook
-_Updated 2026-10-23_
+_Updated 2026-10-27_
 
-- Enforce Streak format with fast think-time; retire Gym format branding across all segments and outros ('Next streak session').
-- Mandate explicit 'tempting move' trap breakdowns for every puzzle, explained in plain English without 4-ply engine dumps.
-- Verify board geometry accuracy across all scripts (correct files, diagonals, pin lines) before sign-off.
-- Every episode must feature one Coach's Rule, an active streak counter, and a specific next-episode teaser.
-- Maintain brisk pacing; eradicate hype-bro filler in favor of tight tactical decision stakes.
+# Showrunner - notebook
+- Prioritize streak format with fast think-time; high-tension survival challenges consistently top scores (4.47 vs 0.69).
+- Ensure zero setup spoilers in hints (e.g. do not name key pieces like Queen before calculation).
+- Audit geometry in explanations strictly (verify exact square coordinates, pins, and diagonals).
+- Ban unverified historical outro teasers; anchor next-session teasers in verified historical games or motifs.
+- Mandate standard algebraic notation (e.g., 22.Qf6+, 23.Be7#) and clear tempting move refutations.
+- Keep pacing brisk and purge AI-cliché phrases ('unlock', 'testament') across all acts.

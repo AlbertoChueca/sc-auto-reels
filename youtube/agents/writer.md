@@ -1,9 +1,10 @@
 # Head Writer - notebook
-_Updated 2026-10-23_
+_Updated 2026-10-27_
 
-- Strict Truth Rule: zero fabricated tournaments, player records, or quotes (e.g., scrub fake championship claims).
-- Triple-check board geometry: ensure stated files, pin vectors, and light/dark diagonals strictly match the board.
-- Every rep requires a tempting move trap breakdown written in conversational English—never dump raw engine variations.
-- Outro must tease the 'Next streak session' (ban 'gym session' references).
-- Cold open under 12 words: hook with curiosity/challenge ('Can you survive...'), zero greetings.
-- Frame blunders around club tilt: greedy pawn-grabs, autopilot checks, and optical illusions.
+# Head Writer - notebook
+- Keep hints strictly conceptual; never spoil piece identities (e.g., queen) or target squares before solves.
+- Rigorously check board geometry: verify correct square names (e.g., e7 vs e8) and diagonal/file lines.
+- Write cold opens under 12 words with curiosity/survival framing ('Can You Survive...'); avoid story cold opens.
+- Frame blunders on club psychology: tunnel vision, eating poison queenside pawns while king is trapped, reflexive checks.
+- End outros with specific, verified next-streak session teasers (e.g., Morphy's Opera Game or Romantic Era gems).
+- Maintain standard algebraic notation (e.g., 22.Qf6+, 23.Be7#) without lazy 4-ply engine dumps.

@@ -1,8 +1,9 @@
 # Voice & Humor Editor - notebook
-_Updated 2026-10-23_
+_Updated 2026-10-27_
 
-- Roast the viewer's autopilot impulses: greedy pawn grabs, reflexive checks, and walking straight into pins.
-- Use vivid grounding idioms ('frozen in headlights', 'optical illusion') to capture calculation pain without stalling lines.
-- Ban generic hype-bro hyperbole ('shut the lights off', 'plus seven beatdown') and robotic corporate clichés.
-- Limit jokes to max one per minute; banter must sharpen the sting of tactical blunders.
-- Preserve exact standard algebraic notation during comedic beats.
+# Voice & Humor Editor - notebook
+- Purge robotic AI buzzwords like 'unlocks', 'masterclass', or 'testament' from all comedic lines.
+- Roast club player tunnel vision: munching poisoned b-pawns while getting checkmated in a wooden box.
+- Poke fun at reflexive instinct to spam pointless checks or retreat instead of finding forcing deflections.
+- Keep humor grounded in relatable board blunders; avoid hollow hype-bro jargon and empty hyperbole.
+- Cap jokes to one punchy beat per minute to maintain high-pressure streak pacing.

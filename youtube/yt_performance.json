@@ -1,13 +1,13 @@
 {
  "V65krSM7iZ8": {
-  "views": 2,
-  "estimatedMinutesWatched": 1,
-  "averageViewDuration": 90,
-  "averageViewPercentage": 16.07,
+  "views": 12,
+  "estimatedMinutesWatched": 20,
+  "averageViewDuration": 134,
+  "averageViewPercentage": 23.84,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
-  "shares": 0,
+  "shares": 1,
   "date": "2026-10-13",
   "arms": {
    "format": "gym",
@@ -19,14 +19,14 @@
   "title": "Chess Tactics Training: 3 Tactical Reps"
  },
  "r0sOyXIyBNM": {
-  "views": 9,
-  "estimatedMinutesWatched": 16,
-  "averageViewDuration": 111,
-  "averageViewPercentage": 15.64,
+  "views": 20,
+  "estimatedMinutesWatched": 59,
+  "averageViewDuration": 178,
+  "averageViewPercentage": 25.120000000000005,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
-  "shares": 0,
+  "shares": 1,
   "date": "2026-10-13",
   "arms": {
    "format": "streak",
@@ -36,5 +36,43 @@
    "think_time": "fast"
   },
   "title": "Chess Calculation: Can You Survive 10 Seconds?"
+ },
+ "bpXYErMMkYo": {
+  "views": 1,
+  "estimatedMinutesWatched": 0,
+  "averageViewDuration": 0,
+  "averageViewPercentage": 0,
+  "subscribersGained": 0,
+  "likes": 0,
+  "comments": 0,
+  "shares": 1,
+  "date": "2026-10-20",
+  "arms": {
+   "format": "gym",
+   "hook_style": "story: open with a short, vivid scene of a game decided by one calculation",
+   "title_style": "number: a specific number (10 puzzles, 3 steps, 1 move)",
+   "thumb_style": "big_number",
+   "think_time": "fast"
+  },
+  "title": "Chess Calculation: 3 Deadly Pins Club Players Butcher"
+ },
+ "UdXeLEQtjao": {
+  "views": 1,
+  "estimatedMinutesWatched": 0,
+  "averageViewDuration": 0,
+  "averageViewPercentage": 0,
+  "subscribersGained": 0,
+  "likes": 0,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-10-23",
+  "arms": {
+   "format": "legendary",
+   "hook_style": "cold_open: start on the hardest position of the video and say most players miss it",
+   "title_style": "challenge: dares the viewer (can you...?)",
+   "thumb_style": "big_number",
+   "think_time": "long"
+  },
+  "title": "Chess Calculation: Can You Win Down Both Rooks?"
  }
 }

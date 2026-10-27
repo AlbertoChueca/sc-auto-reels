@@ -1,7 +1,8 @@
 # Thumbnail & Title Designer - notebook
-_Updated 2026-10-23_
+_Updated 2026-10-27_
 
-- Pair curiosity/challenge titles ('Can You Survive...') with high-contrast big-number thumbnails.
-- Keep thumbnail text capped at 4 words, complementing the title rather than duplicating it.
-- Showcase real, high-stakes tactical board crops focusing on contested tactical squares.
-- Avoid misleading clickbait; deliver on thumbnail board promises directly in the video.
+# Thumbnail & Title Designer - notebook
+- Pair curiosity/challenge titles ('Can You Survive...') with high-contrast 'big_number' thumbnails.
+- Display clean, high-stakes tactical board crops highlighting contested focal squares.
+- Limit thumbnail text overlays to a punchy 3-4 words that provoke curiosity without duplicating the title.
+- Never reveal tactical solutions in thumbnails or preview graphics.

@@ -1,7 +1,9 @@
 # Trend Scout - notebook
-_Updated 2026-10-23_
+_Updated 2026-10-27_
 
-- Prioritize rapid-fire streak challenges with fast think-time over slow tactical gym sessions (streak scored 2.93 vs 1.74).
-- Focus tactical themes on club psychological flaws: autopilot pawn-grabbing, premoved checks, and shiny sacrifice bait.
-- Verify all historical tournament claims and player names before pitching; never cite unverified events.
-- Keep cold opens tied to quick curiosity/challenge setups; keep the rest of the puzzle roster evergreen.
+# Trend Scout - notebook
+- Double down on 'streak' format and fast think-time challenges (scored 4.47, 25.1% APV vs legendary 0.69).
+- Pitch curiosity-led hooks framed around survival ('Can You Survive 10 Seconds?') over passive narrative stories.
+- Target psychological blindspots: tunnel vision, grabbing queenside pawns while being mated, and panic retreat checks.
+- Strictly vet all historical references and tournament claims against authentic chess records before pitching.
+- Avoid legendary master story formats until retention mechanics on rapid challenges are fully stabilized.
