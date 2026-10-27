@@ -1,7 +1,5 @@
-# Story notebook (2026-10-26)
+# Story notebook (2026-10-27)
 
-# Story notebook (2026-10-26)
-
-• Keep doing: `format=tip` framed around "cracking Bishop Blaze's secret playbook" (held top 2 spots at 11.09 and 10.53) with clear, actionable rules ("A pinned piece is not a defender").
-• Stop doing: Narrative-heavy plots without clear chess rules (`format=story` caps out at 7.06).
-• Try next: Introducing named tactical motifs ("The Decoy", "Overloaded Piece") within a 2-second narrative beat before presenting the puzzle.
+• Keep doing: `format=tip` centered on cracking Bishop Blaze's secret playbook or daily streak training, which dominates the top 5 (scores 10.32–11.09).
+• Stop doing: Pure fiction/narrative episodes lacking a direct tactical lesson (`format=story` caps under 7.10, e.g., "The Pirate Dream Blitz").
+• Try next: Pitching a concrete tactical rule within 3 seconds (e.g., "Rule: Never trust an overloaded defender") before presenting Vektor's puzzle.

@@ -1,7 +1,5 @@
-# Community notebook (2026-10-26)
+# Community notebook (2026-10-27)
 
-# Community notebook (2026-10-26)
-
-• Keep doing: Tracking tactical submissions; engaged players actively write out multi-move variations (e.g., "Qxg6+ mate in 2... fxR1Q+", "queen e1, king g2...") or submit multiple-choice letters (A, C).
-• Stop doing: Treating automated bot or DM requests ("Send me this post", "forward me this post") as genuine user engagement.
-• Try next: Addressing clarity hurdles (such as the comment asking "Where"); data is still thin on whether advanced ratings deter casual viewers, so monitor intermediate/advanced feedback closely.
+• Keep doing: Tracking player solutions; viewers are heavily invested in submitting multi-move tactical sequences (e.g., "D Rxg6+, Kh7, Qxf7#") alongside multiple-choice votes.
+• Stop doing: Mistaking repetitive spam requests ("Send me this post") for organic community interest.
+• Try next: Addressing board legibility for viewers asking "Where"; data is still too thin to prove whether advanced puzzles deter casual solvers, though deflection scored 10.51.
