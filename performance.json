@@ -1770,14 +1770,14 @@
 "date": "2026-10-27",
 "permalink": "https://www.instagram.com/reel/De-6Cnfk0vI/",
 "type": "REELS",
-"views": 210,
-"reach": 187,
+"views": 212,
+"reach": 188,
 "likes": 0,
 "comments": 0,
 "shares": 0,
 "saved": 0,
 "total_interactions": 0,
-"ig_reels_avg_watch_time": 4424
+"ig_reels_avg_watch_time": 4460
 },
 "18129820867889140": {
 "slot": "story",
@@ -1802,10 +1802,10 @@
 "views": 131,
 "reach": 123,
 "likes": 0,
-"comments": 0,
+"comments": 1,
 "shares": 0,
 "saved": 0,
-"total_interactions": 0,
+"total_interactions": 1,
 "ig_reels_avg_watch_time": 5945
 },
 "18178954150393750": {
@@ -1831,10 +1831,10 @@
 "views": 198,
 "reach": 173,
 "likes": 0,
-"comments": 0,
+"comments": 1,
 "shares": 0,
 "saved": 0,
-"total_interactions": 0,
+"total_interactions": 1,
 "ig_reels_avg_watch_time": 5094
 }
 }
