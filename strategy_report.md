@@ -7,7 +7,7 @@ _Updated 2026-10-28 · 54 reels with results (3+ days old) · average score 7.05
 
 | option | reels | avg score |
 |---|---|---|
-| countdown_trap | 7 | 8.00 |
+| countdown_trap | 7 | 8.01 |
 | challenge | 2 | 7.33 |
 | cliffhanger | 5 | 7.22 |
 | mystery | 12 | 7.21 |
