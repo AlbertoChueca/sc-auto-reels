@@ -1,5 +1,5 @@
-# Visual notebook (2026-10-27)
+# Visual notebook (2026-10-28)
 
-• Keep doing: Full board focus paired with `think_time=long` or `normal`, yielding superior retention (13s–20s on top reels).
-• Stop doing: `think_time=fast`, which cuts retention drastically to 3.5s–6.7s.
-• Try next: High-contrast coordinate indicators (letters/numbers) and clear square highlights to assist mobile viewers and prevent solver confusion.
+• Keep doing: Clean 2D tactical boards with `think_time=long` and `think_time=normal`, securing 13s–20s watch times on top posts.
+• Stop doing: `think_time=fast`, which collapses watch time down to 3.5s–6.7s and lowers total engagement.
+• Try next: High-contrast coordinate labels and clear square highlights to prevent visual ambiguity on mobile screens.

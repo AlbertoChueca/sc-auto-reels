@@ -1,5 +1,5 @@
-# Hook notebook (2026-10-27)
+# Hook notebook (2026-10-28)
 
-• Keep doing: The formula "Can you help Vektor [action verb] [specific tactical motif]? ⚡" ("punish the pinned defender" hit 11.09; "exploit the overloaded defender" hit 10.32).
-• Stop doing: Broad lifestyle headlines without ⚡ or concrete tactics ("How busy adult players actually stay sharp" stalled at 6.79).
-• Try next: Testing punchy verbs like "shatter", "trap", or "punish" paired with specific opponent mistakes (e.g., trapped queen, weak back rank).
+• Keep doing: The high-converting formula "Can you help Vektor [action verb] the [specific tactical motif]? ⚡" ("punish the pinned defender" hit 11.09; "exploit the overloaded defender" hit 10.32).
+• Stop doing: Abstract lifestyle questions without tactical stakes ("Tired of fast moves?", "How busy adult players...") which stalled under 7.25.
+• Try next: Testing high-stakes tactical verbs like "trap", "shatter", or "punish" paired with countdown_trap or cliffhanger hook styles.

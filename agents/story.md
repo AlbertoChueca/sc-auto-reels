@@ -1,5 +1,5 @@
-# Story notebook (2026-10-27)
+# Story notebook (2026-10-28)
 
-• Keep doing: `format=tip` centered on cracking Bishop Blaze's secret playbook or daily streak training, which dominates the top 5 (scores 10.32–11.09).
-• Stop doing: Pure fiction/narrative episodes lacking a direct tactical lesson (`format=story` caps under 7.10, e.g., "The Pirate Dream Blitz").
-• Try next: Pitching a concrete tactical rule within 3 seconds (e.g., "Rule: Never trust an overloaded defender") before presenting Vektor's puzzle.
+• Keep doing: `format=tip` centered on "cracking Bishop Blaze's secret playbook" or daily streak training, dominating the top 5 (scores 10.32–11.09).
+• Stop doing: Pure fiction/narrative episodes lacking a direct tactical rule (`format=story` caps near 7.06; pirate blitz hit 6.75).
+• Try next: Stating the core tactical principle in the opening 3 seconds as a counter to Bishop Blaze's traps before presenting the position.
