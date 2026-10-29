@@ -1,5 +1,7 @@
-# Visual notebook (2026-10-28)
+# Visual notebook (2026-10-29)
 
-• Keep doing: Clean 2D tactical boards with `think_time=long` and `think_time=normal`, securing 13s–20s watch times on top posts.
-• Stop doing: `think_time=fast`, which collapses watch time down to 3.5s–6.7s and lowers total engagement.
-• Try next: High-contrast coordinate labels and clear square highlights to prevent visual ambiguity on mobile screens.
+# Visual notebook (2026-10-29)
+
+• Keep doing: Pacing with `think_time=long` and `story_length=normal`, which reliably delivers 11s–20s watch time on high-ranking reels.
+• Stop doing: Rushed cuts and short story formats that drive watch times below 6 seconds (e.g., 4.1s–5.6s on narrative shorts).
+• Try next: Bold square highlights and clear board coordinate labels on mobile to eliminate ambiguity after a commenter got lost asking "Where".

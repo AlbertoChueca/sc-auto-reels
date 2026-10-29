@@ -1,5 +1,7 @@
-# Growth notebook (2026-10-28)
+# Growth notebook (2026-10-29)
 
-• Keep doing: `reveal=comments`, which powers every reel scoring above 10.30 and sparks lively calculation debates.
-• Stop doing: `reveal=in_video`, which earned zero comments on a 7.91 score.
-• Try next: Prompting solvers to submit the full continuation to earn a pinned comment (e.g., "Drop the winning line below to get pinned").
+# Growth notebook (2026-10-29)
+
+• Keep doing: `reveal=comments`, which is mandatory for algorithmic reach (present in all reels scoring >10.30).
+• Stop doing: `reveal=in_video`, which resulted in 0 comments and dropped engagement to 7.91.
+• Try next: Converting pinned-comment demand into engagement with a prompt: "First player to comment the full checkmate line gets pinned 📌".
