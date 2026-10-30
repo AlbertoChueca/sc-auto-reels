@@ -1,9 +1,9 @@
 {
  "V65krSM7iZ8": {
-  "views": 12,
-  "estimatedMinutesWatched": 20,
-  "averageViewDuration": 134,
-  "averageViewPercentage": 23.84,
+  "views": 14,
+  "estimatedMinutesWatched": 22,
+  "averageViewDuration": 124,
+  "averageViewPercentage": 22.05,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -19,10 +19,10 @@
   "title": "Chess Tactics Training: 3 Tactical Reps"
  },
  "r0sOyXIyBNM": {
-  "views": 20,
-  "estimatedMinutesWatched": 59,
-  "averageViewDuration": 178,
-  "averageViewPercentage": 25.120000000000005,
+  "views": 26,
+  "estimatedMinutesWatched": 77,
+  "averageViewDuration": 184,
+  "averageViewPercentage": 25.980000000000004,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -38,10 +38,10 @@
   "title": "Chess Calculation: Can You Survive 10 Seconds?"
  },
  "bpXYErMMkYo": {
-  "views": 1,
-  "estimatedMinutesWatched": 0,
-  "averageViewDuration": 0,
-  "averageViewPercentage": 0,
+  "views": 2,
+  "estimatedMinutesWatched": 8,
+  "averageViewDuration": 485,
+  "averageViewPercentage": 99.98,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -57,10 +57,10 @@
   "title": "Chess Calculation: 3 Deadly Pins Club Players Butcher"
  },
  "UdXeLEQtjao": {
-  "views": 1,
-  "estimatedMinutesWatched": 0,
-  "averageViewDuration": 0,
-  "averageViewPercentage": 0,
+  "views": 4,
+  "estimatedMinutesWatched": 7,
+  "averageViewDuration": 448,
+  "averageViewPercentage": 100.02,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -74,5 +74,24 @@
    "think_time": "long"
   },
   "title": "Chess Calculation: Can You Win Down Both Rooks?"
+ },
+ "WFGpl1sHv1M": {
+  "views": 9,
+  "estimatedMinutesWatched": 9,
+  "averageViewDuration": 63,
+  "averageViewPercentage": 10.01,
+  "subscribersGained": 0,
+  "likes": 0,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-10-27",
+  "arms": {
+   "format": "streak",
+   "hook_style": "story: open with a short, vivid scene of a game decided by one calculation",
+   "title_style": "benefit: the concrete improvement the viewer gets",
+   "thumb_style": "question",
+   "think_time": "fast"
+  },
+  "title": "Chess Calculation: Spot Tactics in 7 Seconds"
  }
 }

@@ -1,9 +1,7 @@
 # Voice & Humor Editor - notebook
-_Updated 2026-10-27_
+_Updated 2026-10-30_
 
-# Voice & Humor Editor - notebook
-- Purge robotic AI buzzwords like 'unlocks', 'masterclass', or 'testament' from all comedic lines.
-- Roast club player tunnel vision: munching poisoned b-pawns while getting checkmated in a wooden box.
-- Poke fun at reflexive instinct to spam pointless checks or retreat instead of finding forcing deflections.
-- Keep humor grounded in relatable board blunders; avoid hollow hype-bro jargon and empty hyperbole.
-- Cap jokes to one punchy beat per minute to maintain high-pressure streak pacing.
+- Keep leaning into club player blunders: donating pieces to charity, autopilot pawn-munching, and walking face-first into mate.
+- Ban AI buzzwords ('unlock', 'masterclass', 'testament') in favor of punchy, dry coaching wit.
+- Limit comedic delivery to one sharp beat per minute to protect calculation tension.
+- Roast tempting moves with psychological accuracy rather than absurd exaggerations.

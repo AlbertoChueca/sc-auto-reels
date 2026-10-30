@@ -1,100 +1,117 @@
 {
- "date": "2026-10-27",
+ "date": "2026-10-30",
  "news": {
   "items": [
    {
-    "headline": "Wesley So Clinches Fourth U.S. Chess Championship in Rapid Playoff",
-    "detail": "Wesley So defeated defending champion Fabiano Caruana 1.5\u20130.5 in a rapid playoff mini-match to capture his fourth U.S. national championship and the $56,000 top prize. The tiebreak was set up after Caruana won on demand while So suffered his only loss of the tournament against Sam Sevian in the final classical round.",
+    "headline": "Javokhir Sindarov Wins 2026 Clutch Chess: Champions Showdown",
+    "detail": "Sindarov erased a 2.5-point deficit on the final day, capping off his run with an electric victory over Hikaru Nakamura to take first place and $168,000. The triumph provides massive momentum for the Uzbek grandmaster right before his World Championship match against Gukesh Dommaraju.",
+    "date": "2026-10-29",
+    "people": [
+     "Javokhir Sindarov",
+     "Hikaru Nakamura",
+     "Praggnanandhaa Rameshbabu",
+     "Fabiano Caruana"
+    ],
+    "event": "Clutch Chess: Champions Showdown 2026",
+    "why_viewers_care": "It serves as the final premier competitive outing and a major statement of intent from Sindarov ahead of the upcoming classical World Championship clash."
+   },
+   {
+    "headline": "Wesley So Wins Fourth U.S. Chess Championship After Playoff Thriller",
+    "detail": "After an unexpected round-11 defeat to Sam Sevian snapped his 48-game unbeaten streak and allowed Fabiano Caruana to force tiebreaks, Wesley So defeated Caruana 1.5\u20130.5 in a rapid playoff. The win secured So his first national title in five years, while Rachael Li claimed the U.S. Women's Championship.",
     "date": "2026-10-22",
     "people": [
      "Wesley So",
      "Fabiano Caruana",
-     "Sam Sevian"
+     "Sam Sevian",
+     "Rachael Li"
     ],
     "event": "2026 U.S. Chess Championship",
-    "why_viewers_care": "Caruana staged a dramatic final-round comeback to force overtime, but So held his composure in blitz-speed mutual time trouble to win his first national title in five years."
+    "why_viewers_care": "The dramatic conclusion resolved a fiercely contested national championship that featured high-stakes blunders, last-round comebacks, and overtime tiebreaks between two world top-ten players."
    },
    {
-    "headline": "16-Year-Old Rachael Li Wins U.S. Women's Championship on Debut",
-    "detail": "Rookie WIM Rachael Li drew against IM Anna Zatonskih in the final round to win the 2026 U.S. Women's Chess Championship outright, taking home $45,000. In addition to securing the title, Li earned an IM norm with two rounds to spare and qualified for the next FIDE Women's World Cup.",
-    "date": "2026-10-21",
+    "headline": "Istanbul Announced as Host for 2026 World Rapid and Blitz Championships",
+    "detail": "FIDE confirmed that Istanbul, T\u00fcrkiye, will stage the 2026 World Rapid and Blitz Championships from December 26 to 30, sponsored by Freedom Holding Corp. Magnus Carlsen, Aleksandra Goryachkina, and Bibisara Assaubayeva enter the tournament as defending champions.",
+    "date": "2026-10-29",
     "people": [
-     "Rachael Li",
-     "Anna Zatonskih",
-     "Alice Lee"
+     "Magnus Carlsen",
+     "Aleksandra Goryachkina",
+     "Bibisara Assaubayeva"
     ],
-    "event": "2026 U.S. Women's Chess Championship",
-    "why_viewers_care": "At 16, Li became the youngest first-time winner in the history of the event, completing one of the most stunning debut championship runs in American chess."
+    "event": "2026 FIDE World Rapid and Blitz Championships",
+    "why_viewers_care": "The announcement ends weeks of anticipation surrounding the location of the chess calendar's most prestigious and high-viewership year-end championship."
    },
    {
-    "headline": "11-Year-Old Bodhana Sivanandan Shatters Judit Polgar's Record as Youngest Female IM",
-    "detail": "English prodigy Bodhana Sivanandan scored 5.5/7 at the European Club Cup in Budva, securing her final International Master norm at age 11. The result breaks Judit Polgar's historic record, making Sivanandan the youngest female player ever to achieve the IM title and the seventh-youngest overall.",
-    "date": "2026-10-23",
+    "headline": "GothamChess Collides with Football Royalty Harry Kane and Michael Olise",
+    "detail": "Popular chess creator Levy Rozman (GothamChess) traveled to Bayern Munich to film and play games against Michael Olise and recent Ballon d'Or winner Harry Kane. Clips and coverage of the crossover quickly circulated across social media platforms.",
+    "date": "2026-10-29",
     "people": [
-     "Bodhana Sivanandan",
-     "Judit Polgar"
+     "Levy Rozman",
+     "Harry Kane",
+     "Michael Olise"
     ],
-    "event": "41st European Chess Club Cup",
-    "why_viewers_care": "Sivanandan broke a landmark record held for decades by Judit Polgar, the greatest female chess player in history, cementing her status as a generational prodigy."
+    "event": null,
+    "why_viewers_care": "Major crossovers between mainstream global athletes and chess creators expand the game's cultural footprint and generate significant viral reach."
    },
    {
-    "headline": "Bayegan Pendik and Monte-Carlo Crowned European Club Cup Champions",
-    "detail": "Turkish club Bayegan Pendik edged Novy Bor on tiebreaks to claim the open title after Anish Giri and Amin Tabatabaei scored crucial final-round victories against SuperChess Romania. In the women's event, Cercle d'Echecs de Monte-Carlo completed a 4-0 final-round sweep to successfully defend their European championship.",
-    "date": "2026-10-23",
+    "headline": "Magnus Carlsen Addresses $20 Million World Championship Return Question",
+    "detail": "During promotional events in Barcelona, Carlsen was asked whether an unprecedented $20 million financial incentive could bring him back to classical World Championship matches. Carlsen responded that 'most people have a price,' but reaffirmed that his sporting ambitions remain concentrated on rapid, blitz, and Freestyle formats.",
+    "date": "2026-10-28",
     "people": [
-     "Anish Giri",
+     "Magnus Carlsen",
+     "Miguel Illescas"
+    ],
+    "event": "MOVE Cup 2027 Launch",
+    "why_viewers_care": "Carlsen's continued refusal to participate in the traditional classical cycle and his perspective on what could change his mind remain central talking points in chess."
+   },
+   {
+    "headline": "Star-Studded Lineup Revealed for 2026 London Chess Classic",
+    "detail": "Organizers unveiled the complete 10-player Masters field for London's flagship tournament, headlined by defending champion and world number five Nodirbek Abdusattorov. The field features a clash between elite veterans like Levon Aronian and Vasyl Ivanchuk against teenage prodigies including Andy Woodward and Shreyas Royal.",
+    "date": "2026-10-27",
+    "people": [
      "Nodirbek Abdusattorov",
-     "Amin Tabatabaei",
-     "Aleksandra Goryachkina"
+     "Levon Aronian",
+     "Vasyl Ivanchuk",
+     "Andy Woodward",
+     "Shreyas Royal"
     ],
-    "event": "41st European Chess Club Cup",
-    "why_viewers_care": "Europe's premiere team championship featured record-breaking team participation and came down to dramatic, final-round head-to-head showdowns between elite grandmasters."
-   },
-   {
-    "headline": "Clutch Chess Champions Showdown Kicks Off in Saint Louis",
-    "detail": "The 2026 Clutch Chess: Champions Showdown opened in Saint Louis with an elite four-player field consisting of Fabiano Caruana, Hikaru Nakamura, Praggnanandhaa Rameshbabu, and Javokhir Sindarov. The 18-game rapid event features escalating point values across three double round-robins and rolling bonuses funded by drawn games.",
-    "date": "2026-10-27",
-    "people": [
-     "Fabiano Caruana",
-     "Hikaru Nakamura",
-     "Praggnanandhaa Rameshbabu",
-     "Javokhir Sindarov"
-    ],
-    "event": "2026 Clutch Chess: Champions Showdown",
-    "why_viewers_care": "Four of the world's most popular and strongest rapid grandmasters face off in an intense, high-stakes spectator format with $425,000 on the line."
-   },
-   {
-    "headline": "Andy Woodward Wins Titled Tuesday Blitz",
-    "detail": "American teenage grandmaster Andy Woodward took first place in the October 27 edition of Chess.com's weekly Titled Tuesday tournament. The victory caps a stellar month of high-profile performances for the rising young star, who also upset Fabiano Caruana during the U.S. Championship.",
-    "date": "2026-10-27",
-    "people": [
-     "Andy Woodward"
-    ],
-    "event": "Titled Tuesday",
-    "why_viewers_care": "Woodward continues to establish himself as one of the fastest-improving junior grandmasters in the world, outperforming elite international competition online."
+    "event": "2026 XTX Markets London Chess Classic",
+    "why_viewers_care": "The event represents Britain's flagship classical tournament and sets up Abdusattorov's bid to become the first repeat champion in London since 2010."
    }
   ],
   "search_terms": [
-   "US Chess Championship 2026 tiebreak",
-   "Wesley So vs Fabiano Caruana playoff",
-   "Bodhana Sivanandan youngest IM record",
-   "Rachael Li US Womens Chess Championship",
-   "Clutch Chess Champions Showdown 2026"
+   "Sindarov vs Nakamura Clutch Chess 2026",
+   "Wesley So Caruana US Championship playoff",
+   "GothamChess Harry Kane",
+   "Clutch Chess Champions Showdown highlights",
+   "Magnus Carlsen 20 million interview"
   ],
-  "sources": []
+  "sources": [
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH1q0VSqPzkYqo6pDQ1JS0saFvFcbyXU3-NFCUnv4f0K_jyCwOal_zL3-N4kMY3nxLnAsaM1tknpxxsI9wHo6USdJuu0P3gstkbKGOfeDSQz_oLt5h8Q2YtZZetedlzw4H9_a7MKlYiciyQuv7fTuTSh1MFkrAad75D_Mh5bHZwcu8Xvqz5xr4=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAfluN2zEklo4AVCM68jVu7uG7nqkBLhH3ASkBfZrhwI4Yupb9RrN6B_dMOaO4koCdTujp5a0GA3N4kcmMK-UBJRBiRTgh0laXlkqJ5zDbppvmtVfL1Hd1-rfb5zfWCKgIma2oVXG5d8GFhYkce5mg",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEz_yq938Iz8TXgv63QIzpDn7T03RykTrzNhUJY5P21HAVSi52ele5PWVAy0Kvx8bUjj64a6SrHJ3_EAb1D99lCr8TLMWozUDS0_L_Wk15sgJDeq3ncJiShQ_qpLoHiIzRG7psD1lrbrKCJBGTmvGvHv3odsZoW-mpaXIv2PTXb8zvtZDo=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF7gQtGKnrwWC_SDmMI3EG7GnBkmTVEtpg65bntL-7krvYGWCMASHliP3b34lQyqnjuf75dUgBF_o5pQD3O6gVdTzqEHtM8fdG2-mkI4x3yDnIksWvOLqI6XofzuuJSHKkU1-6VPy30pwp6pNc=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFs0Ll5w8ZVeLVDt46z44WiP6ey-IuCKtXauC5ISMoGGwNQDVJrC-K0yI5X-IHkNvgGj9VzZ2tmVZevqwGXNzmO2p2fHTNeu0E6MN4XokJvwJCgo93dLEI0sbs63THp-BESKHCAXhbr981GzbghWQLMt-6_Qm-AHUDuGx_x1FJ9BZ_oej0nrk0Bv9vVWBeDHBBUwZwNNPSftQ==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGiC5Z4y9UgAOWvsfHpvewChcClfVdI5ktZMflqJ-oIJ7WlN8hrUn5fdY0bp4V7ie0OWcKSLVDYfNCXI1xthnpv09QxleCbDpaIAT7hHEHiGC7sE97YPJtsSJDeJTqVh8oHj7Fex3Z_CxIgFnlxHZVWxSdFLyRDoFwNoaL-nnII",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMkuZNNcgyo2UVaZgLmx5kTi6YXqxv_FVN4v6xDZLoygDYj9lvu4Dv85etI5fWFr9iPR-xLEh71iXUuPUscyqosfLuR8wP_bC01b1FShW3AcIds84Ec8dwghF-DkjNnDhM5x_0WWI9aodym2DBVqWrDBaBUxFFPU-cceAWQUU9_KtVGr47eLbLoRV3R93smlTm-IlTEmb3bw==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG5j3aN-gqMbkOywCy2tFdThy21HOAyxeGVPrVtU6c_NKNvbtn5r09XgZMiaMvI9k1L79afNuygG-qv50d45_6gBJysiP5_WUyS0Zri_iofIlQTVtks5E3aL7T3Q2WKBORC-PWj-KMWA-pNM6jTrtlLBd__N4MtFKfI9pIU4CPeoUt9yQkE4yZzgoaU",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECc22f55BmOCHgtWP2NGrtzUycsZYsLTxbkBW89XSRMXX8-15vAT-4mZm_UcoBsyBDcBsgHrAsF6HgB4P7o-AOodJeh-0pGJOtBXyNmt2FnA==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE8IghrzOdxLgUvHL9I1gwvM17Bz4zvr4jTi-ofiJHx_hnhz1863UBJjc6IjS2Hk6bu-IYEZEoVMnKYgdMjGJrzfiBi8j_KWFDPG5NtPKkwkOyR-5WibDoalg8-BV6QDrOsDDMWPE6R2WB6RFWDX4PMC4GeVZDWxvTkyCFlTW1h1KWbjCpSVDiq3_oew4ojIz_YA5-oJzxgdWTp4MP6ZeiOPpEL-vyr9ntI22phIlzIlFPsaGY=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHrKY8GIk_Z0o1Of74p3ForSj4YqdEbAbCYj7GfnUbIyHvz0M-wDDlvOxkALCcWeeb3fukwYZIlbo1zyPI9_dOBkNaS_Gy4LjLjY2p0-bktq3Na6v0Q6F_FfbXCHJgh6YddQFEy8LZsmmPMeyNVZySTmsnH91hkifY8z9bZPwMVZ8KVf1bo",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEtVO58v0uZ7v5cfdaY04KhwqlFYDRT4o3SX52z7jBakrl0JQjzNlzovQhqlzFxiSJKChNAnneRgDGmYKBGjXDp78OE2BNKcZj4TJwN-fkn58_zkD3ispIQEItZtVDh_WM5Y9RDhgMCGpERCcKJeRp3OBO88Q=="
+  ]
  },
  "suggest": {
   "chess tactics": [
    "chess tactics",
-   "chess tactics for beginners",
    "chess tactics training",
    "chess tactics and strategy",
    "chess tactics explained",
+   "chess tactics for beginners",
    "chess tactics gothamchess",
+   "chess tactics for intermediate players",
    "chess tactics for kids",
    "chess tactics hikaru",
-   "chess tactics from scratch",
-   "chess tactics books"
+   "chess tactics from scratch"
   ],
   "chess puzzles": [
    "chess puzzles",
@@ -126,19 +143,16 @@
    "chess tricks checkmate",
    "chess tricks and traps",
    "chess tricks for black",
-   "chess tricks to win fast",
    "chess tricks and tips",
    "chess tricks in hindi",
    "chess tricks to win",
-   "chess tricks to win fast for beginners"
+   "chess tricks to win fast for beginners",
+   "chess tricks in telugu"
   ],
-  "US Chess Championship 2026 tiebreak": [
-   "us chess championship 2023",
-   "us chess championship 2022"
-  ],
-  "Wesley So vs Fabiano Caruana playoff": [
-   "wesley so vs fabiano caruana"
-  ],
-  "Bodhana Sivanandan youngest IM record": []
+  "Sindarov vs Nakamura Clutch Chess 2026": [],
+  "Wesley So Caruana US Championship playoff": [],
+  "GothamChess Harry Kane": [
+   "gothamchess harry kane"
+  ]
  }
 }

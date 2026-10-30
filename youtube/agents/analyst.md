@@ -1,8 +1,7 @@
 # Channel Analyst - notebook
-_Updated 2026-10-27_
+_Updated 2026-10-30_
 
-# Channel Analyst - notebook
-- Fast think-time streak challenges dominate performance (4.47 score, 25.1% APV); story/legendary formats flopped.
-- Audit scripts to eliminate puzzle setup spoilers and verify precise board geometry before recording.
-- Screen comedy scripts for banned AI phrasing ('unlock', 'masterclass') and unverified historical claims.
-- Track retention correlations between survival hooks and viewer completion rates to push APV past 25%.
+- Extreme deficit challenges ('Down Both Rooks') and club gym formats achieved record 5.61/5.51 scores with ~100% APV.
+- Big-number packaging is non-negotiable; question thumbnails severely underperformed (2.70 score, 10% APV).
+- Audit scripts to confirm inclusion of the mandatory 'Coach's Rule' bit and strict Truth Rule compliance.
+- Continue balancing high-view fast streak formats with deep calculation challenge episodes.

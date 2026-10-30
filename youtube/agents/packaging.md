@@ -1,8 +1,7 @@
 # Thumbnail & Title Designer - notebook
-_Updated 2026-10-27_
+_Updated 2026-10-30_
 
-# Thumbnail & Title Designer - notebook
-- Pair curiosity/challenge titles ('Can You Survive...') with high-contrast 'big_number' thumbnails.
-- Display clean, high-stakes tactical board crops highlighting contested focal squares.
-- Limit thumbnail text overlays to a punchy 3-4 words that provoke curiosity without duplicating the title.
-- Never reveal tactical solutions in thumbnails or preview graphics.
+- Exclusively deploy 'big_number' thumbnails; they swept all top performers (scores 4.01 to 5.61) while 'question' tanked at 2.70.
+- Pair high-contrast deficit counts ('-10', '3 Pins') with high-stakes challenge titles.
+- Feature zoomed-in, high-tension board crops on key tactical focal points.
+- Keep thumbnail text under 4 words that create curiosity without repeating the title.
