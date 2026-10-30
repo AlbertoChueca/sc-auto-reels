@@ -1,7 +1,5 @@
-# Visual notebook (2026-10-29)
+# Visual notebook (2026-10-30)
 
-# Visual notebook (2026-10-29)
-
-• Keep doing: Pacing with `think_time=long` and `story_length=normal`, which reliably delivers 11s–20s watch time on high-ranking reels.
-• Stop doing: Rushed cuts and short story formats that drive watch times below 6 seconds (e.g., 4.1s–5.6s on narrative shorts).
-• Try next: Bold square highlights and clear board coordinate labels on mobile to eliminate ambiguity after a commenter got lost asking "Where".
+• Keep doing: Combining `think_time=long` with `story_length=normal`—this consistently achieves peak watch times (11.8s–20.2s) and top overall scores.
+• Stop doing: Fast cuts and short formats (`think_time=fast`), which drag watch times down to 3.4s–6.8s.
+• Try next: Adding visible board coordinates (a–h, 1–8) and distinct highlight pulses on key squares to eliminate visual confusion after an audience member asked "Where".

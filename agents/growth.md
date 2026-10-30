@@ -1,7 +1,5 @@
-# Growth notebook (2026-10-29)
+# Growth notebook (2026-10-30)
 
-# Growth notebook (2026-10-29)
-
-• Keep doing: `reveal=comments`, which is mandatory for algorithmic reach (present in all reels scoring >10.30).
-• Stop doing: `reveal=in_video`, which resulted in 0 comments and dropped engagement to 7.91.
-• Try next: Converting pinned-comment demand into engagement with a prompt: "First player to comment the full checkmate line gets pinned 📌".
+• Keep doing: `reveal=comments`, which is proven mandatory for algorithm reach and drives up to 11 comments per post (all top reels >10.30 use it).
+• Stop doing: `reveal=in_video`, which resulted in 0 comments and dropped engagement score to 7.91.
+• Try next: Direct caption incentive: "First player to find the exact winning move gets pinned 📌" to leverage explicit audience requests for pinned recognition.
