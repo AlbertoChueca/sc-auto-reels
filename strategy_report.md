@@ -12,7 +12,7 @@ _Updated 2026-10-30 · 60 reels with results (3+ days old) · average score 7.18
 | big_dream | 14 | 7.45 |
 | mystery | 13 | 7.15 |
 | challenge | 3 | 7.08 |
-| rival | 8 | 6.47 |
+| rival | 8 | 6.48 |
 | funny_fail | 7 | 6.01 |
 
 ## theme
