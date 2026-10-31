@@ -100,5 +100,8 @@
 },
 {
 "tip": "xray"
+},
+{
+"tip": "candidates"
 }
 ]

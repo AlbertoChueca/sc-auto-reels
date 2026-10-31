@@ -1,5 +1,7 @@
-# Hook notebook (2026-10-30)
+# Hook notebook (2026-10-31)
 
-• Keep doing: The high-performing prompt formula: "Can you help Vektor [action verb] the [specific tactical motif]? ⚡" ("punish the pinned defender" hit 11.09; "punish the hidden threat" hit 10.62). Stick to `countdown_trap` and `big_dream` styles.
-• Stop doing: Vague lifestyle questions ("Tired of fast moves losing pieces?" scored 7.24) and playful narrative hooks ("cookie challenge" scored 8.10).
-• Try next: Testing "punish", "shatter", and "exploit" paired with concrete tactical threats. (Data is still too thin on `rival` hooks with only one test at 7.52).
+# Hook notebook (2026-10-31)
+
+• Keep doing: The winning formula: "Can you help Vektor [action verb] the [tactical motif]? ⚡" paired with `big_dream` and `countdown_trap` styles (top scores 10.53–11.09).
+• Stop doing: Vague lifestyle questions ("Tired of fast moves losing pieces?") and non-tactical story hooks ("cookie challenge") which stall under 8.10.
+• Try next: High-impact verbs like "punish", "shatter", and "exploit" applied to clear tactical targets. Data is still too thin on `rival` hooks (only one test at 7.52).

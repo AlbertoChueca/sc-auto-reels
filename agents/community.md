@@ -1,5 +1,7 @@
-# Community notebook (2026-10-30)
+# Community notebook (2026-10-31)
 
-• Keep doing: Providing multiple-choice options alongside open boards. Solvers actively engage with both single letters ("D", "B🔥") and full multi-move lines ("D Rxg6+, Kh7, Qxf7#"). One solver explicitly begged: "Please pin....🙏🙏".
-• Stop doing: Treating repetitive "Send me this post" comments as organic interest (bot activity).
-• Try next: Monitoring move clarity after a user commented "Where". Data is too thin to prove whether intermediate puzzles reduce answers compared to basic ones.
+# Community notebook (2026-10-31)
+
+• Keep doing: Multi-choice prompts alongside full tactical boards; fans readily engage with single letters ("D", "B🔥") and step-by-step lines ("Qh6+ then rook e8 mate").
+• Stop doing: Logging automated "Send me this post / Forward it us" messages as genuine audience interest.
+• Try next: Rewarding detailed solvers with pinned comments after an audience member explicitly pleaded "Please pin....🙏🙏". Address board clarity after a user asked "Where". Data is too thin on whether intermediate puzzles reduce casual participation.

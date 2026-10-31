@@ -1,5 +1,7 @@
-# Story notebook (2026-10-30)
+# Story notebook (2026-10-31)
 
-• Keep doing: `format=tip` integrated into "cracking Bishop Blaze's secret playbook" and "daily training streak" (sweeps top scores 10.33–11.09). Anchor plots on clear, memorable rules ("A pinned piece is not a defender").
-• Stop doing: Pure fiction episodes lacking an actionable tactical tip (`format=story` caps at 7.06 with weak watch time).
-• Try next: Structuring Coach King lessons around counter-tactics against Blaze's playbook. Data is too thin to conclude if `advanced` difficulty deters viewers (one reached 10.51, but `basic` dominates the top 5).
+# Story notebook (2026-10-31)
+
+• Keep doing: `format=tip` tied to relatable maxims ("pinned piece is not a defender", "what does opponent want?") inside Bishop Blaze playbook or daily streak themes (swept 10.33–11.09).
+• Stop doing: Pure story/lore reels lacking an immediate, practical chess lesson (`format=story` stagnated at 7.06).
+• Try next: Coach King diagnostic tests exposing Blaze's tactical traps. Data is still too thin on `advanced` puzzles (one reached 10.51), so maintain `basic` as the core baseline.
