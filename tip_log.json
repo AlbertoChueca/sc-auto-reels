@@ -103,5 +103,8 @@
 },
 {
 "tip": "candidates"
+},
+{
+"tip": "loose"
 }
 ]
