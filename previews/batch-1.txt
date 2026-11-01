@@ -1,10 +1,9 @@
-Can you crack this overloaded defender for Vektor? Drop A or B! ♟️
-Calculation masterclass: Overloaded defenders. A piece defending two things cannot do both. Attack one of them.
+Spot the winning rook move: A, B, C or D? ♟️
+Calculation masterclass: Forcing moves first. Calculate the most forcing moves first: they leave your opponent the fewest replies.
 
 The method, step by step, on this position:
-1️⃣ Loose Pieces: Black has zero undefended pieces, White has one.
-2️⃣ Captures: White has no captures.
-3️⃣ Candidates: The three candidate moves to calculate, most forcing first.
+1️⃣ Checks: White has two checks here, with the pawn and the rook.
+2️⃣ Candidates: The four candidate moves worth calculating, labelled A to D.
 
 Calculate your candidates and comment your move. Answer in the comments tomorrow!
 
@@ -12,4 +11,4 @@ Save this for your next game and send it to a chess friend.
 
 For every chess player, kids and adults: StreakChess turns calculation practice into a daily game. Free to play, founder offer for the first 500 accounts, link in bio.
 
-#chessclub #chess #chessmoves #chessplayer
+#chess #chesspuzzle #forcingmoves #chessplayer #chesspuzzles
