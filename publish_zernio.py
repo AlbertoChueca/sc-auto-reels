@@ -32,18 +32,36 @@ def _accounts():
     return {k: v for k, v in ids.items() if v}
 
 
+def _letters(caption):
+    import re
+    m = re.search(r"\b(A, B, C or D|A, B or C|A or B)\b", caption)
+    return m.group(1) if m else ""
+
+
 def tiktok_caption(hook, caption):
-    """TikTok-native caption: short, searchable keywords (TikTok is a search engine), comment bait, 4-5 hashtags."""
+    """TikTok-native caption: the hook, the question (A-D), searchable keywords (TikTok is a search engine), the
+    site spelled out (no link in bio on TikTok) and 4-5 hashtags."""
     import random, re
     first = re.sub(r"\s+", " ", (hook or caption.split("\n")[0])).strip()
-    hidden = "answer drops in the comments" in caption.lower() or "answer in the comments" in caption.lower()
-    ask = "Comment your move 👇 answer drops tomorrow" if hidden else "Comment your move before the answer 👇"
+    hidden = "answer drops in the comments" in caption.lower() or "answer in the comments" in caption.lower() \
+             or "reveal it in the comments" in caption.lower()
+    L = _letters(caption)
+    ask = (f"Which move wins: {L}? Comment your letter 👇 answer tomorrow" if L and hidden else
+           f"Which move wins: {L}? Comment your letter 👇" if L else
+           "Comment your move 👇 answer drops tomorrow" if hidden else "Comment your move before the answer 👇")
+    lesson = next((l for l in caption.split("\n") if l.startswith("📌")), "")
     tags = ["#chesstok", "#chess", "#chesspuzzle"] + random.sample(["#chesstips", "#learnchess", "#chesstactics",
-                                                                    "#chesstiktok", "#chessforkids"], 2)
+                                                                    "#chesstiktok", "#chessbrain"], 2)
     prev = next((l for l in caption.split("\n") if l.startswith("✅ Yesterday's answer")), "")
-    return (f"{first}\n" + (f"{prev}\n" if prev else "") + f"{ask}\n"
-            f"Daily chess puzzle + calculation tips to get better at chess. Train free on streakchess.com\n"
+    return (f"{first}\n{ask}\n" + (f"{prev}\n" if prev else "") + (f"{lesson[:180]}\n" if lesson else "")
+            + "Daily chess puzzle + calculation lesson. Train free at streakchess.com\n"
             + " ".join(tags))[:2200]
+
+
+def youtube_description(caption):
+    """YouTube: the link on the FIRST line (the only one visible without expanding), then the caption."""
+    body = caption.replace("link in bio", "link: streakchess.com")
+    return ("Train your calculation free: https://streakchess.com\n\n" + body)[:4900]
 
 
 def _upload(video_path):
@@ -66,9 +84,11 @@ def crosspost(video_path, hook, caption):
     done, errors = [], []
     jobs = []
     if acc.get("youtube"):
-        jobs.append(("youtube", caption.replace("link in bio", "link in bio: streakchess.com"),
-                     {"title": f"{(hook or 'Daily chess puzzle').strip()} ♟️ #shorts"[:100], "visibility": "public",
-                      "madeForKids": os.environ.get("YT_MADE_FOR_KIDS", "true").lower() == "true", "categoryId": "27"}))
+        # madeForKids=true switches OFF comments, notifications, end screens and recommendations on YouTube; the
+        # content is for chess players of every age, so the default is now false (override: YT_MADE_FOR_KIDS=true).
+        jobs.append(("youtube", youtube_description(caption),
+                     {"title": f"{(hook or 'Daily chess puzzle').strip()} ♟️ #shorts #chess"[:100], "visibility": "public",
+                      "madeForKids": os.environ.get("YT_MADE_FOR_KIDS", "false").lower() == "true", "categoryId": "27"}))
     if acc.get("tiktok"):
         jobs.append(("tiktok", tiktok_caption(hook, caption),
                      {"privacy_level": "PUBLIC_TO_EVERYONE", "allow_comment": True, "allow_duet": True,

@@ -109,6 +109,15 @@ def publish_reel(video_path, caption, token=None, location_id=None):
     return media
 
 
+def post_comment(media_id, text, token=None):
+    """Our own first comment under a new reel: it seeds the thread (people answer where the question already is)
+    and keeps the site name visible under the video. The comment bot ignores our own username."""
+    token = token or os.environ["IG_TOKEN"]
+    r = _check(requests.post(f"{GRAPH}/{media_id}/comments", data={"message": text, "access_token": token}, timeout=60))
+    print("First comment posted:", r.get("id"), flush=True)
+    return r.get("id")
+
+
 def story_safe(path, limit=59.0):
     """Instagram Stories accept at most 60 s: longer videos are cut to 59 s with a soft fade."""
     import subprocess

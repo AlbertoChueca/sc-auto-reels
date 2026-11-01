@@ -76,17 +76,23 @@ def hook_pass(story):
         res = _ask(f"""{_brief('hook')}
 
 Today's episode script (JSON): {json.dumps(story, ensure_ascii=False)}
-Improve ONLY: screen_hook (max 6 words, no emoji, curiosity gap), the narration of scene 1 (max 12 words, spoken,
-numbers as words, same story facts) and caption_hook (max 10 words, max one emoji). Keep what is already great.
-Return JSON: {{"screen_hook": str, "scene1_narration": str, "caption_hook": str, "why": str}}""", 0.7)
+{__import__('hooks').rules()}
+Improve ONLY: screen_hook (max 6 words, no emoji, concrete stakes), the narration of scene 1 (max 12 words, spoken,
+numbers as words, same story facts, MUST begin with the screen_hook words) and caption_hook (5-11 words, max one
+emoji, a different formula from screen_hook). Keep what is already great.
+Return JSON: {{"screen_hook": str, "scene1_narration": str, "caption_hook": str, "why": str}}""", 0.8)
+        import hooks
         changed = {}
         if _words(res.get("screen_hook"), 6) and "#" not in res["screen_hook"]:
             changed["screen_hook"] = story["screen_hook"] = re.sub(r"[^\w\s'?!,.-]", "", res["screen_hook"]).strip()
         n1 = _words(res.get("scene1_narration"), 12)
         if n1 and not re.search(r"\b[a-h][1-8]\b", n1):
             changed["scene1"] = sc[0]["narration"] = n1
-        if _words(res.get("caption_hook"), 10) and "#" not in res["caption_hook"]:
+        if _words(res.get("caption_hook"), 11) and "#" not in res["caption_hook"] and hooks.is_fresh(res["caption_hook"]):
             changed["caption_hook"] = story["caption_hook"] = res["caption_hook"].strip()
+        elif not hooks.is_fresh(story.get("caption_hook") or ""):
+            story["caption_hook"] = changed["caption_hook"] = hooks.fallback(
+                "story", story.get("screen_hook") or story.get("title") or "Vektor's puzzle", seed=story.get("title"))
         _log("agent_hook", {"changes": changed, "why": res.get("why")})
         print(f"agent hook: {changed.get('screen_hook') or story.get('screen_hook')!r}", flush=True)
     except Exception as e:
@@ -145,15 +151,18 @@ Current caption:
 {caption}
 
 QA notes on the finished reel: {json.dumps(review, ensure_ascii=False)[:600]}
-Rewrite the caption for maximum comments, shares, saves and follows from chess players and chess parents.
-Rules: English; first line max 12 words (hook, max one emoji); a line inviting people to comment their answer (if the caption offers lettered options, keep exactly those letters,
+Rewrite the caption for maximum comments, shares, saves and follows from chess players of every age.
+{__import__('hooks').rules()}
+Rules: English; first line 5-11 words (a FRESH hook following the hook rules, max one emoji); a line inviting people to comment their answer (if the caption offers lettered options, keep exactly those letters,
 e.g. A, B, C or D - never reduce them to 'A or B');
 a line inviting to share with a chess friend; keep one line for every chess player (kids, adults and chess parents alike, never addressed
 to parents only) that StreakChess is free with the founder offer and link in bio; end with 3-5 chess hashtags (you may swap them). Max 600 characters. Kid-safe, no fake claims.
 Return JSON: {{"caption": str, "why": str}}""", 0.6)
         cap = (res.get("caption") or "").strip()
         n_tags = len(re.findall(r"#\w+", cap))
-        if 80 <= len(cap) <= 800 and 3 <= n_tags <= 5 and "bio" in cap.lower() and "streakchess" in cap.lower():
+        first = cap.split("\n", 1)[0]
+        if 80 <= len(cap) <= 800 and 3 <= n_tags <= 5 and "bio" in cap.lower() and "streakchess" in cap.lower() \
+                and __import__("hooks").is_fresh(first):
             _log("agent_growth", {"why": res.get("why")})
             print("agent growth: caption rewritten", flush=True)
             return cap
@@ -208,7 +217,10 @@ CURRENT NOTEBOOKS:
 {json.dumps(old, ensure_ascii=False, indent=1)}
 
 Rewrite each agent's notebook for tomorrow. Each notebook: max 120 words, bullet points, concrete and specific to
-OUR data: "Keep doing", "Stop doing", "Try next". Only keep old lessons the data still supports. The community
+OUR data: "Keep doing", "Stop doing", "Try next". Only keep old lessons the data still supports.
+IMPORTANT for the hook notebook: the audience sees every reel, so a winning LINE must never become a template
+("Can you help Vektor ..." ran 60 times and views fell). Extract the PRINCIPLE behind what worked (e.g. name the
+concrete tactic, promise a clear payoff) and demand a different formula every day; never recommend reusing a phrase. The community
 notebook summarises what the audience says (no usernames, no personal data). Be honest when data is too thin.
 Return JSON: {{"hook": str, "story": str, "visual": str, "growth": str, "community": str}}""", 0.4)
     except Exception as e:

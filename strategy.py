@@ -42,7 +42,7 @@ DEFAULT_ARMS = {
     "format": ["story", "tip"],                 # Vektor story + puzzle, or calculation tip + puzzle
     "reveal": ["comments"],                    # always hold the solution back for the comments (no spoiler, more comments)
 }
-THINK_FACTOR = {"fast": 0.75, "normal": 1.0, "long": 1.3}
+THINK_FACTOR = {"fast": 0.8, "normal": 1.0, "long": 1.2}
 WORDS = {"short": "18-24", "normal": "24-34"}
 
 

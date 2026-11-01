@@ -214,9 +214,10 @@ any stray spoken words that are not part of the story (e.g. "say") or hiss/noise
 subtitles readable and in sync with the voice, voice natural and matching the words, the chess board and moves easy
 to follow, visuals consistent and attractive, call to action clear, likelihood viewers comment/share/follow.
 "critical" = true ONLY if the reel is clearly broken (silent, frozen/black, unreadable, wrong/garbled voice,
-inappropriate content). Then write a better FIRST caption line (max 12 words, one emoji max, written for chess players of every age,
-kids and adults, invites commenting the answer; when the puzzle has lettered options it asks for A, B, C or D - never "A or B")
-and a short comment prompt line (max 12 words).
+inappropriate content). Then write a better FIRST caption line (5-11 words, one emoji max, written for chess players of every age,
+names the concrete tactic or piece, invites commenting the letter A, B, C or D - never "A or B") and a short
+comment prompt line (max 12 words). The first line must NOT start like any of these recent hooks:
+{chr(10).join('- ' + h for h in __import__('hooks').recent())}
 Return JSON: {{"overall": number, "scores": {{...}}, "critical": bool, "issues": [str], "suggestions": [str],
 "caption_first_line": str, "comment_prompt": str}}"""},
                     {"inline_data": {"mime_type": "video/mp4", "data": data}}], 0.4)
@@ -236,7 +237,8 @@ Return JSON: {{"overall": number, "scores": {{...}}, "critical": bool, "issues":
     new_first = (res.get("caption_first_line") or "").strip()
     prompt = (res.get("comment_prompt") or "").strip()
     cap = caption
-    if 3 <= len(new_first.split()) <= 14 and "#" not in new_first:
+    import hooks
+    if 3 <= len(new_first.split()) <= 14 and "#" not in new_first and hooks.is_fresh(new_first):
         cap = new_first + "\n" + rest
     if prompt and 3 <= len(prompt.split()) <= 14 and "#" not in prompt:
         cap = re.sub(r"Comment your move before watching the solution!|Comment the move and tag a friend to challenge them!",

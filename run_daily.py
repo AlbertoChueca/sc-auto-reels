@@ -132,6 +132,13 @@ for eng in chain:
 if meta is None:
     raise SystemExit("All render engines failed")
 print("engine:", engine, flush=True)
+try:                                                  # real length of the finished reel (for retention analysis)
+    import subprocess as _sp
+    meta["duration"] = round(float(_sp.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", out],
+                                           capture_output=True, text=True).stdout.strip() or 0), 1)
+    print("reel length:", meta["duration"], "s", flush=True)
+except Exception as _e:
+    print("duration unknown:", _e)
 try:
     import voice as _v
     voice_used = _v.ENGINE_USED
@@ -155,6 +162,21 @@ if summary:  # visible on the run page in GitHub
                 + (f"- {strat_msg}\n" if strat_msg else "")
                 + "".join(f"- Error: `{e}`\n" for e in errors))
 caption = open(out.replace(".mp4", ".txt")).read()
+# ---- last gate on the first line: it must be a fresh hook (never the same opening as recent reels)
+try:
+    import hooks
+    _first, _rest = (caption.split("\n", 1) + [""])[:2]
+    if not hooks.is_fresh(_first):
+        _ab = meta.get("ab") or {}
+        _letters = ", ".join(k for k in "ABCD" if k in _ab)
+        _first = hooks.fallback((meta.get("tip_key") or "story"), (meta.get("story") or "today's puzzle").replace("Tip: ", ""),
+                                level_name=level, side=meta.get("side") or "White",
+                                letters=(_letters[:-3] + " or " + _letters[-1]) if len(_letters) > 3 else "A, B, C or D",
+                                correct=_ab.get("correct"), seed=f"{today}-{slot}{_B}")
+        caption = _first + "\n" + _rest
+    meta["hook"] = _first.strip()                      # the hook we log and reuse on TikTok/YouTube = what went out
+except Exception as _e:
+    print("hook gate skipped:", _e)
 # Held-back answers are also revealed in the NEXT post's caption (works on Instagram, TikTok and YouTube alike).
 try:
     _prev = None
@@ -165,7 +187,9 @@ try:
     _ann = json.load(open("answers_announced.json")) if os.path.exists("answers_announced.json") else []
     if _prev and _prev["media_id"] not in _ann and _prev.get("date") != str(today):
         _first, _rest = (caption.split("\n", 1) + [""])[:2]
-        caption = f"{_first}\n✅ Yesterday's answer: {' '.join(_prev['sans'])}\n{_rest}"
+        _pab = _prev.get("ab") or {}
+        _ans = (f"{_pab['correct']} ({' '.join(_prev['sans'])})" if _pab.get("correct") else ' '.join(_prev['sans']))
+        caption = f"{_first}\n✅ Yesterday's answer: {_ans}\n{_rest}"
         if not dry:
             json.dump((_ann + [_prev["media_id"]])[-200:], open("answers_announced.json", "w"))
 except Exception as _e:
@@ -181,6 +205,20 @@ if loc: print("Location:", loc["name"])
 media = publish_reel(out, caption, location_id=loc and loc["id"])
 meta.update(location=loc and loc["name"], permalink=media.get("permalink"), media_id=media.get("id"), engine=engine)
 mark_used(P["id"])
+
+try:  # our own first comment: the question + where to train (never blocks the reel)
+    from publish_ig import post_comment
+    _ab = meta.get("ab") or {}
+    _L = [k for k in "ABCD" if k in _ab]
+    _q = (f"Which move wins: {', '.join(_L[:-1])} or {_L[-1]}? Comment your letter 👇 Answer revealed here tomorrow."
+          if len(_L) > 1 else "Comment your move 👇 Answer revealed here tomorrow.")
+    _fc = random.Random(f"{today}-{slot}-fc{_B}").choice([
+        f"{_q} Train your calculation free every day at streakchess.com ♟️",
+        f"{_q} Daily puzzles + lessons, free: streakchess.com (link in bio)",
+        f"{_q} New puzzle every day. Free training at streakchess.com 🔥"])
+    meta["first_comment"] = post_comment(media["id"], _fc)
+except Exception as e:
+    print("First comment failed:", e); meta["first_comment"] = f"error: {str(e)[:120]}"
 
 try:  # also share it as a Story (never blocks the reel)
     publish_story(out); meta["story_share"] = "ok"
@@ -198,4 +236,4 @@ if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (neve
 meta["voice"] = voice_used
 meta["arms"] = arms if engine in ("story", "tip") else {}
 log({k: meta.get(k) for k in ("engine", "voice", "review_score", "design_score", "arms", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
-                              "media_id", "sans", "reveal", "ab", "story_share", "zernio")})
+                              "media_id", "sans", "reveal", "ab", "duration", "tip_key", "story_share", "zernio", "first_comment")})

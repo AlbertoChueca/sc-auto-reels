@@ -83,6 +83,8 @@ TODAY'S EPISODE PLAN (mandatory, this guarantees variety):
 
 {playbook}
 
+{hook_rules}
+
 Write ONE new episode: a moment of Vektor's day on his way to his dream (setup -> problem -> he needs help).
 TODAY'S CREATIVE BRIEF (an experiment): opening hook style = {hook_style}; extra flavour (blend it in only if it fits
 today's format) = {theme}.
@@ -162,6 +164,7 @@ def write_story(level, side, goal, avoid, episode=1, recent=(), arms=None, ep=No
                 previously=ep.get("previously") or "nothing yet, this is the first episode",
                 teaser=ep.get("teaser") or "nothing yet", lesson_name=ep["lesson"][1], lesson_idea=ep["lesson"][2],
                 playbook=("WHAT WORKS FOR OUR AUDIENCE (from real results):\n" + pb) if pb else "",
+                hook_rules=__import__("hooks").rules(),
                 hook_style=arms.get("hook_style", "your best idea"), theme=arms.get("theme", "your best idea"),
                 words=strategy.WORDS.get(arms.get("story_length"), "24-34"),
                 recent="\n".join(f"- {r}" for r in recent) or "- (this is the first episode)",
@@ -399,7 +402,7 @@ def build(P, seed, out, mode="level", arms=None):
     if review_on:                                   # growth marketer writes the end-card lines
         style.update(agents.growth_lines(story, mode))
 
-    MAX_TOTAL = float(os.environ.get("REEL_MAX_SECONDS", "50"))
+    MAX_TOTAL = float(os.environ.get("REEL_MAX_SECONDS", "48"))
     import lesson_anim                              # Vektor's method, step by step, animated on the real position
     LS = lesson_anim.Lesson(b, ep["lesson"], 2, cover=False, mock=mock, hide=lesson_anim.solution_move(P))
     lesson_mp4 = out.replace(".mp4", "_lesson.mp4")

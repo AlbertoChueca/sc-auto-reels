@@ -2,7 +2,7 @@
 Usage: python3 make_reel.py <puzzle_index> <variant_seed> <out.mp4>
 Builds a ~25s 1080x1920 puzzle-challenge reel: hook -> puzzle + countdown -> solution -> CTA.
 """
-import sys, json, math, random, io, subprocess, os
+import sys, json, math, random, io, re, subprocess, os
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import chess, chess.svg, cairosvg
@@ -314,15 +314,15 @@ def pop():
 
 # ---------------------------------------------------------------- variants
 LEVELS = {   # internal keys kept for compatibility; every puzzle is now 1600+
-    "basic": dict(name="CLUB", rng="1600-1850", count=10, color=(70, 190, 130), hooks=[
+    "basic": dict(name="CLUB", rng="1600-1850", count=8, color=(70, 190, 130), hooks=[
         ("CLUB PLAYER TEST", "Club players, this one's for you. Can you find the win?", "thinking"),
         ("LOOKS QUIET...", "It looks quiet. It isn't. Find the strongest move.", "happy"),
         ("DON'T MISS THIS", "One move changes everything. Can you see it?", "angry")]),
-    "intermediate": dict(name="EXPERT", rng="1850-2100", count=12, color=(90, 160, 255), hooks=[
+    "intermediate": dict(name="EXPERT", rng="1850-2100", count=9, color=(90, 160, 255), hooks=[
         ("EXPERT LEVEL", "Expert level. Calculate before you move.", "angry"),
         ("CALCULATE IT ALL", "Checks, captures, threats. Calculate it to the end.", "thinking"),
         ("1850+ PUZZLE", "An eighteen fifty plus puzzle. Can you crack it?", "crown2")]),
-    "advanced": dict(name="MASTER", rng="2100-2500", count=14, color=(235, 80, 90), hooks=[
+    "advanced": dict(name="MASTER", rng="2100-2500", count=10, color=(235, 80, 90), hooks=[
         ("MASTER LEVEL", "Master level puzzle. Only strong calculators find this.", "crown3"),
         ("DEEP CALCULATION", "This one needs deep calculation. Take your time.", "angry"),
         ("2100+ ONLY", "A twenty one hundred plus puzzle. Think you can crack it?", "thinking")]),
@@ -339,10 +339,11 @@ def logo_glow(path, width, glow=60):
     out.alpha_composite(im, (pad, pad))
     return out
 
-CHESS_TAGS = ["chess", "chesspuzzle", "chesstactics", "chesstraining", "chessplayer", "chesslover",
-              "chesscommunity", "chessgame", "chessmaster", "chesspuzzles", "chessclub", "checkmate",
-              "chesslife", "chessstrategy", "chesskids", "learnchess", "chessmoves", "chessbrain",
-              "chessforkids", "kidschess", "scholasticchess", "chesskid", "chessforbeginners"]
+# All-ages pool (the kids-only tags pushed the reels to a parents-only audience); the two core tags always go out.
+CORE_TAGS = ["chess", "chesspuzzle"]
+CHESS_TAGS = ["chesstactics", "chesstraining", "chessplayer", "chesslover", "chesscommunity", "chessgame",
+              "chesspuzzles", "chessclub", "checkmate", "chessstrategy", "learnchess", "chessmoves", "chessbrain",
+              "chessforbeginners", "chesstips", "chessimprovement", "dailypuzzle", "chessreels"]
 US_STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
              "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
              "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
@@ -351,9 +352,14 @@ US_STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado
              "SouthCarolina", "SouthDakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
              "WestVirginia", "Wisconsin", "Wyoming"]
 
-def hashtags(rng):
-    """3-5 random English chess hashtags (the US location is set as the post location)."""
-    tags = rng.sample(CHESS_TAGS, rng.randint(3, 5))
+def hashtags(rng, topic=None):
+    """4-5 English chess hashtags: the 2 core ones, an optional topic tag (the tactic taught) and 2 rotating."""
+    tags = list(CORE_TAGS)
+    if topic:
+        t = re.sub(r"[^a-z0-9]", "", str(topic).lower())
+        if 3 <= len(t) <= 24 and t not in tags:
+            tags.append(t)
+    tags += rng.sample([t for t in CHESS_TAGS if t not in tags], 5 - len(tags))
     return ["#" + t for t in tags]
 
 TAG_HOOKS = [

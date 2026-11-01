@@ -676,7 +676,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
           + " ".join(R.hashtags(rng)))
     open(out.replace(".mp4", ".txt"), "w").write(ig)
     ab_meta = {**AB["san"], "correct": AB["correct"]} if AB else None
-    return dict(mode=mode, puzzle=P.get("id"), level=P["level"], rating=P.get("rating"), hook=f"{h1} {h2}", sans=sans, reveal=reveal, ab=ab_meta,
+    return dict(mode=mode, puzzle=P.get("id"), level=P["level"], rating=P.get("rating"), hook=f"{h1} {h2}", sans=sans, reveal=reveal, ab=ab_meta, side=side,
                 duration=round(total, 1))
 
 

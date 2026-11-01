@@ -11,7 +11,9 @@ from publish_ig import GRAPH, _check, whoami
 
 TOKEN = os.environ["IG_TOKEN"]
 DRY = os.environ.get("BOT_DRY_RUN") == "true"
-SEND_DMS = os.environ.get("BOT_SEND_DMS") == "true"   # off: public replies only
+# BOT_SEND_DMS: "true" = DM everyone who comments (max 1/week each), "correct" (default) = DM only people who got
+# the answer right (they earned it, and it is the warmest lead), "false" = public replies only.
+SEND_DMS = os.environ.get("BOT_SEND_DMS", "correct").lower()
 HANDLED = "handled_comments.json"
 LINK = "https://streakchess.com/?utm_source=instagram&utm_medium=dm&utm_campaign=reel_comment"
 
@@ -53,13 +55,21 @@ PUBLIC_OTHER_HIDDEN = [
     "Good try! 🤔 Check every capture and check again... answer drops here tomorrow!",
     "Interesting idea! Look for the most forcing move 👀 Answer tomorrow!",
     "Thanks for playing! ♟️ Answer coming tomorrow, keep calculating!",
+    "Locked in 🔒 We reveal the answer here tomorrow. Which line did you calculate?",
+    "Noted! 📝 Answer drops tomorrow. Did you check the opponent's best reply?",
+    "Bold choice 👀 Come back tomorrow for the reveal!",
+    "Thanks! The reveal is tomorrow. Tag a friend who'd pick something else 😉",
 ]
+# Before the reveal NOBODY gets confirmed in public (a "correct!" under a comment gives the answer away and kills the
+# guessing): correct answers get the same neutral replies, and the confirmation goes by private message.
+PUBLIC_ANY_HIDDEN = PUBLIC_OTHER_HIDDEN
 PUBLIC_STREAK = [
     "Let's go! 🔥 Start your free streak at streakchess.com (link in bio) and tell us your day count tomorrow!",
     "Love it! 🔥 Your streak starts today: streakchess.com, link in bio. Free to play!",
 ]
-DM_CORRECT = ("Great job finding {move}! 🎯 Want a daily streak of puzzles like this? "
-              "StreakChess is free to play, and the first 500 accounts get a Founder offer for Premium: " + LINK)
+DM_CORRECT = ("Shh... {move} is correct 🎯 We keep it secret in the comments until tomorrow. "
+              "Want a daily streak of puzzles like this? StreakChess is free to play, and the first 500 accounts get a "
+              "Founder offer for Premium: " + LINK)
 DM_OTHER = ("Thanks for playing! ♟️ Train your calculation every day with StreakChess, like Duolingo but for chess. "
             "Free to play, and the first 500 accounts get a Founder offer for Premium: " + LINK)
 
@@ -156,12 +166,15 @@ def main():
             hide = m["id"] in hidden and m["id"] not in answered      # never spoil before the answer is posted
             if re.search(r"\bstreak\b", c.get("text", ""), re.I):
                 pub = random.choice(PUBLIC_STREAK)
+            elif hide:
+                pub = random.choice(PUBLIC_ANY_HIDDEN)              # no spoilers before the reveal, right or wrong
             elif ok:
-                pub = random.choice(PUBLIC_CORRECT_HIDDEN if hide else PUBLIC_CORRECT).format(move=move)
+                pub = random.choice(PUBLIC_CORRECT).format(move=move)
             else:
-                pub = random.choice(PUBLIC_OTHER_HIDDEN if hide else PUBLIC_OTHER)
+                pub = random.choice(PUBLIC_OTHER)
             last_dm = handled["dm"].get(user)
-            can_dm = not last_dm or (now - datetime.datetime.fromisoformat(last_dm)).days >= 7
+            can_dm = (not last_dm or (now - datetime.datetime.fromisoformat(last_dm)).days >= 7) and \
+                     (SEND_DMS == "true" or (SEND_DMS == "correct" and ok))
             dm = (DM_CORRECT if ok else DM_OTHER).format(move=move)
             print(f"@{user}: {c.get('text','')[:80]!r} -> correct={ok} dm={can_dm}")
             if not DRY:
@@ -170,7 +183,7 @@ def main():
                     sent_pub += 1
                 except Exception as e:
                     print("  public reply failed:", e); errors.append(f"reply: {str(e)[:200]}")
-                if can_dm and SEND_DMS:
+                if can_dm:
                     try:
                         _check(requests.post(f"{GRAPH}/{uid}/messages", json={
                             "recipient": {"comment_id": c["id"]}, "message": {"text": dm}},

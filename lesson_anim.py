@@ -557,6 +557,25 @@ class Lesson:
         self.lines = write_lines(self.steps, tip, _side(board.turn), intro=cover, mock=mock)
         self.A = None
 
+    def set_hook(self, hook):
+        """The on-screen hook and the first spoken words are the same (no mismatch at second zero), and the
+        intro stays short: hook + at most one short sentence."""
+        import re as _re
+        hook = (hook or "").strip()
+        if not hook:
+            return
+        self.hook = hook
+        if not self.cover:
+            return
+        intro = (self.lines.get("intro") or "").strip()
+        hw = _re.sub(r"[^a-z0-9 ]", "", hook.lower()).split()
+        iw = _re.sub(r"[^a-z0-9 ]", "", intro.lower()).split()
+        if iw[:len(hw)] != hw:
+            tail = _re.split(r"(?<=[.!?])\s+", intro, maxsplit=1)[0] if intro else ""
+            if len(tail.split()) > 12:
+                tail = ""
+            self.lines["intro"] = (hook if hook[-1:] in ".!?" else hook + ".") + (" " + tail if tail else "")
+
     def texts(self):
         return ([self.lines["intro"]] if self.cover else []) + self.lines["steps"] + [self.lines["outro"]]
 
@@ -603,6 +622,9 @@ class Lesson:
         pad = sum(np.sin(2 * np.pi * f * tb) for f in (130.8, 196.0, 261.6)) * 0.022 * np.clip(tb / 1.5, 0, 1)
         mix = HY.dehiss(np.tanh((vo * 1.15 + fx + pad.astype(np.float32)) * 1.1) * 0.92)
         wav = out.replace(".mp4", "_l.wav"); sf.write(wav, mix, SR)
+        hop = SR // FPS                                   # voice envelope per frame (Vektor's mouth on the cover)
+        env = np.array([np.sqrt(np.mean(vo[i * hop:(i + 1) * hop] ** 2)) for i in range(int(total * FPS) + 2)])
+        env = np.clip(env / (np.percentile(env[env > 0.004], 85) + 1e-6), 0, 1) if (env > 0.004).any() else env
         words = []
         for k, (seg, a) in enumerate(zip(segs, self.A)):
             for ts, w in voice.align(a, self.texts()[k]):
@@ -637,7 +659,15 @@ class Lesson:
             k = min(len(starts) - 1, int(np.searchsorted(starts, t, side="right") - 1)); lt = t - starts[k]
             seg = segs[k]
             if seg == "intro":
-                fr = cover.copy()
+                if lt < 0.08:
+                    fr = cover.copy()                        # frame 0 = the complete cover (grid thumbnail)
+                else:                                        # then it comes alive: board slides in, arrows grow
+                    mo = float(env[fi]) if fi < len(env) else 0.0
+                    fr = self._cover_frame(bg, base, p=min(1.0, (lt - 0.08) / 1.9), t=t, mouth=mo)
+                    z = 1.0 + 0.035 * min(1.0, lt / max(1.0, durs[k]))          # slow push-in, never static
+                    if z > 1.001:
+                        zw, zh = int(W / z), int(H / z)
+                        fr = fr.crop(((W - zw) // 2, (H - zh) // 2, (W - zw) // 2 + zw, (H - zh) // 2 + zh)).resize((W, H), Image.BILINEAR)
                 if lt > durs[k] - 0.35:                      # quick fade into the lesson
                     a = (lt - (durs[k] - 0.35)) / 0.35
                     nxt = bg.copy(); fr = Image.blend(fr, nxt, a)
@@ -686,31 +716,42 @@ class Lesson:
         proc.stdin.close(); proc.wait(); os.remove(wav)
         return total
 
-    def _cover_frame(self, bg, base):
-        """Frame 0 = the grid thumbnail: big bold title, the board already full of arrows, level tag, Vektor."""
+    def _cover_frame(self, bg, base, p=1.0, t=0.0, mouth=0.0):
+        """Frame 0 = the grid thumbnail: big bold title, the board full of arrows, level tag, Vektor.
+        p < 1 animates the opening (board slides in, arrows and rings grow one by one, Vektor talks) so the first
+        seconds are never a frozen picture; p = 1 is the complete cover."""
         fr = bg.copy()
         badge = R.pill("CALCULATION MASTERCLASS", 34, (20, 16, 28), fg=HY.YEL, padx=30, pady=12)
         R.paste_center(fr, badge, W / 2, HY.SAFE_TOP + 40)
-        hook = HY.fit_phrase(self.hook.split()[:6], 116, 960, 2, 70)
+        hook = HY.fit_phrase(self.hook.split()[:7], 112, 960, 2, 64)
         hy = HY.SAFE_TOP + 90 + hook.height // 2
         R.paste_center(fr, HY.band_img(hook.height + 60), W / 2, hy)
-        R.paste_center(fr, hook, W / 2, hy)
+        R.paste_center(fr, hook, W / 2, hy, 1.0 if p >= 1 else 0.92 + 0.08 * R.ease_out(min(1, p * 3)))
         im = base.copy()
-        for st in self.steps:
-            for sq, col in st["rings"][:4]:
-                ring(im, sq, self.flip, col, 0.9)
-            for f, t, col in st["arrows"][:3]:
-                arrow_partial(im, f, t, self.flip, col, 1.0)
+        marks = [("r", sq, None, col) for st in self.steps for sq, col in st["rings"][:4]] + \
+                [("a", f, t_, col) for st in self.steps for f, t_, col in st["arrows"][:3]]
+        n = max(1, len(marks))
+        for k, (kind, a, b, col) in enumerate(marks):
+            q = 1.0 if p >= 1 else R.clamp((p - 0.25 - 0.55 * k / n) / 0.25)
+            if q <= 0:
+                continue
+            if kind == "r":
+                ring(im, a, self.flip, col, 0.9 * q)
+            else:
+                arrow_partial(im, a, b, self.flip, col, q)
         c = R.card(im); sc = 0.64
         c = c.resize((int(c.width * sc), int(c.height * sc)), Image.LANCZOS)
         # premium: board sits straight
         by = hy + hook.height // 2 + 40 + c.height // 2
-        R.paste_center(fr, R.shadowed(c, 30, (0, 22), 170)[0], W / 2 + 40, by)
+        slide = 0 if p >= 1 else (1 - R.ease_out(min(1, p * 2.5))) * 140
+        R.paste_center(fr, R.shadowed(c, 30, (0, 22), 170)[0], W / 2 + 40, by + slide)
         tag = R.pill(f"{len(self.steps)} STEPS" + (f" · {self.level_label}" if self.level_label else ""), 36, HY.RED, fg=HY.WHITE, padx=30, pady=12)
-        R.paste_center(fr, tag, W / 2 + 40, by + c.height // 2 + 10)
+        R.paste_center(fr, tag, W / 2 + 40, by + c.height // 2 + 10 + slide, 1.0 if p >= 1 else R.ease_out_back(min(1, p * 2)))
         try:
-            from mascot_rig import Mascot
-            mi = Mascot().render(0.0, mood="excited", look=(0.7, -0.2))
+            if not hasattr(self, "_mascot"):
+                from mascot_rig import Mascot
+                self._mascot = Mascot()
+            mi = self._mascot.render(t, mouth=mouth, mood="excited", look=(0.7, -0.2))
             mi = mi.resize((int(mi.width * 0.34), int(mi.height * 0.34)), Image.BILINEAR)
             fr.alpha_composite(mi, (10, int(by + c.height // 2 - mi.height + 60)))
         except Exception as e:
