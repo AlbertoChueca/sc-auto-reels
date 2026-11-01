@@ -1,7 +1,4 @@
 [
-"Test Black's two checks with the queen and the rook to bottleneck their king.",
-"Weigh four candidate moves, A to D, prioritizing the ones that leave zero escape.",
-"Decide which forcing blow clinches it, then share your verdict in the comments!",
 "Seeing through pieces unlocks stealthy lasers before your opponent even senses the danger.",
 "Find the one line where a single piece stands between your attacker and target.",
 "Filter four candidate moves, labelled A to D, seeing which one uncorks that pressure.",
@@ -118,5 +115,8 @@
 "Stopping your calculation mid-storm is like closing your eyes right before landing the plane.",
 "Track White's two checks with the queen until the fireworks stop and dust clears.",
 "Snapshot the quiet finish for the four candidate moves, labelled A to D.",
-"Which letter gives you a serene, winning snapshot? Lock your answer in below!"
+"Which letter gives you a serene, winning snapshot? Lock your answer in below!",
+"Discount frozen guards: White leaves two undefended pieces, Black risks one.",
+"Assess four candidate moves, labelled A to D, exploiting motionless protectors.",
+"Which move exposes the fake defender? Shout your letter right now!"
 ]

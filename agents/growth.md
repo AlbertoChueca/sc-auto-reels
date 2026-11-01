@@ -1,7 +1,5 @@
-# Growth notebook (2026-10-31)
+# Growth notebook (2026-11-01)
 
-# Growth notebook (2026-10-31)
-
-• Keep doing: `reveal=comments`, which powers algorithmic reach and drives up to 11 comments per post across all 10.3+ scores.
-• Stop doing: `reveal=in_video`, which earned zero comments and crashed engagement to 7.91.
-• Try next: Pinned answer challenge in caption: "First correct line gets pinned 📌" to convert eager solvers. Filter out repetitive bot spam ("Send me this post") from organic performance tracking.
+• Keep doing: `reveal=comments`, driving top algorithmic distribution and up to 11 comments per post.
+• Stop doing: `reveal=in_video`, which generated zero comments and cratered engagement to 7.91. Do not count automated DM spam ("Send me this post") toward genuine traction.
+• Try next: Pin incentives in the caption: "First full winning line gets pinned 📌" to convert eager solvers into comment-section loyalty. Prompt shares specifically for study buddies. Data is too thin on whether saves correlate with tactical difficulty or specific themes.
