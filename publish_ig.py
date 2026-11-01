@@ -91,15 +91,16 @@ def _container_upload_wait(uid, token, video_path, fields, label, tries=3):
     raise last
 
 
-def publish_reel(video_path, caption, token=None, location_id=None):
+def publish_reel(video_path, caption, token=None, location_id=None, thumb_offset_ms=None):
     token = token or os.environ["IG_TOKEN"]
     me = whoami(token)
     uid = me["user_id"]
     print(f"Publishing as @{me['username']}", flush=True)
     video_path = ig_safe(video_path)
     # cover = the designed first frame (big hook + board teaser), picked explicitly for the profile grid
+    # cover = frame 0 (the designed cover: hook + board) unless the renderer says otherwise
     fields = {"media_type": "REELS", "caption": caption, "share_to_feed": "true",
-              "thumb_offset": os.environ.get("REEL_THUMB_OFFSET_MS", "300")}
+              "thumb_offset": str(thumb_offset_ms if thumb_offset_ms is not None else os.environ.get("REEL_THUMB_OFFSET_MS", "0"))}
     if location_id:
         fields["location_id"] = str(location_id)
     cid = _container_upload_wait(uid, token, video_path, fields, "reel")

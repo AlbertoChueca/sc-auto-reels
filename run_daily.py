@@ -202,7 +202,7 @@ if dry:
 
 from publish_ig import publish_reel, publish_story
 if loc: print("Location:", loc["name"])
-media = publish_reel(out, caption, location_id=loc and loc["id"])
+media = publish_reel(out, caption, location_id=loc and loc["id"], thumb_offset_ms=meta.get("thumb_offset_ms"))
 meta.update(location=loc and loc["name"], permalink=media.get("permalink"), media_id=media.get("id"), engine=engine)
 mark_used(P["id"])
 

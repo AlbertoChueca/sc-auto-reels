@@ -42,9 +42,9 @@ PUBLIC_OTHER = [
     "Thanks for joining the challenge! ♟️ More at the link in bio",
 ]
 ANSWER_POSTS = [
-    "✅ ANSWER: {sol}\nDid you get it? Reply with your time ⏱️ New puzzle every day 🔥",
-    "✅ The solution is {sol}\nWho found it in under 10 seconds? 👀 Tomorrow's puzzle is coming!",
-    "✅ Answer: {sol}\nGot it right? Keep your streak going on StreakChess, link in bio 🔥",
+    "✅ ANSWER: {sol}{why}\nDid you get it? Reply with your time ⏱️ New puzzle every day 🔥",
+    "✅ The solution is {sol}{why}\nWho found it in under 10 seconds? 👀 Tomorrow's puzzle is coming!",
+    "✅ Answer: {sol}{why}\nGot it right? Keep your streak going on StreakChess, link in bio 🔥",
 ]
 PUBLIC_CORRECT_HIDDEN = [   # answer not revealed yet: confirm without spoiling it for others
     "You got it! 🎯 Don't spoil it for the others, answer drops here tomorrow 😉",
@@ -111,12 +111,14 @@ def main():
     uid = me["user_id"]; myname = me["username"]
     handled = load(HANDLED, {"comments": [], "dm": {}})
     done = set(handled["comments"])
-    solutions, hidden, abs_ = {}, {}, {}
+    solutions, hidden, abs_, lessons = {}, {}, {}, {}
     if os.path.exists("log.jsonl"):
         for line in open("log.jsonl"):
             e = json.loads(line)
             if e.get("media_id") and e.get("sans"):
                 solutions[e["media_id"]] = e["sans"][0]
+                if (e.get("story") or "").startswith("Tip: "):
+                    lessons[e["media_id"]] = e["story"][5:]
                 if e.get("ab"):
                     abs_[e["media_id"]] = e["ab"]
                 if e.get("reveal") is False:          # answer was held back: post it in the comments later
@@ -134,7 +136,8 @@ def main():
         if m["id"] in hidden and m["id"] not in answered and now - ts >= datetime.timedelta(hours=20):
             ab = abs_.get(m["id"])
             sol = " ".join(hidden[m["id"]])
-            msg = random.choice(ANSWER_POSTS).format(sol=f"{ab['correct']} ({sol})" if ab else sol)
+            why = f". The lesson: {lessons[m['id']].lower()}" if m["id"] in lessons else ""
+            msg = random.choice(ANSWER_POSTS).format(sol=f"{ab['correct']} ({sol})" if ab else sol, why=why)
             print(f"answer for {m['id']}: {msg}")
             if not DRY:
                 try:
