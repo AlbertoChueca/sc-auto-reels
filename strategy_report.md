@@ -10,7 +10,7 @@ _Updated 2026-11-01 · 65 reels with results (3+ days old) · average score 7.27
 | countdown_trap | 11 | 8.21 |
 | cliffhanger | 7 | 7.87 |
 | big_dream | 15 | 7.42 |
-| challenge | 4 | 7.22 |
+| challenge | 4 | 7.23 |
 | mystery | 13 | 7.15 |
 | rival | 8 | 6.48 |
 | funny_fail | 7 | 6.01 |
@@ -23,8 +23,8 @@ _Updated 2026-11-01 · 65 reels with results (3+ days old) · average score 7.27
 | cracking Bishop Blaze's secret playbook | 10 | 8.13 |
 | travelling to a new place for a tournament | 7 | 7.34 |
 | school chess club with friends | 7 | 7.11 |
-| lesson or secret test from Coach King | 11 | 7.07 |
-| helping Pip or a friend who is stuck | 7 | 6.70 |
+| lesson or secret test from Coach King | 11 | 7.08 |
+| helping Pip or a friend who is stuck | 7 | 6.71 |
 | blitz battle against Bishop Blaze | 8 | 6.50 |
 | tournament game with everything at stake | 6 | 6.37 |
 
@@ -32,7 +32,7 @@ _Updated 2026-11-01 · 65 reels with results (3+ days old) · average score 7.27
 
 | option | reels | avg score |
 |---|---|---|
-| basic | 36 | 7.47 |
+| basic | 36 | 7.48 |
 | intermediate | 20 | 7.10 |
 | advanced | 9 | 6.80 |
 
@@ -62,7 +62,7 @@ _Updated 2026-11-01 · 65 reels with results (3+ days old) · average score 7.27
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 35 | 8.09 |
+| comments | 35 | 8.10 |
 
 ---
 # Playbook (updated 2026-10-12)
