@@ -7,9 +7,9 @@ _Updated 2026-11-02 · 68 reels with results (3+ days old) · average score 7.29
 
 | option | reels | avg score |
 |---|---|---|
-| countdown_trap | 12 | 8.14 |
+| countdown_trap | 12 | 8.15 |
 | cliffhanger | 7 | 7.87 |
-| challenge | 5 | 7.51 |
+| challenge | 5 | 7.52 |
 | big_dream | 15 | 7.42 |
 | mystery | 13 | 7.16 |
 | rival | 8 | 6.48 |
@@ -20,10 +20,10 @@ _Updated 2026-11-02 · 68 reels with results (3+ days old) · average score 7.29
 | option | reels | avg score |
 |---|---|---|
 | daily training to keep the streak alive | 10 | 8.35 |
-| cracking Bishop Blaze's secret playbook | 10 | 8.13 |
-| travelling to a new place for a tournament | 8 | 7.34 |
+| cracking Bishop Blaze's secret playbook | 10 | 8.14 |
+| travelling to a new place for a tournament | 8 | 7.35 |
 | school chess club with friends | 7 | 7.11 |
-| lesson or secret test from Coach King | 12 | 7.10 |
+| lesson or secret test from Coach King | 12 | 7.11 |
 | helping Pip or a friend who is stuck | 7 | 6.71 |
 | tournament game with everything at stake | 6 | 6.37 |
 | scouting the champion's signature trap | 0 | - |
@@ -55,14 +55,14 @@ _Updated 2026-11-02 · 68 reels with results (3+ days old) · average score 7.29
 
 | option | reels | avg score |
 |---|---|---|
-| tip | 31 | 8.42 |
+| tip | 31 | 8.43 |
 | story | 10 | 6.50 |
 
 ## reveal
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 38 | 8.07 |
+| comments | 38 | 8.08 |
 
 ---
 # Playbook (updated 2026-11-02)
