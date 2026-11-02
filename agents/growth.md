@@ -1,5 +1,5 @@
-# Growth notebook (2026-11-01)
+# Growth notebook (2026-11-02)
 
-• Keep doing: `reveal=comments`, driving top algorithmic distribution and up to 11 comments per post.
-• Stop doing: `reveal=in_video`, which generated zero comments and cratered engagement to 7.91. Do not count automated DM spam ("Send me this post") toward genuine traction.
-• Try next: Pin incentives in the caption: "First full winning line gets pinned 📌" to convert eager solvers into comment-section loyalty. Prompt shares specifically for study buddies. Data is too thin on whether saves correlate with tactical difficulty or specific themes.
+• Keep doing: `reveal=comments`, which consistently generates 6–11 legitimate comments and maximizes algorithm distribution. Presenting A/B/C/D choices to lower comment barriers.
+• Stop doing: Putting solutions in the reel (`reveal=in_video`), which yielded zero comments and a 7.91 score. Counting automated DM spam ("Send me this post") as real engagement.
+• Try next: Adding an explicit pin bounty in the caption: "First full winning line gets pinned 📌" to cultivate passionate solvers. Prompt shares specifically toward chess study buddies. Data is too thin to prove whether tactical difficulty directly drives post saves.

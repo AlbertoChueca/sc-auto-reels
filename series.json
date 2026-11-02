@@ -1,6 +1,6 @@
 {
  "season": 1,
- "arc": "Aboard the bustling Tournament Express train, Vektor and his crew race to crack Bishop Blaze's secret playbook by mastering named tactical motifs to unlock first-class training carriages and punch their tickets to the Chessville Cup arena.",
+ "arc": "Speeding down the tracks aboard the Tournament Express, Vektor tackles Coach King's diagnostic tests to dismantle Bishop Blaze's secret playbook carriage by carriage before pulling into the Chessville Cup arena.",
  "cast": [
   {
    "name": "Pip",
@@ -61,7 +61,13 @@
    "role": "Tournament Express Train Conductor",
    "look": "A shiny brass knight wearing a navy conductor's cap with a golden ticket puncher slung across his chest like a medal.",
    "personality": "Punctual and rhythm-obsessed, he blows his steam whistle in pure delight whenever someone spots a forced tactical motif before the next station stop."
+  },
+  {
+   "name": "Gus",
+   "role": "Tournament Express train engineer rook",
+   "look": "A sturdy bronze rook with soot smudges across his crenellated crown, wearing denim overalls and oversized heat-resistant leather mittens.",
+   "personality": "Boisterous and rhythmically loud, he treats chess calculations like steam pressure and bellows tactical maxims over the roar of the firebox to keep the engine r"
   }
  ],
- "updated": "2026-10-26"
+ "updated": "2026-11-02"
 }

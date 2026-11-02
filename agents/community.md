@@ -1,5 +1,5 @@
-# Community notebook (2026-11-01)
+# Community notebook (2026-11-02)
 
-• Keep doing: Providing multiple-choice options alongside open calculation; viewers actively supply both fast single-letter answers ("D", "B🔥") and deep multi-move tactical lines.
-• Stop doing: Logging bot-like automated requests ("Send me this post") as real viewer sentiment.
-• Try next: Pinning complete, high-effort variations after an audience member explicitly pleaded "Please pin....🙏🙏". Fix board clarity after a solver asked "Where". Data is too thin to confirm whether intermediate puzzles discourage casual commenters, as engagement remains strong across both styles.
+• Keep doing: Catering to both fast-tappers answering single letters ("A", "D") and serious solvers mapping out deep multi-move mating sequences.
+• Stop doing: Filtering automated bot requests ("Send me this post") into actual audience feedback.
+• Try next: Pinning complete, high-effort variations to satisfy vocal community requests ("Please pin....🙏🙏"). Sharpening board orientation cues to help lost viewers who ask "Where". Data is too thin to determine whether intermediate or advanced puzzles alienate beginner viewers, as comment rates remain high across both difficulty tiers.

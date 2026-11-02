@@ -1,5 +1,5 @@
-# Hook notebook (2026-11-01)
+# Hook notebook (2026-11-02)
 
-• Keep doing: Naming the exact tactical target (pinned piece, overloaded guard, back-rank weakness) combined with a high-stakes payoff to drive instant curiosity.
-• Stop doing: Reusing the "Can you help Vektor..." sentence frame (overused 60 times; views decay). Avoid vague questions ("Tired of fast moves...?") and non-tactical story setups ("cookie challenge") that score below 8.10.
-• Try next: Enforce a unique sentence structure every day (e.g. sharp imperatives, countdown warnings, direct puzzles) while preserving concrete tactical naming. Data is too thin on direct rival confrontation hooks (only one test at 7.53).
+• Keep doing: Naming the exact tactical target (e.g., pinned piece, overloaded defender, back-rank weakness) paired with a high-stakes payoff to spark instant calculation.
+• Stop doing: Reusing fixed sentence starters like "Can you help Vektor..." (exhausted after 60+ reels; views decay). Avoid fluffy, non-tactical story hooks ("cookie challenge") that score below 8.10.
+• Try next: Enforce a completely fresh grammatical formula daily (e.g., sharp imperative, diagnostic warning, rapid countdown, or rival threat) while keeping tactical naming concrete. Data is too thin on whether direct rival confrontation lines outperform imperative puzzle hooks.
