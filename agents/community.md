@@ -1,5 +1,7 @@
-# Community notebook (2026-11-02)
+# Community notebook (2026-11-03)
 
-• Keep doing: Catering to both fast-tappers answering single letters ("A", "D") and serious solvers mapping out deep multi-move mating sequences.
-• Stop doing: Filtering automated bot requests ("Send me this post") into actual audience feedback.
-• Try next: Pinning complete, high-effort variations to satisfy vocal community requests ("Please pin....🙏🙏"). Sharpening board orientation cues to help lost viewers who ask "Where". Data is too thin to determine whether intermediate or advanced puzzles alienate beginner viewers, as comment rates remain high across both difficulty tiers.
+# Community notebook
+
+• Keep doing: Serving both quick-tap commenters guessing single letters ("A", "D") and advanced solvers mapping out multi-move calculation trees.
+• Stop doing: Counting automated DM scraper spam ("Send me this post") as meaningful community interest.
+• Try next: Actively pinning complete, high-effort variations to fulfill direct viewer requests ("Please pin....🙏🙏"). Ensure clear visual board orientation for lost commenters asking "Where". Data is too thin to confirm whether intermediate puzzles discourage beginner participation.
