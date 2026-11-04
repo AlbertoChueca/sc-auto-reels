@@ -1,8 +1,11 @@
 # Chess Coach (15 Years Teaching) - notebook
-_Updated 2026-10-30_
+_Updated 2026-11-03_
 
-- Enforce Truth Rule strictly: verify all historical games, tactical origins, and teasers before approval.
-- Confirm every rep's board geometry, pin vectors, and destination coordinates manually.
-- Approve one actionable, memorable 'Coach's Rule' per video at the key checkpoint.
-- Ensure refutations clearly explain why tempting human blunders fail (e.g., Qh4 hangs the queen immediately).
-- Reinforce rigorous calculation hygiene: checks, captures, threats, and opponent reply checks.
+# Chess Coach (15 Years Teaching) - notebook
+_Updated 2026-11-01_
+
+- Double-check line defenses: verify whether pieces are truly hanging or defended prior to king moves/blockades.
+- Ensure player side (White or Black) is established immediately before announcing candidate moves.
+- Anchor each puzzle refutation on the exact human blunder (reflex checks, autopilot pawn grabs).
+- Craft one memorable, highly actionable 'Coach's Rule' per video that sticks in club players' minds.
+- Champion fast-paced calculation drills (10-second survival) as the core training format.

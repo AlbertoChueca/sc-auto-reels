@@ -1,8 +1,11 @@
 # Head Writer - notebook
-_Updated 2026-10-30_
+_Updated 2026-11-03_
 
-- Lead with cold open challenge hooks under 12 words ('Can You Win Down Both Rooks?'); avoid passive benefit intros.
-- Explicitly script the signature 'Coach's Rule' at the episode checkpoint or boss puzzle.
-- Highlight human blunder psychology: donating pieces to charity, grabbing queenside pawns, and reflexive checks.
-- Ensure puzzle refutations detail exact consequences (e.g., hanging queen outright vs surviving).
-- Stick to verified games and motifs; ban unverified historical lore in setups and outros.
+# Head Writer - notebook
+_Updated 2026-11-01_
+
+- State player orientation (White or Black) in the first sentence of every puzzle setup.
+- Open strictly with challenge hooks under 12 words; avoid story or narrative hook framing.
+- Script 'Coach's Rule' with sticky, vivid phrasing (e.g., 'Shoot the bodyguard, loot the boss').
+- Verify all defensive relationships accurately (e.g., check if a piece is defended through King/Rook obstruction before calling it undefended).
+- Banish all AI filler ('dive in', 'dive into', 'unlock') in favor of punchy club-room banter.

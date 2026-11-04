@@ -1,114 +1,85 @@
 {
- "date": "2026-10-30",
+ "date": "2026-11-03",
  "news": {
   "items": [
    {
-    "headline": "Javokhir Sindarov Wins 2026 Clutch Chess: Champions Showdown",
-    "detail": "Sindarov erased a 2.5-point deficit on the final day, capping off his run with an electric victory over Hikaru Nakamura to take first place and $168,000. The triumph provides massive momentum for the Uzbek grandmaster right before his World Championship match against Gukesh Dommaraju.",
+    "headline": "Javokhir Sindarov Wins Clutch Chess: Champions Showdown in Saint Louis",
+    "detail": "Uzbek grandmaster Javokhir Sindarov overturned a 2.5-point deficit on the final day to win the Clutch Chess Champions Showdown, finishing with 20.5 points ahead of Praggnanandhaa Rameshbabu. Sindarov secured the title and $168,000 in prizes after scoring a key attacking victory over Hikaru Nakamura in his final event before the World Championship match.",
     "date": "2026-10-29",
     "people": [
      "Javokhir Sindarov",
      "Hikaru Nakamura",
      "Praggnanandhaa Rameshbabu",
-     "Fabiano Caruana"
+     "Fabiano Caruana",
+     "Gukesh Dommaraju"
     ],
     "event": "Clutch Chess: Champions Showdown 2026",
-    "why_viewers_care": "It serves as the final premier competitive outing and a major statement of intent from Sindarov ahead of the upcoming classical World Championship clash."
+    "why_viewers_care": "Sindarov demonstrated blistering form against top grandmasters less than a month before challenging Gukesh for the classical World Championship title."
    },
    {
-    "headline": "Wesley So Wins Fourth U.S. Chess Championship After Playoff Thriller",
-    "detail": "After an unexpected round-11 defeat to Sam Sevian snapped his 48-game unbeaten streak and allowed Fabiano Caruana to force tiebreaks, Wesley So defeated Caruana 1.5\u20130.5 in a rapid playoff. The win secured So his first national title in five years, while Rachael Li claimed the U.S. Women's Championship.",
-    "date": "2026-10-22",
+    "headline": "11-Year-Old Bodhana Sivanandan Breaks Judit Polgar's 38-Year-Old Record",
+    "detail": "English chess prodigy Bodhana Sivanandan achieved the International Master title at 11 years, 7 months, and 16 days, eclipsing Judit Polgar's long-standing world age record for the youngest female IM. Sivanandan reached the required 2400 rating and secured her third norm scoring 5.5/7 on Board 1 at the European Women's Chess Club Cup.",
+    "date": "2026-10-24",
     "people": [
-     "Wesley So",
-     "Fabiano Caruana",
-     "Sam Sevian",
-     "Rachael Li"
+     "Bodhana Sivanandan",
+     "Judit Polgar",
+     "Viktoria Johansson",
+     "Olga Badelka"
     ],
-    "event": "2026 U.S. Chess Championship",
-    "why_viewers_care": "The dramatic conclusion resolved a fiercely contested national championship that featured high-stakes blunders, last-round comebacks, and overtime tiebreaks between two world top-ten players."
+    "event": "European Women's Chess Club Cup 2026",
+    "why_viewers_care": "Breaking an iconic 38-year record held by the greatest female player in chess history marks one of the most historic prodigy milestones in the sport."
    },
    {
-    "headline": "Istanbul Announced as Host for 2026 World Rapid and Blitz Championships",
-    "detail": "FIDE confirmed that Istanbul, T\u00fcrkiye, will stage the 2026 World Rapid and Blitz Championships from December 26 to 30, sponsored by Freedom Holding Corp. Magnus Carlsen, Aleksandra Goryachkina, and Bibisara Assaubayeva enter the tournament as defending champions.",
+    "headline": "Istanbul Announced as Host for the 2026 FIDE World Rapid and Blitz Championships",
+    "detail": "FIDE confirmed that Istanbul, T\u00fcrkiye, will host the 2026 World Rapid and Blitz Championships from December 25 to 30, sponsored by Freedom Holding Corp. Defending champions Magnus Carlsen, Aleksandra Goryachkina, and Bibisara Assaubayeva are slated to compete for the four world speed chess crowns.",
     "date": "2026-10-29",
     "people": [
+     "Timur Turlov",
      "Magnus Carlsen",
      "Aleksandra Goryachkina",
      "Bibisara Assaubayeva"
     ],
-    "event": "2026 FIDE World Rapid and Blitz Championships",
-    "why_viewers_care": "The announcement ends weeks of anticipation surrounding the location of the chess calendar's most prestigious and high-viewership year-end championship."
+    "event": "FIDE World Rapid and Blitz Championships 2026",
+    "why_viewers_care": "The year-end World Rapid and Blitz is widely regarded by fans as one of the most exciting, fast-paced spectacles on the annual international chess calendar."
    },
    {
-    "headline": "GothamChess Collides with Football Royalty Harry Kane and Michael Olise",
-    "detail": "Popular chess creator Levy Rozman (GothamChess) traveled to Bayern Munich to film and play games against Michael Olise and recent Ballon d'Or winner Harry Kane. Clips and coverage of the crossover quickly circulated across social media platforms.",
-    "date": "2026-10-29",
+    "headline": "November 2026 FIDE Ratings Highlight 72-Point Gap Ahead of World Championship",
+    "detail": "The newly released November 2026 FIDE rating list revealed that World Championship challenger Javokhir Sindarov sits at world number 4 with a 2782 rating, leading reigning World Champion Gukesh Dommaraju (rated 2710 and ranked 26th) by 72 points and 22 places. The unusual rating disparity sets up an uncommon statistical dynamic heading into their upcoming match in Geneva.",
+    "date": "2026-10-31",
     "people": [
-     "Levy Rozman",
-     "Harry Kane",
-     "Michael Olise"
+     "Javokhir Sindarov",
+     "Gukesh Dommaraju"
     ],
-    "event": null,
-    "why_viewers_care": "Major crossovers between mainstream global athletes and chess creators expand the game's cultural footprint and generate significant viral reach."
+    "event": "2026 World Chess Championship Preview",
+    "why_viewers_care": "A World Championship match where the challenger leads the defending champion by more than 70 rating points creates a rare underdog narrative for the titleholder."
    },
    {
-    "headline": "Magnus Carlsen Addresses $20 Million World Championship Return Question",
-    "detail": "During promotional events in Barcelona, Carlsen was asked whether an unprecedented $20 million financial incentive could bring him back to classical World Championship matches. Carlsen responded that 'most people have a price,' but reaffirmed that his sporting ambitions remain concentrated on rapid, blitz, and Freestyle formats.",
-    "date": "2026-10-28",
-    "people": [
-     "Magnus Carlsen",
-     "Miguel Illescas"
-    ],
-    "event": "MOVE Cup 2027 Launch",
-    "why_viewers_care": "Carlsen's continued refusal to participate in the traditional classical cycle and his perspective on what could change his mind remain central talking points in chess."
-   },
-   {
-    "headline": "Star-Studded Lineup Revealed for 2026 London Chess Classic",
-    "detail": "Organizers unveiled the complete 10-player Masters field for London's flagship tournament, headlined by defending champion and world number five Nodirbek Abdusattorov. The field features a clash between elite veterans like Levon Aronian and Vasyl Ivanchuk against teenage prodigies including Andy Woodward and Shreyas Royal.",
-    "date": "2026-10-27",
-    "people": [
-     "Nodirbek Abdusattorov",
-     "Levon Aronian",
-     "Vasyl Ivanchuk",
-     "Andy Woodward",
-     "Shreyas Royal"
-    ],
-    "event": "2026 XTX Markets London Chess Classic",
-    "why_viewers_care": "The event represents Britain's flagship classical tournament and sets up Abdusattorov's bid to become the first repeat champion in London since 2010."
+    "headline": "2026 FIDE World Senior Chess Championship Commences in Serbia",
+    "detail": "The FIDE World Senior Chess Championship 2026 officially opened in Vrnja\u010dka Banja, Serbia, bringing together senior players and veteran grandmasters from around the world. Competitors are contesting standard classical games across 50+ and 65+ age categories.",
+    "date": "2026-11-03",
+    "people": [],
+    "event": "FIDE World Senior Chess Championship 2026",
+    "why_viewers_care": "It serves as the premier annual championship tournament for veteran masters, showcasing enduring competitive chess among legendary figures."
    }
   ],
   "search_terms": [
    "Sindarov vs Nakamura Clutch Chess 2026",
-   "Wesley So Caruana US Championship playoff",
-   "GothamChess Harry Kane",
-   "Clutch Chess Champions Showdown highlights",
-   "Magnus Carlsen 20 million interview"
+   "Bodhana Sivanandan breaks Judit Polgar record",
+   "Gukesh vs Sindarov World Championship 2026",
+   "Clutch Chess Champions Showdown 2026 highlights",
+   "World Rapid and Blitz 2026 Istanbul announcement"
   ],
-  "sources": [
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH1q0VSqPzkYqo6pDQ1JS0saFvFcbyXU3-NFCUnv4f0K_jyCwOal_zL3-N4kMY3nxLnAsaM1tknpxxsI9wHo6USdJuu0P3gstkbKGOfeDSQz_oLt5h8Q2YtZZetedlzw4H9_a7MKlYiciyQuv7fTuTSh1MFkrAad75D_Mh5bHZwcu8Xvqz5xr4=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAfluN2zEklo4AVCM68jVu7uG7nqkBLhH3ASkBfZrhwI4Yupb9RrN6B_dMOaO4koCdTujp5a0GA3N4kcmMK-UBJRBiRTgh0laXlkqJ5zDbppvmtVfL1Hd1-rfb5zfWCKgIma2oVXG5d8GFhYkce5mg",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEz_yq938Iz8TXgv63QIzpDn7T03RykTrzNhUJY5P21HAVSi52ele5PWVAy0Kvx8bUjj64a6SrHJ3_EAb1D99lCr8TLMWozUDS0_L_Wk15sgJDeq3ncJiShQ_qpLoHiIzRG7psD1lrbrKCJBGTmvGvHv3odsZoW-mpaXIv2PTXb8zvtZDo=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF7gQtGKnrwWC_SDmMI3EG7GnBkmTVEtpg65bntL-7krvYGWCMASHliP3b34lQyqnjuf75dUgBF_o5pQD3O6gVdTzqEHtM8fdG2-mkI4x3yDnIksWvOLqI6XofzuuJSHKkU1-6VPy30pwp6pNc=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFs0Ll5w8ZVeLVDt46z44WiP6ey-IuCKtXauC5ISMoGGwNQDVJrC-K0yI5X-IHkNvgGj9VzZ2tmVZevqwGXNzmO2p2fHTNeu0E6MN4XokJvwJCgo93dLEI0sbs63THp-BESKHCAXhbr981GzbghWQLMt-6_Qm-AHUDuGx_x1FJ9BZ_oej0nrk0Bv9vVWBeDHBBUwZwNNPSftQ==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGiC5Z4y9UgAOWvsfHpvewChcClfVdI5ktZMflqJ-oIJ7WlN8hrUn5fdY0bp4V7ie0OWcKSLVDYfNCXI1xthnpv09QxleCbDpaIAT7hHEHiGC7sE97YPJtsSJDeJTqVh8oHj7Fex3Z_CxIgFnlxHZVWxSdFLyRDoFwNoaL-nnII",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMkuZNNcgyo2UVaZgLmx5kTi6YXqxv_FVN4v6xDZLoygDYj9lvu4Dv85etI5fWFr9iPR-xLEh71iXUuPUscyqosfLuR8wP_bC01b1FShW3AcIds84Ec8dwghF-DkjNnDhM5x_0WWI9aodym2DBVqWrDBaBUxFFPU-cceAWQUU9_KtVGr47eLbLoRV3R93smlTm-IlTEmb3bw==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG5j3aN-gqMbkOywCy2tFdThy21HOAyxeGVPrVtU6c_NKNvbtn5r09XgZMiaMvI9k1L79afNuygG-qv50d45_6gBJysiP5_WUyS0Zri_iofIlQTVtks5E3aL7T3Q2WKBORC-PWj-KMWA-pNM6jTrtlLBd__N4MtFKfI9pIU4CPeoUt9yQkE4yZzgoaU",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECc22f55BmOCHgtWP2NGrtzUycsZYsLTxbkBW89XSRMXX8-15vAT-4mZm_UcoBsyBDcBsgHrAsF6HgB4P7o-AOodJeh-0pGJOtBXyNmt2FnA==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE8IghrzOdxLgUvHL9I1gwvM17Bz4zvr4jTi-ofiJHx_hnhz1863UBJjc6IjS2Hk6bu-IYEZEoVMnKYgdMjGJrzfiBi8j_KWFDPG5NtPKkwkOyR-5WibDoalg8-BV6QDrOsDDMWPE6R2WB6RFWDX4PMC4GeVZDWxvTkyCFlTW1h1KWbjCpSVDiq3_oew4ojIz_YA5-oJzxgdWTp4MP6ZeiOPpEL-vyr9ntI22phIlzIlFPsaGY=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHrKY8GIk_Z0o1Of74p3ForSj4YqdEbAbCYj7GfnUbIyHvz0M-wDDlvOxkALCcWeeb3fukwYZIlbo1zyPI9_dOBkNaS_Gy4LjLjY2p0-bktq3Na6v0Q6F_FfbXCHJgh6YddQFEy8LZsmmPMeyNVZySTmsnH91hkifY8z9bZPwMVZ8KVf1bo",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEtVO58v0uZ7v5cfdaY04KhwqlFYDRT4o3SX52z7jBakrl0JQjzNlzovQhqlzFxiSJKChNAnneRgDGmYKBGjXDp78OE2BNKcZj4TJwN-fkn58_zkD3ispIQEItZtVDh_WM5Y9RDhgMCGpERCcKJeRp3OBO88Q=="
-  ]
+  "sources": []
  },
  "suggest": {
   "chess tactics": [
    "chess tactics",
+   "chess tactics for beginners",
    "chess tactics training",
    "chess tactics and strategy",
    "chess tactics explained",
-   "chess tactics for beginners",
-   "chess tactics gothamchess",
    "chess tactics for intermediate players",
+   "chess tactics gothamchess",
    "chess tactics for kids",
    "chess tactics hikaru",
    "chess tactics from scratch"
@@ -139,6 +110,7 @@
   ],
   "chess tricks": [
    "chess tricks",
+   "chess tricks to win fast",
    "chess tricks for beginners",
    "chess tricks checkmate",
    "chess tricks and traps",
@@ -146,13 +118,19 @@
    "chess tricks and tips",
    "chess tricks in hindi",
    "chess tricks to win",
-   "chess tricks to win fast for beginners",
-   "chess tricks in telugu"
+   "chess tricks to win fast for beginners"
   ],
   "Sindarov vs Nakamura Clutch Chess 2026": [],
-  "Wesley So Caruana US Championship playoff": [],
-  "GothamChess Harry Kane": [
-   "gothamchess harry kane"
+  "Bodhana Sivanandan breaks Judit Polgar record": [
+   "judit polgar vs susan polgar",
+   "judit polgar vs ferenc berkes",
+   "judit polgar vs kasparov 2002",
+   "judit polgar vs kasparov 1994",
+   "judit polgar vs boris spassky"
+  ],
+  "Gukesh vs Sindarov World Championship 2026": [
+   "gukesh vs sindarov world championship 2026",
+   "world chess championship 2026 gukesh vs sindarov"
   ]
  }
 }

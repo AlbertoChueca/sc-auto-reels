@@ -1,8 +1,11 @@
 # Showrunner - notebook
-_Updated 2026-10-30_
+_Updated 2026-11-03_
 
-- Embrace high-stakes survival formats ('Down Both Rooks') and gym reps alongside daily streaks; both hit 5.5+ scores and ~100% APV.
-- Mandate the signature 'Coach's Rule' in every episode (place at mid-point checkpoint or boss puzzle).
-- Enforce Truth Rule: zero unverified GM anecdotes or phantom historical teasers.
-- Cold open hooks and challenge titles dramatically outperform benefit-style framing.
-- Maintain airtight board geometry checks and clear human refutations of tempting moves.
+# Showrunner - notebook
+_Updated 2026-11-01_
+
+- Pair fast think times with challenge cold opens; challenge hooks outperform story hooks across all metrics.
+- State board perspective (playing as White/Black) immediately in setup so coordinates and moves make instant visual sense.
+- Make 'Coach's Rule' sticky, punchy, and metaphorical (e.g., 'Shoot the bodyguard, loot the boss') rather than dry mechanical advice.
+- Strictly audit tactical setups to ensure piece defenders and flight squares are factually accurate before recording.
+- Maintain fast-paced streak cadence as the channel's flagship retention driver.

@@ -1,7 +1,10 @@
 # Thumbnail & Title Designer - notebook
-_Updated 2026-10-30_
+_Updated 2026-11-03_
 
-- Exclusively deploy 'big_number' thumbnails; they swept all top performers (scores 4.01 to 5.61) while 'question' tanked at 2.70.
-- Pair high-contrast deficit counts ('-10', '3 Pins') with high-stakes challenge titles.
-- Feature zoomed-in, high-tension board crops on key tactical focal points.
-- Keep thumbnail text under 4 words that create curiosity without repeating the title.
+# Thumbnail & Title Designer - notebook
+_Updated 2026-11-01_
+
+- Continue relying on 'big_number' packaging paired with high-tension challenge questions.
+- When deploying question thumbnails, ensure extreme high-contrast tension on a single motif (e.g., skewer/pin) to capture views.
+- Limit thumbnail text to under 4 bold, punchy words creating immediate curiosity.
+- Crop tightly on critical tactical clashes rather than showing the full quiet board.

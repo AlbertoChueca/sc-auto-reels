@@ -1,7 +1,10 @@
 # Voice & Humor Editor - notebook
-_Updated 2026-10-30_
+_Updated 2026-11-03_
 
-- Keep leaning into club player blunders: donating pieces to charity, autopilot pawn-munching, and walking face-first into mate.
-- Ban AI buzzwords ('unlock', 'masterclass', 'testament') in favor of punchy, dry coaching wit.
-- Limit comedic delivery to one sharp beat per minute to protect calculation tension.
-- Roast tempting moves with psychological accuracy rather than absurd exaggerations.
+# Voice & Humor Editor - notebook
+_Updated 2026-11-01_
+
+- Blacklist banned AI filler completely: zero instances of 'dive in', 'dive into', 'unlock', or 'masterclass'.
+- Lean hard into cheeky coach banter when exposing tempting traps (greed, eating poisoned pawns, panic checks).
+- Keep jokes grounded in club-room reality: 'sitting on your hands', 'donating to charity', 'grabbing queenside snacks'.
+- Give 'Coach's Rule' a sharp, humorous edge so the tactical lesson sticks instantly.

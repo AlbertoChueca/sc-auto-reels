@@ -1,9 +1,9 @@
 {
  "V65krSM7iZ8": {
-  "views": 14,
+  "views": 15,
   "estimatedMinutesWatched": 22,
-  "averageViewDuration": 124,
-  "averageViewPercentage": 22.05,
+  "averageViewDuration": 113,
+  "averageViewPercentage": 20.24,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -19,10 +19,10 @@
   "title": "Chess Tactics Training: 3 Tactical Reps"
  },
  "r0sOyXIyBNM": {
-  "views": 26,
-  "estimatedMinutesWatched": 77,
-  "averageViewDuration": 184,
-  "averageViewPercentage": 25.980000000000004,
+  "views": 29,
+  "estimatedMinutesWatched": 89,
+  "averageViewDuration": 198,
+  "averageViewPercentage": 27.85,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -38,10 +38,10 @@
   "title": "Chess Calculation: Can You Survive 10 Seconds?"
  },
  "bpXYErMMkYo": {
-  "views": 2,
-  "estimatedMinutesWatched": 8,
-  "averageViewDuration": 485,
-  "averageViewPercentage": 99.98,
+  "views": 5,
+  "estimatedMinutesWatched": 9,
+  "averageViewDuration": 143,
+  "averageViewPercentage": 29.57,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -57,14 +57,14 @@
   "title": "Chess Calculation: 3 Deadly Pins Club Players Butcher"
  },
  "UdXeLEQtjao": {
-  "views": 4,
-  "estimatedMinutesWatched": 7,
-  "averageViewDuration": 448,
-  "averageViewPercentage": 100.02,
+  "views": 22,
+  "estimatedMinutesWatched": 22,
+  "averageViewDuration": 79,
+  "averageViewPercentage": 17.67,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
-  "shares": 0,
+  "shares": 1,
   "date": "2026-10-23",
   "arms": {
    "format": "legendary",
@@ -76,10 +76,10 @@
   "title": "Chess Calculation: Can You Win Down Both Rooks?"
  },
  "WFGpl1sHv1M": {
-  "views": 9,
-  "estimatedMinutesWatched": 9,
-  "averageViewDuration": 63,
-  "averageViewPercentage": 10.01,
+  "views": 21,
+  "estimatedMinutesWatched": 23,
+  "averageViewDuration": 87,
+  "averageViewPercentage": 13.889999999999999,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -93,5 +93,24 @@
    "think_time": "fast"
   },
   "title": "Chess Calculation: Spot Tactics in 7 Seconds"
+ },
+ "u9l8OfLblKw": {
+  "views": 41,
+  "estimatedMinutesWatched": 36,
+  "averageViewDuration": 76,
+  "averageViewPercentage": 17.26,
+  "subscribersGained": 0,
+  "likes": 0,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-10-30",
+  "arms": {
+   "format": "gym",
+   "hook_style": "challenge: dare the viewer to beat the video and keep score",
+   "title_style": "challenge: dares the viewer (can you...?)",
+   "thumb_style": "question",
+   "think_time": "fast"
+  },
+  "title": "Can You Find the Only Winning Skewer?"
  }
 }
