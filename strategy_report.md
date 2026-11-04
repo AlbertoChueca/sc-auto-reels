@@ -1,6 +1,6 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-11-03 · 71 reels with results (3+ days old) · average score 7.30_
+_Updated 2026-11-04 · 73 reels with results (3+ days old) · average score 7.36_
 
 
 ## hook_style
@@ -9,8 +9,8 @@ _Updated 2026-11-03 · 71 reels with results (3+ days old) · average score 7.30
 |---|---|---|
 | countdown_trap | 13 | 8.12 |
 | cliffhanger | 7 | 7.87 |
-| challenge | 5 | 7.52 |
-| big_dream | 16 | 7.41 |
+| challenge | 6 | 7.77 |
+| big_dream | 17 | 7.57 |
 | mystery | 13 | 7.16 |
 | rival | 9 | 6.55 |
 | the_irresistible_bait | 0 | - |
@@ -19,9 +19,9 @@ _Updated 2026-11-03 · 71 reels with results (3+ days old) · average score 7.30
 
 | option | reels | avg score |
 |---|---|---|
-| daily training to keep the streak alive | 10 | 8.35 |
+| daily training to keep the streak alive | 11 | 8.51 |
 | cracking Bishop Blaze's secret playbook | 11 | 8.06 |
-| travelling to a new place for a tournament | 8 | 7.35 |
+| travelling to a new place for a tournament | 9 | 7.53 |
 | school chess club with friends | 8 | 7.20 |
 | lesson or secret test from Coach King | 12 | 7.11 |
 | helping Pip or a friend who is stuck | 7 | 6.71 |
@@ -33,36 +33,36 @@ _Updated 2026-11-03 · 71 reels with results (3+ days old) · average score 7.30
 | option | reels | avg score |
 |---|---|---|
 | basic | 41 | 7.47 |
-| intermediate | 21 | 7.18 |
+| intermediate | 23 | 7.39 |
 | advanced | 9 | 6.80 |
 
 ## think_time
 
 | option | reels | avg score |
 |---|---|---|
-| long | 35 | 7.42 |
-| normal | 26 | 7.32 |
+| long | 36 | 7.46 |
+| normal | 27 | 7.42 |
 | fast | 10 | 6.81 |
 
 ## story_length
 
 | option | reels | avg score |
 |---|---|---|
-| normal | 46 | 7.31 |
-| short | 25 | 7.28 |
+| short | 26 | 7.38 |
+| normal | 47 | 7.35 |
 
 ## format
 
 | option | reels | avg score |
 |---|---|---|
-| tip | 34 | 8.34 |
+| tip | 36 | 8.40 |
 | story | 10 | 6.50 |
 
 ## reveal
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 41 | 8.03 |
+| comments | 43 | 8.10 |
 
 ---
 # Playbook (updated 2026-11-02)
