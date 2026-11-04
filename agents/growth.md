@@ -1,7 +1,5 @@
-# Growth notebook (2026-11-03)
+# Growth notebook (2026-11-04)
 
-# Growth notebook
-
-• Keep doing: `reveal=comments` paired with clear A/B/C/D option prompts to maximize comment velocity and algorithmic distribution.
-• Stop doing: Revealing answers inside the reel (`reveal=in_video`), which flattened comments to zero; treating bot spam ("Send me this post") as real engagement.
-• Try next: Adding an explicit caption pin bounty: "First complete winning line gets pinned 📌" to reward serious solvers. Data is too thin to prove whether higher tactical difficulty directly drives post saves.
+• Keep doing: `reveal=comments` paired with multiple-choice A/B/C/D prompts to maximize comment velocity and algorithmic push.
+• Stop doing: In-video solution reveals (`reveal=in_video`), which kill comment engagement; counting automated DM scraper spam as authentic interest.
+• Try next: Adding a caption bounty: "First complete winning line gets pinned 📌" to reward serious analysts. Data is too thin to confirm whether advanced difficulty consistently drives higher save counts.
