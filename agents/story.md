@@ -1,5 +1,7 @@
-# Story notebook (2026-11-04)
+# Story notebook (2026-11-05)
 
-• Keep doing: `format=tip` rooted in high-stakes training (Bishop Blaze's secret playbook, daily streak pressure) which powers our top scores (10.5–11.5).
-• Stop doing: Narrative-only episodes (`format=story`) lacking tactical chess instruction, which collapse watch time below 5 seconds.
-• Try next: Coach King diagnostic challenges testing advanced defensive concepts (overloaded defenders, queen deflection). Data is too thin on whether multi-part tournament storylines sustain retention better than self-contained streak training.
+# Story notebook (2026-11-05)
+
+• Keep doing: Practical training tips (`format=tip`) tied to high-stakes prep (cracking Bishop Blaze's playbook, preserving the daily streak), which dominate our 10.5+ scores.
+• Stop doing: Non-tactical story diversions ("Cookie Challenge", "Rainy Day Riddle") that lack real chess dilemmas; they collapse watch time to ~4 seconds.
+• Try next: Frame advanced defensive collapses (deflections, overloaded guards) as elite trials assigned by Coach King. Data is too thin to confirm whether multi-episode tournament arcs maintain retention better than standalone streak challenges.

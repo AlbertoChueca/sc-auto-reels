@@ -1,5 +1,7 @@
-# Visual notebook (2026-11-04)
+# Visual notebook (2026-11-05)
 
-• Keep doing: Setting `think_time=long` with steady board framing, which secures peak watch times (12s–30s).
-• Stop doing: Rushed visual pacing (`think_time=fast`), which slashes watch time under 4 seconds.
-• Try next: High-contrast square highlights and prominent board coordinates to help mobile solvers tracking multi-move variations. Data is too thin on whether dynamic piece zooms increase saves compared to static full-board displays.
+# Visual notebook (2026-11-05)
+
+• Keep doing: Generous solving windows (`think_time=long`) and stable, uncluttered board framing, which achieved our record 34-second watch time.
+• Stop doing: Rushed pacing (`think_time=fast`), which drives immediate drop-off and tanks watch times below 4 seconds.
+• Try next: High-visibility board coordinates and clean square highlights to assist phone viewers visualizing multi-move variations. Data is too thin to determine if subtle dynamic zooms improve saves over static wide board shots.

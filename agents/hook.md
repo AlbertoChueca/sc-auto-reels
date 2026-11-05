@@ -1,5 +1,7 @@
-# Hook notebook (2026-11-04)
+# Hook notebook (2026-11-05)
 
-• Keep doing: Principle-first hooks naming the exact tactical vulnerability (overloaded defender, pinned piece, hidden threat) with a defined payoff to trigger instant solving.
-• Stop doing: Reusing fixed sentence frames like "Can you help Vektor..."—identical formulas cause view fatigue across daily reels.
-• Try next: Enforce a brand-new grammatical structure daily (e.g., direct command, sudden diagnostic warning, countdown query) while explicitly stating the tactical target. Data is too thin on whether diagnostic warnings outperform action commands for 3-second hold rates.
+# Hook notebook (2026-11-05)
+
+• Keep doing: Principle-first hooks naming the exact tactical target and vulnerability (e.g., overloaded queen, pinned pawn, hidden threat) with a clear action payoff, powering top scores above 11.0.
+• Stop doing: Reusing fixed sentence starters ("Can you help Vektor...", "Choose Black's winning..."); formulaic repetition exhausts our daily viewers.
+• Try next: Enforce a brand-new grammatical structure daily (e.g., diagnostic warning, conditional dilemma, sudden imperative) while keeping the tactical motif explicit. Data is too thin on whether warning-style hooks retain 3-second viewers better than direct challenge commands.
