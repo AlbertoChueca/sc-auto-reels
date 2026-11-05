@@ -9,7 +9,7 @@ _Updated 2026-11-05 · 76 reels with results (3+ days old) · average score 7.43
 |---|---|---|
 | challenge | 7 | 8.30 |
 | countdown_trap | 14 | 8.14 |
-| cliffhanger | 7 | 7.87 |
+| cliffhanger | 7 | 7.88 |
 | big_dream | 17 | 7.57 |
 | the_irresistible_bait | 1 | 7.50 |
 | mystery | 13 | 7.16 |
@@ -19,7 +19,7 @@ _Updated 2026-11-05 · 76 reels with results (3+ days old) · average score 7.43
 
 | option | reels | avg score |
 |---|---|---|
-| daily training to keep the streak alive | 12 | 8.76 |
+| daily training to keep the streak alive | 12 | 8.77 |
 | cracking Bishop Blaze's secret playbook | 11 | 8.06 |
 | travelling to a new place for a tournament | 9 | 7.53 |
 | scouting the champion's signature trap | 1 | 7.50 |
@@ -34,14 +34,14 @@ _Updated 2026-11-05 · 76 reels with results (3+ days old) · average score 7.43
 |---|---|---|
 | basic | 43 | 7.49 |
 | intermediate | 23 | 7.39 |
-| advanced | 10 | 7.27 |
+| advanced | 10 | 7.28 |
 
 ## think_time
 
 | option | reels | avg score |
 |---|---|---|
 | long | 39 | 7.59 |
-| normal | 27 | 7.42 |
+| normal | 27 | 7.43 |
 | fast | 10 | 6.81 |
 
 ## story_length
@@ -62,7 +62,7 @@ _Updated 2026-11-05 · 76 reels with results (3+ days old) · average score 7.43
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 46 | 8.16 |
+| comments | 46 | 8.17 |
 
 ---
 # Playbook (updated 2026-11-02)

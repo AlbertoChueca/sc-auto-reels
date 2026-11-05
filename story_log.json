@@ -307,5 +307,15 @@
 "setting": "Grandma Queen's warm kitchen",
 "lesson": "fork",
 "teaser": "Aboard the tournament train, Mister Zugzwang slips a puzzle riddle beneath Vektor's cabin door."
+},
+{
+"title": "The Sunset Sand Trap",
+"summary": "During a quick coastal stopover, Vektor and Luna race against the incoming sunset tide to crack Bishop Blaze's trademark opening trap carved into a sand-castle board.",
+"puzzle": "zlzhC",
+"format": "race against the clock: Vektor must solve something before time runs out",
+"spotlight": "Luna",
+"setting": "a beach at sunset with sand-castle chessboards",
+"lesson": "pin",
+"teaser": "Back aboard the express, Gus bellows for Vektor to fuel tactical steam into the engine firebox."
 }
 ]
