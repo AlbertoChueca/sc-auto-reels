@@ -1,7 +1,5 @@
-# Visual notebook (2026-11-05)
+# Visual notebook (2026-11-06)
 
-# Visual notebook (2026-11-05)
-
-• Keep doing: Generous solving windows (`think_time=long`) and stable, uncluttered board framing, which achieved our record 34-second watch time.
-• Stop doing: Rushed pacing (`think_time=fast`), which drives immediate drop-off and tanks watch times below 4 seconds.
-• Try next: High-visibility board coordinates and clean square highlights to assist phone viewers visualizing multi-move variations. Data is too thin to determine if subtle dynamic zooms improve saves over static wide board shots.
+• Keep doing: Spacious solving windows (`think_time=long`) and static, uncluttered board framing, which achieved our top 34-second average watch time.
+• Stop doing: Rapid-fire answer cuts (`think_time=fast`) that force premature abandonment and suppress retention.
+• Try next: High-contrast coordinate indicators and subtle key-square highlights to assist mobile viewers calculating deep variations. Data is too thin to verify whether dynamic punch-ins on blundered pieces increase saves over clean static boards.

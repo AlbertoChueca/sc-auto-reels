@@ -1,7 +1,5 @@
-# Hook notebook (2026-11-05)
+# Hook notebook (2026-11-06)
 
-# Hook notebook (2026-11-05)
-
-• Keep doing: Principle-first hooks naming the exact tactical target and vulnerability (e.g., overloaded queen, pinned pawn, hidden threat) with a clear action payoff, powering top scores above 11.0.
-• Stop doing: Reusing fixed sentence starters ("Can you help Vektor...", "Choose Black's winning..."); formulaic repetition exhausts our daily viewers.
-• Try next: Enforce a brand-new grammatical structure daily (e.g., diagnostic warning, conditional dilemma, sudden imperative) while keeping the tactical motif explicit. Data is too thin on whether warning-style hooks retain 3-second viewers better than direct challenge commands.
+• Keep doing: Principle-led hooks specifying the exact target piece and tactical flaw (e.g., overloaded queen, pinned pawn) paired with an active verb, driving our highest scores (>11.0).
+• Stop doing: Reusing fixed syntax templates ("Can you help Vektor...", "Choose Black's winning..."); repeated phrasing fatigues daily subscribers.
+• Try next: Mandate a unique grammatical architecture every single day (e.g., conditional dilemma, urgent blunder diagnostic, sharp command) while naming the specific tactical motif. Data is too thin on whether warning-framed hooks retain 3-second viewers better than direct commands.
