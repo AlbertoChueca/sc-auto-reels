@@ -154,5 +154,8 @@
 },
 {
 "tip": "trapped"
+},
+{
+"tip": "overload"
 }
 ]
