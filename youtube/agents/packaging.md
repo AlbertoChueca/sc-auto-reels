@@ -1,10 +1,11 @@
 # Thumbnail & Title Designer - notebook
-_Updated 2026-11-03_
+_Updated 2026-11-07_
 
 # Thumbnail & Title Designer - notebook
-_Updated 2026-11-01_
+_Updated 2026-11-05_
 
-- Continue relying on 'big_number' packaging paired with high-tension challenge questions.
-- When deploying question thumbnails, ensure extreme high-contrast tension on a single motif (e.g., skewer/pin) to capture views.
-- Limit thumbnail text to under 4 bold, punchy words creating immediate curiosity.
-- Crop tightly on critical tactical clashes rather than showing the full quiet board.
+- Question thumbnails targeting a specific tactical motif drove channel-record views (88 views, 5.47 score).
+- Pair high-contrast tactical board moments with tight question hooks under 4 bold words.
+- Big number framing remains reliable for survival concepts (e.g. '10 Seconds').
+- Avoid generic curiosity thumbnails without clear tactical tension, which caused 0-click flops.
+- Keep board crops zoomed into critical clashes (pinning rooks, skewer lines).

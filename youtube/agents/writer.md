@@ -1,11 +1,11 @@
 # Head Writer - notebook
-_Updated 2026-11-03_
+_Updated 2026-11-07_
 
 # Head Writer - notebook
-_Updated 2026-11-01_
+_Updated 2026-11-05_
 
-- State player orientation (White or Black) in the first sentence of every puzzle setup.
-- Open strictly with challenge hooks under 12 words; avoid story or narrative hook framing.
-- Script 'Coach's Rule' with sticky, vivid phrasing (e.g., 'Shoot the bodyguard, loot the boss').
-- Verify all defensive relationships accurately (e.g., check if a piece is defended through King/Rook obstruction before calling it undefended).
-- Banish all AI filler ('dive in', 'dive into', 'unlock') in favor of punchy club-room banter.
+- State orientation (White or Black) in the very first sentence of every setup.
+- Never mislabel tactical motifs: accurately distinguish overloads from forks, and pins from skewers.
+- Account for all intermediate moves in lines (e.g. explain how fxe3 happens if White played Bxe3).
+- Script Coach's Rules with vivid physical metaphors, not generic advice.
+- Replace dry chess jargon ('clamps down on counterplay') with visceral club-room actions ('sitting on your hands', 'looting the boss').

@@ -19,10 +19,10 @@
   "title": "Chess Tactics Training: 3 Tactical Reps"
  },
  "r0sOyXIyBNM": {
-  "views": 29,
-  "estimatedMinutesWatched": 89,
-  "averageViewDuration": 198,
-  "averageViewPercentage": 27.85,
+  "views": 32,
+  "estimatedMinutesWatched": 113,
+  "averageViewDuration": 227,
+  "averageViewPercentage": 31.96,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -38,10 +38,10 @@
   "title": "Chess Calculation: Can You Survive 10 Seconds?"
  },
  "bpXYErMMkYo": {
-  "views": 5,
-  "estimatedMinutesWatched": 9,
-  "averageViewDuration": 143,
-  "averageViewPercentage": 29.57,
+  "views": 7,
+  "estimatedMinutesWatched": 18,
+  "averageViewDuration": 181,
+  "averageViewPercentage": 37.33,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -57,10 +57,10 @@
   "title": "Chess Calculation: 3 Deadly Pins Club Players Butcher"
  },
  "UdXeLEQtjao": {
-  "views": 22,
-  "estimatedMinutesWatched": 22,
-  "averageViewDuration": 79,
-  "averageViewPercentage": 17.67,
+  "views": 28,
+  "estimatedMinutesWatched": 37,
+  "averageViewDuration": 97,
+  "averageViewPercentage": 21.84,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -76,14 +76,14 @@
   "title": "Chess Calculation: Can You Win Down Both Rooks?"
  },
  "WFGpl1sHv1M": {
-  "views": 21,
-  "estimatedMinutesWatched": 23,
-  "averageViewDuration": 87,
-  "averageViewPercentage": 13.889999999999999,
+  "views": 37,
+  "estimatedMinutesWatched": 50,
+  "averageViewDuration": 100,
+  "averageViewPercentage": 16,
   "subscribersGained": 0,
-  "likes": 0,
+  "likes": 1,
   "comments": 0,
-  "shares": 0,
+  "shares": 1,
   "date": "2026-10-27",
   "arms": {
    "format": "streak",
@@ -95,12 +95,12 @@
   "title": "Chess Calculation: Spot Tactics in 7 Seconds"
  },
  "u9l8OfLblKw": {
-  "views": 41,
-  "estimatedMinutesWatched": 36,
-  "averageViewDuration": 76,
-  "averageViewPercentage": 17.26,
+  "views": 88,
+  "estimatedMinutesWatched": 51,
+  "averageViewDuration": 85,
+  "averageViewPercentage": 19.35,
   "subscribersGained": 0,
-  "likes": 0,
+  "likes": 1,
   "comments": 0,
   "shares": 0,
   "date": "2026-10-30",
@@ -112,5 +112,24 @@
    "think_time": "fast"
   },
   "title": "Can You Find the Only Winning Skewer?"
+ },
+ "3vtcxe56NqI": {
+  "views": 1,
+  "estimatedMinutesWatched": 0,
+  "averageViewDuration": 0,
+  "averageViewPercentage": 0,
+  "subscribersGained": 0,
+  "likes": 0,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-11-04",
+  "arms": {
+   "format": "streak",
+   "hook_style": "cold_open: start on the hardest position of the video and say most players miss it",
+   "title_style": "curiosity: a curiosity gap that makes people need to know the answer",
+   "thumb_style": "question",
+   "think_time": "fast"
+  },
+  "title": "The 5-Second Tactic 90% of Players Miss"
  }
 }

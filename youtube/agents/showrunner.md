@@ -1,11 +1,11 @@
 # Showrunner - notebook
-_Updated 2026-11-03_
+_Updated 2026-11-07_
 
 # Showrunner - notebook
-_Updated 2026-11-01_
+_Updated 2026-11-05_
 
-- Pair fast think times with challenge cold opens; challenge hooks outperform story hooks across all metrics.
-- State board perspective (playing as White/Black) immediately in setup so coordinates and moves make instant visual sense.
-- Make 'Coach's Rule' sticky, punchy, and metaphorical (e.g., 'Shoot the bodyguard, loot the boss') rather than dry mechanical advice.
-- Strictly audit tactical setups to ensure piece defenders and flight squares are factually accurate before recording.
-- Maintain fast-paced streak cadence as the channel's flagship retention driver.
+- Pair fast think times with direct challenge hooks for maximum retention and view velocity.
+- Tactical motif gyms ('Only Winning Skewer') can outperform streaks if centered on a crisp, singular challenge.
+- Audit notation and intermediate moves strictly (e.g. explain intermediate exchanges before pawn captures).
+- Enforce metaphorical Coach's Rules ('If the king is in a casket, don't look for a better hammer') over dry procedural tips.
+- Mandate board perspective (White/Black) in sentence one.

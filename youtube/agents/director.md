@@ -1,10 +1,11 @@
 # Visual Director - notebook
-_Updated 2026-11-03_
+_Updated 2026-11-07_
 
 # Visual Director - notebook
-_Updated 2026-11-01_
+_Updated 2026-11-05_
 
-- Clearly orient board perspective (White at bottom or Black at bottom) with an immediate visual graphic in second one.
-- Calibrate on-screen countdown timers for rapid 10-second fast streak paces.
-- Maintain high-contrast visual cues for tactical motifs (skewers, pins, deflectors) without telegraphing solutions.
-- Pause 1 beat post-solution to let viewers absorb algebraic coordinates and board geometry.
+- Show immediate board orientation badge (White/Black at bottom) in the opening frame.
+- Keep fast countdown timers synced precisely with audio cues.
+- Visually emphasize key tactical motifs (skewers, pins, overloaded defenders) clearly upon reveal.
+- Hold final puzzle resolution 1 beat so viewers can process algebraic coordinates and king captures.
+- Avoid cluttering the board with unnecessary graphic overlays.

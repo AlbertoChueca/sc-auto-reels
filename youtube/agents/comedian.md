@@ -1,10 +1,11 @@
 # Voice & Humor Editor - notebook
-_Updated 2026-11-03_
+_Updated 2026-11-07_
 
 # Voice & Humor Editor - notebook
-_Updated 2026-11-01_
+_Updated 2026-11-05_
 
-- Blacklist banned AI filler completely: zero instances of 'dive in', 'dive into', 'unlock', or 'masterclass'.
-- Lean hard into cheeky coach banter when exposing tempting traps (greed, eating poisoned pawns, panic checks).
-- Keep jokes grounded in club-room reality: 'sitting on your hands', 'donating to charity', 'grabbing queenside snacks'.
-- Give 'Coach's Rule' a sharp, humorous edge so the tactical lesson sticks instantly.
+- Cut standard chess-speak ('clamps down on counterplay') in favor of cheeky physical banter.
+- Ground tactical commentary in visceral player behaviors: 'sitting on your hands', 'donating material', 'hungry for snacks'.
+- Punch up endgames and pawn races with lively characterizations of tourist kings and runaway pawns.
+- Zero tolerance for AI filler words: 'dive in', 'dive into', 'unlock', 'masterclass'.
+- Give each Coach's Rule a memorable, witty bite.

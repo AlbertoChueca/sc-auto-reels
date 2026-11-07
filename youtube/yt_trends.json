@@ -1,136 +1,159 @@
 {
- "date": "2026-11-03",
+ "date": "2026-11-07",
  "news": {
   "items": [
    {
-    "headline": "Javokhir Sindarov Wins Clutch Chess: Champions Showdown in Saint Louis",
-    "detail": "Uzbek grandmaster Javokhir Sindarov overturned a 2.5-point deficit on the final day to win the Clutch Chess Champions Showdown, finishing with 20.5 points ahead of Praggnanandhaa Rameshbabu. Sindarov secured the title and $168,000 in prizes after scoring a key attacking victory over Hikaru Nakamura in his final event before the World Championship match.",
-    "date": "2026-10-29",
+    "headline": "Begmuratov and Roebers Capture FIDE World Junior Rapid Titles",
+    "detail": "Uzbekistan's Khumoyun Begmuratov clinched the open world junior title with an undefeated 7.5/9 score, while Eline Roebers of the Netherlands won the girls' division in Al Ain, UAE. India's Pranav V claimed silver in rapid before bouncing back to secure the World Junior Blitz championship.",
+    "date": "2026-11-06",
     "people": [
-     "Javokhir Sindarov",
-     "Hikaru Nakamura",
-     "Praggnanandhaa Rameshbabu",
-     "Fabiano Caruana",
-     "Gukesh Dommaraju"
+     "Khumoyun Begmuratov",
+     "Eline Roebers",
+     "Pranav V",
+     "Valeria Kleymenova"
     ],
-    "event": "Clutch Chess: Champions Showdown 2026",
-    "why_viewers_care": "Sindarov demonstrated blistering form against top grandmasters less than a month before challenging Gukesh for the classical World Championship title."
+    "event": "FIDE World Junior Rapid & Blitz Championships 2026",
+    "why_viewers_care": "The tournament crowns the next generation of potential world title contenders as top juniors showcase their speed and tactical prowess on the global stage."
    },
    {
-    "headline": "11-Year-Old Bodhana Sivanandan Breaks Judit Polgar's 38-Year-Old Record",
-    "detail": "English chess prodigy Bodhana Sivanandan achieved the International Master title at 11 years, 7 months, and 16 days, eclipsing Judit Polgar's long-standing world age record for the youngest female IM. Sivanandan reached the required 2400 rating and secured her third norm scoring 5.5/7 on Board 1 at the European Women's Chess Club Cup.",
-    "date": "2026-10-24",
+    "headline": "FIDE World Senior Chess Championship 2026 Underway in Serbia",
+    "detail": "The 2026 FIDE World Senior Chess Championships began in Vrnja\u010dka Banja, Serbia, featuring 385 participants from 65 federations and 44 grandmasters across 50+ and 65+ sections. At 85 years old, legendary former women's world champion Nona Gaprindashvili entered as top seed in the Women 65+ category alongside legends like Pia Cramling.",
+    "date": "2026-11-03",
     "people": [
-     "Bodhana Sivanandan",
-     "Judit Polgar",
-     "Viktoria Johansson",
-     "Olga Badelka"
+     "Nona Gaprindashvili",
+     "Pia Cramling",
+     "Kiril Georgiev",
+     "Zurab Sturua"
     ],
-    "event": "European Women's Chess Club Cup 2026",
-    "why_viewers_care": "Breaking an iconic 38-year record held by the greatest female player in chess history marks one of the most historic prodigy milestones in the sport."
+    "event": "FIDE World Senior Chess Championships 2026",
+    "why_viewers_care": "Chess fans are following living legends of the sport, including trailblazer Nona Gaprindashvili competing for another world title well into her eighties."
    },
    {
-    "headline": "Istanbul Announced as Host for the 2026 FIDE World Rapid and Blitz Championships",
-    "detail": "FIDE confirmed that Istanbul, T\u00fcrkiye, will host the 2026 World Rapid and Blitz Championships from December 25 to 30, sponsored by Freedom Holding Corp. Defending champions Magnus Carlsen, Aleksandra Goryachkina, and Bibisara Assaubayeva are slated to compete for the four world speed chess crowns.",
-    "date": "2026-10-29",
+    "headline": "Magnus Carlsen Sets Up Spain Camp Ahead of Inaugural Total Chess Pilot",
+    "detail": "World No. 1 Magnus Carlsen conducted an intensive training camp in Spain alongside Nodirbek Abdusattorov and coach Peter Heine Nielsen in preparation for the Budapest Total Chess tournament. The upcoming event experiments with a combined format of Fast Classic, Rapid, and Blitz to establish a future combined world championship circuit.",
+    "date": "2026-11-06",
     "people": [
-     "Timur Turlov",
      "Magnus Carlsen",
-     "Aleksandra Goryachkina",
-     "Bibisara Assaubayeva"
+     "Nodirbek Abdusattorov",
+     "Peter Heine Nielsen",
+     "David Howell"
     ],
-    "event": "FIDE World Rapid and Blitz Championships 2026",
-    "why_viewers_care": "The year-end World Rapid and Blitz is widely regarded by fans as one of the most exciting, fast-paced spectacles on the annual international chess calendar."
+    "event": "Total Chess World Championship Tour Pilot 2026",
+    "why_viewers_care": "Carlsen is treating the multi-format experiment with championship-level seriousness, sparking major fan debate over the new multi-time-control format."
    },
    {
-    "headline": "November 2026 FIDE Ratings Highlight 72-Point Gap Ahead of World Championship",
-    "detail": "The newly released November 2026 FIDE rating list revealed that World Championship challenger Javokhir Sindarov sits at world number 4 with a 2782 rating, leading reigning World Champion Gukesh Dommaraju (rated 2710 and ranked 26th) by 72 points and 22 places. The unusual rating disparity sets up an uncommon statistical dynamic heading into their upcoming match in Geneva.",
+    "headline": "GothamChess Selected to Host Budapest Total Chess Highlights Show",
+    "detail": "FIDE and Norway Chess announced the official broadcast crew for the Total Chess Pilot in Budapest, tapping Levy Rozman (GothamChess) to front daily recap coverage. The production aims to present fast-paced summaries of the 24-player elite competition across all three disciplines.",
+    "date": "2026-11-04",
+    "people": [
+     "Levy Rozman",
+     "Magnus Carlsen"
+    ],
+    "event": "Total Chess World Championship Tour Pilot 2026",
+    "why_viewers_care": "GothamChess is the internet's most-watched chess personality, bringing massive online viewership and energy directly to an official elite FIDE-endorsed tour event."
+   },
+   {
+    "headline": "Crown Prince of Selangor Opens FIDE World Amateur Chess Championships",
+    "detail": "The 2026 FIDE World Amateur Chess Championships officially commenced at the KSL Esplanade Hotel in Klang, Malaysia, gathering nearly 400 competitors across three rating categories. Royal Patron HRH Tengku Amir Shah opened the competition with a ceremonial blitz exhibition game against British Grandmaster Nigel Short.",
+    "date": "2026-11-06",
+    "people": [
+     "Tengku Amir Shah",
+     "Nigel Short",
+     "Nik Ahmad Farouqi",
+     "Tin Shan Wen"
+    ],
+    "event": "FIDE World Amateur Chess Championships 2026",
+    "why_viewers_care": "The championship is one of the premier international grassroots events for non-titled club players, highlighted by opening-round upsets against the top seeds."
+   },
+   {
+    "headline": "Elite Grandmasters Lead the Field at 29th Open Bavarian Championship",
+    "detail": "The 29th Open Bavarian Chess Championship got underway in Tegernsee, Germany, bringing together top seeds Frederik Svane, Jaime Santos Latasa, Alexander Donchenko, and Nijat Abasov. The 9-round classical Swiss tournament featured decisive tactical battles and early-round fights among 2600-rated contenders.",
     "date": "2026-10-31",
     "people": [
-     "Javokhir Sindarov",
-     "Gukesh Dommaraju"
+     "Frederik Svane",
+     "Alexander Donchenko",
+     "Jaime Santos Latasa",
+     "Nijat Abasov"
     ],
-    "event": "2026 World Chess Championship Preview",
-    "why_viewers_care": "A World Championship match where the challenger leads the defending champion by more than 70 rating points creates a rare underdog narrative for the titleholder."
-   },
-   {
-    "headline": "2026 FIDE World Senior Chess Championship Commences in Serbia",
-    "detail": "The FIDE World Senior Chess Championship 2026 officially opened in Vrnja\u010dka Banja, Serbia, bringing together senior players and veteran grandmasters from around the world. Competitors are contesting standard classical games across 50+ and 65+ age categories.",
-    "date": "2026-11-03",
-    "people": [],
-    "event": "FIDE World Senior Chess Championship 2026",
-    "why_viewers_care": "It serves as the premier annual championship tournament for veteran masters, showcasing enduring competitive chess among legendary figures."
+    "event": "29th Open Bavarian Chess Championship",
+    "why_viewers_care": "Fans track the late-season European open circuit to see top grandmasters compete for rating gains and FIDE Circuit points."
    }
   ],
   "search_terms": [
-   "Sindarov vs Nakamura Clutch Chess 2026",
-   "Bodhana Sivanandan breaks Judit Polgar record",
-   "Gukesh vs Sindarov World Championship 2026",
-   "Clutch Chess Champions Showdown 2026 highlights",
-   "World Rapid and Blitz 2026 Istanbul announcement"
+   "Total Chess Budapest 2026 Magnus Carlsen",
+   "World Junior Rapid Championship 2026 recap",
+   "Nona Gaprindashvili World Senior Championship 2026",
+   "GothamChess Total Chess highlights show",
+   "Open Bavarian Chess Championship 2026 games"
   ],
-  "sources": []
+  "sources": [
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSkObVS5Xyxe8_w_Vu1OX-hvejFe23v92Fw2uvnkCUWTMF0oPihUNbN58wErGnHu7K8tBxz2_IzDX2k3ZCpvhpnWmKIXESW0E-sNy-nHH3NKI_Lfk7yPobZe_ITTmth1YZ3vdWvaO3Kuayj6Emi47q3dzcHTRsvefTBXraUhww58thBlo1ASdYO22VG04zic7BLxzAeJyZ8IkjE2gxlHJgqDWW4sE=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHwfgN-nW4OZS6C-YAb1x2e5NS2lq1HozXg3MgeLLlVJ6WwkLQqDWdxk_ovlJs3Qhn33qf5wZsQCgc0y4GzvOGKSi8IHgrINfinCnyFlEYjStdX9B89mUCsKL58BOARYxrfBagUFUknq5DdqsfCXMf7R2dLQn0JnVwps5oaHQqS7l1XS0NFcgGrQnGTvA6H",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFfQ31wjUN7FOr6j6XyDmLZ3j5UnHOygJSm2Jsey5ih1CX3Fq2oJ9alWivmeho7bH7S67Wjwz__IgWLfH_BMWnobIFTVHojklm9ZUQl51HwlWL79CO2Pbs8Y8t8H0uV-lqleSAnEbcDPdM66ebZV-XwgP5DCnFs6_GU0I2Jcar6G_f4VzsbbtM3SHgD3zQqgGmQf2tVRf0=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGjD66LP7nuTWlpc_jBJMXWr7nD6tHxYMRn-1VkKfe7SDxDcT2QxwDacUG-e9nyG7aYJxdCg8vBO7T1PULEo71pf8t7KAK9c8Hfgp-J_tezf7W8Oy-KIfDkKmm9zECMUE9_IJSFxVFyZOwvrVyIyCZKogxyajQn-bbPHq0ZIEy-wPiz0w1LR5zH2phTKF9_EykI8N85WnM_Kp5I6pdRyCxNUnAE8FsHOl4G5H8SHiiFEpZFVM1yomUeTQ==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6oCJzuyGWVrUsoGyaILIFQ0G6N6MZGoj6TEKVlTp4IDWa4YphEmW31QJRlh_w4qwOFBqP1L_AaAtdHpeghj33SkpkSAAVsRen1lrASdd0LsCFC-orN5lL32exADSx2kibrb68QCr_Ki-X4fM8ix0sVDxL0awzEyXpG5T7k4x6X-k0gOoPA3_PLC3HW7uhf36s5jG-vzgVCnbXczF5qIsjN7-SiTPr53Tr7MKdZjIQaOu_8LqFvK_fqMqX6GU=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGANkDqKhbsLNR17xR1M7EvnEelpP8mru09tB1m1EWz7aDyvU2vYZ2prgo1ITDoQKRktquenBD_-ePF5yRgxDzkeo78GRCo3feSTr7NaAgIj34ArNiKtS3NMG1u4ius0em4F28euOsmGX57nyInojZc3aF9xfp4F2XevnpV0BSDmlSM9qBr8m9X3rj5SSIq1RFXIllcmiJY6HbhXoQ3o5PbPQ==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGlFkuqYBuiF_loP6SVeltwTj8FHb5a6Z4xvY4nnup_0FhC7qs5aK1BTILY9mrGMovi7OJHlc8FUOBDyTS09tKp6MyZrxFoPxiune-EXS9WyaT4e4iZVCkfOQXWOyKabVgz5-XGEKzu5ZtNNVyYBmx2FZwSFLWJ7EhoGO9Y5vdYvV2wgAFduw==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFPuOogODqzuSRr9G9A0aLDgBcXJanBQNEudnAi16nY4lBG1hNLCjBcTkpsG26xXmdDCQQN8O2um8ha0SUkREmbId97h8ZIyg_p9r3r9UE82rU=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGHOKFCG5QRtfzTQWtefSxG_AeKF5eX47Ju4Qv7Qei6kFG_6VQJZ3TwmKh31pv_wh5bzbc4gMRAi-9woInWvdmdX-WaG9IOmYKpi9FPHV8k5kLjFfAqGYeuQ_8mo8Wbb9sL5Zvhhpo5NjhopFgIEd-wOkEgVeRxuZajlO69ZWxxZwOPFDgEkpGbNSkqgpLAoVU8SpTfh_o=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGto_hvtLYdKdXDZeJJRRe-YvAG43Cp196N0xBtKw260FSZfETvG-IRqqyM9NN3_xJXNK3WO0ScBS0i8sh8moM9fEbiNu92TDUgZn7GBYg=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE6Ka-df7ns51YN5BkW8RdZmXRA9zinyus-J6jt9r8WepsAcX-U30mJUOvxyUyfCkm4KSiC12lHO9_Bu5YHGb6VwDxJocTOcloZtbc6-ISyjzYLHncVm1-lKO_gBHVX-u7VphZ-T8RdLsu0mU2MDPbyhy1gzgEp1Hs99tkR5-g7LZHZQU0iqhl6Scd85Rrrb9vtXRg=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGpv1aOxjvbMwwLcso8XTKJXyZC2ogYLmCcm36a7rzqaK63fSOvzFDpPJ2Q8lnOp7PmWDfYl-TJy9u7DW-Y2uUQk50jMiOTaTkeQv-5B5PUw0i8_Z1VABoa-t9aYCYowjLl_M3YfO419Pc81UAKVUkXUb-bkd4m"
+  ]
  },
  "suggest": {
   "chess tactics": [
    "chess tactics",
    "chess tactics for beginners",
    "chess tactics training",
-   "chess tactics and strategy",
    "chess tactics explained",
-   "chess tactics for intermediate players",
    "chess tactics gothamchess",
-   "chess tactics for kids",
    "chess tactics hikaru",
-   "chess tactics from scratch"
+   "chess tactics from scratch",
+   "chess tactics for kids",
+   "chess tactics for black",
+   "chess tactics books"
   ],
   "chess puzzles": [
    "chess puzzles",
    "chess puzzles for beginners",
    "chess puzzles for intermediate players",
-   "chess puzzles for kids",
-   "chess puzzles hard",
-   "chess puzzles explained",
    "chess puzzles watch dogs",
-   "chess puzzles gothamchess",
-   "chess puzzles mate in 2",
-   "chess puzzles uil"
+   "chess puzzles for kids",
+   "chess puzzles explained",
+   "chess puzzles grandmaster",
+   "chess puzzles hard",
+   "chess puzzles mate in 1",
+   "chess puzzles mate in 2"
   ],
   "how to calculate in chess": [
    "how to calculate in chess",
    "how to calculate in chess like a grandmaster",
-   "how to calculate in chess gotham",
    "how to calculate in chess for beginners",
-   "how to calculate in chess dina",
-   "how to calculate in chess faster",
-   "how to calculate in chess like hikaru",
+   "how to calculate in chess gotham",
    "how to calculate in chess hikaru",
-   "how to calculate in chess daniel naroditsky",
-   "how to calculate in chess fast"
+   "how to calculate in chess fast",
+   "how to calculate in chess like hikaru",
+   "how to calculate in chess dina",
+   "how to calculate in chess remote chess academy",
+   "how to calculate in chess faster"
   ],
   "chess tricks": [
    "chess tricks",
-   "chess tricks to win fast",
    "chess tricks for beginners",
    "chess tricks checkmate",
    "chess tricks and traps",
    "chess tricks for black",
    "chess tricks and tips",
-   "chess tricks in hindi",
-   "chess tricks to win",
-   "chess tricks to win fast for beginners"
+   "chess tricks in telugu",
+   "chess tricks to win fast for beginners",
+   "chess tricks in tamil",
+   "chess tricks in hindi"
   ],
-  "Sindarov vs Nakamura Clutch Chess 2026": [],
-  "Bodhana Sivanandan breaks Judit Polgar record": [
-   "judit polgar vs susan polgar",
-   "judit polgar vs ferenc berkes",
-   "judit polgar vs kasparov 2002",
-   "judit polgar vs kasparov 1994",
-   "judit polgar vs boris spassky"
+  "Total Chess Budapest 2026 Magnus Carlsen": [
+   "magnus carlsen vs queen's gambit"
   ],
-  "Gukesh vs Sindarov World Championship 2026": [
-   "gukesh vs sindarov world championship 2026",
-   "world chess championship 2026 gukesh vs sindarov"
-  ]
+  "World Junior Rapid Championship 2026 recap": [],
+  "Nona Gaprindashvili World Senior Championship 2026": []
  }
 }

@@ -1,10 +1,11 @@
 # Caption Editor - notebook
-_Updated 2026-11-03_
+_Updated 2026-11-07_
 
 # Caption Editor - notebook
-_Updated 2026-11-01_
+_Updated 2026-11-05_
 
-- Ensure board perspective announcements ('You are playing White...') are captioned crisply upfront.
-- Synchronize reveal moves frame-by-frame with audio to prevent premature tactical spoilers.
-- Maintain strict standard algebraic notation (Nf3, Re1+, Rxe8, Qxd4) with accurate capitalization.
-- Keep captions punchy and capped at 2 lines, breaking strictly on natural speech pauses.
+- State player perspective ('You are playing White/Black') upfront in the captions.
+- Ensure precise algebraic notation and piece capitalization (Nf3, Rh6+, Kxg5, fxe3).
+- Time solution captions to match audio reveals frame-by-frame to prevent early spoilers.
+- Keep text chunks capped at 2 punchy lines, splitting naturally on spoken pauses.
+- Accurately caption tactical terms (overload, skewer, pin) as scripted.
