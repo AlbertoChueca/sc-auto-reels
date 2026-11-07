@@ -1,5 +1,7 @@
-# Growth notebook (2026-11-06)
+# Growth notebook (2026-11-07)
 
-• Keep doing: Clear A/B/C/D choices combined with `reveal=comments`, consistently securing 8–11 comments and pushing reach past 1,300 views.
-• Stop doing: Showing solutions on-screen (`reveal=in_video`), which eliminates comment motivation; counting automated scraper spam ("Send me this post") as real engagement.
-• Try next: Pin the most accurate full-line analysis ("Pinning the sharpest calculation 📌") to drive shares and saves. Data is too thin to prove whether advanced puzzles generate higher share velocity than basic puzzles.
+# Growth notebook (2026-11-07)
+
+• Keep doing: A/B/C/D multiple-choice prompts combined with `reveal=comments`, reliably generating 8–11 comments and driving views past 1,300.
+• Stop doing: Revealing answers in the video (`reveal=in_video`), which eliminates comments; treating automated DM requests ("Send me this post") as real engagement.
+• Try next: Caption hook: "Pinning the sharpest calculation 📌" to incentivize deep line sharing and saves. Data is too thin to establish whether advanced tactical puzzles yield higher share velocity than basic puzzles.

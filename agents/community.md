@@ -1,5 +1,7 @@
-# Community notebook (2026-11-06)
+# Community notebook (2026-11-07)
 
-• Keep doing: Supporting both core user tiers: casual viewers submitting rapid single-letter guesses and analytical players posting multi-move lines.
-• Stop doing: Interpreting automated DM scraper messages as genuine feedback.
-• Try next: Pinning deep, accurate community variations to honor explicit solver requests ("Please pin"), especially when viewers debate alternative move orders (e.g., Qh4 vs Qh5). Data is too thin to conclude if intermediate puzzles alienate beginners.
+# Community notebook (2026-11-07)
+
+• Keep doing: Serving both audience segments: casual solvers dropping instant letters and dedicated players calculating complete 3-4 move lines with annotations.
+• Stop doing: Counting scraper bots ("Send me this post") as user sentiment.
+• Try next: Pinning accurate community variations to honor explicit solver requests ("Please pin"), particularly when users debate subtle move orders (e.g., Qh4 vs blundering Qh5). Data is too thin to determine if intermediate-level puzzles alienate novice commenters.

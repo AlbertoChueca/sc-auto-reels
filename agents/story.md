@@ -1,5 +1,7 @@
-# Story notebook (2026-11-06)
+# Story notebook (2026-11-07)
 
-• Keep doing: High-stakes training tips (`format=tip`) tied to streak survival or tournament prep against rivals like Bishop Blaze, which dominate the 10.5+ score tier.
-• Stop doing: Cozy narrative diversions devoid of tactical tension ("Cookie Challenge", "Rainy Day Riddle"), which collapsed watch times to ~4 seconds.
-• Try next: Frame advanced tactical themes (deflection, overloaded guards) as secret diagnostic tests from Coach King. Data is too thin on whether serialized multi-part match arcs retain viewers better than standalone daily streak challenges.
+# Story notebook (2026-11-07)
+
+• Keep doing: High-stakes streak training (`format=tip`) and tactical playbook prep against rivals like Bishop Blaze, dominating all scores above 10.5.
+• Stop doing: Low-tension narrative diversions without chess mechanics ("Cookie Challenge", "Rainy Day Riddle"), which collapsed retention to ~4 seconds.
+• Try next: Integrate short story stakes by framing advanced combinations (deflections, overloaded defenders) as Coach King's secret streak tests. Data is too thin to confirm whether serialized multi-reel tournament matches outperform standalone daily streak sessions.
