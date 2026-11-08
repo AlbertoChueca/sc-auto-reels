@@ -317,5 +317,15 @@
 "setting": "a beach at sunset with sand-castle chessboards",
 "lesson": "pin",
 "teaser": "Back aboard the express, Gus bellows for Vektor to fuel tactical steam into the engine firebox."
+},
+{
+"title": "The Rooftop Back-Rank Ambush",
+"summary": "High on a twilight rooftop over the city, Mister Zugzwang heroically spots an unguarded enemy king, guiding Vektor to calculate a back-rank mate to keep his daily streak alive.",
+"puzzle": "WafSW",
+"format": "spotlight: today a side character is the hero and Vektor supports them",
+"spotlight": "Mister Zugzwang",
+"setting": "a rooftop overlooking the city",
+"lesson": "king",
+"teaser": "At the grand terminal, Bishop Blaze locks the tournament gates with a clockwork timer."
 }
 ]
