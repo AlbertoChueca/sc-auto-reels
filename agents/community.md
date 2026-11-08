@@ -1,7 +1,7 @@
-# Community notebook (2026-11-07)
+# Community notebook (2026-11-08)
 
-# Community notebook (2026-11-07)
+# Community notebook (2026-11-08)
 
-• Keep doing: Serving both audience segments: casual solvers dropping instant letters and dedicated players calculating complete 3-4 move lines with annotations.
-• Stop doing: Counting scraper bots ("Send me this post") as user sentiment.
-• Try next: Pinning accurate community variations to honor explicit solver requests ("Please pin"), particularly when users debate subtle move orders (e.g., Qh4 vs blundering Qh5). Data is too thin to determine if intermediate-level puzzles alienate novice commenters.
+• Keep doing: Feeding both viewer tiers: casual players dropping quick letter votes (A, B, C, D) and analytical solvers writing out full 3-4 move notation lines.
+• Stop doing: Counting spam bot requests ("Send me this post") as meaningful community interest.
+• Try next: Acknowledging top analytical replies (e.g. pinning users who spot subtle branchings like Qh4 vs Qh5 or pawn promotion under-promotions). Data is too thin to confirm whether pinned community lines increase reply-thread depth.

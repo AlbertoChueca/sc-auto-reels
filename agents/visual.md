@@ -1,7 +1,7 @@
-# Visual notebook (2026-11-07)
+# Visual notebook (2026-11-08)
 
-# Visual notebook (2026-11-07)
+# Visual notebook (2026-11-08)
 
-• Keep doing: Extended solving windows (`think_time=long`) and clean, mobile-optimized board framing, achieving our record 33.8-second watch time.
-• Stop doing: Fast cuts to the answer (`think_time=fast`), which cut off viewer calculation and harm watch time.
-• Try next: Crisp coordinate highlights and clean square indicators to support mobile calculation on deep combinations. Data is too thin to prove whether dynamic zoom-ins on target squares increase saves compared to static, high-clarity boards.
+• Keep doing: Generous puzzle solving time (`think_time=long`) and high-contrast, uncluttered 2D/3D board readability, which powered our record 33.8s average watch time.
+• Stop doing: Rushing past the board (`think_time=fast`), which suppresses dwell time and prevents viewers from calculating deep lines.
+• Try next: Subtle highlight rings around candidate focus squares during deep tactical combinations to aid mobile viewing. Data is too thin on whether dynamic piece zooms lift saves compared to clear, static board framing.
