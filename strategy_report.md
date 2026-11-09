@@ -7,7 +7,7 @@ _Updated 2026-11-09 · 87 reels with results (3+ days old) · average score 7.75
 
 | option | reels | avg score |
 |---|---|---|
-| the_irresistible_bait | 4 | 9.84 |
+| the_irresistible_bait | 4 | 9.85 |
 | cliffhanger | 10 | 8.65 |
 | challenge | 9 | 8.48 |
 | countdown_trap | 17 | 8.35 |
@@ -22,7 +22,7 @@ _Updated 2026-11-09 · 87 reels with results (3+ days old) · average score 7.75
 | daily training to keep the streak alive | 15 | 9.14 |
 | cracking Bishop Blaze's secret playbook | 14 | 8.39 |
 | travelling to a new place for a tournament | 11 | 8.13 |
-| lesson or secret test from Coach King | 13 | 7.29 |
+| lesson or secret test from Coach King | 13 | 7.30 |
 | scouting the champion's signature trap | 2 | 7.29 |
 | school chess club with friends | 8 | 7.20 |
 | helping Pip or a friend who is stuck | 8 | 7.18 |
