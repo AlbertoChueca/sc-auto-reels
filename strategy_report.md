@@ -1,16 +1,16 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-11-08 · 84 reels with results (3+ days old) · average score 7.64_
+_Updated 2026-11-09 · 87 reels with results (3+ days old) · average score 7.75_
 
 
 ## hook_style
 
 | option | reels | avg score |
 |---|---|---|
-| the_irresistible_bait | 3 | 9.46 |
+| the_irresistible_bait | 4 | 9.84 |
+| cliffhanger | 10 | 8.65 |
 | challenge | 9 | 8.48 |
-| cliffhanger | 9 | 8.37 |
-| countdown_trap | 16 | 8.23 |
+| countdown_trap | 17 | 8.35 |
 | big_dream | 17 | 7.57 |
 | mystery | 13 | 7.16 |
 | rival | 9 | 6.55 |
@@ -19,9 +19,9 @@ _Updated 2026-11-08 · 84 reels with results (3+ days old) · average score 7.64
 
 | option | reels | avg score |
 |---|---|---|
-| daily training to keep the streak alive | 14 | 9.06 |
-| cracking Bishop Blaze's secret playbook | 13 | 8.19 |
-| travelling to a new place for a tournament | 10 | 7.82 |
+| daily training to keep the streak alive | 15 | 9.14 |
+| cracking Bishop Blaze's secret playbook | 14 | 8.39 |
+| travelling to a new place for a tournament | 11 | 8.13 |
 | lesson or secret test from Coach King | 13 | 7.29 |
 | scouting the champion's signature trap | 2 | 7.29 |
 | school chess club with friends | 8 | 7.20 |
@@ -33,36 +33,36 @@ _Updated 2026-11-08 · 84 reels with results (3+ days old) · average score 7.64
 | option | reels | avg score |
 |---|---|---|
 | intermediate | 27 | 7.83 |
-| basic | 46 | 7.62 |
-| advanced | 11 | 7.26 |
+| basic | 48 | 7.74 |
+| advanced | 12 | 7.57 |
 
 ## think_time
 
 | option | reels | avg score |
 |---|---|---|
-| long | 43 | 7.78 |
-| normal | 31 | 7.71 |
+| long | 45 | 7.91 |
+| normal | 32 | 7.82 |
 | fast | 10 | 6.81 |
 
 ## story_length
 
 | option | reels | avg score |
 |---|---|---|
-| short | 34 | 8.04 |
-| normal | 50 | 7.37 |
+| short | 36 | 8.21 |
+| normal | 51 | 7.42 |
 
 ## format
 
 | option | reels | avg score |
 |---|---|---|
-| tip | 46 | 8.70 |
+| tip | 49 | 8.82 |
 | story | 11 | 6.56 |
 
 ## reveal
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 54 | 8.38 |
+| comments | 57 | 8.51 |
 
 ---
 # Playbook (updated 2026-11-02)

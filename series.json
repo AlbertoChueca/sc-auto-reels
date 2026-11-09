@@ -1,6 +1,6 @@
 {
  "season": 1,
- "arc": "Speeding down the tracks aboard the Tournament Express, Vektor tackles Coach King's diagnostic tests to dismantle Bishop Blaze's secret playbook carriage by carriage before pulling into the Chessville Cup arena.",
+ "arc": "Racing aboard the speeding Tournament Express, Vektor and his crew must conquer Coach King's diagnostic carriage-by-carriage puzzles to dismantle Bishop Blaze's secret playbook before arriving at the Chessville Cup arena.",
  "cast": [
   {
    "name": "Pip",
@@ -67,7 +67,13 @@
    "role": "Tournament Express train engineer rook",
    "look": "A sturdy bronze rook with soot smudges across his crenellated crown, wearing denim overalls and oversized heat-resistant leather mittens.",
    "personality": "Boisterous and rhythmically loud, he treats chess calculations like steam pressure and bellows tactical maxims over the roar of the firebox to keep the engine r"
+  },
+  {
+   "name": "Pepper",
+   "role": "Tournament Express dining car server pawn",
+   "look": "A cheerful cream-colored pawn wearing red roller skates, an oversized chef's toque, and an apron with deep pockets full of snack packets and dry-erase markers.",
+   "personality": "Bubbly and lightning-fast, she balances trays of cocoa while scribbling forced tactical lines on dining car tables to keep players energized under time pressure"
   }
  ],
- "updated": "2026-11-02"
+ "updated": "2026-11-09"
 }

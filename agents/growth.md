@@ -1,7 +1,5 @@
-# Growth notebook (2026-11-08)
+# Growth notebook (2026-11-09)
 
-# Growth notebook (2026-11-08)
-
-• Keep doing: Clear A/B/C/D option prompts paired with `reveal=comments`, consistently driving double-digit comments and boosting distribution past 1,500 views.
-• Stop doing: Revealing answers on-screen or ignoring save prompts on high-difficulty puzzles.
-• Try next: Add a caption challenge: "Pinning the first full calculation below 📌" to convert casual letter-pickers into multi-move commenters and drive saves. Data is too thin to prove whether advanced difficulty reliably yields more saves than basic puzzles.
+• Keep doing: Combining clean A/B/C/D option prompts with `reveal=comments`, consistently securing 10+ comments and pushing reach past 1,500 views.
+• Stop doing: Omitting save prompts on complex puzzles where viewers clearly need multiple calculation attempts.
+• Try next: Prompting solvers in captions to comment the full checkmate notation line to earn a pinned comment, driving multi-move discussion. Data is too thin to establish whether advanced tactical difficulty converts more saves than basic puzzles.

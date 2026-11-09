@@ -1,7 +1,5 @@
-# Community notebook (2026-11-08)
+# Community notebook (2026-11-09)
 
-# Community notebook (2026-11-08)
-
-• Keep doing: Feeding both viewer tiers: casual players dropping quick letter votes (A, B, C, D) and analytical solvers writing out full 3-4 move notation lines.
-• Stop doing: Counting spam bot requests ("Send me this post") as meaningful community interest.
-• Try next: Acknowledging top analytical replies (e.g. pinning users who spot subtle branchings like Qh4 vs Qh5 or pawn promotion under-promotions). Data is too thin to confirm whether pinned community lines increase reply-thread depth.
+• Keep doing: Supporting both player types: rapid letter voters (A, B, C, D) and deep calculators who write out multi-move lines (e.g., queen sacrifices, under-promotions to knight, forced king walks).
+• Stop doing: Counting automated "Send me this post" DM comments as meaningful tactical feedback.
+• Try next: Highlighting alternate viewer candidate moves in pinned replies to validate alternative defenses. Data is too thin to tell if pin-acknowledging analytical replies measurably expands thread depth.
