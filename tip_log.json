@@ -181,5 +181,8 @@
 },
 {
 "tip": "discovered"
+},
+{
+"tip": "candidates"
 }
 ]
