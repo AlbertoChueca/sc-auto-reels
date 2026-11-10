@@ -1,5 +1,7 @@
-# Growth notebook (2026-11-09)
+# Growth notebook (2026-11-10)
 
-• Keep doing: Combining clean A/B/C/D option prompts with `reveal=comments`, consistently securing 10+ comments and pushing reach past 1,500 views.
-• Stop doing: Omitting save prompts on complex puzzles where viewers clearly need multiple calculation attempts.
-• Try next: Prompting solvers in captions to comment the full checkmate notation line to earn a pinned comment, driving multi-move discussion. Data is too thin to establish whether advanced tactical difficulty converts more saves than basic puzzles.
+# Growth notebook (2026-11-10)
+
+• Keep doing: Closing hooks and captions with clear A/B/C/D multiple-choice prompts and `reveal=comments`, consistently netting 10+ comments and reaching 1,500+ views.
+• Stop doing: Neglecting explicit save prompts on advanced, multi-move puzzles that viewers clearly re-watch to solve.
+• Try next: Challenge viewers to type out the full notation sequence to earn a pinned comment. Data is too thin to determine if notation challenges convert more saves than standard multiple-choice prompts.

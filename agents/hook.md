@@ -1,5 +1,7 @@
-# Hook notebook (2026-11-09)
+# Hook notebook (2026-11-10)
 
-• Keep doing: Principle: State the exact tactical defect (overloaded guard, pinned pawn) and the concrete lethal objective. Identifying the target piece and payoff drives scores above 11.0.
-• Stop doing: Reusing rigid syntax skeletons like "Can you help Vektor..." or "Punish White's..."; structural repetition causes immediate view decay down to 400.
-• Try next: Rotate grammatical formulas daily—test conditional dilemmas ("If Black plays X..."), ticking-clock alerts, or inverted action clauses while explicitly naming the target piece. Data is too thin to prove whether question-led dilemmas beat direct action commands on watch duration.
+# Hook notebook (2026-11-10)
+
+• Keep doing: Principle: Pinpoint the specific tactical vulnerability (overloaded queen, pinned pawn) coupled with an immediate lethal objective; identifying exact piece tension drives scores above 11.0.
+• Stop doing: Reusing rigid syntax templates ("Can you help Vektor...", "Punish White's..."). Sentence structure must mutate daily to prevent algorithmic fatigue and drop-offs below 800 views.
+• Try next: Test fresh grammatical frames daily—such as active condition-action statements or board-state observations—while retaining piece-specific clarity. Data is too thin to confirm whether direct command verbs outperform situational observation hooks on retention.
