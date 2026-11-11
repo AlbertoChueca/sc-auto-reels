@@ -7,7 +7,7 @@ _Updated 2026-11-11 · 93 reels with results (3+ days old) · average score 7.89
 
 | option | reels | avg score |
 |---|---|---|
-| the_irresistible_bait | 6 | 10.02 |
+| the_irresistible_bait | 6 | 10.03 |
 | cliffhanger | 11 | 8.85 |
 | challenge | 11 | 8.53 |
 | countdown_trap | 18 | 8.45 |
