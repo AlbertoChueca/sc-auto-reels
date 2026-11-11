@@ -1,113 +1,107 @@
 {
- "date": "2026-11-07",
+ "date": "2026-11-10",
  "news": {
   "items": [
    {
-    "headline": "Begmuratov and Roebers Capture FIDE World Junior Rapid Titles",
-    "detail": "Uzbekistan's Khumoyun Begmuratov clinched the open world junior title with an undefeated 7.5/9 score, while Eline Roebers of the Netherlands won the girls' division in Al Ain, UAE. India's Pranav V claimed silver in rapid before bouncing back to secure the World Junior Blitz championship.",
-    "date": "2026-11-06",
+    "headline": "Magnus Carlsen Wins Opening Blitz Swiss at Total Chess Pilot in Budapest",
+    "detail": "Magnus Carlsen finished unbeaten on 7/9 to win the opening nine-round Blitz Swiss at the inaugural Total Chess World Championship Tour Pilot in Budapest. Maxime Vachier-Lagrave placed second with 6.5 points, while Levon Aronian finished third on 6 points.",
+    "date": "2026-11-10",
     "people": [
-     "Khumoyun Begmuratov",
-     "Eline Roebers",
-     "Pranav V",
-     "Valeria Kleymenova"
+     "Magnus Carlsen",
+     "Maxime Vachier-Lagrave",
+     "Levon Aronian"
     ],
-    "event": "FIDE World Junior Rapid & Blitz Championships 2026",
-    "why_viewers_care": "The tournament crowns the next generation of potential world title contenders as top juniors showcase their speed and tactical prowess on the global stage."
+    "event": "Total Chess World Championship Tour Pilot 2026",
+    "why_viewers_care": "The event debuts an ambitious new multi-format circuit combining blitz, rapid, and fast classical controls to determine an official FIDE World Combined Champion."
    },
    {
-    "headline": "FIDE World Senior Chess Championship 2026 Underway in Serbia",
-    "detail": "The 2026 FIDE World Senior Chess Championships began in Vrnja\u010dka Banja, Serbia, featuring 385 participants from 65 federations and 44 grandmasters across 50+ and 65+ sections. At 85 years old, legendary former women's world champion Nona Gaprindashvili entered as top seed in the Women 65+ category alongside legends like Pia Cramling.",
+    "headline": "Chess.com Announces Speed Chess Championship XI With London Live Finals",
+    "detail": "Chess.com announced the 10th anniversary edition of the Speed Chess Championship featuring a $250,000 prize fund. The bracket brings together heavyweights Magnus Carlsen and Hikaru Nakamura, who have each claimed five SCC titles over the past decade.",
     "date": "2026-11-03",
     "people": [
-     "Nona Gaprindashvili",
-     "Pia Cramling",
-     "Kiril Georgiev",
-     "Zurab Sturua"
+     "Magnus Carlsen",
+     "Hikaru Nakamura",
+     "Javokhir Sindarov"
     ],
-    "event": "FIDE World Senior Chess Championships 2026",
-    "why_viewers_care": "Chess fans are following living legends of the sport, including trailblazer Nona Gaprindashvili competing for another world title well into her eighties."
+    "event": "Speed Chess Championship XI",
+    "why_viewers_care": "Carlsen and Nakamura enter tied at five titles apiece, setting up high stakes for who can break the tie in the London finals."
    },
    {
-    "headline": "Magnus Carlsen Sets Up Spain Camp Ahead of Inaugural Total Chess Pilot",
-    "detail": "World No. 1 Magnus Carlsen conducted an intensive training camp in Spain alongside Nodirbek Abdusattorov and coach Peter Heine Nielsen in preparation for the Budapest Total Chess tournament. The upcoming event experiments with a combined format of Fast Classic, Rapid, and Blitz to establish a future combined world championship circuit.",
-    "date": "2026-11-06",
+    "headline": "Peter Svidler Analyzes Gukesh vs. Sindarov World Championship Clash",
+    "detail": "Grandmaster Peter Svidler stated he gives challenger Javokhir Sindarov a slight 55-45 advantage over reigning champion Gukesh Dommaraju ahead of their classical title match in Geneva. With both grandmasters aged 20, the contest will be the youngest World Championship match in history.",
+    "date": "2026-11-10",
+    "people": [
+     "Peter Svidler",
+     "Gukesh Dommaraju",
+     "Javokhir Sindarov"
+    ],
+    "event": "FIDE World Chess Championship 2026",
+    "why_viewers_care": "Anticipation is building around whether 20-year-old Gukesh can defend his crown against his fellow next-generation prodigy."
+   },
+   {
+    "headline": "European Youth Chess Championship 2026 Completes Round 7 in Crete",
+    "detail": "Nearly 1,250 young players from 49 federations reached round 7 at the European Youth Championship in Hersonissos, Greece. Notable leaders maintaining flawless 7/7 scores included Melike Eliz Karahan in Girls U8 and Han Nam Pham in Open U10.",
+    "date": "2026-11-10",
+    "people": [
+     "Melike Eliz Karahan",
+     "Han Nam Pham",
+     "Nikolas Bausys",
+     "Mateu Boci"
+    ],
+    "event": "European Youth Chess Championship 2026",
+    "why_viewers_care": "The tournament serves as the primary continental proving ground for identifying future international grandmasters."
+   },
+   {
+    "headline": "Hikaru Nakamura Strengthens Tour Standings Lead in November Titled Tuesday",
+    "detail": "Hikaru Nakamura secured second place in the November 3 Titled Tuesday Swiss to extend his overall lead in the 2026\u201327 Champions Chess Tour standings. The finish keeps him atop the qualification leaderboard for the 2027 Esports World Cup.",
+    "date": "2026-11-03",
+    "people": [
+     "Hikaru Nakamura"
+    ],
+    "event": "Titled Tuesday",
+    "why_viewers_care": "Weekly Titled Tuesday events directly feed qualification points toward high-stakes international live esports finals."
+   },
+   {
+    "headline": "Magnus Carlsen Holds Spanish Training Camp with Nodirbek Abdusattorov",
+    "detail": "Before traveling to Budapest, Magnus Carlsen completed a training camp in Spain alongside world top-five grandmaster Nodirbek Abdusattorov, GM David Howell, and coach Peter Heine Nielsen. The collaboration highlighted Carlsen's focused preparation for the newly minted Total Chess circuit.",
+    "date": "2026-11-07",
     "people": [
      "Magnus Carlsen",
      "Nodirbek Abdusattorov",
-     "Peter Heine Nielsen",
-     "David Howell"
+     "David Howell",
+     "Peter Heine Nielsen"
     ],
-    "event": "Total Chess World Championship Tour Pilot 2026",
-    "why_viewers_care": "Carlsen is treating the multi-format experiment with championship-level seriousness, sparking major fan debate over the new multi-time-control format."
-   },
-   {
-    "headline": "GothamChess Selected to Host Budapest Total Chess Highlights Show",
-    "detail": "FIDE and Norway Chess announced the official broadcast crew for the Total Chess Pilot in Budapest, tapping Levy Rozman (GothamChess) to front daily recap coverage. The production aims to present fast-paced summaries of the 24-player elite competition across all three disciplines.",
-    "date": "2026-11-04",
-    "people": [
-     "Levy Rozman",
-     "Magnus Carlsen"
-    ],
-    "event": "Total Chess World Championship Tour Pilot 2026",
-    "why_viewers_care": "GothamChess is the internet's most-watched chess personality, bringing massive online viewership and energy directly to an official elite FIDE-endorsed tour event."
-   },
-   {
-    "headline": "Crown Prince of Selangor Opens FIDE World Amateur Chess Championships",
-    "detail": "The 2026 FIDE World Amateur Chess Championships officially commenced at the KSL Esplanade Hotel in Klang, Malaysia, gathering nearly 400 competitors across three rating categories. Royal Patron HRH Tengku Amir Shah opened the competition with a ceremonial blitz exhibition game against British Grandmaster Nigel Short.",
-    "date": "2026-11-06",
-    "people": [
-     "Tengku Amir Shah",
-     "Nigel Short",
-     "Nik Ahmad Farouqi",
-     "Tin Shan Wen"
-    ],
-    "event": "FIDE World Amateur Chess Championships 2026",
-    "why_viewers_care": "The championship is one of the premier international grassroots events for non-titled club players, highlighted by opening-round upsets against the top seeds."
-   },
-   {
-    "headline": "Elite Grandmasters Lead the Field at 29th Open Bavarian Championship",
-    "detail": "The 29th Open Bavarian Chess Championship got underway in Tegernsee, Germany, bringing together top seeds Frederik Svane, Jaime Santos Latasa, Alexander Donchenko, and Nijat Abasov. The 9-round classical Swiss tournament featured decisive tactical battles and early-round fights among 2600-rated contenders.",
-    "date": "2026-10-31",
-    "people": [
-     "Frederik Svane",
-     "Alexander Donchenko",
-     "Jaime Santos Latasa",
-     "Nijat Abasov"
-    ],
-    "event": "29th Open Bavarian Chess Championship",
-    "why_viewers_care": "Fans track the late-season European open circuit to see top grandmasters compete for rating gains and FIDE Circuit points."
+    "event": null,
+    "why_viewers_care": "Direct opening and sparring collaborations between active top-five world grandmasters are exceptionally rare."
    }
   ],
   "search_terms": [
-   "Total Chess Budapest 2026 Magnus Carlsen",
-   "World Junior Rapid Championship 2026 recap",
-   "Nona Gaprindashvili World Senior Championship 2026",
-   "GothamChess Total Chess highlights show",
-   "Open Bavarian Chess Championship 2026 games"
+   "Total Chess Budapest 2026",
+   "Magnus Carlsen blitz tiebreaker",
+   "Speed Chess Championship 2026",
+   "Gukesh vs Sindarov 2026",
+   "Hikaru Nakamura Titled Tuesday"
   ],
   "sources": [
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSkObVS5Xyxe8_w_Vu1OX-hvejFe23v92Fw2uvnkCUWTMF0oPihUNbN58wErGnHu7K8tBxz2_IzDX2k3ZCpvhpnWmKIXESW0E-sNy-nHH3NKI_Lfk7yPobZe_ITTmth1YZ3vdWvaO3Kuayj6Emi47q3dzcHTRsvefTBXraUhww58thBlo1ASdYO22VG04zic7BLxzAeJyZ8IkjE2gxlHJgqDWW4sE=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHwfgN-nW4OZS6C-YAb1x2e5NS2lq1HozXg3MgeLLlVJ6WwkLQqDWdxk_ovlJs3Qhn33qf5wZsQCgc0y4GzvOGKSi8IHgrINfinCnyFlEYjStdX9B89mUCsKL58BOARYxrfBagUFUknq5DdqsfCXMf7R2dLQn0JnVwps5oaHQqS7l1XS0NFcgGrQnGTvA6H",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFfQ31wjUN7FOr6j6XyDmLZ3j5UnHOygJSm2Jsey5ih1CX3Fq2oJ9alWivmeho7bH7S67Wjwz__IgWLfH_BMWnobIFTVHojklm9ZUQl51HwlWL79CO2Pbs8Y8t8H0uV-lqleSAnEbcDPdM66ebZV-XwgP5DCnFs6_GU0I2Jcar6G_f4VzsbbtM3SHgD3zQqgGmQf2tVRf0=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGjD66LP7nuTWlpc_jBJMXWr7nD6tHxYMRn-1VkKfe7SDxDcT2QxwDacUG-e9nyG7aYJxdCg8vBO7T1PULEo71pf8t7KAK9c8Hfgp-J_tezf7W8Oy-KIfDkKmm9zECMUE9_IJSFxVFyZOwvrVyIyCZKogxyajQn-bbPHq0ZIEy-wPiz0w1LR5zH2phTKF9_EykI8N85WnM_Kp5I6pdRyCxNUnAE8FsHOl4G5H8SHiiFEpZFVM1yomUeTQ==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6oCJzuyGWVrUsoGyaILIFQ0G6N6MZGoj6TEKVlTp4IDWa4YphEmW31QJRlh_w4qwOFBqP1L_AaAtdHpeghj33SkpkSAAVsRen1lrASdd0LsCFC-orN5lL32exADSx2kibrb68QCr_Ki-X4fM8ix0sVDxL0awzEyXpG5T7k4x6X-k0gOoPA3_PLC3HW7uhf36s5jG-vzgVCnbXczF5qIsjN7-SiTPr53Tr7MKdZjIQaOu_8LqFvK_fqMqX6GU=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGANkDqKhbsLNR17xR1M7EvnEelpP8mru09tB1m1EWz7aDyvU2vYZ2prgo1ITDoQKRktquenBD_-ePF5yRgxDzkeo78GRCo3feSTr7NaAgIj34ArNiKtS3NMG1u4ius0em4F28euOsmGX57nyInojZc3aF9xfp4F2XevnpV0BSDmlSM9qBr8m9X3rj5SSIq1RFXIllcmiJY6HbhXoQ3o5PbPQ==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGlFkuqYBuiF_loP6SVeltwTj8FHb5a6Z4xvY4nnup_0FhC7qs5aK1BTILY9mrGMovi7OJHlc8FUOBDyTS09tKp6MyZrxFoPxiune-EXS9WyaT4e4iZVCkfOQXWOyKabVgz5-XGEKzu5ZtNNVyYBmx2FZwSFLWJ7EhoGO9Y5vdYvV2wgAFduw==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFPuOogODqzuSRr9G9A0aLDgBcXJanBQNEudnAi16nY4lBG1hNLCjBcTkpsG26xXmdDCQQN8O2um8ha0SUkREmbId97h8ZIyg_p9r3r9UE82rU=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGHOKFCG5QRtfzTQWtefSxG_AeKF5eX47Ju4Qv7Qei6kFG_6VQJZ3TwmKh31pv_wh5bzbc4gMRAi-9woInWvdmdX-WaG9IOmYKpi9FPHV8k5kLjFfAqGYeuQ_8mo8Wbb9sL5Zvhhpo5NjhopFgIEd-wOkEgVeRxuZajlO69ZWxxZwOPFDgEkpGbNSkqgpLAoVU8SpTfh_o=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGto_hvtLYdKdXDZeJJRRe-YvAG43Cp196N0xBtKw260FSZfETvG-IRqqyM9NN3_xJXNK3WO0ScBS0i8sh8moM9fEbiNu92TDUgZn7GBYg=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE6Ka-df7ns51YN5BkW8RdZmXRA9zinyus-J6jt9r8WepsAcX-U30mJUOvxyUyfCkm4KSiC12lHO9_Bu5YHGb6VwDxJocTOcloZtbc6-ISyjzYLHncVm1-lKO_gBHVX-u7VphZ-T8RdLsu0mU2MDPbyhy1gzgEp1Hs99tkR5-g7LZHZQU0iqhl6Scd85Rrrb9vtXRg=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGpv1aOxjvbMwwLcso8XTKJXyZC2ogYLmCcm36a7rzqaK63fSOvzFDpPJ2Q8lnOp7PmWDfYl-TJy9u7DW-Y2uUQk50jMiOTaTkeQv-5B5PUw0i8_Z1VABoa-t9aYCYowjLl_M3YfO419Pc81UAKVUkXUb-bkd4m"
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQER56oNybFwgxHLKYyTxIZCuccIB-477SaaPUDu9uDU2Zo55t7NIEOPP-J4iFOaUMXzK6aqGOj-bPxVu_UHlLNuoCWNA7oBaa-a5AL4pWM4tE7a162D75-OOioYxjJ6MgYE3b_8_1yFhgvN8tcsEVO5BoZI7hBLvqEeAMRPUWlYNmrN4BF-roEUy55NZayge8qmHygdE8lx0NANAJ0GoQ==",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8t_ihv5nAuyvcVJDh2Aos2lfJuCE2IJCnhIq23XBc6GWbbyDsjvZjGbEgV4CZaBQBQfFsztZNNvhyZy4tFBydB-fFP-ccWywTTDjFnJhEGwmcz6NivmLcgaYjM4Gh4HD1N64NZ4LN0UcvM5xaMbdCq8Pq19Ie4Z1pLAS9UDD1HeFdUJ1IWgpOnpA=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECC-kcMMfgHF2Pb6Ke-V8jc3PeoxV2stgdeqvngdbBnvkVa8dUFKEZVj65xrj3c7ciVv73XfZrbstt1o_Xnpe-9qKeMTHlc6b9a8CCIUI4bUqITVgBdcZxMuEqk2XgGU1PYtjeBKH2OUyMPNrHfl-NuvTCkFsoUueopN7t8RI4rpjI7Meg9ZZFY3M=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF5OaNsrAOJOlX5Z_pGjkTQ9Z97ZMQqdKZv-0l8VlGCZHUNkdwi5SrsQBeYLlt0Cs6IaY-tj9DgJYAL2IjA0ZbVtFFdDjxsSlIB_10x2peui6yzIb8zhRXKY7bDA2Tu9XGEIRgc9Imp2qLgJuloim-hiH66Ujp8JWbd7RKiXbw=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzZGNjEvpZxjYlYmcw09B-S2MzXz-etO8-g8kwzbjayP5iyUfa8aYoKXX9GUVSEuD5s535bwcKwdiKBDZpzcgNdeqZBKjvBt1whrSc17wkcpomRBAUd5ywxFWeumYi_l_mUb68jRjLxLBiIVLWFfZP3pxg1t5Vu5jOkJtKiZFBjyhmv83L4zeDsLREi_e29LidCVZ9K1Qz",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFR3zosg6bEnb8oOcObnJTmdnD2cABpIRbaGbJkOqS25qiuBswE2Iu-7kuWA_iXQaftb1-WZFlGx_Z_gIvCrB7R-DNoqUwtl7oYXjMJYPyXmJHqvY12g9mLxIQ8DuNCugUfpMRo3ljl4uLsDpNKP_fWl9Qfc0bIKrmnoKyj5kLmsO6tH8os2OOpbDeXfLFaJAonGNoJdWmJIeOV7I_PvNZQuoRGmQBJ3WQVPdbXsWtmpU0DYglrBT26e7O-qAPJDqbeMMAdSyszcQp84ULmo0cYbTlzFY_PD8z_gSl5EAWfNNvKSEk=",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqMG8KPZ2WXufKlK_gCa0t5QaI8GcrQnnkjw6ukJS3WFyq-2LYrWDeD93eVX4OgcbZopn6GV3TmwxprMZqIkeP0xjb3pAAEWBpPCj1_lECmv41lVaNPNDFMJy9VLbEkJ42z1zCTQkIEUYE63gSFnLXpFumWJLx",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFKdvjBWppSeXqeG48s0BkGyAcxXQtg9LmaHGZegPb6d-X0BNTYvW8fM5dFNgGl-KmGOqWOrWV_cmCgYAuR8f2x37X9LEGH65Le6AMFapwwIFmD0GTycuTVx_kY03cnwslz",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEIUJDQoWSZPA6I5rrngzI5sqwACJrO25eRgAjLeaSt8seCFGdulOO2EwThSGD-rsJ-nnnLlgyL7HMw9w8s1PMwcjAE02aKq7_TgPvMvdZ3FWtTO836Mmdbs_qBn2802HqRbzW6wav3-xhDfkrFiiwlFgnD3yYmMJyeRBh9dXf84IJNYal40ebKJqXP2FcIb5h5",
+   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFwLkAxC0WMRSI-oIu8wP3W6vUHeYPkdVwTgD7pXLuXT1qiOumKp0YhZ6Ht5PgSlxXTLwblGg2IqoQRJozLqnCYz9Rix3K332I6VZHDxHsUX9ti6SjR4r5s-80v7yEKPNx1L6oDb0ARz9fpc2pUzUplyviiFz3haawbYefF1WPPs4A-n_DyefcQafuTTYgVIJYSctYrc3bMU_8cH_pHVh1hRnwt83zJ8x_phijZR_Zt9ow7z5X3CM2lrekFD_I="
   ]
  },
  "suggest": {
   "chess tactics": [
    "chess tactics",
-   "chess tactics for beginners",
    "chess tactics training",
    "chess tactics explained",
    "chess tactics gothamchess",
+   "chess tactics for beginners",
    "chess tactics hikaru",
    "chess tactics from scratch",
    "chess tactics for kids",
@@ -141,19 +135,30 @@
   "chess tricks": [
    "chess tricks",
    "chess tricks for beginners",
+   "chess tricks to win fast",
    "chess tricks checkmate",
    "chess tricks and traps",
    "chess tricks for black",
    "chess tricks and tips",
    "chess tricks in telugu",
    "chess tricks to win fast for beginners",
-   "chess tricks in tamil",
-   "chess tricks in hindi"
+   "chess tricks in tamil"
   ],
-  "Total Chess Budapest 2026 Magnus Carlsen": [
-   "magnus carlsen vs queen's gambit"
+  "Total Chess Budapest 2026": [],
+  "Magnus Carlsen blitz tiebreaker": [
+   "magnus carlsen blitz 2023"
   ],
-  "World Junior Rapid Championship 2026 recap": [],
-  "Nona Gaprindashvili World Senior Championship 2026": []
+  "Speed Chess Championship 2026": [
+   "speed chess championship 2026",
+   "speed chess championship 2026 final",
+   "speed chess championship 2026 women",
+   "speed chess championship 2026 semi final",
+   "blitz chess championship 2026",
+   "blitz chess championship 2026 final",
+   "women's speed chess championship 2026 final",
+   "rapid blitz chess championship 2026",
+   "chess blitz tournament 2026",
+   "women's speed chess championship 2026 live"
+  ]
  }
 }

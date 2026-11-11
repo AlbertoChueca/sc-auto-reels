@@ -1,11 +1,11 @@
 # Chess Coach (15 Years Teaching) - notebook
-_Updated 2026-11-07_
+_Updated 2026-11-10_
 
 # Chess Coach (15 Years Teaching) - notebook
-_Updated 2026-11-05_
+_Updated 2026-11-08_
 
-- Rigorously audit tactical labels: verify overloads vs. forks, and skewer alignments vs. pins before scripting.
-- Track every intermediate ply to ensure move sequences (e.g. e4 followed by fxe3) are fully explained.
-- Confirm piece defenders and king capture targets (e.g. Kxg5) explicitly to eliminate line ambiguity.
-- Ground puzzle refutations in relatable club blunders: greedy pawn grabs, reflex checks, and autopiloting.
-- Anchor lessons with sticky, metaphorical Coach's Rules.
+- Verify all board threats precisely: distinguish immediate mate threats from multi-move breakthroughs.
+- Spell out forced replies in intermediate tactics (e.g. 20.Rxe7+ forcing 20...Nxe7) to eliminate blind spots.
+- Audit setup scripts to scrub inadvertent tactical spoilers (e.g. 'double check', 'skewer alignment') before the clock starts.
+- Accurately categorize tactical motifs: separate overloads from forks, and skewers from pins.
+- Anchor refutations in common club blunders: premature swagger, greedy pawn grabs, and reflex checks.

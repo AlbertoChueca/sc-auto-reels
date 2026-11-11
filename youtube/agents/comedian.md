@@ -1,11 +1,11 @@
 # Voice & Humor Editor - notebook
-_Updated 2026-11-07_
+_Updated 2026-11-10_
 
 # Voice & Humor Editor - notebook
-_Updated 2026-11-05_
+_Updated 2026-11-08_
 
-- Cut standard chess-speak ('clamps down on counterplay') in favor of cheeky physical banter.
-- Ground tactical commentary in visceral player behaviors: 'sitting on your hands', 'donating material', 'hungry for snacks'.
-- Punch up endgames and pawn races with lively characterizations of tourist kings and runaway pawns.
-- Zero tolerance for AI filler words: 'dive in', 'dive into', 'unlock', 'masterclass'.
-- Give each Coach's Rule a memorable, witty bite.
+- Zero tolerance for AI filler words: eliminate 'masterclass', 'dive in', 'dive into', and 'unlock'.
+- Exploit the opponent's premature swagger and false security right before the tactical hammer drops.
+- Ground chess commentary in visceral physical actions: 'ignoring the burning house', 'monarch stripped of cover', 'looting the boss'.
+- Replace textbook jargon with snappy, irreverent club-player observations.
+- Give Coach's Rules a sharp, memorable, comedic punchline.

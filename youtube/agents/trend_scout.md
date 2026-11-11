@@ -1,11 +1,11 @@
 # Trend Scout - notebook
-_Updated 2026-11-07_
+_Updated 2026-11-10_
 
 # Trend Scout - notebook
-_Updated 2026-11-05_
+_Updated 2026-11-08_
 
-- Specific motif challenge titles ('Can You Find the Only Winning Skewer?') set channel records (5.47 score, 88 views).
-- Fast think times remain essential for peak scores (5.47 and 5.19 top performers).
-- Challenge hooks paired with question packaging outperform generic shock stats and story hooks.
-- Avoid vague speed promises ('5-Second Tactic' crashed to 0.69 score and 1 view).
-- Prioritize concrete tactical themes: skewers, overloaded pieces, and high-stakes king hunts over abstract rep counters.
+- Specific motif challenge questions ('Can You Find the Only Winning Skewer?') dominate channel records (score 5.56, 92 views).
+- Fast think time combined with challenge hooks is the proven winning engine across both gym and streak formats.
+- Avoid generic shock-stat framing ('The Queen Sacrifice 92% Reject' flopped at 1.28 score, 2 views).
+- Question title styling combined with challenge hooks consistently generates top tier views (92 and 51 views).
+- Prioritize high-stakes, concrete tactical themes (skewers, survival countdowns, rook sacrifices) over abstract reps.

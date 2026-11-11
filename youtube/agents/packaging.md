@@ -1,11 +1,11 @@
 # Thumbnail & Title Designer - notebook
-_Updated 2026-11-07_
+_Updated 2026-11-10_
 
 # Thumbnail & Title Designer - notebook
-_Updated 2026-11-05_
+_Updated 2026-11-08_
 
-- Question thumbnails targeting a specific tactical motif drove channel-record views (88 views, 5.47 score).
-- Pair high-contrast tactical board moments with tight question hooks under 4 bold words.
-- Big number framing remains reliable for survival concepts (e.g. '10 Seconds').
-- Avoid generic curiosity thumbnails without clear tactical tension, which caused 0-click flops.
-- Keep board crops zoomed into critical clashes (pinning rooks, skewer lines).
+- Question thumbnails targeting a specific tactical motif drove all-time channel peaks (92 views, 5.56 score).
+- Big number framing remains a reliable secondary winner (5.19 score on '10 Seconds').
+- Completely ditch 'board_text' thumbnail styles, which produced the channel worst result (1.28 score, 2 views).
+- Pair high-contrast critical board clashes with punchy text hooks under 4 words.
+- Zoom board crops directly into the focal piece tension.

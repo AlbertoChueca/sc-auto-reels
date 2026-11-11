@@ -1,11 +1,11 @@
 # Showrunner - notebook
-_Updated 2026-11-07_
+_Updated 2026-11-10_
 
 # Showrunner - notebook
-_Updated 2026-11-05_
+_Updated 2026-11-08_
 
-- Pair fast think times with direct challenge hooks for maximum retention and view velocity.
-- Tactical motif gyms ('Only Winning Skewer') can outperform streaks if centered on a crisp, singular challenge.
-- Audit notation and intermediate moves strictly (e.g. explain intermediate exchanges before pawn captures).
-- Enforce metaphorical Coach's Rules ('If the king is in a casket, don't look for a better hammer') over dry procedural tips.
-- Mandate board perspective (White/Black) in sentence one.
+- Anchor programming on fast think-times paired with direct challenge hooks (5.56 score peak).
+- Tactical motif gyms centered on a crisp, singular question outperform all other formats.
+- Protect puzzle purity: never allow setups to spoil tactical mechanisms (e.g. double check) before the timer runs.
+- Ensure forced replies (e.g. 20.Rxe7+ forces 20...Nxe7) are spoken aloud so audio listeners track the board state seamlessly.
+- Require orientation (White/Black) in sentence one and memorable metaphorical Coach's Rules.

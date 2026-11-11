@@ -38,10 +38,10 @@
   "title": "Chess Calculation: Can You Survive 10 Seconds?"
  },
  "bpXYErMMkYo": {
-  "views": 7,
-  "estimatedMinutesWatched": 18,
-  "averageViewDuration": 181,
-  "averageViewPercentage": 37.33,
+  "views": 9,
+  "estimatedMinutesWatched": 26,
+  "averageViewDuration": 196,
+  "averageViewPercentage": 40.41,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -57,10 +57,10 @@
   "title": "Chess Calculation: 3 Deadly Pins Club Players Butcher"
  },
  "UdXeLEQtjao": {
-  "views": 28,
-  "estimatedMinutesWatched": 37,
-  "averageViewDuration": 97,
-  "averageViewPercentage": 21.84,
+  "views": 32,
+  "estimatedMinutesWatched": 45,
+  "averageViewDuration": 103,
+  "averageViewPercentage": 23.18,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -76,10 +76,10 @@
   "title": "Chess Calculation: Can You Win Down Both Rooks?"
  },
  "WFGpl1sHv1M": {
-  "views": 37,
-  "estimatedMinutesWatched": 50,
-  "averageViewDuration": 100,
-  "averageViewPercentage": 16,
+  "views": 51,
+  "estimatedMinutesWatched": 64,
+  "averageViewDuration": 90,
+  "averageViewPercentage": 14.32,
   "subscribersGained": 0,
   "likes": 1,
   "comments": 0,
@@ -95,10 +95,10 @@
   "title": "Chess Calculation: Spot Tactics in 7 Seconds"
  },
  "u9l8OfLblKw": {
-  "views": 88,
-  "estimatedMinutesWatched": 51,
-  "averageViewDuration": 85,
-  "averageViewPercentage": 19.35,
+  "views": 92,
+  "estimatedMinutesWatched": 59,
+  "averageViewDuration": 91,
+  "averageViewPercentage": 20.51,
   "subscribersGained": 0,
   "likes": 1,
   "comments": 0,
@@ -114,10 +114,10 @@
   "title": "Can You Find the Only Winning Skewer?"
  },
  "3vtcxe56NqI": {
-  "views": 1,
-  "estimatedMinutesWatched": 0,
-  "averageViewDuration": 0,
-  "averageViewPercentage": 0,
+  "views": 5,
+  "estimatedMinutesWatched": 5,
+  "averageViewDuration": 167,
+  "averageViewPercentage": 28.87,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -131,5 +131,24 @@
    "think_time": "fast"
   },
   "title": "The 5-Second Tactic 90% of Players Miss"
+ },
+ "VZp148QSjbk": {
+  "views": 2,
+  "estimatedMinutesWatched": 0,
+  "averageViewDuration": 17,
+  "averageViewPercentage": 4.47,
+  "subscribersGained": 0,
+  "likes": 0,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-11-07",
+  "arms": {
+   "format": "legendary",
+   "hook_style": "shock_stat: open with a surprising, true observation about how club players lose games to missed tactics",
+   "title_style": "number: a specific number (10 puzzles, 3 steps, 1 move)",
+   "thumb_style": "board_text",
+   "think_time": "fast"
+  },
+  "title": "Chess Calculation: The Queen Sacrifice 92% Reject"
  }
 }
