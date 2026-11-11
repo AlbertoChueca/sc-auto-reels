@@ -34,7 +34,7 @@ _Updated 2026-11-11 · 93 reels with results (3+ days old) · average score 7.89
 |---|---|---|
 | advanced | 15 | 8.16 |
 | intermediate | 30 | 7.97 |
-| basic | 48 | 7.74 |
+| basic | 48 | 7.75 |
 
 ## think_time
 
