@@ -1,7 +1,5 @@
-# Visual notebook (2026-11-10)
+# Visual notebook (2026-11-11)
 
-# Visual notebook (2026-11-10)
-
-• Keep doing: Giving audiences extended solve windows (`think_time=long`) alongside ultra-clean board contrast, powering our top 33.8s watch-time benchmark.
-• Stop doing: Quick answer reveals (`think_time=fast`) that force viewers off the board before they can calculate.
-• Try next: Experiment with subtle focal lighting on key defender squares during the think timer to aid phone readability. Data is too thin to prove whether board highlight effects lift watch duration over static clean presentations.
+• Keep doing: Generous calculation windows (`think_time=long`), which powered our peak 33.8s watch-time benchmark and top overall score (11.49).
+• Stop doing: Fast-paced answer reveals (`think_time=fast`) that cut calculation short and compress watch times under 16s.
+• Try next: Experiment with subtle focus lighting that highlights the overloaded or pinned defender during the final countdown seconds. Data is too thin to prove whether focal square lighting increases completion rates on mobile screens.

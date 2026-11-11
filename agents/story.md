@@ -1,7 +1,5 @@
-# Story notebook (2026-11-10)
+# Story notebook (2026-11-11)
 
-# Story notebook (2026-11-10)
-
-• Keep doing: Lean, immediate story setups (`story_length=short`) tied directly to Vektor's daily streak or tournament survival, presenting the critical move without delay.
-• Stop doing: Narrative padding or conversational side-plots that delay the board and sink scores below 9.5.
-• Try next: Test intense tournament-clock pressure scenarios against established rivals like Bishop Blaze where each second counts. Data is too thin to show whether travel tournament settings generate more saves and shares than daily home training arcs.
+• Keep doing: Punchy, minimal narrative setups (`story_length=short`) tied directly to Vektor's streak survival or tournament stakes, dominating our top 3 reels (scores 11.11–11.49).
+• Stop doing: Low-urgency casual scenarios like casual school club games, which sank views to 704 and scores to 9.44.
+• Try next: Test intense clock-scramble scenarios against Bishop Blaze where solving the tactical flaw preserves Vektor's tournament life. Data is too thin to prove whether tournament travel settings generate more saves than home training sessions.
