@@ -1,14 +1,14 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-11-11 · 93 reels with results (3+ days old) · average score 7.89_
+_Updated 2026-11-12 · 95 reels with results (3+ days old) · average score 7.94_
 
 
 ## hook_style
 
 | option | reels | avg score |
 |---|---|---|
-| the_irresistible_bait | 6 | 10.03 |
-| cliffhanger | 11 | 8.85 |
+| the_irresistible_bait | 7 | 10.12 |
+| cliffhanger | 12 | 8.97 |
 | challenge | 11 | 8.53 |
 | countdown_trap | 18 | 8.45 |
 | big_dream | 17 | 7.57 |
@@ -20,8 +20,8 @@ _Updated 2026-11-11 · 93 reels with results (3+ days old) · average score 7.89
 | option | reels | avg score |
 |---|---|---|
 | daily training to keep the streak alive | 17 | 9.09 |
-| cracking Bishop Blaze's secret playbook | 15 | 8.56 |
-| scouting the champion's signature trap | 3 | 8.25 |
+| scouting the champion's signature trap | 4 | 8.75 |
+| cracking Bishop Blaze's secret playbook | 16 | 8.69 |
 | travelling to a new place for a tournament | 11 | 8.13 |
 | lesson or secret test from Coach King | 15 | 7.71 |
 | school chess club with friends | 8 | 7.20 |
@@ -32,8 +32,8 @@ _Updated 2026-11-11 · 93 reels with results (3+ days old) · average score 7.89
 
 | option | reels | avg score |
 |---|---|---|
-| advanced | 15 | 8.16 |
-| intermediate | 30 | 7.97 |
+| advanced | 16 | 8.30 |
+| intermediate | 31 | 8.06 |
 | basic | 48 | 7.75 |
 
 ## think_time
@@ -41,28 +41,28 @@ _Updated 2026-11-11 · 93 reels with results (3+ days old) · average score 7.89
 | option | reels | avg score |
 |---|---|---|
 | normal | 37 | 8.09 |
-| long | 46 | 7.96 |
+| long | 48 | 8.06 |
 | fast | 10 | 6.81 |
 
 ## story_length
 
 | option | reels | avg score |
 |---|---|---|
-| short | 42 | 8.45 |
+| short | 44 | 8.54 |
 | normal | 51 | 7.42 |
 
 ## format
 
 | option | reels | avg score |
 |---|---|---|
-| tip | 54 | 8.98 |
+| tip | 56 | 9.03 |
 | story | 12 | 6.57 |
 
 ## reveal
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 63 | 8.64 |
+| comments | 65 | 8.70 |
 
 ---
 # Playbook (updated 2026-11-02)

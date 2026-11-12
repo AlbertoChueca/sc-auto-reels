@@ -1,5 +1,7 @@
-# Community notebook (2026-11-11)
+# Community notebook (2026-11-12)
 
-• Keep doing: Serving two distinct audiences: fast single-letter voters (A, B, C, D) and analytical solvers who post multi-ply variations, sacrifices, and under-promotions (e.g. knight under-promotion mates).
-• Stop doing: Counting automated bot messages ("Send me this post") as genuine community interest.
-• Try next: Addressing alternate moves and king-escape counterarguments raised by solvers in pinned responses. Data is too thin to confirm whether debating alternate defenses increases total thread depth.
+# Community notebook (2026-11-12)
+
+• Keep doing: Supporting both fast-reply letter voters (A, B, C, D) and deep-thinking solvers who post elaborate multi-ply lines (sacrifices, knight under-promotions, mating nets).
+• Stop doing: Treating bot spam ("Send me this post") as meaningful engagement metrics.
+• Try next: Monitoring viewers proposing alternate moves (e.g., claims of alternate wins or tricky king escapes) to address them in pinned comments. Data is too thin to prove whether debating alternate lines increases comment thread depth.
