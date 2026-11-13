@@ -327,5 +327,15 @@
 "setting": "a rooftop overlooking the city",
 "lesson": "king",
 "teaser": "At the grand terminal, Bishop Blaze locks the tournament gates with a clockwork timer."
+},
+{
+"title": "The Steaming Cocoa Checkmate",
+"summary": "Locked outside the arena, Vektor and Pip shelter in a rainy caf\u00e9 where Pip decodes Bishop Blaze's secret playbook over steaming cocoa, teaching Vektor to calculate until the position is quiet.",
+"puzzle": "BgmCr",
+"format": "tournament drama: a key game with everything at stake",
+"spotlight": "Pip",
+"setting": "a rainy caf\u00e9 with steaming hot chocolate",
+"lesson": "end",
+"teaser": "The unlocked arena gates reveal Coach King's grand tournament stage waiting in silence."
 }
 ]
