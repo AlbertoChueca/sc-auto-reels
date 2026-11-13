@@ -2494,7 +2494,7 @@
 "shares": 2,
 "saved": 2,
 "total_interactions": 32,
-"ig_reels_avg_watch_time": 18006
+"ig_reels_avg_watch_time": 18010
 },
 "17965540359079446": {
 "slot": "story",
@@ -3138,14 +3138,14 @@
 "date": "2026-11-12",
 "permalink": "https://www.instagram.com/reel/DfokONXDL_5/",
 "type": "REELS",
-"views": 205,
-"reach": 171,
+"views": 207,
+"reach": 173,
 "likes": 2,
 "comments": 1,
 "shares": 0,
 "saved": 0,
 "total_interactions": 3,
-"ig_reels_avg_watch_time": 6421
+"ig_reels_avg_watch_time": 6378
 },
 "18063435095535645": {
 "slot": "story",
@@ -3167,14 +3167,14 @@
 "date": "2026-11-12",
 "permalink": "https://www.instagram.com/reel/Dfn9BZkCkrs/",
 "type": "REELS",
-"views": 1250,
-"reach": 1008,
+"views": 1255,
+"reach": 1010,
 "likes": 19,
-"comments": 6,
+"comments": 7,
 "shares": 2,
 "saved": 1,
-"total_interactions": 28,
-"ig_reels_avg_watch_time": 16184
+"total_interactions": 29,
+"ig_reels_avg_watch_time": 16211
 },
 "18361804129168341": {
 "slot": "story",
@@ -3196,13 +3196,13 @@
 "date": "2026-11-11",
 "permalink": "https://www.instagram.com/reel/DfnpezlD-bf/",
 "type": "REELS",
-"views": 1176,
-"reach": 982,
+"views": 1181,
+"reach": 987,
 "likes": 10,
-"comments": 5,
+"comments": 6,
 "shares": 0,
 "saved": 0,
-"total_interactions": 15,
-"ig_reels_avg_watch_time": 14498
+"total_interactions": 16,
+"ig_reels_avg_watch_time": 14518
 }
 }

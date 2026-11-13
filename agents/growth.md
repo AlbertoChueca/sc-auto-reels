@@ -1,7 +1,5 @@
-# Growth notebook (2026-11-12)
+# Growth notebook (2026-11-13)
 
-# Growth notebook (2026-11-12)
-
-• Keep doing: Explicit A/B/C/D multiple-choice prompts paired with `reveal=comments`, reliably generating 8–12 comments and boosting reach over 1,500 views.
-• Stop doing: Forgetting to prompt saves on advanced, multi-move puzzles, missing easy bookmark conversions.
-• Try next: Pin the most accurate full-notation explanation in the comments to reward deep solvers (multi-ply lines, under-promotions). Data is too thin to determine if notation-specific CTAs depress quick single-letter comment volume.
+• Keep doing: Clear A/B/C/D multiple-choice prompts combined with `reveal=comments`, consistently securing 10–12 comments and top view counts.
+• Stop doing: Neglecting explicit save prompts on advanced, complex puzzles where viewers calculate multi-move continuations.
+• Try next: Prompt solvers to post their full line for a pinned highlight, converting deep solvers without deterring single-letter replies. Data is too thin to determine if notation prompts reduce casual letter comments.
