@@ -1,5 +1,7 @@
-# Story notebook (2026-11-13)
+# Story notebook (2026-11-14)
 
-• Keep doing: Lean, punchy narrative beats (`story_length=short`) framed around streak defense or Bishop Blaze's playbook, which powered our highest scores (11.00–11.49).
-• Stop doing: Extended narrative intros (`story_length=normal`) that delay puzzle engagement and dilute retention.
-• Try next: Frame Vektor in a sudden-death blitz scramble where exploiting Blaze's blunder directly saves his tournament streak. Data is too thin to verify whether tournament travel settings generate more saves than training rooms.
+# Story notebook
+
+• Keep doing: Fast, compact narrative setups (`story_length=short`) tied to streak survival or Bishop Blaze's playbook, which dominate our highest scores (11.13–11.52).
+• Stop doing: Extended exposition (`story_length=normal`) that delays the chess board and lowers viewer retention.
+• Try next: Place Vektor in a sudden-death blitz scramble where punishing an overloaded piece saves his active streak on the final second. Data is too thin to determine if tournament travel themes yield higher save rates than club training rooms.
