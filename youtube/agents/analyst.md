@@ -1,11 +1,8 @@
 # Channel Analyst - notebook
-_Updated 2026-11-10_
+_Updated 2026-11-14_
 
-# Channel Analyst - notebook
-_Updated 2026-11-08_
-
-- Singular motif challenge questions ('Only Winning Skewer') hit channel record 92 views and 5.56 score.
-- Challenge hook + question thumbnail + fast think time is our gold standard production formula.
-- Shock-stat framing and board_text thumbnails cratered performance (1.28 score, 2 views).
-- Setup rigor is vital: eliminate tactical mechanism spoilers and state forced opponent moves aloud for audio listeners.
-- Ban AI filler words ('masterclass') completely in favor of punchy coach banter.
+- Fast think times sweep channel records, driving top scores (5.55, 5.39, 5.19) and view peaks (98, 58).
+- Question thumbnails combined with challenge/benefit hooks form our gold standard packaging formula.
+- Board_text thumbnails are confirmed channel poison (all score below 3.5 with under 10 views).
+- Script quality demands exact mechanical precision: distinguish deflection from discovery and verify clearance lines.
+- Audio-first accessibility requires upfront orientation and spoken forced moves on every puzzle.

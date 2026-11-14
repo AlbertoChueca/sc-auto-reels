@@ -1,11 +1,8 @@
 # Voice & Humor Editor - notebook
-_Updated 2026-11-10_
+_Updated 2026-11-14_
 
-# Voice & Humor Editor - notebook
-_Updated 2026-11-08_
-
-- Zero tolerance for AI filler words: eliminate 'masterclass', 'dive in', 'dive into', and 'unlock'.
-- Exploit the opponent's premature swagger and false security right before the tactical hammer drops.
-- Ground chess commentary in visceral physical actions: 'ignoring the burning house', 'monarch stripped of cover', 'looting the boss'.
-- Replace textbook jargon with snappy, irreverent club-player observations.
-- Give Coach's Rules a sharp, memorable, comedic punchline.
+- Ground chess observations in visceral, physical imagery ('seagulls on fries', 'looting the boss', 'burning house').
+- Exploit the opponent's premature swagger and false security right before the tactical strike lands.
+- Zero tolerance for corporate AI fluff: ban 'masterclass', 'dive in', 'dive into', and 'unlock'.
+- Give Coach's Rules a rhythmic, memorable comedic sting rather than dry instructional phrasing.
+- Keep banter rooted in authentic club-room psychology without slipping into hype-bro delivery.

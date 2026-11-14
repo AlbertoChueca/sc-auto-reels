@@ -1,99 +1,86 @@
 {
- "date": "2026-11-10",
+ "date": "2026-11-14",
  "news": {
   "items": [
    {
-    "headline": "Magnus Carlsen Wins Opening Blitz Swiss at Total Chess Pilot in Budapest",
-    "detail": "Magnus Carlsen finished unbeaten on 7/9 to win the opening nine-round Blitz Swiss at the inaugural Total Chess World Championship Tour Pilot in Budapest. Maxime Vachier-Lagrave placed second with 6.5 points, while Levon Aronian finished third on 6 points.",
-    "date": "2026-11-10",
+    "headline": "Fabiano Caruana Reaches 2800 Live Rating and Threatens Carlsen's World No. 1 Spot",
+    "detail": "Fabiano Caruana defeated Vincent Keymer at the Total Chess Pilot in Budapest, pushing his live rating to exactly 2800.0 and moving within 7.2 points of Magnus Carlsen's top spot. Caruana took commanding control of Group B with 14 points after six games.",
+    "date": "2026-11-13",
     "people": [
+     "Fabiano Caruana",
      "Magnus Carlsen",
-     "Maxime Vachier-Lagrave",
-     "Levon Aronian"
+     "Vincent Keymer"
     ],
     "event": "Total Chess World Championship Tour Pilot 2026",
-    "why_viewers_care": "The event debuts an ambitious new multi-format circuit combining blitz, rapid, and fast classical controls to determine an official FIDE World Combined Champion."
+    "why_viewers_care": "Carlsen's 15-year unbroken streak as world number one is under immediate threat as Caruana closes the rating margin to single digits."
    },
    {
-    "headline": "Chess.com Announces Speed Chess Championship XI With London Live Finals",
-    "detail": "Chess.com announced the 10th anniversary edition of the Speed Chess Championship featuring a $250,000 prize fund. The bracket brings together heavyweights Magnus Carlsen and Hikaru Nakamura, who have each claimed five SCC titles over the past decade.",
-    "date": "2026-11-03",
+    "headline": "Haik Martirosyan Stuns Magnus Carlsen to Take Sole Lead in Group C",
+    "detail": "Armenian Grandmaster Haik Martirosyan defeated Magnus Carlsen with the white pieces before holding him to a draw in their rematch on Day 3 of the group stage in Budapest. The result propelled Martirosyan to clear first place in Group C with 10 points.",
+    "date": "2026-11-13",
     "people": [
-     "Magnus Carlsen",
-     "Hikaru Nakamura",
-     "Javokhir Sindarov"
+     "Haik Martirosyan",
+     "Magnus Carlsen"
     ],
-    "event": "Speed Chess Championship XI",
-    "why_viewers_care": "Carlsen and Nakamura enter tied at five titles apiece, setting up high stakes for who can break the tie in the London finals."
+    "event": "Total Chess World Championship Tour Pilot 2026",
+    "why_viewers_care": "Carlsen rarely loses classical-speed games, making Martirosyan's upset a viral sensation and a major shake-up in group qualification."
    },
    {
-    "headline": "Peter Svidler Analyzes Gukesh vs. Sindarov World Championship Clash",
-    "detail": "Grandmaster Peter Svidler stated he gives challenger Javokhir Sindarov a slight 55-45 advantage over reigning champion Gukesh Dommaraju ahead of their classical title match in Geneva. With both grandmasters aged 20, the contest will be the youngest World Championship match in history.",
+    "headline": "Magnus Carlsen Dominates Opening Blitz Swiss at Total Chess Pilot",
+    "detail": "Carlsen went undefeated with five wins and four draws to finish on 7/9 and win the inaugural Blitz Swiss tournament kicking off the Total Chess Pilot in Budapest. His run included wins over Jan-Krzysztof Duda, Richard Rapport, Arjun Erigaisi, Anish Giri, and Haik Martirosyan.",
     "date": "2026-11-10",
     "people": [
-     "Peter Svidler",
+     "Magnus Carlsen",
+     "Anish Giri",
+     "Jan-Krzysztof Duda"
+    ],
+    "event": "Total Chess World Championship Tour Pilot 2026",
+    "why_viewers_care": "Carlsen secured the top seeding and crucial tiebreaker edge for the brand-new multi-discipline championship circuit co-organized by FIDE and Norway Chess."
+   },
+   {
+    "headline": "Maxime Vachier-Lagrave Beats Hans Niemann to Clinch Sole Lead in Group D",
+    "detail": "Maxime Vachier-Lagrave defeated Hans Niemann to earn his third consecutive match victory during the Fast Classic stage in Budapest. The victory pushed Vachier-Lagrave into clear first place in Group D on 12 points.",
+    "date": "2026-11-13",
+    "people": [
+     "Maxime Vachier-Lagrave",
+     "Hans Niemann"
+    ],
+    "event": "Total Chess World Championship Tour Pilot 2026",
+    "why_viewers_care": "Group D is among the most competitive brackets in the event, and MVL's victory over the high-profile Niemann solidifies his drive toward the Knockout 1 championship bracket."
+   },
+   {
+    "headline": "Andrew Hong Delivers Shock Upset Over Group A Leader Alireza Firouzja",
+    "detail": "American GM Andrew Hong defeated Alireza Firouzja with White in round 3 after Firouzja reportedly mixed up colors in the opening game. Firouzja fought back with a win in the rematch to maintain the Group A lead with 11 points.",
+    "date": "2026-11-13",
+    "people": [
+     "Andrew Hong",
+     "Alireza Firouzja"
+    ],
+    "event": "Total Chess World Championship Tour Pilot 2026",
+    "why_viewers_care": "Hong's unexpected victory over one of the world's highest-rated players produced one of the most talked-about individual game upsets of the tournament."
+   },
+   {
+    "headline": "Anticipation Mounts for FIDE World Championship Match Between Gukesh and Sindarov",
+    "detail": "With the 2026 FIDE World Chess Championship match only 11 days away, grandmasters including Jan Gustafsson and Viswanathan Anand shared analysis of defending champion Gukesh Dommaraju against challenger Javokhir Sindarov. Sindarov enters the final stretch as a betting favorite on prediction markets like Kalshi.",
+    "date": "2026-11-13",
+    "people": [
      "Gukesh Dommaraju",
-     "Javokhir Sindarov"
+     "Javokhir Sindarov",
+     "Viswanathan Anand",
+     "Jan Gustafsson"
     ],
-    "event": "FIDE World Chess Championship 2026",
-    "why_viewers_care": "Anticipation is building around whether 20-year-old Gukesh can defend his crown against his fellow next-generation prodigy."
-   },
-   {
-    "headline": "European Youth Chess Championship 2026 Completes Round 7 in Crete",
-    "detail": "Nearly 1,250 young players from 49 federations reached round 7 at the European Youth Championship in Hersonissos, Greece. Notable leaders maintaining flawless 7/7 scores included Melike Eliz Karahan in Girls U8 and Han Nam Pham in Open U10.",
-    "date": "2026-11-10",
-    "people": [
-     "Melike Eliz Karahan",
-     "Han Nam Pham",
-     "Nikolas Bausys",
-     "Mateu Boci"
-    ],
-    "event": "European Youth Chess Championship 2026",
-    "why_viewers_care": "The tournament serves as the primary continental proving ground for identifying future international grandmasters."
-   },
-   {
-    "headline": "Hikaru Nakamura Strengthens Tour Standings Lead in November Titled Tuesday",
-    "detail": "Hikaru Nakamura secured second place in the November 3 Titled Tuesday Swiss to extend his overall lead in the 2026\u201327 Champions Chess Tour standings. The finish keeps him atop the qualification leaderboard for the 2027 Esports World Cup.",
-    "date": "2026-11-03",
-    "people": [
-     "Hikaru Nakamura"
-    ],
-    "event": "Titled Tuesday",
-    "why_viewers_care": "Weekly Titled Tuesday events directly feed qualification points toward high-stakes international live esports finals."
-   },
-   {
-    "headline": "Magnus Carlsen Holds Spanish Training Camp with Nodirbek Abdusattorov",
-    "detail": "Before traveling to Budapest, Magnus Carlsen completed a training camp in Spain alongside world top-five grandmaster Nodirbek Abdusattorov, GM David Howell, and coach Peter Heine Nielsen. The collaboration highlighted Carlsen's focused preparation for the newly minted Total Chess circuit.",
-    "date": "2026-11-07",
-    "people": [
-     "Magnus Carlsen",
-     "Nodirbek Abdusattorov",
-     "David Howell",
-     "Peter Heine Nielsen"
-    ],
-    "event": null,
-    "why_viewers_care": "Direct opening and sparring collaborations between active top-five world grandmasters are exceptionally rare."
+    "event": "FIDE World Championship Match 2026",
+    "why_viewers_care": "The undisputed world crown is on the line in under two weeks, igniting fierce community debate over Sindarov's momentum against Gukesh's title defense."
    }
   ],
   "search_terms": [
-   "Total Chess Budapest 2026",
-   "Magnus Carlsen blitz tiebreaker",
-   "Speed Chess Championship 2026",
-   "Gukesh vs Sindarov 2026",
-   "Hikaru Nakamura Titled Tuesday"
+   "Total Chess Pilot Budapest 2026",
+   "Carlsen vs Martirosyan Total Chess",
+   "Fabiano Caruana 2800 rating Carlsen",
+   "Gukesh vs Sindarov World Championship 2026",
+   "Firouzja vs Andrew Hong highlights"
   ],
-  "sources": [
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQER56oNybFwgxHLKYyTxIZCuccIB-477SaaPUDu9uDU2Zo55t7NIEOPP-J4iFOaUMXzK6aqGOj-bPxVu_UHlLNuoCWNA7oBaa-a5AL4pWM4tE7a162D75-OOioYxjJ6MgYE3b_8_1yFhgvN8tcsEVO5BoZI7hBLvqEeAMRPUWlYNmrN4BF-roEUy55NZayge8qmHygdE8lx0NANAJ0GoQ==",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8t_ihv5nAuyvcVJDh2Aos2lfJuCE2IJCnhIq23XBc6GWbbyDsjvZjGbEgV4CZaBQBQfFsztZNNvhyZy4tFBydB-fFP-ccWywTTDjFnJhEGwmcz6NivmLcgaYjM4Gh4HD1N64NZ4LN0UcvM5xaMbdCq8Pq19Ie4Z1pLAS9UDD1HeFdUJ1IWgpOnpA=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECC-kcMMfgHF2Pb6Ke-V8jc3PeoxV2stgdeqvngdbBnvkVa8dUFKEZVj65xrj3c7ciVv73XfZrbstt1o_Xnpe-9qKeMTHlc6b9a8CCIUI4bUqITVgBdcZxMuEqk2XgGU1PYtjeBKH2OUyMPNrHfl-NuvTCkFsoUueopN7t8RI4rpjI7Meg9ZZFY3M=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF5OaNsrAOJOlX5Z_pGjkTQ9Z97ZMQqdKZv-0l8VlGCZHUNkdwi5SrsQBeYLlt0Cs6IaY-tj9DgJYAL2IjA0ZbVtFFdDjxsSlIB_10x2peui6yzIb8zhRXKY7bDA2Tu9XGEIRgc9Imp2qLgJuloim-hiH66Ujp8JWbd7RKiXbw=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzZGNjEvpZxjYlYmcw09B-S2MzXz-etO8-g8kwzbjayP5iyUfa8aYoKXX9GUVSEuD5s535bwcKwdiKBDZpzcgNdeqZBKjvBt1whrSc17wkcpomRBAUd5ywxFWeumYi_l_mUb68jRjLxLBiIVLWFfZP3pxg1t5Vu5jOkJtKiZFBjyhmv83L4zeDsLREi_e29LidCVZ9K1Qz",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFR3zosg6bEnb8oOcObnJTmdnD2cABpIRbaGbJkOqS25qiuBswE2Iu-7kuWA_iXQaftb1-WZFlGx_Z_gIvCrB7R-DNoqUwtl7oYXjMJYPyXmJHqvY12g9mLxIQ8DuNCugUfpMRo3ljl4uLsDpNKP_fWl9Qfc0bIKrmnoKyj5kLmsO6tH8os2OOpbDeXfLFaJAonGNoJdWmJIeOV7I_PvNZQuoRGmQBJ3WQVPdbXsWtmpU0DYglrBT26e7O-qAPJDqbeMMAdSyszcQp84ULmo0cYbTlzFY_PD8z_gSl5EAWfNNvKSEk=",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqMG8KPZ2WXufKlK_gCa0t5QaI8GcrQnnkjw6ukJS3WFyq-2LYrWDeD93eVX4OgcbZopn6GV3TmwxprMZqIkeP0xjb3pAAEWBpPCj1_lECmv41lVaNPNDFMJy9VLbEkJ42z1zCTQkIEUYE63gSFnLXpFumWJLx",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFKdvjBWppSeXqeG48s0BkGyAcxXQtg9LmaHGZegPb6d-X0BNTYvW8fM5dFNgGl-KmGOqWOrWV_cmCgYAuR8f2x37X9LEGH65Le6AMFapwwIFmD0GTycuTVx_kY03cnwslz",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEIUJDQoWSZPA6I5rrngzI5sqwACJrO25eRgAjLeaSt8seCFGdulOO2EwThSGD-rsJ-nnnLlgyL7HMw9w8s1PMwcjAE02aKq7_TgPvMvdZ3FWtTO836Mmdbs_qBn2802HqRbzW6wav3-xhDfkrFiiwlFgnD3yYmMJyeRBh9dXf84IJNYal40ebKJqXP2FcIb5h5",
-   "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFwLkAxC0WMRSI-oIu8wP3W6vUHeYPkdVwTgD7pXLuXT1qiOumKp0YhZ6Ht5PgSlxXTLwblGg2IqoQRJozLqnCYz9Rix3K332I6VZHDxHsUX9ti6SjR4r5s-80v7yEKPNx1L6oDb0ARz9fpc2pUzUplyviiFz3haawbYefF1WPPs4A-n_DyefcQafuTTYgVIJYSctYrc3bMU_8cH_pHVh1hRnwt83zJ8x_phijZR_Zt9ow7z5X3CM2lrekFD_I="
-  ]
+  "sources": []
  },
  "suggest": {
   "chess tactics": [
@@ -101,12 +88,12 @@
    "chess tactics training",
    "chess tactics explained",
    "chess tactics gothamchess",
-   "chess tactics for beginners",
    "chess tactics hikaru",
    "chess tactics from scratch",
    "chess tactics for kids",
    "chess tactics for black",
-   "chess tactics books"
+   "chess tactics books",
+   "chess tactics opening"
   ],
   "chess puzzles": [
    "chess puzzles",
@@ -134,31 +121,23 @@
   ],
   "chess tricks": [
    "chess tricks",
-   "chess tricks for beginners",
    "chess tricks to win fast",
+   "chess tricks for beginners",
    "chess tricks checkmate",
    "chess tricks and traps",
    "chess tricks for black",
    "chess tricks and tips",
+   "chess tricks to win",
    "chess tricks in telugu",
-   "chess tricks to win fast for beginners",
-   "chess tricks in tamil"
+   "chess tricks to win fast for beginners"
   ],
-  "Total Chess Budapest 2026": [],
-  "Magnus Carlsen blitz tiebreaker": [
-   "magnus carlsen blitz 2023"
+  "Total Chess Pilot Budapest 2026": [],
+  "Carlsen vs Martirosyan Total Chess": [
+   "carlsen vs martirosyan"
   ],
-  "Speed Chess Championship 2026": [
-   "speed chess championship 2026",
-   "speed chess championship 2026 final",
-   "speed chess championship 2026 women",
-   "speed chess championship 2026 semi final",
-   "blitz chess championship 2026",
-   "blitz chess championship 2026 final",
-   "women's speed chess championship 2026 final",
-   "rapid blitz chess championship 2026",
-   "chess blitz tournament 2026",
-   "women's speed chess championship 2026 live"
+  "Fabiano Caruana 2800 rating Carlsen": [
+   "fabiano caruana vs magnus carlsen",
+   "fabiano caruana vs magnus"
   ]
  }
 }

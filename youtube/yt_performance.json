@@ -38,10 +38,10 @@
   "title": "Chess Calculation: Can You Survive 10 Seconds?"
  },
  "bpXYErMMkYo": {
-  "views": 9,
-  "estimatedMinutesWatched": 26,
-  "averageViewDuration": 196,
-  "averageViewPercentage": 40.41,
+  "views": 10,
+  "estimatedMinutesWatched": 34,
+  "averageViewDuration": 231,
+  "averageViewPercentage": 47.61,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -76,13 +76,13 @@
   "title": "Chess Calculation: Can You Win Down Both Rooks?"
  },
  "WFGpl1sHv1M": {
-  "views": 51,
-  "estimatedMinutesWatched": 64,
-  "averageViewDuration": 90,
-  "averageViewPercentage": 14.32,
+  "views": 58,
+  "estimatedMinutesWatched": 84,
+  "averageViewDuration": 103,
+  "averageViewPercentage": 16.45,
   "subscribersGained": 0,
-  "likes": 1,
-  "comments": 0,
+  "likes": 2,
+  "comments": 1,
   "shares": 1,
   "date": "2026-10-27",
   "arms": {
@@ -95,10 +95,10 @@
   "title": "Chess Calculation: Spot Tactics in 7 Seconds"
  },
  "u9l8OfLblKw": {
-  "views": 92,
-  "estimatedMinutesWatched": 59,
-  "averageViewDuration": 91,
-  "averageViewPercentage": 20.51,
+  "views": 98,
+  "estimatedMinutesWatched": 61,
+  "averageViewDuration": 82,
+  "averageViewPercentage": 18.6,
   "subscribersGained": 0,
   "likes": 1,
   "comments": 0,
@@ -114,10 +114,10 @@
   "title": "Can You Find the Only Winning Skewer?"
  },
  "3vtcxe56NqI": {
-  "views": 5,
-  "estimatedMinutesWatched": 5,
-  "averageViewDuration": 167,
-  "averageViewPercentage": 28.87,
+  "views": 8,
+  "estimatedMinutesWatched": 6,
+  "averageViewDuration": 78,
+  "averageViewPercentage": 13.459999999999999,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -133,10 +133,10 @@
   "title": "The 5-Second Tactic 90% of Players Miss"
  },
  "VZp148QSjbk": {
-  "views": 2,
-  "estimatedMinutesWatched": 0,
-  "averageViewDuration": 17,
-  "averageViewPercentage": 4.47,
+  "views": 7,
+  "estimatedMinutesWatched": 7,
+  "averageViewDuration": 76,
+  "averageViewPercentage": 19.11,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -150,5 +150,24 @@
    "think_time": "fast"
   },
   "title": "Chess Calculation: The Queen Sacrifice 92% Reject"
+ },
+ "0hDm4rHNhMM": {
+  "views": 5,
+  "estimatedMinutesWatched": 18,
+  "averageViewDuration": 221,
+  "averageViewPercentage": 42.19,
+  "subscribersGained": 0,
+  "likes": 0,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-11-11",
+  "arms": {
+   "format": "gym",
+   "hook_style": "challenge: dare the viewer to beat the video and keep score",
+   "title_style": "challenge: dares the viewer (can you...?)",
+   "thumb_style": "board_text",
+   "think_time": "long"
+  },
+  "title": "Can You Find the Decoy Sacrifice?"
  }
 }

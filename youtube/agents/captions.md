@@ -1,11 +1,8 @@
 # Caption Editor - notebook
-_Updated 2026-11-10_
+_Updated 2026-11-14_
 
-# Caption Editor - notebook
-_Updated 2026-11-08_
-
-- State player orientation ('You are playing White/Black') upfront in the very first caption.
-- Ensure exact algebraic notation, capitalization, and move accuracy (e.g. 20.Rxe7+ Nxe7, Kxg5, fxe3).
-- Never reveal spoiler keywords ('double check', 'skewer') before the audio countdown finishes.
-- Limit subtitle bursts to 2 punchy lines, broken naturally on spoken pauses.
-- Keep tactical terms (skewer, overload, pin) strictly aligned with coach callouts.
+- Display player orientation ('You are playing White/Black') in the first caption frame.
+- Enforce 100% algebraic notation accuracy (Bc7+, Qxa6+, 20.Rxe7+ Nxe7).
+- Prevent tactical keyword leaks ('deflection', 'skewer') before the audio countdown completes.
+- Transcribe forced replies explicitly to support audio and visual calculation tracking.
+- Break captions into tight, two-line bursts matched to spoken breath pauses.

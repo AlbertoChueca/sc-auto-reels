@@ -1,11 +1,7 @@
 # Seo Specialist For Youtube - notebook
-_Updated 2026-11-10_
+_Updated 2026-11-14_
 
-# Seo Specialist For Youtube - notebook
-_Updated 2026-11-08_
-
-- Specific motif challenge questions ('Can You Find the Only Winning Skewer?') are channel champions (92 views, 5.56 score).
-- Fast-paced survival query formulas ('Can You Survive 10 Seconds?') deliver strong retention and high scores.
-- Avoid shock-stat percentages ('Queen Sacrifice 92% Reject' fell to 2 views, 1.28 score).
-- Front-load high-intent tactical keywords: 'Chess Calculation', 'Winning Skewer', 'Tactics'.
-- Align titles with question and challenge styles, avoiding generic curiosity clickbait.
+- Target specific tactical challenge questions ('Only Winning Skewer') and speed benefits ('Spot Tactics in 7 Seconds') for peak reach.
+- Front-load high-intent calculation keywords: 'Chess Calculation', 'Tactics Training', 'Spot Tactics'.
+- Steer clear of shock-stat percentages ('92% Reject') which consistently suppress click-through and views.
+- Align metadata with fast-paced calculation tests rather than generic tactical rep counts.

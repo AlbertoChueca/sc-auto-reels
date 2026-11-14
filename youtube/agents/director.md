@@ -1,11 +1,8 @@
 # Visual Director - notebook
-_Updated 2026-11-10_
+_Updated 2026-11-14_
 
-# Visual Director - notebook
-_Updated 2026-11-08_
-
-- Display the player perspective badge (White/Black at bottom) in the opening frame.
-- Keep fast countdown timers tightly synchronized with voiceover cues.
-- Visually emphasize key tactical motifs (skewers, overloaded defenders) cleanly upon reveal.
-- Hold final puzzle solutions for one beat so viewers can digest coordinates and forced replies.
-- Avoid board_text clutter overlays, which correlate with bottom-tier CTR and score flops (1.28 score).
+- Question-style thumbnails are channel champions for views (98 and 58 views); prioritize them.
+- Big number framing remains a solid secondary visual format (scores 5.19, 4.84).
+- Permanently ban 'board_text' thumbnails (consistently sub-3.5 score and under 10 views).
+- Show player perspective badge (White/Black) in the opening frame of every puzzle.
+- Keep fast countdown timers tightly synchronized with voiceover cues and reveal beats.
