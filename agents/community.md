@@ -1,7 +1,5 @@
-# Community notebook (2026-11-14)
+# Community notebook (2026-11-15)
 
-# Community notebook
-
-• Keep doing: Monitoring engagement spikes around tactical archetypes (overloaded defenders, pins), which reliably produce our highest participation.
-• Stop doing: Assuming qualitative audience sentiment when incoming comments are exclusively single-letter votes (A, B, C, D).
-• Try next: Track whether prompt framing can coax solvers into explaining the refutation move in the comments. Data is currently too thin to identify specific audience blunders, recurring questions, or common user mistakes.
+• Keep doing: Measuring engagement surges around specific tactical themes like overloaded defenders and pinned pawns, which draw peak interaction.
+• Stop doing: Inferring qualitative sentiment or user struggle when incoming audience feedback consists purely of single-letter guesses.
+• Try next: Experiment with a follow-up caption question asking solvers to explain why the defender fails to spark real dialogue. Data is too thin to determine recurring player blunders or character preferences.

@@ -1,7 +1,5 @@
-# Visual notebook (2026-11-14)
+# Visual notebook (2026-11-15)
 
-# Visual notebook
-
-• Keep doing: Generous solving windows (`think_time=long`), which drove our peak 33.8s watch time and #1 rank (11.52).
-• Stop doing: Rushed timers (`think_time=fast`), which consistently depress average watch time below 16 seconds.
-• Try next: Implement high-contrast directional lighting on the contested tactical quadrant during the final countdown seconds for phone readability. Data is too thin to confirm whether board visual pulses lift completion rates.
+• Keep doing: Extended solving pauses (`think_time=long`), which yielded our all-time high 33.8s watch time on the top-ranked reel (11.52).
+• Stop doing: Fast calculation clocks (`think_time=fast`), which consistently crush watch time below 16 seconds.
+• Try next: Heighten visual contrast on the target quadrant during the final 3 seconds of think time to maximize phone readability. Data is too thin to evaluate whether dynamic board zooms increase solve completion.

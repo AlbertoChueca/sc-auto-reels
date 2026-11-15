@@ -1,7 +1,5 @@
-# Growth notebook (2026-11-14)
+# Growth notebook (2026-11-15)
 
-# Growth notebook
-
-• Keep doing: Multiple-choice letter prompts (A, B, C or D) with `reveal=comments`, consistently securing 10–12 comments and top view counts (up to 1,591).
-• Stop doing: Omitting explicit save triggers on advanced themes (overloaded defenders, deflections) where viewers benefit from reviewing multi-move lines.
-• Try next: Test a direct save CTA ("Save this pattern to spot it in your next blitz match") on advanced puzzles to lift saves. Data is too thin to confirm whether notation requests hurt letter-comment rates.
+• Keep doing: A, B, C, or D multiple-choice comments with `reveal=comments`, regularly producing 10–12 comments and over 1,500 views.
+• Stop doing: Publishing high-difficulty tactics without a dedicated save callout; saves linger between 0 and 3 across top reels.
+• Try next: Pair advanced overloaded defender puzzles with an explicit save hook ("Save this pattern for your next blitz match"). Data is too thin to know whether asking for move notation depresses comment counts.

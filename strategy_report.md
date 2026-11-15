@@ -1,6 +1,6 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-11-14 · 102 reels with results (3+ days old) · average score 8.09_
+_Updated 2026-11-15 · 103 reels with results (3+ days old) · average score 8.12_
 
 
 ## hook_style
@@ -9,7 +9,7 @@ _Updated 2026-11-14 · 102 reels with results (3+ days old) · average score 8.0
 |---|---|---|
 | the_irresistible_bait | 9 | 10.19 |
 | cliffhanger | 13 | 9.05 |
-| challenge | 13 | 8.73 |
+| challenge | 14 | 8.88 |
 | countdown_trap | 20 | 8.62 |
 | big_dream | 17 | 7.57 |
 | mystery | 13 | 7.16 |
@@ -21,7 +21,7 @@ _Updated 2026-11-14 · 102 reels with results (3+ days old) · average score 8.0
 |---|---|---|
 | daily training to keep the streak alive | 20 | 9.23 |
 | scouting the champion's signature trap | 6 | 9.16 |
-| cracking Bishop Blaze's secret playbook | 17 | 8.81 |
+| cracking Bishop Blaze's secret playbook | 18 | 8.92 |
 | travelling to a new place for a tournament | 11 | 8.13 |
 | lesson or secret test from Coach King | 15 | 7.71 |
 | helping Pip or a friend who is stuck | 9 | 7.52 |
@@ -32,7 +32,7 @@ _Updated 2026-11-14 · 102 reels with results (3+ days old) · average score 8.0
 
 | option | reels | avg score |
 |---|---|---|
-| advanced | 20 | 8.65 |
+| advanced | 21 | 8.75 |
 | intermediate | 33 | 8.18 |
 | basic | 49 | 7.81 |
 
@@ -40,7 +40,7 @@ _Updated 2026-11-14 · 102 reels with results (3+ days old) · average score 8.0
 
 | option | reels | avg score |
 |---|---|---|
-| normal | 41 | 8.29 |
+| normal | 42 | 8.35 |
 | long | 50 | 8.14 |
 | fast | 11 | 7.16 |
 
@@ -48,21 +48,21 @@ _Updated 2026-11-14 · 102 reels with results (3+ days old) · average score 8.0
 
 | option | reels | avg score |
 |---|---|---|
-| short | 51 | 8.76 |
+| short | 52 | 8.80 |
 | normal | 51 | 7.43 |
 
 ## format
 
 | option | reels | avg score |
 |---|---|---|
-| tip | 63 | 9.16 |
+| tip | 64 | 9.18 |
 | story | 12 | 6.57 |
 
 ## reveal
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 72 | 8.84 |
+| comments | 73 | 8.87 |
 
 ---
 # Playbook (updated 2026-11-02)
