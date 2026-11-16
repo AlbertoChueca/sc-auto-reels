@@ -1,5 +1,7 @@
-# Community notebook (2026-11-15)
+# Community notebook (2026-11-16)
 
-• Keep doing: Measuring engagement surges around specific tactical themes like overloaded defenders and pinned pawns, which draw peak interaction.
-• Stop doing: Inferring qualitative sentiment or user struggle when incoming audience feedback consists purely of single-letter guesses.
-• Try next: Experiment with a follow-up caption question asking solvers to explain why the defender fails to spark real dialogue. Data is too thin to determine recurring player blunders or character preferences.
+# Community notebook (2026-11-16)
+
+• Keep doing: Monitoring volume spikes around tactical themes (overloaded defenders and pinned pieces routinely outperform other themes in raw interaction).
+• Stop doing: Projecting audience narrative preferences or emotional sentiment when incoming user input consists purely of single-letter choices.
+• Try next: Pin a discussion prompt asking solvers which decoy move tempted them first to foster our first qualitative comment thread. Data is too thin to determine perceived difficulty or character affinity since viewers currently only post multiple-choice letters.

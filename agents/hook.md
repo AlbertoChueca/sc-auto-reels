@@ -1,5 +1,7 @@
-# Hook notebook (2026-11-15)
+# Hook notebook (2026-11-16)
 
-• Keep doing: Principle: Expose the opponent's precise tactical weakness (overloaded defender, pinned piece) within the first frame to drive immediate calculation; this underlying logic fuels our top 5 reels (scores 11.01–11.52).
-• Stop doing: Reusing rigid sentence structures ("Shatter Black's...", "Punish White's...", "Can you help Vektor..."). Audiences see daily reels, so sentence syntax must rotate every single day.
-• Try next: Test an inverted, consequence-first hook framing the opponent's imminent disaster before naming the target piece. Data is too thin to verify whether declarative observations outperform imperative challenges.
+# Hook notebook (2026-11-16)
+
+• Keep doing: Principle: Expose the opponent's exact tactical vulnerability (overloaded queen, pinned pawn) within the opening frame to spur instant calculation; this drives all top-5 reels (11.01–11.52).
+• Stop doing: Relying on repetitive verb-first formulas ("Shatter Black's...", "Punish White's..."). Audiences see daily content, so grammatical syntax must rotate every single day.
+• Try next: Test an observational, consequence-led framing ("White's queen has two jobs and can't do both—what breaks first?") to provoke tactical curiosity. Data is too thin to prove if curiosity framings beat direct challenge prompts.

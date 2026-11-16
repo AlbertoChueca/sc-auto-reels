@@ -1,8 +1,4 @@
 [
-"Probe White's four checks with the knight, pawn, and rook against that walled-off ruler.",
-"Compare the four candidate moves, labelled A to D, to spring the inescapable trap.",
-"Which letter traps the breathless monarch forever? Shout your sharp calculation in the comments!",
-"Discount pinned protectors: White has one undefended piece, Black has one.",
 "Expose fake defenders by calculating four candidate moves, labelled A to D.",
 "Spot the move ignoring White's phantom defender and share your letter!",
 "Bribing a busy defender away instantly collapses the entire enemy camp like cheap tents.",
@@ -118,5 +114,9 @@
 "Always count the enemy king's escape squares; zero exits means one check ends everything.",
 "Probe Black's three checks with the queen and the rook against that trapped king.",
 "Weigh the four candidate moves worth calculating, labelled A to D, to lock the cage.",
-"Spot the checkmate corridor and drop that killer option right into the feed!"
+"Spot the checkmate corridor and drop that killer option right into the feed!",
+"Fire the stubborn bodyguard first, because unguarded key squares invite an instant, lethal invasion.",
+"Dislodge protectors using Black's five checks with the knight and the pawn and the rook.",
+"Banish key defenders through the four candidate moves worth calculating, labelled A to D.",
+"Show that stubborn defender the exit door; drop your winning letter right down below!"
 ]

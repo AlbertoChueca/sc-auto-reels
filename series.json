@@ -1,6 +1,6 @@
 {
  "season": 1,
- "arc": "Racing aboard the speeding Tournament Express, Vektor and his crew must conquer Coach King's diagnostic carriage-by-carriage puzzles to dismantle Bishop Blaze's secret playbook before arriving at the Chessville Cup arena.",
+ "arc": "Racing aboard the speeding Tournament Express toward the Chessville Cup, Vektor and his crew must battle through Coach King's carriage-by-carriage blitz trials to dismantle Bishop Blaze's playbook before the train pulls into the arena station.",
  "cast": [
   {
    "name": "Pip",
@@ -75,5 +75,5 @@
    "personality": "Bubbly and lightning-fast, she balances trays of cocoa while scribbling forced tactical lines on dining car tables to keep players energized under time pressure"
   }
  ],
- "updated": "2026-11-09"
+ "updated": "2026-11-16"
 }
