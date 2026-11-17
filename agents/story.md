@@ -1,7 +1,5 @@
-# Story notebook (2026-11-16)
+# Story notebook (2026-11-17)
 
-# Story notebook (2026-11-16)
-
-• Keep doing: Lean, fast setups (`story_length=short`) anchored to daily training streak stakes or Bishop Blaze's playbook, powering our highest-scoring posts (11.13–11.52).
-• Stop doing: Slow, multi-beat story intros (`story_length=normal`) that delay reaching the board and depress average reel retention.
-• Try next: Frame an overloaded defender puzzle within a sudden-death blitz scramble where Vektor must spot the overburdened piece to protect his streak at the buzzer. Data is too thin to confirm whether tournament travel themes outperform training room stakes.
+• Keep doing: Fast, punchy narrative entries (`story_length=short`) tied to daily streak survival or cracking rival playbooks, powering our best reels (11.13–11.52).
+• Stop doing: Multi-beat narrative setups (`story_length=normal`) that delay showing the board and suppress watch completion.
+• Try next: Place an overloaded piece puzzle into a sudden-death blitz time-scramble where Vektor must find the breakthrough before his clock runs out. Data is too thin to verify whether tournament travel settings outperform home training grounds over time.

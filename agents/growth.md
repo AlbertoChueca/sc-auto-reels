@@ -1,7 +1,5 @@
-# Growth notebook (2026-11-16)
+# Growth notebook (2026-11-17)
 
-# Growth notebook (2026-11-16)
-
-• Keep doing: Standardizing A, B, C, or D multiple-choice prompts with `reveal=comments`, routinely producing 10–12 comments and top-tier view volume (1,500+).
-• Stop doing: Releasing advanced tactical patterns without an explicit save callout; saves stay stagnant between 0 and 3 across top reels.
-• Try next: Pair advanced overloaded defender posts with a targeted utility CTA ("Save this pattern to punish overloaded defenders in your next rapid game"). Data is too thin to know if asking users for move notation hurts comment volume.
+• Keep doing: Clean A, B, C, or D multiple-choice prompts paired with `reveal=comments`, consistently capturing 10–12 comments and top view brackets.
+• Stop doing: Publishing high-value tactical puzzles without a targeted save prompt; saves languish between 0 and 3 across top performers.
+• Try next: Include a direct pattern-study prompt ("Save this overloaded defender drill to spot it in your next tournament"). Data is too thin to verify if requesting written move notation reduces comment volume.
