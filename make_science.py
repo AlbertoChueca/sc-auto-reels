@@ -577,6 +577,7 @@ def build(seed, out, P=None, fact_id=None, mode="level"):
     logo = Image.open(_lp if os.path.exists(_lp) else os.path.join(HERE, "assets", "logo_h.png")).convert("RGBA")
     logo = logo.crop(logo.getbbox()); logo = logo.resize((520, int(logo.height * 520 / logo.width)), Image.LANCZOS)
     hook_img = glow(big_label(fact["hook"], GOLD, 96), GOLD, 20, 90)
+    series_badge = R.outline_pill(f"CHESS SCIENCE  ·  #{len(log) + 1:02d}", 26, color=GOLD, fg=IVORY, padx=24, pady=10)
     labels = {"myth": fact["myth"]["label"], "mechanism": fact["mechanism"]["label"], "method": fact["method"]["label"],
               "takeaway": fact["takeaway"]["label"]}
     label_imgs = {k: glow(big_label(v, GOLD if k != "myth" else RED, 80), GOLD if k != "myth" else RED, 18, 80)
@@ -673,7 +674,9 @@ def build(seed, out, P=None, fact_id=None, mode="level"):
             R.paste_center(fr, share_img, W / 2, TOP_Y - 20, eob(lt / 0.35))
             layer = phone_share_layer(p, t, fact["share"]); vk_cx, vk_bottom, vk_scale = 120, 1345, 0.32; lx = W / 2 + 110
         else:
-            layer = end_layer(p, t, logo); vk_cx, vk_bottom, vk_scale = 880, 600, 0.30
+            import make_tour as _MT                              # the real app on a phone: what StreakChess is, at a glance
+            if "end_phone" not in cache: cache["end_phone"] = _MT.phone_card("home", 640)
+            layer = _MT.end_layer(p, t, logo, cache["end_phone"]); vk_cx, vk_bottom, vk_scale = 880, 600, 0.30
         if layer is not None:
             layer = fit(layer, maxw)
             enter = eo(lt / 0.45)
@@ -682,6 +685,8 @@ def build(seed, out, P=None, fact_id=None, mode="level"):
             R.paste_center(fr, layer, lx, VIS_CY + (1 - enter) * 60, 1.0, enter)
         if scene != "end":
             stage.vektor(fr, t, mouth, vk_mood, vk_cx, vk_bottom, vk_scale, look=(0.5, 0.0))
+            if scene in ("stat", "study", "result"):                  # the show's name, where no big label sits
+                R.paste_center(fr, series_badge, W / 2, 285)
         # kinetic subtitles (the words being spoken)
         cur = [(ts, w) for si, ts, w in words if si == k and ts <= t]
         if cur and scene != "end":
@@ -702,15 +707,15 @@ def build(seed, out, P=None, fact_id=None, mode="level"):
     cap = (f"{cap_hook}\n{fact['topic']}\n\n"
            f"🔬 {fact['study']['narration']} {fact['result']['narration']}\n\n"
            f"✅ What to do: {fact['method']['narration']}\n\n"
-           f"{fact['share']} 👇\n"
-           f"Train your calculation free every day on StreakChess (link in bio).\n"
+           f"{fact['share']} 👇\n\n"
+           f"Train your calculation free every day on StreakChess (link in bio).\n\n"
            f"Source: {'; '.join(fact['sources'])}\n\n"
            + " ".join(R.hashtags(rng, "chessscience")))
     review = {}
     if not mock and os.environ.get("REVIEWER", "on") != "off" and os.environ.get("GEMINI_API_KEY"):
         import reviewer                                        # same QA as every other reel
         try:
-            cap, review = reviewer.review_video(out, {"title": f"Chess science: {fact['topic']}"}, cap)
+            cap, review = reviewer.review_video(out, {"title": f"Chess science: {fact['topic']}"}, cap, kind="science")
             cap_hook = cap.split("\n", 1)[0]
         except reviewer.RejectReel:
             raise

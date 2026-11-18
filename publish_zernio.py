@@ -47,7 +47,8 @@ def tiktok_caption(hook, caption):
              or "reveal it in the comments" in caption.lower()
     L = _letters(caption)
     share = next((l for l in caption.split("\n") if l.lower().startswith("send this to")), "")
-    ask = (share if share else
+    question = next((l.strip() for l in caption.split("\n") if l.strip().endswith("👇") and "?" in l), "")   # app tours
+    ask = (share if share else question if question and not L else
            f"Which move wins: {L}? Comment your letter 👇 answer tomorrow" if L and hidden else
            f"Which move wins: {L}? Comment your letter 👇" if L else
            "Comment your move 👇 answer drops tomorrow" if hidden else "Comment your move before the answer 👇")
@@ -56,14 +57,14 @@ def tiktok_caption(hook, caption):
                                                                     "#chesstiktok", "#chessbrain"], 2)
     prev = next((l for l in caption.split("\n") if l.startswith("✅ Yesterday's answer")), "")
     return (f"{first}\n{ask}\n" + (f"{prev}\n" if prev else "") + (f"{lesson[:180]}\n" if lesson else "")
-            + "Daily chess puzzle + calculation lesson. Train free at streakchess.com\n"
+            + "StreakChess = chess training app: daily puzzles at your level + a streak to keep. Free to start: streakchess.com\n"
             + " ".join(tags))[:2200]
 
 
 def youtube_description(caption):
     """YouTube: the link on the FIRST line (the only one visible without expanding), then the caption."""
     body = caption.replace("link in bio", "link: streakchess.com")
-    return ("Train your calculation free: https://streakchess.com\n\n" + body)[:4900]
+    return ("StreakChess, the daily chess training app (free to start): https://streakchess.com\n\n" + body)[:4900]
 
 
 def _upload(video_path):

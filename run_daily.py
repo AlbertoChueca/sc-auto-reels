@@ -1,6 +1,10 @@
 """One publishing slot.
 
-python run_daily.py <story|storytag|basic|intermediate|advanced|tagfriend> [--dry-run]
+python run_daily.py <story|storytag|science|tour|benefit|basic|intermediate|advanced|tagfriend> [--dry-run]
+
+The channel has three shows (brand.SERIES): Daily Calculation (puzzle + lesson: tip/story engines), Chess Science
+(4 a week) and Inside StreakChess (real app walkthroughs, 3 a week). Every caption ends with the same clear
+product block (brand.product_block) so a stranger always learns that StreakChess is an app and what it does.
 
 story / storytag (default daily slots): unique AI mini story + puzzle (make_story).
 If anything in the story pipeline fails (Gemini down, quota, network...), the slot automatically
@@ -31,7 +35,7 @@ def log(entry):
 
 # ---- choose level / mode
 LEVELS = ["basic", "intermediate", "advanced"]
-if slot in ("story", "benefit", "science"):
+if slot in ("story", "benefit", "science", "tour"):
     level, mode = LEVELS[today.toordinal() % 3], "level"          # rotates every day (benefit: used only as fallback)
 elif slot == "storytag":
     level, mode = random.Random(f"{today}-tag").choice(["basic", "intermediate"]), "tagfriend"
@@ -105,9 +109,12 @@ if arms.get("format") == "tip" and slot in ("story", "storytag"):
     chain = ["tip"] + chain                      # calculation-tip reel (falls back to a story if anything fails)
 if slot == "science":                            # chess-science explainer (4 a week); falls back to a masterclass
     chain = ["science", "tip"] + chain
+if slot == "tour":                               # app walkthrough with real screenshots (3 a week); same fallback
+    chain = ["tour", "tip"] + chain
 # Benefit reels: on chosen weekdays the evening slot has Vektor explain a real benefit of StreakChess
 # (illustrated scenes, only true facts from assets/app/facts.md). BENEFIT_DAYS=none disables them.
-_bdays = {int(d) for d in os.environ.get("BENEFIT_DAYS", "2").split(",") if d.strip().isdigit()}   # 0=Mon .. 6=Sun
+# Off by default since 2026-11-18: the app-tour reels (real screens) replaced them - they were the weakest format.
+_bdays = {int(d) for d in os.environ.get("BENEFIT_DAYS", "none").split(",") if d.strip().isdigit()}   # 0=Mon .. 6=Sun
 from zoneinfo import ZoneInfo as _ZI
 _la_day = datetime.datetime.now(_ZI("America/Los_Angeles")).date()        # weekly benefit reel: Wednesday 5 PM PT
 if slot == "benefit" or (slot == "storytag" and _la_day.weekday() in _bdays
@@ -120,6 +127,9 @@ for eng in chain:
         if eng == "science":
             from make_science import build as b
             meta = b(seed, out, P=P, mode=mode)
+        elif eng == "tour":
+            from make_tour import build as b
+            meta = b(seed, out)
         elif eng == "tip":
             if not os.environ.get("GEMINI_API_KEY"):
                 raise RuntimeError("GEMINI_API_KEY not set")
@@ -168,7 +178,7 @@ print(subs_msg, flush=True)
 summary = os.environ.get("GITHUB_STEP_SUMMARY")
 if summary:  # visible on the run page in GitHub
     with open(summary, "a") as f:
-        ok = engine in ("story", "benefit", "tip", "science")
+        ok = engine in ("story", "benefit", "tip", "science", "tour")
         f.write(f"## {'✅ Premium story reel' if ok else '⚠️ Fallback reel (story failed)'}\n\n"
                 f"- Slot: `{slot}` · level: `{level}` · mode: `{mode}`\n- Engine: `{engine}` · voice: `{voice_used}`\n"
                 + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
@@ -183,7 +193,12 @@ caption = open(out.replace(".mp4", ".txt")).read()
 try:
     import hooks
     _first, _rest = (caption.split("\n", 1) + [""])[:2]
-    if not hooks.is_fresh(_first):
+    if not hooks.is_fresh(_first) and engine in ("science", "tour"):      # no puzzle: never a "comment A-D" line
+        import brand
+        _topic = (meta.get("story") or "").split(": ", 1)[-1]
+        _first = next((h for h in brand.explainer_hook(engine, _topic, seed=f"{today}-{slot}{_B}") if hooks.is_fresh(h)), _first)
+        caption = _first + "\n" + _rest
+    elif not hooks.is_fresh(_first):
         _ab = meta.get("ab") or {}
         _letters = ", ".join(k for k in "ABCD" if k in _ab)
         _first = hooks.fallback((meta.get("tip_key") or "story"), (meta.get("story") or "today's puzzle").replace("Tip: ", ""),
@@ -194,6 +209,27 @@ try:
     meta["hook"] = _first.strip()                      # the hook we log and reuse on TikTok/YouTube = what went out
 except Exception as _e:
     print("hook gate skipped:", _e)
+# ---- one clear product block in every caption: what StreakChess is + a concrete reason to open it + where
+try:
+    import re as _re, brand
+    _pat = (r"(For every chess player, kids and adults: StreakChess[^\n]*|Train your calculation (free )?every day on StreakChess[^\n]*"
+            r"|♟️ StreakChess is the daily chess training app[^\n]*)")
+    _blk = brand.product_block(f"{today}-{slot}-{now.hour}{_B}", bridge=engine not in ("tour",))
+    if brand.WHAT in caption:
+        pass                                          # the engine already wrote the block (app tours)
+    elif _re.search(_pat, caption):
+        caption = _re.sub(_pat, lambda m: _blk, caption, count=1)
+    else:                                             # unknown caption shape: add it just above the hashtags
+        caption = caption.rstrip().rsplit("\n", 1)[0].rstrip() + "\n\n" + _blk + "\n\n" + caption.rstrip().rsplit("\n", 1)[-1]
+    _lines = caption.split("\n")                      # second line names the show (series identity)
+    _show = brand.SERIES["tour" if engine == "tour" else "science" if engine == "science" else "puzzle"]
+    if len(_lines) > 1 and _show.lower() not in caption.lower():
+        _l1 = _lines[1].replace("Calculation masterclass: ", "Masterclass: ")
+        _lines[1] = f"{_show} · {_l1}" if _l1.strip() else _show
+        caption = "\n".join(_lines)
+    open(out.replace(".mp4", ".txt"), "w").write(caption)
+except Exception as _e:
+    print("product block skipped:", _e)
 # Held-back answers are also revealed in the NEXT post's caption (works on Instagram, TikTok and YouTube alike).
 try:
     _prev = None
@@ -229,11 +265,10 @@ try:  # our own first comment: the question + where to train (never blocks the r
     _L = [k for k in "ABCD" if k in _ab]
     _q = (f"Which move wins: {', '.join(_L[:-1])} or {_L[-1]}? Comment your letter 👇 Answer revealed here tomorrow."
           if len(_L) > 1 else ("Tag the friend who needs to see this 👇 Source in the caption." if meta.get("mode") == "science"
+                               else (meta.get("question") or "What should we show next from the app? 👇") if engine == "tour"
                                else "Comment your move 👇 Answer revealed here tomorrow."))
-    _fc = random.Random(f"{today}-{slot}-fc{_B}").choice([
-        f"{_q} Train your calculation free every day at streakchess.com ♟️",
-        f"{_q} Daily puzzles + lessons, free: streakchess.com (link in bio)",
-        f"{_q} New puzzle every day. Free training at streakchess.com 🔥"])
+    import brand
+    _fc = brand.first_comment(_q, f"{today}-{slot}-fc{_B}")
     meta["first_comment"] = post_comment(media["id"], _fc)
 except Exception as e:
     print("First comment failed:", e); meta["first_comment"] = f"error: {str(e)[:120]}"
@@ -256,4 +291,4 @@ meta["arms"] = arms if engine in ("story", "tip") else {}
 if engine == "science":
     meta["mode"] = "science"
 log({k: meta.get(k) for k in ("engine", "voice", "review_score", "design_score", "arms", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
-                              "media_id", "sans", "reveal", "ab", "duration", "tip_key", "science", "story_share", "zernio", "first_comment")})
+                              "media_id", "sans", "reveal", "ab", "duration", "tip_key", "science", "tour", "question", "story_share", "zernio", "first_comment")})

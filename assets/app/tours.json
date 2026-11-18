@@ -1,0 +1,238 @@
+{
+ "_about": "App-tour reels ('Inside StreakChess'). Every line describes something that is really in the app (checked against the app itself on 2026-11-18). Screens are real screenshots from a demo account (assets/app/screens). Coordinates are fractions of the screenshot: focus = [y0, y1] or [x0, y0, x1, y1]; box = [x0, y0, x1, y1]; tap = [x, y]. Numbers in 'say' are written as words for the voice.",
+ "end_say": "StreakChess. Free to start, for every level. Link in bio.",
+ "episodes": [
+  {
+   "id": "how_it_works", "topic": "How StreakChess works",
+   "hook": "StreakChess in 30 seconds", "hook_alt": ["What is StreakChess?", "The chess app, explained fast"],
+   "hook_say": "This is StreakChess, the daily chess training app, in thirty seconds.",
+   "hook_shot": {"screen": "home", "focus": [0.08, 0.52]},
+   "scenes": [
+    {"label": "One small daily goal", "say": "You open it and get one small goal: solve three puzzles today.",
+     "shots": [{"screen": "home_new", "focus": [0.08, 0.52], "box": [0.22, 0.19, 0.95, 0.285]}]},
+    {"label": "A set built for you", "say": "It builds today's set for you. Twelve puzzles, aimed at your weakest theme.",
+     "shots": [{"screen": "plan", "focus": [0.27, 0.70], "box": [0.03, 0.445, 0.97, 0.585], "tap": [0.5, 0.647]}]},
+    {"label": "Calculate, then move", "say": "Every puzzle is a real position with a clock. Calculate first, then play your move.",
+     "shots": [{"screen": "puzzle", "focus": [0.10, 0.645]}, {"screen": "puzzle_sel", "focus": [0.10, 0.645], "at": 0.45, "tap": [0.557, 0.385]},
+               {"screen": "puzzle_move", "focus": [0.10, 0.645], "at": 0.72}]},
+    {"label": "Instant feedback", "say": "Get it right and your rating climbs. Miss it, and Vektor shows you the idea you missed.",
+     "shots": [{"screen": "puzzle_solved", "focus": [0.40, 0.80], "box": [0.02, 0.603, 0.80, 0.645]},
+               {"screen": "puzzle_wrong", "focus": [0.40, 0.83], "at": 0.52, "box": [0.15, 0.572, 0.985, 0.68]}]},
+    {"label": "Keep the streak", "say": "Come back tomorrow and your streak grows. A few minutes a day. That's the whole trick.",
+     "shots": [{"screen": "home", "focus": [0.08, 0.52], "box": [0.085, 0.338, 0.475, 0.42]}]}
+   ],
+   "question": {"label": "Your longest streak?", "say": "What's the longest streak you have ever kept, in anything? Comment the number.",
+                "caption": "What's the longest streak you've ever kept (in anything)? Comment the number 👇"},
+   "takeaways": ["One small goal a day: 3 puzzles", "A daily set of 12 puzzles aimed at your weakest theme", "Instant feedback: rating up, or the idea you missed"]
+  },
+  {
+   "id": "three_ratings", "topic": "Three ratings instead of one",
+   "hook": "One chess rating isn't enough", "hook_alt": ["Fast, pressure or deep?", "Your rating is hiding something"],
+   "hook_say": "One chess rating hides your real weakness. StreakChess gives you three.",
+   "hook_shot": {"screen": "train_compete", "focus": [0.05, 0.30]},
+   "scenes": [
+    {"label": "Fast · Pressure · Deep", "say": "Thirty seconds for reflexes. Three minutes for tournament pressure. Ten minutes for deep calculation.",
+     "shots": [{"screen": "train_compete", "focus": [0.05, 0.30], "box": [0.03, 0.07, 0.97, 0.265]}]},
+    {"label": "Ten minutes, one position", "say": "In Deep Calculation you get ten minutes for a single position. No guessing. You have to see the whole line.",
+     "shots": [{"screen": "deep", "focus": [0.01, 0.46], "box": [0.03, 0.062, 0.97, 0.098]}]},
+    {"label": "See your shape", "say": "Your profile draws the three ratings as a triangle, so the weak side is obvious.",
+     "shots": [{"screen": "profile", "focus": [0.30, 0.56], "box": [0.05, 0.385, 0.95, 0.495]}, {"screen": "profile", "focus": [0.52, 0.91], "at": 0.45}]},
+    {"label": "Climb the leagues", "say": "The average of the three sets your league, from Bronze all the way up to Master.",
+     "shots": [{"screen": "league", "focus": [0.30, 0.58], "box": [0.03, 0.485, 0.97, 0.565]}]}
+   ],
+   "question": {"label": "Fast, pressure or deep?", "say": "Which one is your weakest: fast, pressure, or deep? Comment one word.",
+                "caption": "Which is your weakest: FAST, PRESSURE or DEEP? Comment one word 👇"},
+   "takeaways": ["⚡ Tactical Reflexes: 30 seconds", "⚔️ Tournament Pressure: 3 minutes", "🧠 Deep Calculation: 10 minutes", "Your league = the average of the three"]
+  },
+  {
+   "id": "streak_rules", "topic": "Hearts, shield and streak",
+   "hook": "The 3 rules that keep you training", "hook_alt": ["Why the streak works", "Hearts, shield, streak"],
+   "hook_say": "StreakChess has three small rules. They are why people actually train every day.",
+   "hook_shot": {"screen": "home", "focus": [0.08, 0.52]},
+   "scenes": [
+    {"label": "Three hearts", "say": "You start with three hearts. A wrong answer costs one, and they refill on their own, one every four hours.",
+     "shots": [{"screen": "hearts", "focus": [0.24, 0.77]}]},
+    {"label": "A daily shield", "say": "Your daily shield absorbs the first mistake of the day, before it costs you a heart.",
+     "shots": [{"screen": "shield", "focus": [0.27, 0.73]}, {"screen": "puzzle_wrong", "focus": [0.40, 0.83], "at": 0.55, "box": [0.02, 0.685, 0.985, 0.74]}]},
+    {"label": "An avatar that grows", "say": "And your avatar evolves as your streak grows. Keep the streak alive to level it up.",
+     "shots": [{"screen": "avatar", "focus": [0.27, 0.73]}]},
+    {"label": "Three puzzles a day", "say": "All it takes is three solved puzzles a day.",
+     "shots": [{"screen": "home_new", "focus": [0.08, 0.52], "box": [0.48, 0.295, 0.80, 0.375]}]}
+   ],
+   "question": {"label": "30 days: yes or no?", "say": "Could you keep a thirty day streak? Comment yes or no.",
+                "caption": "Could you keep a 30-day streak? Comment YES or NO 👇"},
+   "takeaways": ["❤️ 3 hearts: a miss costs one, +1 every 4 hours", "🛡️ A daily shield absorbs your first mistake", "🔥 3 solved puzzles a day keep the streak alive"]
+  },
+  {
+   "id": "mistakes", "topic": "My Mistakes: learn from every miss",
+   "hook": "Your mistakes are your best coach", "hook_alt": ["Stop repeating the same blunder", "Where your rating points go"],
+   "hook_say": "The fastest way to get better at chess is hiding in your own mistakes.",
+   "hook_shot": {"screen": "home", "focus": [0.08, 0.52], "box": [0.24, 0.195, 0.945, 0.325]},
+   "scenes": [
+    {"label": "Every miss is saved", "say": "StreakChess saves every puzzle you get wrong, with your move and the correct one.",
+     "shots": [{"screen": "mistakes", "focus": [0.19, 0.63], "box": [0.03, 0.465, 0.97, 0.615]}]},
+    {"label": "See what you missed", "say": "Open one and the board shows you the right move, next to the move you played.",
+     "shots": [{"screen": "analysis", "focus": [0.05, 0.66], "box": [0.05, 0.118, 0.95, 0.172]}]},
+    {"label": "Try it again", "say": "Then you try it again for real, until the pattern sticks.",
+     "shots": [{"screen": "analysis", "focus": [0.52, 0.94], "box": [0.045, 0.683, 0.955, 0.755], "tap": [0.5, 0.72]}]},
+    {"label": "Know your weak theme", "say": "Over time you see exactly which themes cost you the most points.",
+     "shots": [{"screen": "hexcore", "focus": [0.56, 0.905]}]}
+   ],
+   "question": {"label": "Do you review your losses?", "say": "Be honest. Do you review the games you lose? Comment yes or no.",
+                "caption": "Be honest: do you review the games you lose? YES or NO 👇"},
+   "takeaways": ["Every wrong puzzle is saved with your move and the right one", "Replay it until the pattern sticks", "Accuracy by theme shows where your points go"]
+  },
+  {
+   "id": "first_day", "topic": "Your first 3 minutes",
+   "hook": "Your first 3 minutes on StreakChess", "hook_alt": ["What happens when you sign up", "Starting from zero"],
+   "hook_say": "Here is what your first three minutes on StreakChess look like.",
+   "hook_shot": {"screen": "onb_who", "focus": [0.38, 0.82]},
+   "scenes": [
+    {"label": "Who is training?", "say": "First it asks who is training. Kids, teens, adults and seniors each get their own pace.",
+     "shots": [{"screen": "onb_who", "focus": [0.40, 0.84], "pan": [0.52, 0.96]}]},
+    {"label": "Pick your goal", "say": "Then your goal: unwind, sharpen your thinking, or climb the ratings.",
+     "shots": [{"screen": "onb_goal", "focus": [0.30, 0.78]}]},
+    {"label": "Set your level", "say": "Tell it how strong you are. Beginners start with simple mates. Online players can use their rating.",
+     "shots": [{"screen": "onb_level", "focus": [0.33, 0.76], "pan": [0.55, 0.99]}]},
+    {"label": "Your starting profile", "say": "After a few calibration puzzles you get three starting ratings, and a plan for your weakest one.",
+     "shots": [{"screen": "calib_done", "focus": [0.35, 0.80], "box": [0.03, 0.47, 0.985, 0.62]}]}
+   ],
+   "question": {"label": "Where would you start?", "say": "Where would you start: beginner, intermediate, or advanced?",
+                "caption": "Where would you start: BEGINNER, INTERMEDIATE or ADVANCED? 👇"},
+   "takeaways": ["Built for kids, teens, adults and seniors", "Beginners start with simple mates", "A few calibration puzzles give you 3 starting ratings"]
+  },
+  {
+   "id": "arcade", "topic": "Arcade: Puzzle Blitz and Puzzle Survival",
+   "hook": "Got 3 minutes? Play this", "hook_alt": ["Two modes for a short break", "Blitz or Survival?"],
+   "hook_say": "Got three minutes? StreakChess has two arcade modes for exactly that.",
+   "hook_shot": {"screen": "train", "focus": [0.50, 0.90], "box": [0.03, 0.57, 0.97, 0.695]},
+   "scenes": [
+    {"label": "Puzzle Blitz", "say": "Puzzle Blitz. Three minutes, rising difficulty, and three strikes and you're out.",
+     "shots": [{"screen": "blitz", "focus": [0.27, 0.70]}]},
+    {"label": "How far can you get?", "say": "The puzzles keep getting harder. Your score is how many you solve before the clock, or the strikes, stop you.",
+     "shots": [{"screen": "blitz_play", "focus": [0.0, 0.45], "box": [0.03, 0.008, 0.99, 0.058]}]},
+    {"label": "Puzzle Survival", "say": "Puzzle Survival starts with thirty seconds. A correct answer adds six. A miss takes eight away.",
+     "shots": [{"screen": "survival", "focus": [0.27, 0.70], "box": [0.08, 0.418, 0.92, 0.475]}]},
+    {"label": "Then train for real", "say": "And when you want serious work, the three rated paces are one tap away.",
+     "shots": [{"screen": "train_compete", "focus": [0.05, 0.30]}]}
+   ],
+   "question": {"label": "Blitz or Survival?", "say": "Blitz or Survival: which one would you play first? Comment B or S.",
+                "caption": "BLITZ or SURVIVAL: which would you play first? Comment B or S 👇"},
+   "takeaways": ["⏱️ Puzzle Blitz: 3 minutes, 3 strikes", "⚡ Puzzle Survival: start with 30 s, +6 s per solve, −8 s per miss"]
+  },
+  {
+   "id": "hexcore", "topic": "Tactical Hexcore: find your weak spot",
+   "hook": "Find your weak spot in chess", "hook_alt": ["The shape of your chess", "Where are you leaking points?"],
+   "hook_say": "Every chess player has a weak spot. This screen shows you yours.",
+   "hook_shot": {"screen": "hexcore", "focus": [0.14, 0.57]},
+   "scenes": [
+    {"label": "Six tactical dimensions", "say": "StreakChess tracks six tactical dimensions, from king attacks to endgame precision, and draws them as one shape.",
+     "shots": [{"screen": "hexcore", "focus": [0.14, 0.57]}]},
+    {"label": "Accuracy by theme", "say": "Below it, your accuracy in each one. The shortest bar is where your points are leaking.",
+     "shots": [{"screen": "hexcore", "focus": [0.56, 0.905]}]},
+    {"label": "Training aimed at it", "say": "Then your daily set is built around that weakest theme.",
+     "shots": [{"screen": "plan", "focus": [0.27, 0.70], "box": [0.355, 0.445, 0.655, 0.585]}]},
+    {"label": "Or drill it yourself", "say": "Or open the sandbox, tap any corner of the hexagon, and drill just that.",
+     "shots": [{"screen": "sandbox", "focus": [0.22, 0.67], "tap": [0.5, 0.418]}]}
+   ],
+   "question": {"label": "Attack, defence or endgame?", "say": "What is your weakest area: attack, defence, or endgames? Comment it.",
+                "caption": "What's your weakest area: ATTACK, DEFENCE or ENDGAMES? 👇"},
+   "takeaways": ["6 dimensions: King Assaults, Board Geometry, Piece Dynamics, Defensive Resilience, Endgame Precision, Forcing Lines", "Your daily set targets the weakest one", "The Hexagon Sandbox lets you drill any of them"]
+  },
+  {
+   "id": "compete", "topic": "Leagues, duels and the leaderboard",
+   "hook": "Training is better with rivals", "hook_alt": ["Who is just above you?", "Chess training, but competitive"],
+   "hook_say": "Training alone gets boring. So StreakChess gives you rivals.",
+   "hook_shot": {"screen": "league", "focus": [0.30, 0.58]},
+   "scenes": [
+    {"label": "Leagues", "say": "Your three ratings place you in a league, from Bronze to Master.",
+     "shots": [{"screen": "league", "focus": [0.30, 0.58], "box": [0.03, 0.315, 0.97, 0.46]}]},
+    {"label": "Your division", "say": "Inside it you see who is just above you. That is who you train to pass.",
+     "shots": [{"screen": "league", "focus": [0.575, 0.905], "box": [0.045, 0.76, 0.955, 0.82]}]},
+    {"label": "1v1 puzzle duels", "say": "Or send five puzzles to a friend. They play first, then you try to beat them.",
+     "shots": [{"screen": "duel", "focus": [0.24, 0.66], "tap": [0.5, 0.572]}]},
+    {"label": "The leaderboard", "say": "And a leaderboard ranks the top hundred players by experience, puzzles, streak and rating.",
+     "shots": [{"screen": "leaderboard", "focus": [0.265, 0.73], "box": [0.045, 0.295, 0.955, 0.365]}]}
+   ],
+   "question": {"label": "Who would you challenge?", "say": "Tag the friend you would challenge to a puzzle duel.",
+                "caption": "Tag the friend you'd challenge to a puzzle duel 👇"},
+   "takeaways": ["6 leagues, Bronze → Master, by the average of your 3 ratings", "1v1 duels: send 5 puzzles to a friend", "Leaderboard: top 100 by XP, puzzles, streak and rating"]
+  },
+  {
+   "id": "weekly_quest", "topic": "The Weekly Quest and its Boss Fight",
+   "hook": "9 puzzles. One attempt. One boss.", "hook_alt": ["The hardest puzzle of the week", "Could you beat the boss?"],
+   "hook_say": "Nine puzzles. One attempt. And a boss at the end.",
+   "hook_shot": {"screen": "weekly", "focus": [0.07, 0.50]},
+   "scenes": [
+    {"label": "The Weekly Quest", "say": "Every week StreakChess runs one quest, and everyone gets the same puzzles.",
+     "shots": [{"screen": "weekly", "focus": [0.07, 0.50], "box": [0.03, 0.083, 0.97, 0.175]}]},
+    {"label": "No second try", "say": "They get harder as you go, and you only get one shot at each.",
+     "shots": [{"screen": "weekly", "focus": [0.42, 0.86], "box": [0.11, 0.478, 0.89, 0.538]}]},
+    {"label": "The Boss Fight", "say": "The last one is the Boss Fight: a master level puzzle to close it out.",
+     "shots": [{"screen": "weekly", "focus": [0.42, 0.86], "box": [0.11, 0.541, 0.89, 0.618]}]},
+    {"label": "Win a streak shield", "say": "Finish in the top three of the week and you win a streak shield.",
+     "shots": [{"screen": "weekly", "focus": [0.42, 0.86], "box": [0.11, 0.622, 0.89, 0.678], "tap": [0.5, 0.745]}]}
+   ],
+   "question": {"label": "Could you beat the boss?", "say": "Would you survive the boss puzzle? Comment yes or no.",
+                "caption": "Would you survive the Boss Fight? YES or NO 👇"},
+   "takeaways": ["One quest a week, the same puzzles for everyone", "9 puzzles, rising difficulty, one attempt each", "Top 3 each week win a Streak Shield"]
+  },
+  {
+   "id": "report", "topic": "Your monthly progress report",
+   "hook": "What a month of training looks like", "hook_alt": ["Your chess, measured", "The report card for your chess"],
+   "hook_say": "This is what a month of chess training looks like on paper.",
+   "hook_shot": {"screen": "report", "focus": [0.07, 0.42]},
+   "scenes": [
+    {"label": "A monthly report", "say": "StreakChess turns your training into a monthly report. This is the example report from the app.",
+     "shots": [{"screen": "report", "focus": [0.07, 0.42], "box": [0.035, 0.08, 0.965, 0.17]}]},
+    {"label": "The numbers that matter", "say": "Rating, accuracy, puzzles completed, your streak, and your median time per puzzle.",
+     "shots": [{"screen": "report_stats", "focus": [0.22, 0.67]}]},
+    {"label": "Your next focus", "say": "It names the one theme to work on next, and a strength you have actually measured.",
+     "shots": [{"screen": "report", "focus": [0.47, 0.76], "box": [0.20, 0.565, 0.94, 0.725]}]},
+    {"label": "Theme by theme", "say": "And it breaks your accuracy down theme by theme, against your previous period.",
+     "shots": [{"screen": "report_themes", "focus": [0.22, 0.66], "pan": [0.50, 0.94]}]}
+   ],
+   "question": {"label": "Which stat do you want?", "say": "Which number would you most want to see about your own chess?",
+                "caption": "Which number would you most want to see about your own chess? 👇"},
+   "takeaways": ["A report for every month of training (the one shown is the app's example report)", "Rating, accuracy, puzzles, streak, time per puzzle", "One theme to work on next"]
+  },
+  {
+   "id": "rewards", "topic": "XP, levels and the Avatar Store",
+   "hook": "Why you'll come back tomorrow", "hook_alt": ["Dragon Knight or Phoenix Queen?", "Chess study that sticks"],
+   "hook_say": "Chess study is hard to stick with. This is how StreakChess makes it stick.",
+   "hook_shot": {"screen": "level_up", "focus": [0.24, 0.76]},
+   "scenes": [
+    {"label": "Level up", "say": "Every solved puzzle earns experience. Fill the bar and you level up.",
+     "shots": [{"screen": "level_up", "focus": [0.24, 0.76]}]},
+    {"label": "Spend it", "say": "That experience is also a currency for the avatar store. And your level never drops.",
+     "shots": [{"screen": "store", "focus": [0.08, 0.50], "box": [0.04, 0.285, 0.96, 0.495]}]},
+    {"label": "Legendary avatars", "say": "The rarest avatars are earned by the most dedicated solvers.",
+     "shots": [{"screen": "store", "focus": [0.52, 0.905]}]},
+    {"label": "Achievements", "say": "And achievements track your training, your streaks, and your duels.",
+     "shots": [{"screen": "achievements", "focus": [0.08, 0.52], "box": [0.04, 0.20, 0.96, 0.315]}]}
+   ],
+   "question": {"label": "Dragon or Phoenix?", "say": "Dragon Knight or Phoenix Queen? Comment D or P.",
+                "caption": "Dragon Knight or Phoenix Queen? Comment D or P 👇", "shot": {"screen": "store", "focus": [0.52, 0.905]}},
+   "takeaways": ["Every solved puzzle earns XP", "Spend XP on avatars — your level never drops", "Achievements for training, streaks and duels"]
+  },
+  {
+   "id": "routine", "topic": "A 10-minute daily routine",
+   "hook": "A 10-minute daily chess routine", "hook_alt": ["How to train when you're busy", "The 3-step chess habit"],
+   "hook_say": "Here is a ten minute daily chess routine you can do entirely on your phone.",
+   "hook_shot": {"screen": "plan", "focus": [0.27, 0.70]},
+   "scenes": [
+    {"label": "1 · Three from today's set", "say": "One. Solve at least three puzzles from today's set. That keeps your streak alive.",
+     "shots": [{"screen": "plan", "focus": [0.27, 0.70], "box": [0.675, 0.445, 0.97, 0.585]}]},
+    {"label": "2 · Fix one mistake", "say": "Two. Open one puzzle you got wrong, see the right move, and try it again.",
+     "shots": [{"screen": "mistakes", "focus": [0.19, 0.63]}, {"screen": "analysis", "focus": [0.05, 0.66], "at": 0.5}]},
+    {"label": "3 · One Blitz run", "say": "Three. Finish with one Puzzle Blitz run, to train your speed.",
+     "shots": [{"screen": "blitz", "focus": [0.27, 0.70], "tap": [0.5, 0.578]}]},
+    {"label": "Done for today", "say": "Streak safe. In ten minutes you trained your weak theme, your memory, and your speed.",
+     "shots": [{"screen": "goal_done", "focus": [0.27, 0.74]}]}
+   ],
+   "question": {"label": "Morning or night?", "say": "When do you train: morning or night? Comment M or N.",
+                "caption": "When do you train: MORNING or NIGHT? Comment M or N 👇"},
+   "takeaways": ["1. Three puzzles from today's set", "2. Review one mistake and replay it", "3. One Puzzle Blitz run"]
+  }
+ ]
+}

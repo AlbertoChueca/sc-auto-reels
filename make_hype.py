@@ -620,19 +620,25 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
             else:                                           # CTA on sunburst
                 lt = tt - T["cta"][0]
                 fr = back(tt, True) if bd_soft is not None else bg.burst(tt, (255, 140, 50), (235, 92, 40))
-                R.paste_center(fr, logo_v, W / 2, 300, eo(lt / 0.5))
-                if "panel" not in cache:            # ONE elegant container (y 600-1400) holds the whole call to action
-                    pn = Image.new("RGBA", (900, 800), (0, 0, 0, 0)); pd = ImageDraw.Draw(pn)
-                    pd.rounded_rectangle([0, 0, 899, 799], 44, fill=(12, 12, 20, 215), outline=YEL + (210,), width=2)
-                    pd.rounded_rectangle([10, 10, 889, 789], 36, outline=YEL + (60,), width=1)
-                    cache["panel"] = pn
-                R.paste_center(fr, cache["panel"], W / 2, 1000, 1, eo(lt / 0.5))
-                put_mascot(fr, tt, 0.34, W / 2, 860, "excited", (0, 0), mouth, bounce=4 * abs(math.sin(lt * 3)), rim=False)
-                streak = S.get("streak_line") or "A NEW PUZZLE EVERY DAY"       # one clear action, 4 elements only
-                R.paste_center(fr, fit_phrase(streak.upper().split(), 56, 800, 2, 40), W / 2, 960, eo((lt - 0.4) / 0.5))
-                R.paste_center(fr, word_img("FOLLOW TO BUILD YOUR STREAK", 36, WHITE, 0), W / 2, 1060, eo((lt - 0.7) / 0.5))
-                R.paste_center(fr, R.pill("streakchess.com", 60, WHITE, fg=INK, padx=56, pady=20), W / 2, 1185, eo((lt - 1.0) / 0.5))
-                R.paste_center(fr, R.pill("FREE · FOUNDER OFFER FOR THE FIRST 500", 30, INK, fg=YEL, padx=30, pady=11), W / 2, 1300, eo((lt - 1.3) / 0.5))
+                # One end card for every show: the real app on a phone + what StreakChess is (a stranger must leave
+                # knowing it is an app). Falls back to the old logo panel if the screenshots are missing.
+                if "endcard" not in cache:
+                    try:
+                        import make_tour as _MT
+                        cache["endcard"] = (_MT, _MT.phone_card("home", 640), lg)
+                    except Exception as _e:
+                        print("end card: no app screenshot:", _e); cache["endcard"] = None
+                if cache["endcard"]:
+                    _MT, _ph, _lg = cache["endcard"]
+                    layer = _MT.end_layer(R.clamp(lt / 2.2), tt, _lg, _ph); enter = eo(lt / 0.5)
+                    put_mascot(fr, tt, 0.26, 880, 1010 - layer.height // 2 + 24, "excited", (-0.3, 0.2), mouth,
+                               bounce=4 * abs(math.sin(lt * 3)), rim=False)
+                    R.paste_center(fr, layer, W / 2, 1010 + (1 - enter) * 60, 1, enter)
+                else:
+                    R.paste_center(fr, logo_v, W / 2, 300, eo(lt / 0.5))
+                    put_mascot(fr, tt, 0.34, W / 2, 860, "excited", (0, 0), mouth, bounce=4 * abs(math.sin(lt * 3)), rim=False)
+                    R.paste_center(fr, fit_phrase((S.get("streak_line") or "A NEW PUZZLE EVERY DAY").upper().split(), 56, 800, 2, 40), W / 2, 960, eo((lt - 0.4) / 0.5))
+                    R.paste_center(fr, R.pill("streakchess.com", 60, WHITE, fg=INK, padx=56, pady=20), W / 2, 1185, eo((lt - 1.0) / 0.5))
                 zoom = 1.06 - 0.06 * eo(lt / 0.5)
 
         # kinetic captions for spoken lines
@@ -642,7 +648,7 @@ def build(P, seed, out, mode="level", skip_hook=False, backdrop=None, keep_voice
             y = 330 if tt < T["h2"][1] else (1000 if tt < T["go"][1] else (1448 if tt < T["cta"][0] else 1080))
             if T["lvl"][0] <= tt < T["go"][1]: y = 880
             if T["fin"][0] <= tt < T["cta"][0]: y = 1448
-            if tt >= T["cta"][0]: y = 505
+            if tt >= T["cta"][0]: y = 430 if cache.get("endcard") else 505
             if not (T["up"][0] <= tt < T["fin"][0]):
                 ph = phrase_img(words, nt, int((104 if tt < T["h2"][1] else (64 if tt >= T["cta"][0] else 80)) * S["caption_scale"]))
                 R.paste_center(fr, band_img(ph.height + 80), W / 2, y)

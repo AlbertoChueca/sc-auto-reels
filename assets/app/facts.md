@@ -1,8 +1,24 @@
-# True facts about StreakChess (one per line). The benefit reels only claim what is written here. Edit freely. Lines starting with # are ignored.
-- StreakChess is a chess calculation training app, like Duolingo but for chess.
-- You solve short chess puzzles every day and keep a daily streak.
-- Puzzles come in levels from beginner to advanced.
+# True facts about StreakChess (one per line). Reels only claim what is written here. Edit freely. Lines starting with # are ignored.
+# Checked against the app itself on 2026-11-18 (see assets/app/tours.json for the screens that show each one).
+- StreakChess is a chess training app: daily puzzles at your level, a streak to keep, and feedback on every move.
 - It trains calculation: seeing moves ahead before you play them.
-- It is free to play.
+- It is free to start. It runs in the browser on a phone or a computer and can be added to the home screen.
+- Every day it builds a set of 12 puzzles focused on your weakest theme.
+- Solving 3 puzzles a day keeps your streak alive.
+- You have 3 hearts. A wrong answer costs one and they refill one every 4 hours. Premium has unlimited hearts.
+- A daily shield absorbs the first mistake of the day before it costs a heart.
+- Your avatar evolves as your streak grows.
+- There are three rated paces: Tactical Reflexes (30 seconds), Tournament Pressure (3 minutes) and Deep Calculation (10 minutes).
+- Your league (Bronze, Silver, Gold, Platinum, Diamond, Master) comes from the average of the three ratings.
+- When you sign up it asks who is training (kids, teens, adults, seniors), your goal and your level, then a few calibration puzzles set your starting ratings.
+- Every puzzle you get wrong is saved in My Mistakes with your move and the correct one, and you can try it again.
+- The Tactical Hexcore tracks six dimensions: King Assaults, Board Geometry, Piece Dynamics, Defensive Resilience, Endgame Precision, Forcing Lines.
+- The Hexagon Sandbox lets you choose one dimension and drill it, ranked or in a relaxed Zen mode with no clock.
+- Puzzle Blitz: 3 minutes, rising difficulty, 3 strikes. Puzzle Survival: start with 30 seconds, +6 per solve, -8 per miss.
+- 1v1 duels: send 5 puzzles to a friend, they play first, then you try to beat them.
+- The Weekly Quest: 9 puzzles of rising difficulty, one attempt each, a Boss Fight at the end; the top 3 win a Streak Shield.
+- A leaderboard ranks the top 100 by XP, puzzles, streak and rating.
+- Solved puzzles earn XP; XP levels you up and is also spent in the Avatar Store. Your level never drops.
+- Monthly progress reports: rating, accuracy, puzzles completed, streak, median time per puzzle and accuracy by theme.
 - The first 500 accounts get a Founder offer for Premium.
 - It is made by a chess academy coach.

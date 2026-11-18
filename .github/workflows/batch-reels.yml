@@ -23,6 +23,10 @@ on:
         description: "Make chess-science explainer reels instead of the story/tip mix"
         type: boolean
         default: false
+      tour:
+        description: "Make app-tour reels (Inside StreakChess, real screenshots) instead of the story/tip mix"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -42,11 +46,14 @@ jobs:
         env:
           N: ${{ inputs.count }}
           SCI: ${{ inputs.science }}
+          TOUR: ${{ inputs.tour }}
         run: |
           import json, os
           mix = [("story", "story"), ("story", "tip"), ("storytag", "story"), ("story", "tip"), ("story", "story"), ("storytag", "tip")]
           if os.environ.get("SCI") == "true":
               mix = [("science", "story")] * 6
+          if os.environ.get("TOUR") == "true":
+              mix = [("tour", "story")] * 6
           items = [{"i": i, "slot": s, "format": f} for i, (s, f) in enumerate(mix[: int(os.environ["N"])])]
           open(os.environ["GITHUB_OUTPUT"], "a").write("items=" + json.dumps(items) + "\n")
 
@@ -145,6 +152,6 @@ jobs:
         run: |
           git config user.name "reels-bot"
           git config user.email "reels-bot@users.noreply.github.com"
-          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json tip_log.json lesson_lines.json science_log.json answers_announced.json; do [ -f "$f" ] && git add "$f"; done
+          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json tip_log.json lesson_lines.json science_log.json tour_log.json answers_announced.json; do [ -f "$f" ] && git add "$f"; done
           [ -d agents ] && git add agents
           git diff --cached --quiet || (git commit -m "Batch reel ${{ matrix.item.i }} $(date +%F)" && (git push || (git pull --rebase && git push)))

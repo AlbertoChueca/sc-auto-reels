@@ -196,8 +196,22 @@ Only mark ok=false for clear problems a viewer would notice."""},
 
 
 # ------------------------------------------------------------------ 3. finished video
-def review_video(path, story, caption):
+FORMATS = {
+    "puzzle": ("story about Vektor + chess puzzle + call to action",
+               "names the concrete tactic or piece, invites commenting the letter A, B, C or D - never \"A or B\""),
+    "science": ("chess-science explainer: a relatable moment, a real study with its numbers, what to do about it, "
+                "'send this to a friend', app card. There is NO puzzle to answer",
+                "states the surprising finding in plain words; never mentions letters A-D or 'the answer'; adds no number that is not in the reel"),
+    "tour": ("guided walkthrough of the real StreakChess app: real screenshots on a phone, the camera pushes into each "
+             "feature, it ends with one easy question for the comments and the app card. There is NO puzzle to answer",
+             "says what the viewer will SEE or GET from the app in plain words (it must be obvious this is a chess training app); "
+             "never mentions letters A-D or 'the answer'; adds no feature, number or claim that is not in the reel"),
+}
+
+
+def review_video(path, story, caption, kind="puzzle"):
     """Watches the reel. Returns (new_caption, report). Raises RejectReel if the reel is clearly broken."""
+    what, first_rule = FORMATS.get(kind, FORMATS["puzzle"])
     small = path.replace(".mp4", "_review.mp4")
     try:
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", path, "-vf", "scale=360:640", "-r", "12",
@@ -206,16 +220,17 @@ def review_video(path, story, caption):
         data = base64.b64encode(open(small, "rb").read()).decode()
         first, rest = (caption.split("\n", 1) + [""])[:2]
         res = _ask([{"text": f"""{PRODUCER}
-Watch this finished reel (story about Vektor + chess puzzle + call to action). Story title: {story.get('title')}.
+Watch this finished reel ({what}). Title: {story.get('title')}.
 Current Instagram caption first line: {first!r}
 
 Check and score 1-10: hook in the first 1.5 s, story clarity, pacing (nothing too slow or too fast),
 any stray spoken words that are not part of the story (e.g. "say") or hiss/noise in the sound,
-subtitles readable and in sync with the voice, voice natural and matching the words, the chess board and moves easy
-to follow, visuals consistent and attractive, call to action clear, likelihood viewers comment/share/follow.
+subtitles readable and in sync with the voice, voice natural and matching the words, the chess board / app screens easy
+to follow, visuals consistent and attractive, call to action clear, likelihood viewers comment/share/follow,
+and PRODUCT CLARITY: would a stranger understand what StreakChess is and what to do next?
 "critical" = true ONLY if the reel is clearly broken (silent, frozen/black, unreadable, wrong/garbled voice,
 inappropriate content). Then write a better FIRST caption line (5-11 words, one emoji max, written for chess players of every age,
-names the concrete tactic or piece, invites commenting the letter A, B, C or D - never "A or B") and a short
+{first_rule}) and a short
 comment prompt line (max 12 words). The first line must NOT start like any of these recent hooks:
 {chr(10).join('- ' + h for h in __import__('hooks').recent())}
 Return JSON: {{"overall": number, "scores": {{...}}, "critical": bool, "issues": [str], "suggestions": [str],

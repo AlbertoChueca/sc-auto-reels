@@ -70,6 +70,26 @@ PUBLIC_SCIENCE = [   # explainer reels (no puzzle to answer)
     "Appreciate it ♟️ Source in the caption. Want a daily dose? Link in bio",
     "Good question! The full reference is in the caption 📚 Daily training at the link in bio",
 ]
+PUBLIC_TOUR = [      # app walkthroughs: keep the conversation going and say where to try it
+    "Love that answer 🔥 You can try what you just saw for free: streakchess.com (link in bio)",
+    "Thanks for playing along! ♟️ The app is free to start: streakchess.com. Tell us what you think",
+    "Good one 👀 Everything in the video is in the app today, free to start: link in bio",
+    "Noted! 📝 Want to see it yourself? streakchess.com, free to start. Which feature should we show next?",
+    "Appreciate it 🙌 Start your own streak today, it's free: streakchess.com (link in bio)",
+]
+PUBLIC_WHAT = [      # someone asks what this is / where to get it (any reel)
+    "StreakChess is a chess training app: daily puzzles at your level and a streak to keep 🔥 Free to start at streakchess.com (link in bio)",
+    "It's StreakChess, a daily chess puzzle app ♟️ It runs in your browser on phone or computer, free to start: streakchess.com",
+    "This is StreakChess: short daily puzzles matched to your rating, with feedback on every move. Free to start, link in bio 🔥",
+]
+ASKS_WHAT = re.compile("|".join([
+    r"\bwhat(?:'s| is)? (?:this|that|the|it)\b.{0,30}\b(?:app|game|site|website|platform)\b",
+    r"^\W*what(?:'s| is) (?:this|streak ?chess)\W*$",
+    r"\b(?:which|what) app\b", r"\bapp name\b", r"\bname of (?:the|this) (?:app|game)\b",
+    r"\bwhere (?:can|do) i (?:play|get|find|try|download|train)\b",
+    r"\bhow (?:can|do) i (?:play|get|join|sign|start|download|try)\b",
+    r"\bis (?:it|this) free\b", r"^\W*(?:link|website|app)\W*$",
+    r"\b(?:android|ios|iphone|app store|play store|download)\b"]), re.I)
 PUBLIC_STREAK = [
     "Let's go! 🔥 Start your free streak at streakchess.com (link in bio) and tell us your day count tomorrow!",
     "Love it! 🔥 Your streak starts today: streakchess.com, link in bio. Free to play!",
@@ -118,12 +138,14 @@ def main():
     uid = me["user_id"]; myname = me["username"]
     handled = load(HANDLED, {"comments": [], "dm": {}})
     done = set(handled["comments"])
-    solutions, hidden, abs_, lessons, science = {}, {}, {}, {}, set()
+    solutions, hidden, abs_, lessons, science, tours = {}, {}, {}, {}, set(), set()
     if os.path.exists("log.jsonl"):
         for line in open("log.jsonl"):
             e = json.loads(line)
             if e.get("media_id") and (e.get("science") or e.get("mode") == "science"):
                 science.add(e["media_id"])
+            if e.get("media_id") and (e.get("tour") or e.get("mode") == "tour"):
+                tours.add(e["media_id"])
             if e.get("media_id") and e.get("sans"):
                 solutions[e["media_id"]] = e["sans"][0]
                 if (e.get("story") or "").startswith("Tip: "):
@@ -176,7 +198,11 @@ def main():
                 if ok:
                     move = f"{pick} ({move})" if not hide_hint(m["id"], hidden, answered) else pick
             hide = m["id"] in hidden and m["id"] not in answered      # never spoil before the answer is posted
-            if re.search(r"\bstreak\b", c.get("text", ""), re.I):
+            if ASKS_WHAT.search(c.get("text", "")) and not ab_pick(c.get("text", "")):
+                pub = random.choice(PUBLIC_WHAT)                    # "what app is this?" always gets a straight answer
+            elif m["id"] in tours:
+                pub = random.choice(PUBLIC_TOUR); ok = False
+            elif re.search(r"\bstreak\b", c.get("text", ""), re.I):
                 pub = random.choice(PUBLIC_STREAK)
             elif m["id"] in science:
                 pub = random.choice(PUBLIC_SCIENCE); ok = False
