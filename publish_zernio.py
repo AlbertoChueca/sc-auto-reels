@@ -46,7 +46,9 @@ def tiktok_caption(hook, caption):
     hidden = "answer drops in the comments" in caption.lower() or "answer in the comments" in caption.lower() \
              or "reveal it in the comments" in caption.lower()
     L = _letters(caption)
-    ask = (f"Which move wins: {L}? Comment your letter 👇 answer tomorrow" if L and hidden else
+    share = next((l for l in caption.split("\n") if l.lower().startswith("send this to")), "")
+    ask = (share if share else
+           f"Which move wins: {L}? Comment your letter 👇 answer tomorrow" if L and hidden else
            f"Which move wins: {L}? Comment your letter 👇" if L else
            "Comment your move 👇 answer drops tomorrow" if hidden else "Comment your move before the answer 👇")
     lesson = next((l for l in caption.split("\n") if l.startswith("📌")), "")

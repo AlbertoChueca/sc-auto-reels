@@ -1,0 +1,851 @@
+{
+ "_readme": "Verified findings for the 'chess science' explainer reels. Every number on screen comes from here, never from the model. Keep claims conservative; 'about' is better than a precise figure we are not sure of. Fields: hook (<=7 words, on screen + first spoken words), moment (relatable scene), myth, mechanism, stat (grid/bars), study (who, where, how many), result (bar chart), method (what to do; board step kind from lesson_anim), takeaway, share (send this to the friend who...), sources.",
+ "facts": [
+  {
+   "id": "chunks",
+   "topic": "Masters don't have a better memory. They have more patterns.",
+   "hook": "Masters don't have better memory",
+   "moment": {
+    "narration": "You see a position for five seconds. Then it's gone. A master sees it once... and rebuilds it.",
+    "visual": "board_flash"
+   },
+   "myth": {
+    "narration": "And no, it's not because masters have a photographic memory.",
+    "label": "NOT MEMORY"
+   },
+   "mechanism": {
+    "narration": "Their brain doesn't store pieces. It stores patterns: whole groups of pieces that belong together.",
+    "visual": "board_chunks",
+    "label": "PATTERNS, NOT PIECES"
+   },
+   "stat": {
+    "narration": "Show a real game position for five seconds. A master puts back about sixteen of twenty-five pieces. A beginner, about four.",
+    "type": "grid",
+    "total": 25,
+    "a": 16,
+    "b": 4,
+    "label_a": "MASTER",
+    "label_b": "BEGINNER",
+    "title": "PIECES RECALLED OF 25"
+   },
+   "study": {
+    "narration": "Then the experiment flipped: random positions, pieces scattered with no logic. The master's advantage vanished. Both remembered about three.",
+    "type": "bars",
+    "labels": [
+     "MASTER",
+     "BEGINNER"
+    ],
+    "values": [
+     3,
+     3
+    ],
+    "max": 25,
+    "title": "RANDOM POSITIONS",
+    "big": "3 vs 3"
+   },
+   "result": {
+    "narration": "Same brain. Same memory. The difference was a library of patterns built from thousands of positions.",
+    "type": "bars",
+    "labels": [
+     "REAL GAME",
+     "RANDOM"
+    ],
+    "values": [
+     16,
+     3
+    ],
+    "max": 25,
+    "title": "A MASTER'S RECALL",
+    "big": "16 → 3"
+   },
+   "method": {
+    "narration": "So the way to see more is simple: solve real positions every day and let the patterns pile up.",
+    "step": "candidates",
+    "label": "ONE PATTERN A DAY"
+   },
+   "takeaway": {
+    "narration": "Your memory is fine. Your pattern library just needs daily deposits.",
+    "label": "BUILD THE LIBRARY"
+   },
+   "share": "Send this to the friend who says they have a bad memory for chess",
+   "sources": [
+    "de Groot, Thought and Choice in Chess (1946/1965)",
+    "Chase & Simon, Perception in chess, Cognitive Psychology (1973)"
+   ]
+  },
+  {
+   "id": "study_hours",
+   "topic": "Solo study predicts rating better than playing.",
+   "hook": "Playing more won't raise your rating",
+   "moment": {
+    "narration": "Another blitz game. And another. And another. Your rating... exactly where it was last month.",
+    "visual": "clock_games"
+   },
+   "myth": {
+    "narration": "And no, the problem isn't that you need to play more.",
+    "label": "NOT MORE GAMES"
+   },
+   "mechanism": {
+    "narration": "A game tests what you already know. Serious study is where new patterns actually get built.",
+    "visual": "board_vs_desk",
+    "label": "GAMES TEST. STUDY BUILDS."
+   },
+   "stat": {
+    "narration": "Researchers tracked hundreds of tournament players and logged how they spent their chess time.",
+    "type": "dots",
+    "total": 400,
+    "label": "TOURNAMENT PLAYERS",
+    "title": "HOW THEY SPENT THEIR TIME"
+   },
+   "study": {
+    "narration": "The strongest predictor of rating wasn't games played. It was hours of serious study alone.",
+    "type": "bars",
+    "labels": [
+     "GAMES PLAYED",
+     "SOLO STUDY"
+    ],
+    "values": [
+     40,
+     100
+    ],
+    "max": 100,
+    "title": "WHAT PREDICTS RATING",
+    "big": "SOLO STUDY"
+   },
+   "result": {
+    "narration": "In their first ten years, future masters had put in about five thousand hours of solo study. Intermediate players, about one thousand.",
+    "type": "bars",
+    "labels": [
+     "INTERMEDIATE",
+     "MASTER"
+    ],
+    "values": [
+     1000,
+     5000
+    ],
+    "max": 5000,
+    "title": "HOURS OF SOLO STUDY",
+    "big": "5x"
+   },
+   "method": {
+    "narration": "Solo study doesn't mean hours. It means minutes with full focus: a position, candidates, calculate, check.",
+    "step": "candidates",
+    "label": "TEN FOCUSED MINUTES"
+   },
+   "takeaway": {
+    "narration": "Play for fun. Study to improve. Ten focused minutes a day beats fifty blitz games.",
+    "label": "STUDY BEATS BLITZ"
+   },
+   "share": "Send this to the friend who plays 50 blitz games a day",
+   "sources": [
+    "Charness, Tuffiash, Krampe, Reingold & Vasyukova, The role of deliberate practice in chess expertise, Applied Cognitive Psychology (2005)"
+   ]
+  },
+  {
+   "id": "air",
+   "topic": "The air in the room changes how many mistakes you make.",
+   "hook": "The air is making you blunder",
+   "moment": {
+    "narration": "Round three of the tournament. Stuffy hall, a hundred players, windows shut. And your calculation starts to slip.",
+    "visual": "hall_dust"
+   },
+   "myth": {
+    "narration": "And no, it's not just tiredness.",
+    "label": "NOT JUST TIRED"
+   },
+   "mechanism": {
+    "narration": "Tiny particles in the air reach the brain and quietly degrade decision-making, especially under time pressure.",
+    "visual": "dust_brain",
+    "label": "FINE PARTICLES, FOGGY MOVES"
+   },
+   "stat": {
+    "narration": "Economists put air sensors inside real chess tournaments in Germany and ran every move through an engine.",
+    "type": "dots",
+    "total": 300,
+    "label": "MOVES CHECKED BY ENGINE",
+    "title": "SENSORS IN THE PLAYING HALL"
+   },
+   "study": {
+    "narration": "Same players, same tournament. On days with worse air, the chance of a mistake went up by about two percentage points.",
+    "type": "bars",
+    "labels": [
+     "CLEANER AIR",
+     "WORSE AIR"
+    ],
+    "values": [
+     100,
+     121
+    ],
+    "max": 130,
+    "title": "CHANCE OF AN ERROR",
+    "big": "+2.1 pts"
+   },
+   "result": {
+    "narration": "And the mistakes themselves got about eleven percent bigger. Under time pressure, the effect was even stronger.",
+    "type": "bars",
+    "labels": [
+     "CLEANER AIR",
+     "WORSE AIR"
+    ],
+    "values": [
+     100,
+     111
+    ],
+    "max": 130,
+    "title": "SIZE OF THE MISTAKES",
+    "big": "+10.8%"
+   },
+   "method": {
+    "narration": "You can't control the hall. You can control your time: calculate the forcing moves early, before the clock gets low.",
+    "step": "checks",
+    "label": "DON'T GET LOW ON TIME"
+   },
+   "takeaway": {
+    "narration": "Open a window when you train. And train calculation so time pressure never decides your game.",
+    "label": "AIR + TIME"
+   },
+   "share": "Send this to the friend who blames every loss on bad luck",
+   "sources": [
+    "Künn, Palacios & Pestel, Indoor Air Quality and Cognitive Performance, Management Science (2023; IZA DP 2019)"
+   ]
+  },
+  {
+   "id": "age",
+   "topic": "You are not too old to improve.",
+   "hook": "You're not too old for chess",
+   "moment": {
+    "narration": "You're thirty-something, you discover chess, and someone tells you: too late, this is a kids' game.",
+    "visual": "timeline"
+   },
+   "myth": {
+    "narration": "And no, chess skill does not peak at twenty.",
+    "label": "NOT A KIDS' GAME"
+   },
+   "mechanism": {
+    "narration": "Chess runs on two engines: raw calculation, which fades slowly, and pattern knowledge, which keeps growing for decades.",
+    "visual": "two_engines",
+    "label": "SPEED FADES, KNOWLEDGE GROWS"
+   },
+   "stat": {
+    "narration": "Researchers analysed one point six million moves from about four thousand professional players, across one hundred and twenty-five years of games.",
+    "type": "dots",
+    "total": 400,
+    "label": "4,000 PLAYERS · 1.6M MOVES",
+    "title": "125 YEARS OF CHESS"
+   },
+   "study": {
+    "narration": "Move quality kept improving through the twenties and thirties.",
+    "type": "timeline",
+    "points": [
+     [
+      20,
+      70
+     ],
+     [
+      25,
+      84
+     ],
+     [
+      30,
+      94
+     ],
+     [
+      35,
+      100
+     ],
+     [
+      40,
+      99
+     ],
+     [
+      45,
+      97
+     ],
+     [
+      50,
+      92
+     ],
+     [
+      60,
+      82
+     ]
+    ],
+    "title": "MOVE QUALITY BY AGE",
+    "big": "PEAK ≈ 35"
+   },
+   "result": {
+    "narration": "Performance peaked around age thirty-five, and stayed on that plateau until about forty-five.",
+    "type": "bars",
+    "labels": [
+     "AGE 20",
+     "AGE 35",
+     "AGE 45"
+    ],
+    "values": [
+     70,
+     100,
+     97
+    ],
+    "max": 100,
+    "title": "RELATIVE PERFORMANCE",
+    "big": "35 → 45"
+   },
+   "method": {
+    "narration": "The engine that grows with age is patterns. Feed it: one real position a day, calculated to the end.",
+    "step": "candidates",
+    "label": "FEED THE PATTERN ENGINE"
+   },
+   "takeaway": {
+    "narration": "Starting at thirty is not late. It's a fifteen-year climb that hasn't begun.",
+    "label": "THE CLIMB STARTS NOW"
+   },
+   "share": "Send this to the friend who thinks they started chess too late",
+   "sources": [
+    "Strittmatter, Sunde & Zegners, Life cycle patterns of cognitive performance over the long run, PNAS (2020)"
+   ]
+  },
+  {
+   "id": "einstellung",
+   "topic": "Your first good idea blocks a better one.",
+   "hook": "Your first idea is blocking you",
+   "moment": {
+    "narration": "You spot a mate in five. Beautiful. You play it. The engine shows a mate in three you never saw.",
+    "visual": "board_two_solutions"
+   },
+   "myth": {
+    "narration": "And no, you didn't miss it because you calculated badly.",
+    "label": "NOT BAD CALCULATION"
+   },
+   "mechanism": {
+    "narration": "Once a familiar idea lights up, your eyes keep returning to its squares, even while you think you're searching.",
+    "visual": "eye_squares",
+    "label": "THE FIRST IDEA HIJACKS YOUR EYES"
+   },
+   "stat": {
+    "narration": "Researchers gave strong players a position with a familiar five-move mate... and a hidden three-move mate.",
+    "type": "grid",
+    "total": 25,
+    "a": 25,
+    "b": 0,
+    "label_a": "FOUND THE FAMILIAR MATE",
+    "label_b": "",
+    "title": "STRONG PLAYERS TESTED"
+   },
+   "study": {
+    "narration": "Eye tracking caught it: players said they were looking for better options. Their eyes stayed on the familiar solution.",
+    "type": "bars",
+    "labels": [
+     "FAMILIAR SQUARES",
+     "OTHER SQUARES"
+    ],
+    "values": [
+     100,
+     25
+    ],
+    "max": 100,
+    "title": "WHERE THE EYES WENT",
+    "big": "STUCK"
+   },
+   "result": {
+    "narration": "Most missed the shorter mate. In that moment they played like players several rating classes weaker.",
+    "type": "bars",
+    "labels": [
+     "NORMAL",
+     "WITH A FAMILIAR IDEA"
+    ],
+    "values": [
+     100,
+     60
+    ],
+    "max": 100,
+    "title": "EFFECTIVE STRENGTH",
+    "big": "CLASSES WEAKER"
+   },
+   "method": {
+    "narration": "The fix is a habit: found a good move? Write it down, then look at the board like it's new. Every check, every capture.",
+    "step": "checks",
+    "label": "GOOD MOVE? LOOK AGAIN"
+   },
+   "takeaway": {
+    "narration": "When you see a good move, look for a better one. Lasker said it. Science proved it.",
+    "label": "LOOK FOR A BETTER ONE"
+   },
+   "share": "Send this to the friend who plays the first move they see",
+   "sources": [
+    "Bilalić, McLeod & Gobet, Why good thoughts block better ones: the mechanism of the pernicious Einstellung effect, Cognition (2008)"
+   ]
+  },
+  {
+   "id": "retrieval",
+   "topic": "Solving beats watching.",
+   "hook": "Watching chess videos doesn't work",
+   "moment": {
+    "narration": "Two hours of chess videos tonight. You understood everything. Next game... you remember nothing.",
+    "visual": "screen_watch"
+   },
+   "myth": {
+    "narration": "And no, you don't need to watch it again.",
+    "label": "NOT REWATCHING"
+   },
+   "mechanism": {
+    "narration": "Memory isn't built when information goes in. It's built when you pull it back out.",
+    "visual": "brain_pull",
+    "label": "RECALL BUILDS MEMORY"
+   },
+   "stat": {
+    "narration": "In a classic experiment, students learned a text. One group re-read it. The other group was tested on it instead.",
+    "type": "dots",
+    "total": 120,
+    "label": "STUDENTS",
+    "title": "RE-READ vs RECALL",
+    "split": [
+     60,
+     60
+    ],
+    "split_labels": [
+     "RE-READ",
+     "RECALL"
+    ]
+   },
+   "study": {
+    "narration": "Right away, both groups looked similar. The re-readers even felt more confident.",
+    "type": "bars",
+    "labels": [
+     "RE-READ",
+     "RECALL"
+    ],
+    "values": [
+     81,
+     75
+    ],
+    "max": 100,
+    "title": "AFTER 5 MINUTES",
+    "big": "≈ SAME"
+   },
+   "result": {
+    "narration": "One week later, the re-readers kept forty percent. The group that practised recall kept sixty-one percent.",
+    "type": "bars",
+    "labels": [
+     "RE-READ",
+     "RECALL"
+    ],
+    "values": [
+     40,
+     61
+    ],
+    "max": 100,
+    "title": "REMEMBERED AFTER ONE WEEK",
+    "big": "+50%"
+   },
+   "method": {
+    "narration": "So don't watch the solution. Cover it, list the checks and captures, commit to a move, and only then check.",
+    "step": "checks",
+    "label": "COMMIT BEFORE YOU CHECK"
+   },
+   "takeaway": {
+    "narration": "A puzzle you solve is worth ten you watch.",
+    "label": "SOLVE, DON'T WATCH"
+   },
+   "share": "Send this to the friend who watches chess videos instead of training",
+   "sources": [
+    "Roediger & Karpicke, Test-enhanced learning, Psychological Science (2006)"
+   ]
+  },
+  {
+   "id": "habit",
+   "topic": "How long until training becomes automatic.",
+   "hook": "Why your chess habit keeps dying",
+   "moment": {
+    "narration": "Day one: motivated. Day four: tired. Day nine: you forgot chess existed.",
+    "visual": "calendar_fail"
+   },
+   "myth": {
+    "narration": "And no, it's not a willpower problem.",
+    "label": "NOT WILLPOWER"
+   },
+   "mechanism": {
+    "narration": "A habit forms when a cue and an action repeat until the brain stops needing a decision.",
+    "visual": "cue_action",
+    "label": "CUE → ACTION → REPEAT"
+   },
+   "stat": {
+    "narration": "Researchers followed ninety-six people building a new daily habit and measured when it became automatic.",
+    "type": "dots",
+    "total": 96,
+    "label": "PEOPLE",
+    "title": "BUILDING A DAILY HABIT"
+   },
+   "study": {
+    "narration": "On average it took sixty-six days. Some needed eighteen. Some needed over two hundred.",
+    "type": "calendar",
+    "total": 66,
+    "title": "DAYS TO AUTOMATIC",
+    "big": "66 DAYS"
+   },
+   "result": {
+    "narration": "And missing a single day made almost no difference. What killed habits was stopping for good.",
+    "type": "bars",
+    "labels": [
+     "MISS ONE DAY",
+     "QUIT"
+    ],
+    "values": [
+     5,
+     100
+    ],
+    "max": 100,
+    "title": "DAMAGE TO THE HABIT",
+    "big": "1 MISS ≈ 0"
+   },
+   "method": {
+    "narration": "Make it tiny and fixed: same time, one puzzle, every day. The streak is the cue.",
+    "step": "candidates",
+    "label": "SAME TIME, ONE PUZZLE"
+   },
+   "takeaway": {
+    "narration": "Motivation gets you to day four. A streak gets you to day sixty-six.",
+    "label": "GET TO DAY 66"
+   },
+   "share": "Send this to the friend who restarts their chess training every Monday",
+   "sources": [
+    "Lally, van Jaarsveld, Potts & Wardle, How are habits formed, European Journal of Social Psychology (2010)"
+   ]
+  },
+  {
+   "id": "speed",
+   "topic": "Fast games multiply blunders, even for grandmasters.",
+   "hook": "Even grandmasters blunder when rushed",
+   "moment": {
+    "narration": "Thirty seconds on the clock. You see the move, you grab the piece... and you've just hung your queen.",
+    "visual": "board_blunder"
+   },
+   "myth": {
+    "narration": "And no, it's not because you're bad under pressure.",
+    "label": "NOT A NERVES PROBLEM"
+   },
+   "mechanism": {
+    "narration": "With less time, you skip the one step that catches blunders: checking your opponent's reply.",
+    "visual": "clock_skip",
+    "label": "THE SKIPPED STEP"
+   },
+   "stat": {
+    "narration": "Researchers ran thousands of grandmaster moves through an engine, from slow games and from rapid games.",
+    "type": "dots",
+    "total": 200,
+    "label": "GRANDMASTER MOVES",
+    "title": "SLOW vs RAPID"
+   },
+   "study": {
+    "narration": "In slow games the grandmasters made about five serious mistakes per thousand moves.",
+    "type": "bars",
+    "labels": [
+     "SLOW",
+     "RAPID"
+    ],
+    "values": [
+     5,
+     7
+    ],
+    "max": 10,
+    "title": "BIG MISTAKES PER 1,000 MOVES",
+    "big": "5 → 7"
+   },
+   "result": {
+    "narration": "In rapid games, about seven. Same players, same brains, about forty percent more blunders.",
+    "type": "bars",
+    "labels": [
+     "SLOW",
+     "RAPID"
+    ],
+    "values": [
+     100,
+     140
+    ],
+    "max": 150,
+    "title": "BLUNDER RATE",
+    "big": "+40%"
+   },
+   "method": {
+    "narration": "The antidote is a reflex you train slowly: before every move, what is their best reply? Checks, captures, threats.",
+    "step": "their_threats",
+    "label": "THEIR BEST REPLY FIRST"
+   },
+   "takeaway": {
+    "narration": "Blitz doesn't train the blunder check. Slow puzzles do. Then the reflex shows up in blitz.",
+    "label": "TRAIN SLOW, PLAY FAST"
+   },
+   "share": "Send this to the friend who hangs pieces in time trouble",
+   "sources": [
+    "Chabris & Hearst, Visualization, pattern recognition, and forward search: effects of playing speed and sight of the board on grandmaster chess errors, Cognitive Science (2003)"
+   ]
+  },
+  {
+   "id": "brain",
+   "topic": "Masters and amateurs use different parts of the brain.",
+   "hook": "Masters use a different brain",
+   "moment": {
+    "narration": "Same position, same clock. The amateur is thinking hard. The master already knows.",
+    "visual": "brain_two"
+   },
+   "myth": {
+    "narration": "And no, the master is not calculating faster.",
+    "label": "NOT FASTER THINKING"
+   },
+   "mechanism": {
+    "narration": "Scans showed amateurs lighting up the medial temporal lobe, the region for new information. Masters lit up the frontal and parietal cortex, where stored patterns live.",
+    "visual": "brain_regions",
+    "label": "RECALL vs FIGURE OUT"
+   },
+   "stat": {
+    "narration": "Twenty players, from amateur to grandmaster, played matches against a computer while their brain activity was measured.",
+    "type": "dots",
+    "total": 20,
+    "label": "PLAYERS SCANNED",
+    "title": "AMATEURS TO GRANDMASTERS"
+   },
+   "study": {
+    "narration": "The stronger the player, the more the activity shifted from working things out to recognising them.",
+    "type": "bars",
+    "labels": [
+     "AMATEUR",
+     "GRANDMASTER"
+    ],
+    "values": [
+     30,
+     100
+    ],
+    "max": 100,
+    "title": "PATTERN RECALL ACTIVITY",
+    "big": "SHIFT"
+   },
+   "result": {
+    "narration": "Expertise isn't thinking harder. It's recognising more.",
+    "type": "bars",
+    "labels": [
+     "FIGURING OUT",
+     "RECOGNISING"
+    ],
+    "values": [
+     100,
+     30
+    ],
+    "max": 100,
+    "title": "WHERE A MASTER'S BRAIN WORKS",
+    "big": "RECOGNISE"
+   },
+   "method": {
+    "narration": "You build recognition by meeting patterns again and again: a pin today, a fork tomorrow, until your brain stops computing them.",
+    "step": "candidates",
+    "label": "MEET THE PATTERN AGAIN"
+   },
+   "takeaway": {
+    "narration": "Every puzzle you solve moves one more pattern from 'figure out' to 'just know'.",
+    "label": "FROM THINK TO KNOW"
+   },
+   "share": "Send this to the friend who thinks masters just calculate faster",
+   "sources": [
+    "Amidzic, Riehle, Fehr, Wienbruch & Elbert, Pattern of focal gamma-bursts in chess players, Nature (2001)"
+   ]
+  },
+  {
+   "id": "depth",
+   "topic": "Masters don't calculate deeper. They calculate better.",
+   "hook": "Masters don't calculate deeper",
+   "moment": {
+    "narration": "You calculate seven moves deep, pick a line... and lose to something on move two.",
+    "visual": "tree_deep"
+   },
+   "myth": {
+    "narration": "And no, the answer isn't calculating even deeper.",
+    "label": "NOT DEEPER"
+   },
+   "mechanism": {
+    "narration": "When a famous psychologist made players think aloud, masters and club players searched about as deep. The difference was the FIRST moves they looked at.",
+    "visual": "tree_wide",
+    "label": "BETTER CANDIDATES, SAME DEPTH"
+   },
+   "stat": {
+    "narration": "Grandmasters, including a world champion, and club players solved the same positions, talking through every thought.",
+    "type": "dots",
+    "total": 24,
+    "label": "PLAYERS, THINKING ALOUD",
+    "title": "THE THINK-ALOUD STUDY"
+   },
+   "study": {
+    "narration": "The masters' first candidate was usually already the best move. The club players spent their time on moves that were never going to work.",
+    "type": "bars",
+    "labels": [
+     "CLUB PLAYER",
+     "MASTER"
+    ],
+    "values": [
+     40,
+     100
+    ],
+    "max": 100,
+    "title": "FIRST CANDIDATE = BEST MOVE",
+    "big": "FIRST LOOK"
+   },
+   "result": {
+    "narration": "Depth was similar. Quality of the candidates was the whole difference.",
+    "type": "bars",
+    "labels": [
+     "DEPTH",
+     "CANDIDATE QUALITY"
+    ],
+    "values": [
+     100,
+     100
+    ],
+    "max": 100,
+    "title": "MASTER vs CLUB",
+    "big": "SAME DEPTH"
+   },
+   "method": {
+    "narration": "Before you calculate anything, list the forcing moves: every check, every capture, every threat. Then calculate only those.",
+    "step": "checks",
+    "label": "FORCING MOVES FIRST"
+   },
+   "takeaway": {
+    "narration": "Don't go deeper. Start from better moves.",
+    "label": "START FROM BETTER MOVES"
+   },
+   "share": "Send this to the friend who calculates ten moves deep and still loses",
+   "sources": [
+    "de Groot, Thought and Choice in Chess (1946/1965)",
+    "Chase & Simon (1973)"
+   ]
+  },
+  {
+   "id": "patterns50k",
+   "topic": "A master knows about fifty thousand patterns.",
+   "hook": "A master knows 50,000 patterns",
+   "moment": {
+    "narration": "The master glances at the board and plays instantly. You've been staring for three minutes.",
+    "visual": "board_glance"
+   },
+   "myth": {
+    "narration": "And no, that glance is not talent.",
+    "label": "NOT TALENT"
+   },
+   "mechanism": {
+    "narration": "Every position the master has studied left a chunk in memory. The glance is a lookup, not a calculation.",
+    "visual": "board_chunks",
+    "label": "A LOOKUP, NOT A CALCULATION"
+   },
+   "stat": {
+    "narration": "Researchers estimated how many chunks a master needs to perform like a master. The answer: around fifty thousand.",
+    "type": "dots",
+    "total": 500,
+    "label": "× 100 = 50,000 PATTERNS",
+    "title": "A MASTER'S LIBRARY"
+   },
+   "study": {
+    "narration": "That's roughly the vocabulary of a language. Nobody is born with it. It's collected, one pattern at a time.",
+    "type": "bars",
+    "labels": [
+     "BEGINNER",
+     "CLUB",
+     "MASTER"
+    ],
+    "values": [
+     5,
+     30,
+     100
+    ],
+    "max": 100,
+    "title": "PATTERNS KNOWN",
+    "big": "COLLECTED"
+   },
+   "result": {
+    "narration": "One pattern a day is three hundred and sixty-five a year. The library grows whether you feel it or not.",
+    "type": "calendar",
+    "total": 365,
+    "title": "ONE PATTERN A DAY",
+    "big": "365 / YEAR"
+   },
+   "method": {
+    "narration": "Don't just solve. Name the pattern after each puzzle: pin, fork, back rank. The name is the label on the shelf.",
+    "step": "candidates",
+    "label": "NAME THE PATTERN"
+   },
+   "takeaway": {
+    "narration": "Talent is a library you haven't filled yet.",
+    "label": "FILL THE LIBRARY"
+   },
+   "share": "Send this to the friend who says chess is all talent",
+   "sources": [
+    "Simon & Gilmartin, A simulation of memory for chess positions, Cognitive Psychology (1973)",
+    "Chase & Simon (1973)"
+   ]
+  },
+  {
+   "id": "kids_math",
+   "topic": "Chess and school: what the research really shows.",
+   "hook": "What chess does to a kid's math",
+   "moment": {
+    "narration": "Your kid is obsessed with chess. Part of you wonders if those hours should go to homework.",
+    "visual": "kid_board"
+   },
+   "myth": {
+    "narration": "And no, chess doesn't magically make kids geniuses, so let's look at what it actually does.",
+    "label": "NOT MAGIC"
+   },
+   "mechanism": {
+    "narration": "Chess trains the same muscles math uses: holding steps in your head, checking before acting, finishing a calculation.",
+    "visual": "board_math",
+    "label": "THE SAME MUSCLES"
+   },
+   "stat": {
+    "narration": "A meta-analysis pooled twenty-four studies on chess instruction in schools.",
+    "type": "dots",
+    "total": 24,
+    "label": "STUDIES POOLED",
+    "title": "CHESS IN SCHOOLS"
+   },
+   "study": {
+    "narration": "Across them, kids who received chess instruction improved in mathematics, with a moderate but real effect.",
+    "type": "bars",
+    "labels": [
+     "NO CHESS",
+     "CHESS"
+    ],
+    "values": [
+     100,
+     115
+    ],
+    "max": 130,
+    "title": "MATH RESULTS",
+    "big": "MODERATE GAIN"
+   },
+   "result": {
+    "narration": "The effect was clearest for math and problem solving, smaller elsewhere. And it works best when the training is regular, not occasional.",
+    "type": "bars",
+    "labels": [
+     "OCCASIONAL",
+     "REGULAR"
+    ],
+    "values": [
+     40,
+     100
+    ],
+    "max": 100,
+    "title": "WHEN IT WORKS",
+    "big": "REGULAR"
+   },
+   "method": {
+    "narration": "Regular means short and daily: one position, calculate to the end, check the answer. Ten minutes.",
+    "step": "candidates",
+    "label": "TEN MINUTES, DAILY"
+   },
+   "takeaway": {
+    "narration": "Those chess hours aren't stolen from homework. Ten daily minutes of calculation are homework.",
+    "label": "CHESS IS HOMEWORK"
+   },
+   "share": "Send this to the parent who wonders if chess is worth it",
+   "sources": [
+    "Sala & Gobet, Do the benefits of chess instruction transfer to academic and cognitive skills? A meta-analysis, Educational Research Review (2016)"
+   ]
+  }
+ ]
+}

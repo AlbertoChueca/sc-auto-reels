@@ -34,8 +34,24 @@ def opening(t, k=3):
     return " ".join(_norm(t)[:k])
 
 
+STOP = {"the", "a", "an", "to", "of", "or", "and", "your", "this", "that", "is", "it", "in", "on", "for", "with",
+        "you", "can", "white", "whites", "black", "blacks", "comment", "b", "c", "d"}
+
+
+def _shape(t):
+    """Template signature: the hook with chess nouns/colours/letters removed, so 'Punish Black's pinned knight:
+    comment A, B, C or D!' and 'Crush White's overloaded defender: comment A, B, C or D!' look the same."""
+    w = [x for x in _norm(t) if x not in STOP]
+    nouns = {"knight", "bishop", "rook", "queen", "king", "pawn", "defender", "attacker", "sacrifice", "check", "pin",
+             "pinned", "fork", "overloaded", "loose", "hanging", "trapped", "threat", "line", "back", "rank", "mate",
+             "move", "piece", "escape", "discovered", "attack", "counter", "winning", "decisive", "deadly", "hidden",
+             "tactical", "secret", "unstoppable", "overworked", "defending", "defense", "defence"}
+    return " ".join("_" if x in nouns else x for x in w)
+
+
 def is_fresh(hook, prev=None):
-    """True when the hook does not share its first 3 words with a recent one and does not reuse a tired template."""
+    """True when the hook is really new: not the same opening as a recent one, not the same template with other
+    chess nouns swapped in, not mostly the same words, and not a tired formula."""
     prev = recent() if prev is None else prev
     h = _norm(hook)
     if len(h) < 2:
@@ -46,8 +62,18 @@ def is_fresh(hook, prev=None):
     tired = [p for p in prev if "can you help vektor" in " ".join(_norm(p))]
     if "can you help vektor" in " ".join(h) and len(tired) >= 1:
         return False
-    if any(" ".join(_norm(p)) == " ".join(h) for p in prev):
+    hs = _shape(hook)
+    same_shape = sum(1 for p in prev if _shape(p) == hs)
+    if same_shape >= 1:
         return False
+    tail = " ".join(h[-4:])
+    if sum(1 for p in prev if " ".join(_norm(p)[-4:]) == tail) >= 2:         # same ending as 2+ recent hooks
+        return False
+    hw = set(h) - STOP
+    for p in prev:
+        pw = set(_norm(p)) - STOP
+        if hw and pw and len(hw & pw) / len(hw | pw) >= 0.5:
+            return False
     return True
 
 
@@ -60,6 +86,7 @@ RULES = """HOOK RULES (the first line is the whole game):
   ("4 candidates. 1 wins. 15 seconds."), a question about the position ("Why can't the rook take?"),
   a POV ("POV: your opponent just hung a piece"), a mistake callout ("Most club players grab the queen here").
 - 4-11 words, plain English, no hashtags, max one emoji, no fake statistics, no clickbait lies.
+- Do NOT end with "comment A, B, C or D" (that line already lives in the caption body): the hook is the idea.
 RECENT HOOKS (do not reuse their openings):
 {recent}"""
 

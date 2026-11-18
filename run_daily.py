@@ -31,7 +31,7 @@ def log(entry):
 
 # ---- choose level / mode
 LEVELS = ["basic", "intermediate", "advanced"]
-if slot in ("story", "benefit"):
+if slot in ("story", "benefit", "science"):
     level, mode = LEVELS[today.toordinal() % 3], "level"          # rotates every day (benefit: used only as fallback)
 elif slot == "storytag":
     level, mode = random.Random(f"{today}-tag").choice(["basic", "intermediate"]), "tagfriend"
@@ -42,6 +42,18 @@ else:
 
 if os.environ.get("LEVEL_OVERRIDE", "auto") in LEVELS:      # manual run with a chosen difficulty
     level = os.environ["LEVEL_OVERRIDE"]
+if not dry and os.environ.get("IG_TOKEN"):      # fail fast (before any rendering) when the Instagram token is dead
+    try:
+        from publish_ig import whoami
+        print("Instagram token OK: @" + str(whoami(os.environ["IG_TOKEN"]).get("username")), flush=True)
+    except Exception as _e:
+        _m = (f"❌ Instagram token invalid - nothing can be published. Create a new Page token and update the IG_TOKEN "
+              f"secret. Instagram said: {str(_e)[:300]}")
+        print(_m, flush=True)
+        if os.environ.get("GITHUB_STEP_SUMMARY"):
+            open(os.environ["GITHUB_STEP_SUMMARY"], "a").write("## " + _m + "\n")
+        raise SystemExit(1)
+
 insights_msg = ""
 try:                       # real Instagram results -> performance.json (the reviewer learns from them)
     import insights
@@ -91,6 +103,8 @@ meta, engine = None, None
 chain = ["story", "story", "hype", "classic"]
 if arms.get("format") == "tip" and slot in ("story", "storytag"):
     chain = ["tip"] + chain                      # calculation-tip reel (falls back to a story if anything fails)
+if slot == "science":                            # chess-science explainer (4 a week); falls back to a masterclass
+    chain = ["science", "tip"] + chain
 # Benefit reels: on chosen weekdays the evening slot has Vektor explain a real benefit of StreakChess
 # (illustrated scenes, only true facts from assets/app/facts.md). BENEFIT_DAYS=none disables them.
 _bdays = {int(d) for d in os.environ.get("BENEFIT_DAYS", "2").split(",") if d.strip().isdigit()}   # 0=Mon .. 6=Sun
@@ -103,7 +117,10 @@ if slot == "benefit" or (slot == "storytag" and _la_day.weekday() in _bdays
 errors = []
 for eng in chain:
     try:
-        if eng == "tip":
+        if eng == "science":
+            from make_science import build as b
+            meta = b(seed, out, P=P, mode=mode)
+        elif eng == "tip":
             if not os.environ.get("GEMINI_API_KEY"):
                 raise RuntimeError("GEMINI_API_KEY not set")
             from make_tip import build as b
@@ -151,7 +168,7 @@ print(subs_msg, flush=True)
 summary = os.environ.get("GITHUB_STEP_SUMMARY")
 if summary:  # visible on the run page in GitHub
     with open(summary, "a") as f:
-        ok = engine in ("story", "benefit", "tip")
+        ok = engine in ("story", "benefit", "tip", "science")
         f.write(f"## {'✅ Premium story reel' if ok else '⚠️ Fallback reel (story failed)'}\n\n"
                 f"- Slot: `{slot}` · level: `{level}` · mode: `{mode}`\n- Engine: `{engine}` · voice: `{voice_used}`\n"
                 + (f"- Story: {meta.get('story')}\n" if meta.get("story") else "")
@@ -211,7 +228,8 @@ try:  # our own first comment: the question + where to train (never blocks the r
     _ab = meta.get("ab") or {}
     _L = [k for k in "ABCD" if k in _ab]
     _q = (f"Which move wins: {', '.join(_L[:-1])} or {_L[-1]}? Comment your letter 👇 Answer revealed here tomorrow."
-          if len(_L) > 1 else "Comment your move 👇 Answer revealed here tomorrow.")
+          if len(_L) > 1 else ("Tag the friend who needs to see this 👇 Source in the caption." if meta.get("mode") == "science"
+                               else "Comment your move 👇 Answer revealed here tomorrow."))
     _fc = random.Random(f"{today}-{slot}-fc{_B}").choice([
         f"{_q} Train your calculation free every day at streakchess.com ♟️",
         f"{_q} Daily puzzles + lessons, free: streakchess.com (link in bio)",
@@ -235,5 +253,7 @@ if os.environ.get("ZERNIO_API_KEY"):  # YouTube Shorts + TikTok via Zernio (neve
 
 meta["voice"] = voice_used
 meta["arms"] = arms if engine in ("story", "tip") else {}
+if engine == "science":
+    meta["mode"] = "science"
 log({k: meta.get(k) for k in ("engine", "voice", "review_score", "design_score", "arms", "mode", "puzzle", "level", "rating", "story", "hook", "location", "permalink",
-                              "media_id", "sans", "reveal", "ab", "duration", "tip_key", "story_share", "zernio", "first_comment")})
+                              "media_id", "sans", "reveal", "ab", "duration", "tip_key", "science", "story_share", "zernio", "first_comment")})

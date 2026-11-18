@@ -63,6 +63,13 @@ PUBLIC_OTHER_HIDDEN = [
 # Before the reveal NOBODY gets confirmed in public (a "correct!" under a comment gives the answer away and kills the
 # guessing): correct answers get the same neutral replies, and the confirmation goes by private message.
 PUBLIC_ANY_HIDDEN = PUBLIC_OTHER_HIDDEN
+PUBLIC_SCIENCE = [   # explainer reels (no puzzle to answer)
+    "Thanks! 🧠 The study is linked in the caption. Daily calculation training, link in bio",
+    "Glad it landed! Tag the friend who needs this 👇 Train free, link in bio",
+    "Science says: train the pattern daily 🔥 Free puzzles every day, link in bio",
+    "Appreciate it ♟️ Source in the caption. Want a daily dose? Link in bio",
+    "Good question! The full reference is in the caption 📚 Daily training at the link in bio",
+]
 PUBLIC_STREAK = [
     "Let's go! 🔥 Start your free streak at streakchess.com (link in bio) and tell us your day count tomorrow!",
     "Love it! 🔥 Your streak starts today: streakchess.com, link in bio. Free to play!",
@@ -111,10 +118,12 @@ def main():
     uid = me["user_id"]; myname = me["username"]
     handled = load(HANDLED, {"comments": [], "dm": {}})
     done = set(handled["comments"])
-    solutions, hidden, abs_, lessons = {}, {}, {}, {}
+    solutions, hidden, abs_, lessons, science = {}, {}, {}, {}, set()
     if os.path.exists("log.jsonl"):
         for line in open("log.jsonl"):
             e = json.loads(line)
+            if e.get("media_id") and (e.get("science") or e.get("mode") == "science"):
+                science.add(e["media_id"])
             if e.get("media_id") and e.get("sans"):
                 solutions[e["media_id"]] = e["sans"][0]
                 if (e.get("story") or "").startswith("Tip: "):
@@ -169,6 +178,8 @@ def main():
             hide = m["id"] in hidden and m["id"] not in answered      # never spoil before the answer is posted
             if re.search(r"\bstreak\b", c.get("text", ""), re.I):
                 pub = random.choice(PUBLIC_STREAK)
+            elif m["id"] in science:
+                pub = random.choice(PUBLIC_SCIENCE); ok = False
             elif hide:
                 pub = random.choice(PUBLIC_ANY_HIDDEN)              # no spoilers before the reveal, right or wrong
             elif ok:

@@ -15,7 +15,7 @@ on:
       level:
         description: "Premium story reel: story = normal puzzle, storytag = 'challenge a friend'"
         type: choice
-        options: [story, storytag, benefit]
+        options: [story, storytag, benefit, science]
         default: story
       difficulty:
         description: "Puzzle level (auto = rotates every day)"
@@ -59,7 +59,10 @@ jobs:
           if planned - now > datetime.timedelta(hours=12): planned -= datetime.timedelta(days=1)
           local = planned.astimezone(ZoneInfo("America/Los_Angeles")).hour
           slots = {9: "story", 13: "story", 17: "storytag"}   # 9 AM, 1 PM, 5 PM Pacific
-          print("planned UTC", planned, "-> Los Angeles hour", local)
+          la = planned.astimezone(ZoneInfo("America/Los_Angeles"))
+          if local == 13 and la.weekday() in (0, 2, 4, 6):   # Mon, Wed, Fri, Sun 1 PM: chess-science explainer (4/week)
+              slots[13] = "science"
+          print("planned UTC", planned, "-> Los Angeles hour", local, "weekday", la.weekday())
           out.write(f"run={'true' if local in slots else 'false'}\nlevel={slots.get(local, 'story')}\n")
 
   reel:
@@ -135,6 +138,6 @@ jobs:
         run: |
           git config user.name "reels-bot"
           git config user.email "reels-bot@users.noreply.github.com"
-          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json tip_log.json lesson_lines.json answers_announced.json; do [ -f "$f" ] && git add "$f"; done
+          for f in used.json log.jsonl story_log.json review_log.jsonl performance.json strategy_arms.json strategy_report.md playbook.md series.json benefit_log.json tip_log.json lesson_lines.json science_log.json answers_announced.json; do [ -f "$f" ] && git add "$f"; done
           [ -d agents ] && git add agents
           git diff --cached --quiet || (git commit -m "Reel ${{ steps.lvl.outputs.level }} $(date +%F)" && (git push || (git pull --rebase && git push)))
