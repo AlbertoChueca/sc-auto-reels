@@ -1,8 +1,12 @@
 # Voice & Humor Editor - notebook
+_Updated 2026-11-18_
+
+# Voice & Humor Editor - notebook
 _Updated 2026-11-14_
 
-- Ground chess observations in visceral, physical imagery ('seagulls on fries', 'looting the boss', 'burning house').
-- Exploit the opponent's premature swagger and false security right before the tactical strike lands.
-- Zero tolerance for corporate AI fluff: ban 'masterclass', 'dive in', 'dive into', and 'unlock'.
-- Give Coach's Rules a rhythmic, memorable comedic sting rather than dry instructional phrasing.
-- Keep banter rooted in authentic club-room psychology without slipping into hype-bro delivery.
+- Double down on visceral, physical imagery ('seagulls on dropped fries', 'looting a burning house').
+- Mock the opponent's premature swagger and false security right before tactics hit.
+- Ban all corporate and hype-bro filler ('masterclass', 'dive in', 'unlock', 'insane hack').
+- Give Coach's Rules a rhythmic, memorable sting that sticks in club players' heads.
+- Avoid clickbait shock phrasing ('90% of players miss this') which kills audience goodwill and retention.
+- Keep delivery punchy, confident, and conversational—talking directly to one viewer.

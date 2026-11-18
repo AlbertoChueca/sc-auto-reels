@@ -1,8 +1,11 @@
 # Caption Editor - notebook
+_Updated 2026-11-18_
+
+# Caption Editor - notebook
 _Updated 2026-11-14_
 
-- Display player orientation ('You are playing White/Black') in the first caption frame.
-- Enforce 100% algebraic notation accuracy (Bc7+, Qxa6+, 20.Rxe7+ Nxe7).
-- Prevent tactical keyword leaks ('deflection', 'skewer') before the audio countdown completes.
-- Transcribe forced replies explicitly to support audio and visual calculation tracking.
-- Break captions into tight, two-line bursts matched to spoken breath pauses.
+- Open frame 1 with the player orientation badge ('You are playing White/Black').
+- Ensure 100% algebraic notation precision (e.g., Qxf8+, Nxe7, Bc7+).
+- Synchronize source square clarifications ('queen on f7') to support audio-visual tracking.
+- Never reveal motif names or key moves in text while the think timer is active.
+- Keep captions formatted in punchy two-line chunks mapped to spoken cadences.

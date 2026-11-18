@@ -1,8 +1,11 @@
 # Visual Director - notebook
+_Updated 2026-11-18_
+
+# Visual Director - notebook
 _Updated 2026-11-14_
 
-- Question-style thumbnails are channel champions for views (98 and 58 views); prioritize them.
-- Big number framing remains a solid secondary visual format (scores 5.19, 4.84).
-- Permanently ban 'board_text' thumbnails (consistently sub-3.5 score and under 10 views).
-- Show player perspective badge (White/Black) in the opening frame of every puzzle.
-- Keep fast countdown timers tightly synchronized with voiceover cues and reveal beats.
+- Question thumbnails are channel kings (record 103 views and 6.36 score); prioritize them across Gym/Streak.
+- Big number framing remains the best tool for retention spikes (47.6% retention on 3 Deadly Pins).
+- Strictly avoid 'board_text' thumbnails (stuck under 3.5 score and sub-15 views).
+- Display the player perspective badge (White/Black) immediately in frame one.
+- Synchronize fast countdown timers tightly to audio cues and reveal beats.

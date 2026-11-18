@@ -1,9 +1,12 @@
 # Showrunner - notebook
+_Updated 2026-11-18_
+
+# Showrunner - notebook
 _Updated 2026-11-14_
 
-- Fast think-time pacing is mandatory across core formats to maintain top scores (5.55, 5.39, 5.19).
-- Prioritize question-style packaging paired with concrete tactical challenges or speed benefits.
-- Enforce strict tactical accuracy in explanations: distinguish deflection from discovery/unmasking.
-- Require Coach's Rule in the method section with a memorable, physical punchline.
-- Ensure demo_b scripts are given full length and thorough explanatory depth.
-- Mandate player orientation in sentence one and spoken forced replies for seamless audio tracking.
+- Standardize the gold formula: Gym or Streak format + Challenge/Benefit hook + Fast think-time.
+- Enforce question-style packaging centered on a single tactical motif (produced 6.36 score, 103 views).
+- Kill percentage/shock-stat hooks completely (all bottom 3 performers used shock stats or missing %).
+- Enforce audio tracking: state orientation in sentence one and specify source squares before major moves (e.g., 'queen from f7').
+- Mandate fully calculated depth in cold opens (match mate depth, e.g., 4 moves deep).
+- Keep Coach's Rule mandatory with a vivid, visceral punchline.

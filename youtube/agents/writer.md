@@ -1,10 +1,13 @@
 # Head Writer - notebook
+_Updated 2026-11-18_
+
+# Head Writer - notebook
 _Updated 2026-11-14_
 
-- State player orientation (White or Black) in the opening sentence of every setup.
-- Ensure exact tactical mechanism accuracy: distinguish deflection from discovered attacks.
-- Verify clearance sacrifices accurately: state which specific line opens and which piece benefits.
-- Voice forced opponent replies aloud (e.g. 'forces 20...Nxe7') so audio listeners follow cleanly.
-- Keep Coach's Rule mandatory in the method section using physical metaphors ('seagulls on fries').
-- Flesh out demo_b fully to match demo_a in analytical depth and pacing.
-- Never leak tactical keywords or mechanisms before the think timer expires.
+- State player orientation (White or Black) in sentence one of every puzzle setup.
+- Explicitly state origin squares before key sacrifices (e.g., 'queen from f7 takes f8') to preserve audio tracking.
+- Match cold open depth precisely to puzzle solutions (if solution is mate-in-4, don't say 3 moves deep).
+- Accurately explain defensive breakdowns (e.g., eliminating a defender vs. abandonment of a rank).
+- Ban percentage tropes ('90% miss') from hooks—use concrete skill challenges ('Can You Find the Only Winning Skewer?').
+- Keep Coach's Rule grounded in visceral physical imagery ('seagulls on fries', 'looting a burning house').
+- Never spoil the tactical motif before the timer finishes.

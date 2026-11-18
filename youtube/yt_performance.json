@@ -1,9 +1,9 @@
 {
  "V65krSM7iZ8": {
-  "views": 15,
-  "estimatedMinutesWatched": 22,
-  "averageViewDuration": 113,
-  "averageViewPercentage": 20.24,
+  "views": 16,
+  "estimatedMinutesWatched": 32,
+  "averageViewDuration": 147,
+  "averageViewPercentage": 26.25,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -76,10 +76,10 @@
   "title": "Chess Calculation: Can You Win Down Both Rooks?"
  },
  "WFGpl1sHv1M": {
-  "views": 58,
-  "estimatedMinutesWatched": 84,
+  "views": 65,
+  "estimatedMinutesWatched": 91,
   "averageViewDuration": 103,
-  "averageViewPercentage": 16.45,
+  "averageViewPercentage": 16.39,
   "subscribersGained": 0,
   "likes": 2,
   "comments": 1,
@@ -95,12 +95,12 @@
   "title": "Chess Calculation: Spot Tactics in 7 Seconds"
  },
  "u9l8OfLblKw": {
-  "views": 98,
-  "estimatedMinutesWatched": 61,
-  "averageViewDuration": 82,
-  "averageViewPercentage": 18.6,
-  "subscribersGained": 0,
-  "likes": 1,
+  "views": 103,
+  "estimatedMinutesWatched": 63,
+  "averageViewDuration": 80,
+  "averageViewPercentage": 18.07,
+  "subscribersGained": 2,
+  "likes": 2,
   "comments": 0,
   "shares": 0,
   "date": "2026-10-30",
@@ -114,10 +114,10 @@
   "title": "Can You Find the Only Winning Skewer?"
  },
  "3vtcxe56NqI": {
-  "views": 8,
-  "estimatedMinutesWatched": 6,
-  "averageViewDuration": 78,
-  "averageViewPercentage": 13.459999999999999,
+  "views": 13,
+  "estimatedMinutesWatched": 8,
+  "averageViewDuration": 55,
+  "averageViewPercentage": 9.63,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -133,10 +133,10 @@
   "title": "The 5-Second Tactic 90% of Players Miss"
  },
  "VZp148QSjbk": {
-  "views": 7,
-  "estimatedMinutesWatched": 7,
-  "averageViewDuration": 76,
-  "averageViewPercentage": 19.11,
+  "views": 10,
+  "estimatedMinutesWatched": 9,
+  "averageViewDuration": 60,
+  "averageViewPercentage": 15.32,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -152,10 +152,10 @@
   "title": "Chess Calculation: The Queen Sacrifice 92% Reject"
  },
  "0hDm4rHNhMM": {
-  "views": 5,
-  "estimatedMinutesWatched": 18,
-  "averageViewDuration": 221,
-  "averageViewPercentage": 42.19,
+  "views": 13,
+  "estimatedMinutesWatched": 20,
+  "averageViewDuration": 110,
+  "averageViewPercentage": 21.08,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -169,5 +169,24 @@
    "think_time": "long"
   },
   "title": "Can You Find the Decoy Sacrifice?"
+ },
+ "wwd6tHfeKJY": {
+  "views": 19,
+  "estimatedMinutesWatched": 47,
+  "averageViewDuration": 167,
+  "averageViewPercentage": 31.430000000000003,
+  "subscribersGained": 0,
+  "likes": 1,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-11-14",
+  "arms": {
+   "format": "gym",
+   "hook_style": "promise: promise one concrete skill the viewer will have by the end of the video",
+   "title_style": "benefit: the concrete improvement the viewer gets",
+   "thumb_style": "question",
+   "think_time": "long"
+  },
+  "title": "Spot Tactics: Back Rank Mates 4 Moves Deep"
  }
 }
