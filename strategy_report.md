@@ -1,16 +1,16 @@
 # StreakChess autopilot - what is winning
 
-_Updated 2026-11-18 · 103 reels with results (3+ days old) · average score 8.12_
+_Updated 2026-11-18 · 106 reels with results (3+ days old) · average score 8.13_
 
 
 ## hook_style
 
 | option | reels | avg score |
 |---|---|---|
-| the_irresistible_bait | 9 | 10.19 |
-| cliffhanger | 13 | 9.05 |
-| challenge | 14 | 8.88 |
-| countdown_trap | 20 | 8.62 |
+| the_irresistible_bait | 10 | 10.22 |
+| cliffhanger | 14 | 8.91 |
+| challenge | 14 | 8.89 |
+| countdown_trap | 21 | 8.59 |
 | big_dream | 17 | 7.57 |
 | mystery | 13 | 7.16 |
 | rival | 9 | 6.55 |
@@ -19,28 +19,28 @@ _Updated 2026-11-18 · 103 reels with results (3+ days old) · average score 8.1
 
 | option | reels | avg score |
 |---|---|---|
-| daily training to keep the streak alive | 20 | 9.23 |
+| daily training to keep the streak alive | 21 | 9.17 |
 | scouting the champion's signature trap | 6 | 9.16 |
-| cracking Bishop Blaze's secret playbook | 18 | 8.92 |
+| cracking Bishop Blaze's secret playbook | 19 | 8.82 |
 | travelling to a new place for a tournament | 11 | 8.13 |
-| lesson or secret test from Coach King | 15 | 7.71 |
+| lesson or secret test from Coach King | 15 | 7.72 |
+| school chess club with friends | 9 | 7.56 |
 | helping Pip or a friend who is stuck | 9 | 7.52 |
-| school chess club with friends | 8 | 7.21 |
 | tournament game with everything at stake | 8 | 6.72 |
 
 ## difficulty
 
 | option | reels | avg score |
 |---|---|---|
-| advanced | 21 | 8.75 |
-| intermediate | 33 | 8.18 |
+| advanced | 22 | 8.72 |
+| intermediate | 35 | 8.21 |
 | basic | 49 | 7.81 |
 
 ## think_time
 
 | option | reels | avg score |
 |---|---|---|
-| normal | 42 | 8.35 |
+| normal | 45 | 8.36 |
 | long | 50 | 8.14 |
 | fast | 11 | 7.16 |
 
@@ -48,21 +48,21 @@ _Updated 2026-11-18 · 103 reels with results (3+ days old) · average score 8.1
 
 | option | reels | avg score |
 |---|---|---|
-| short | 52 | 8.80 |
-| normal | 51 | 7.43 |
+| short | 54 | 8.76 |
+| normal | 52 | 7.48 |
 
 ## format
 
 | option | reels | avg score |
 |---|---|---|
-| tip | 64 | 9.18 |
-| story | 12 | 6.57 |
+| tip | 66 | 9.19 |
+| story | 13 | 6.61 |
 
 ## reveal
 
 | option | reels | avg score |
 |---|---|---|
-| comments | 73 | 8.87 |
+| comments | 76 | 8.85 |
 
 ---
 # Playbook (updated 2026-11-02)
