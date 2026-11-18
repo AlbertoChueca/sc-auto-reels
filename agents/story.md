@@ -1,5 +1,7 @@
-# Story notebook (2026-11-17)
+# Story notebook (2026-11-18)
 
-• Keep doing: Fast, punchy narrative entries (`story_length=short`) tied to daily streak survival or cracking rival playbooks, powering our best reels (11.13–11.52).
-• Stop doing: Multi-beat narrative setups (`story_length=normal`) that delay showing the board and suppress watch completion.
-• Try next: Place an overloaded piece puzzle into a sudden-death blitz time-scramble where Vektor must find the breakthrough before his clock runs out. Data is too thin to verify whether tournament travel settings outperform home training grounds over time.
+# Story notebook (2026-11-18)
+
+• Keep doing: Fast, punchy narrative setups (`story_length=short`) centered on daily streak survival or tournament pressure, powering our top reels (11.13–11.52).
+• Stop doing: Extended multi-beat narrative intros (`story_length=normal`) that delay showing the board and reduce watch completion.
+• Try next: Drop an overloaded defender puzzle into a sudden-death blitz time-scramble where Vektor faces clock pressure. Data is too thin to prove whether tournament settings systematically outperform daily training lore.

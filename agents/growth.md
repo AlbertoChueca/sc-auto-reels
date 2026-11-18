@@ -1,5 +1,7 @@
-# Growth notebook (2026-11-17)
+# Growth notebook (2026-11-18)
 
-• Keep doing: Clean A, B, C, or D multiple-choice prompts paired with `reveal=comments`, consistently capturing 10–12 comments and top view brackets.
-• Stop doing: Publishing high-value tactical puzzles without a targeted save prompt; saves languish between 0 and 3 across top performers.
-• Try next: Include a direct pattern-study prompt ("Save this overloaded defender drill to spot it in your next tournament"). Data is too thin to verify if requesting written move notation reduces comment volume.
+# Growth notebook (2026-11-18)
+
+• Keep doing: Clean A, B, C, or D multiple-choice prompts paired with `reveal=comments`, consistently capturing 10–12 comments on top posts.
+• Stop doing: Leaving high-performing tactical drills without an explicit save CTA, which strands saves at 0–3.
+• Try next: Test a tactical study prompt ("Save this overloaded piece drill for your next tournament") alongside the ABCD comment cue. Data is too thin to determine if dual CTAs dilute comment volume.

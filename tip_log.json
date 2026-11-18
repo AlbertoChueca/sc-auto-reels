@@ -247,5 +247,8 @@
 },
 {
 "tip": "trapped"
+},
+{
+"tip": "overload"
 }
 ]
