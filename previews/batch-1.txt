@@ -1,14 +1,12 @@
-Spot the winning rook move: A, B, C or D? ♟️
-Calculation masterclass: Forcing moves first. Calculate the most forcing moves first: they leave your opponent the fewest replies.
+Masters don't calculate deeper 🧠
+Masters don't calculate deeper. They calculate better.
 
-The method, step by step, on this position:
-1️⃣ Checks: White has two checks here, with the pawn and the rook.
-2️⃣ Candidates: The four candidate moves worth calculating, labelled A to D.
+🔬 The masters' first candidate was usually already the best move. The club players spent their time on moves that were never going to work. Depth was similar. Quality of the candidates was the whole difference.
 
-Calculate your candidates and comment your move. Answer in the comments tomorrow!
+✅ What to do: Before you calculate anything, list the forcing moves: every check, every capture, every threat. Then calculate only those.
 
-Save this for your next game and send it to a chess friend.
+Send this to the friend who calculates ten moves deep and still loses 👇
+Train your calculation free every day on StreakChess (link in bio).
+Source: de Groot, Thought and Choice in Chess (1946/1965); Chase & Simon (1973)
 
-For every chess player, kids and adults: StreakChess turns calculation practice into a daily game. Free to play, founder offer for the first 500 accounts, link in bio.
-
-#chess #chesspuzzle #forcingmoves #chessplayer #chesspuzzles
+#chess #chesspuzzle #chessscience #chesstips #chessclub
