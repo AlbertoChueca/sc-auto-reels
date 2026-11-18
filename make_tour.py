@@ -337,7 +337,7 @@ def build(seed, out, ep_id=None):
         size = screen(sh["screen"]).size
         foc = rect_of(sh.get("focus"), size)
         if KINDS[k] == "hook":                                    # whole phone first, then push into the screen
-            z = eio((lt - 1.0) / 0.9)
+            z = eio((lt - 0.7) / 0.85)
             rect = lerp_rect(rect_of(None, size), foc, z)
         else:
             same = i > 0 and shots[i - 1]["screen"] != sh["screen"] and shots[i - 1].get("focus") == sh.get("focus")
@@ -387,7 +387,7 @@ def build(seed, out, ep_id=None):
             scr_size = screen(sh["screen"]).size
             if kind != "question":
                 if sh.get("box"):
-                    highlight(fr, rect_of(sh["box"], scr_size), rect, s, origin, clamp((st - 0.75) / 0.35) if kind != "hook" else clamp((lt - 2.0) / 0.35), t)
+                    highlight(fr, rect_of(sh["box"], scr_size), rect, s, origin, clamp((st - 0.75) / 0.35) if kind != "hook" else clamp((lt - 1.7) / 0.35), t)
                 if sh.get("tap"):
                     tp = (sh["tap"][0] * scr_size[0], sh["tap"][1] * scr_size[1])
                     tap_mark(fr, tp, rect, s, origin, (st - sdur * 0.72) / 0.75)
@@ -448,8 +448,10 @@ def build(seed, out, ep_id=None):
     if not mock and os.environ.get("REVIEWER", "on") != "off" and os.environ.get("GEMINI_API_KEY"):
         import reviewer
         try:
-            cap, review = reviewer.review_video(out, {"title": f"App tour: {ep['topic']}"}, cap, kind="tour")
-            cap_hook = cap.split("\n", 1)[0]
+            new_cap, review = reviewer.review_video(out, {"title": f"App tour: {ep['topic']}"}, cap, kind="tour")
+            # the first line stays ours: every tour hook is written and checked by hand (the reviewer's rewrites
+            # drift into vague benefit claims); the review is used for the score and the quality gate only
+            cap = cap_hook + "\n" + new_cap.split("\n", 1)[1] if "\n" in new_cap else cap
         except reviewer.RejectReel:
             raise
         except Exception as e:
@@ -459,7 +461,7 @@ def build(seed, out, ep_id=None):
         log.append({"tour": ep["id"], "variant": variant}); json.dump(log[-300:], open(LOG, "w"), indent=0)
     return dict(mode="tour", puzzle=None, level=None, rating=None, hook=cap_hook, sans=[], reveal=None, ab=None, side=None,
                 story=f"App tour: {ep['topic']}", tour=ep["id"], question=ep["question"]["caption"], duration=round(total, 1),
-                thumb_offset_ms=1200, review_score=review.get("overall"))
+                thumb_offset_ms=500, review_score=review.get("overall"))
 
 
 if __name__ == "__main__":
