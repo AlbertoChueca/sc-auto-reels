@@ -64,7 +64,7 @@ def tiktok_caption(hook, caption):
 def youtube_description(caption):
     """YouTube: the link on the FIRST line (the only one visible without expanding), then the caption."""
     body = caption.replace("link in bio", "link: streakchess.com")
-    return ("StreakChess, the daily chess training app (free to start): https://streakchess.com\n\n" + body)[:4900]
+    return ("StreakChess, the daily chess training app (free to start): https://streakchess.com/?utm_source=youtube&utm_medium=shorts\n\n" + body)[:4900]
 
 
 def _upload(video_path):
