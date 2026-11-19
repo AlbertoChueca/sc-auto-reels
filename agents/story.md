@@ -1,7 +1,7 @@
-# Story notebook (2026-11-18)
+# Story notebook (2026-11-19)
 
-# Story notebook (2026-11-18)
+# Story notebook (2026-11-19)
 
-• Keep doing: Fast, punchy narrative setups (`story_length=short`) centered on daily streak survival or tournament pressure, powering our top reels (11.13–11.52).
-• Stop doing: Extended multi-beat narrative intros (`story_length=normal`) that delay showing the board and reduce watch completion.
-• Try next: Drop an overloaded defender puzzle into a sudden-death blitz time-scramble where Vektor faces clock pressure. Data is too thin to prove whether tournament settings systematically outperform daily training lore.
+• Keep doing: Fast, single-beat narrative premises (`story_length=short`) grounded in tournament pressure or streak survival, fueling our top scores (11.23–11.52).
+• Stop doing: Multi-scene narrative setups (`story_length=normal`) that delay revealing the board and bleed viewer watch time.
+• Try next: Drop Vektor into a sudden refutation scenario where an overconfident opponent walks directly into an overloaded defender trap. Data is too thin to know if counter-trap narratives outperform routine training drills.

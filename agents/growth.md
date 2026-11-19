@@ -1,7 +1,7 @@
-# Growth notebook (2026-11-18)
+# Growth notebook (2026-11-19)
 
-# Growth notebook (2026-11-18)
+# Growth notebook (2026-11-19)
 
-• Keep doing: Clean A, B, C, or D multiple-choice prompts paired with `reveal=comments`, consistently capturing 10–12 comments on top posts.
-• Stop doing: Leaving high-performing tactical drills without an explicit save CTA, which strands saves at 0–3.
-• Try next: Test a tactical study prompt ("Save this overloaded piece drill for your next tournament") alongside the ABCD comment cue. Data is too thin to determine if dual CTAs dilute comment volume.
+• Keep doing: Clear ABCD multiple-choice prompts paired with `reveal=comments`, consistently capturing 10–12 comments on top posts.
+• Stop doing: Publishing high-scoring tactical puzzles without an explicit reason to bookmark, leaving saves stalled at 0–3.
+• Try next: Test a tournament-prep save CTA ("Save this overloaded guard pattern for your next match") paired with the ABCD comment prompt. Data is too thin to confirm whether dual CTAs reduce comment volume.
