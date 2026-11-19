@@ -81,7 +81,13 @@ jobs:
           cache: pip
 
       - name: System packages
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libcairo2 espeak-ng
+        run: |
+          # GitHub runners sometimes stall 20+ minutes here (slow mirror / man-db rebuild), which delays the post:
+          # give up quickly on a stalled mirror, retry, and skip the manual-pages rebuild.
+          sudo rm -f /var/lib/man-db/auto-update
+          APT="sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"
+          $APT update -qq || true
+          $APT install -y -qq ffmpeg libcairo2 espeak-ng || (sleep 10 && $APT update -qq && $APT install -y -qq ffmpeg libcairo2 espeak-ng)
 
       - name: Python packages
         run: pip install -r requirements.txt
