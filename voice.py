@@ -348,6 +348,16 @@ def _clean_edges(a, text):
     ws = [w for w in ws if w]
     if not heard or not ws:
         return a
+    # The recogniser often hears one script word as two ("StreakChess" -> "streak" "chess"). Glue those pairs back
+    # first, otherwise the line is cut mid-word ("...reakChess has three rules").
+    wset = set(ws); glued = []; i = 0
+    while i < len(heard):
+        w0 = _spoken(heard[i][0])
+        if i + 1 < len(heard) and w0 not in wset and w0 + _spoken(heard[i + 1][0]) in wset:
+            glued.append((heard[i][0] + heard[i + 1][0], heard[i][1], heard[i + 1][2])); i += 2
+        else:
+            glued.append(heard[i]); i += 1
+    heard = glued
     hw = [_spoken(w) for w, _, _ in heard]
     start = end = None
     k = min(2, len(ws))                                    # where the line really starts: its first words, anywhere
@@ -357,7 +367,12 @@ def _clean_edges(a, text):
     if start is None:
         for j in range(min(4, len(hw))):
             if hw[j] and (hw[j] == ws[0] or (len(ws) > 1 and hw[j] == ws[1] and j > 0)):
-                start = j if hw[j] == ws[0] else j - 1; break
+                start = j if hw[j] == ws[0] else j - 1
+                # the recogniser often hears one script word as two ("StreakChess" -> "streak" "chess"): keep them all,
+                # otherwise the line starts mid-word ("...reakChess has three rules")
+                while hw[j] != ws[0] and start > 0 and ws[0].endswith("".join(hw[start - 1:j])):
+                    start -= 1
+                break
     for j in range(len(hw) - 1, k - 2, -1):                # where it ends: its last words (drops repeats after)
         if hw[j - k + 1:j + 1] == ws[-k:]:
             end = j; break

@@ -47,7 +47,7 @@
   {
    "id": "streak_rules", "topic": "Hearts, shield and streak",
    "hook": "The 3 rules that keep you training", "hook_alt": ["Why the streak works", "Hearts, shield, streak"],
-   "hook_say": "StreakChess has three small rules. They are why people actually train every day.",
+   "hook_say": "Three small rules in StreakChess are built to keep you training every day.",
    "hook_shot": {"screen": "home", "focus": [0.08, 0.52]},
    "scenes": [
     {"label": "Three hearts", "say": "You start with three hearts. A wrong answer costs one, and they refill on their own, one every four hours.",
