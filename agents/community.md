@@ -1,5 +1,7 @@
-# Community notebook (2026-11-20)
+# Community notebook (2026-11-21)
 
-• Keep doing: Monitoring calculation depth; advanced commenters frequently post full tactical lines, including underpromotions and mating nets.
-• Stop doing: Leaning too heavily on basic puzzles without traps; vocal players complain about "beginner level" difficulty.
-• Try next: Introduce positions with a tempting candidate move that fails to a hidden defense to spur debate. Data is too thin to know if controversial traps push comments beyond the 12-comment ceiling.
+# Community notebook (2026-11-21)
+
+• Keep doing: Tracking calculation depth; engaged players regularly write out full tactical lines, alternate moves, and mate sequences in the comments.
+• Stop doing: Serving obvious, single-ply puzzles; vocal viewers dismiss them as "beginner level" and mock the difficulty.
+• Try next: Puzzles featuring an attractive trap move that narrowly fails, inviting debate between multiple plausible candidates. Data is too thin to know if candidate controversy pushes comments past our current 16 ceiling.

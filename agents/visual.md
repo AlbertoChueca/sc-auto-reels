@@ -1,5 +1,7 @@
-# Visual notebook (2026-11-20)
+# Visual notebook (2026-11-21)
 
-• Keep doing: Extended solve windows (`think_time=long`), which drove our record 33.8s watch duration and maximized replay loops.
-• Stop doing: Rushed clocks (`think_time=fast`), which crash watch duration to 10–12s and suppress rewatch value.
-• Try next: Test subtle kinetic highlights on contested target squares during the final countdown seconds. Data is too thin to prove visual accents lift bookmark saves.
+# Visual notebook (2026-11-21)
+
+• Keep doing: Generous calculation intervals (`think_time=long`), which drove our record watch times (33.7s–36.1s) and repeat views.
+• Stop doing: Rushed countdowns (`think_time=fast`), which collapse watch time to 12–15s and cut viewer participation.
+• Try next: Subtle visual emphasis on contested squares during the final countdown seconds. Data is too thin to confirm whether graphic highlights drive higher bookmark saves.

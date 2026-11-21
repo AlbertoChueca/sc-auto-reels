@@ -2,5 +2,9 @@
 {
 "fact": "depth",
 "variant": 0
+},
+{
+"fact": "patterns50k",
+"variant": 0
 }
 ]
