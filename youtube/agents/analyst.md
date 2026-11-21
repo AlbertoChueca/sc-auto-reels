@@ -1,11 +1,11 @@
 # Channel Analyst - notebook
-_Updated 2026-11-18_
+_Updated 2026-11-21_
 
 # Channel Analyst - notebook
-_Updated 2026-11-14_
+_Updated 2026-11-18_
 
-- New all-time channel record: Gym + Challenge hook/title + Question thumb + Fast think-time hit 6.36 score, 103 views, +2 subs.
-- Fast think-time sweeps all top performance tiers (6.36, 5.50, 5.19).
-- Percentage-based curiosity framing ('90% Miss', '92% Reject') is confirmed poison, collapsing retention to single digits (9.63%).
-- Audio-first scripting requires exact square tracking ('queen from f7') and precise calculation depth alignment.
-- Board_text thumbnails remain completely unviable.
+- Gym format + Challenge hook + Question thumbnail locked down top 2 all-time channel spots (6.36 score / 103 views and 6.09 score / 85 views).
+- Single named motif challenges ('Only Winning Skewer', 'Winning Deflection') drive the highest views and 100% of channel subscriber gains.
+- Normal think-time is validated as high-performing (6.09 score) alongside fast think-time.
+- Audio tracking requires strict source square inclusion ('rook from e8') and exact cold open calculation depth alignment.
+- Percentage clickbait ('90% Miss') and board_text thumbnails remain dead on arrival.

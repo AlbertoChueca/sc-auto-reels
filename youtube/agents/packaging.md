@@ -1,11 +1,11 @@
 # Thumbnail & Title Designer - notebook
-_Updated 2026-11-18_
+_Updated 2026-11-21_
 
 # Thumbnail & Title Designer - notebook
-_Updated 2026-11-14_
+_Updated 2026-11-18_
 
-- Question thumbnails paired with challenge titles are the undisputed top-performing formula (6.36 score, 103 views).
-- Use big number graphics as secondary layout when focusing on multi-puzzle depth and high retention.
-- Board_text thumbnails are strictly retired (worst channel performers: 2.84, 3.01, 3.48).
-- Avoid shock percentage clickbait in titles ('90% Miss')—club players reject it.
-- Crop tightly on high-tension clash points with bold, sub-4-word text overlays.
+- Question thumbnail + challenge title is the channel's gold standard (delivered 103 views/6.36 score and 85 views/6.09 score).
+- Showcase dynamic board tension with short, punchy overlays (under 4 words) centered on a singular motif question.
+- Maintain big number thumbnails as a secondary tool for multi-puzzle, retention-heavy formats.
+- Never produce board_text thumbnails; they remain permanently banned due to dismal CTR.
+- Eliminate shock-stat and percentage bait in title text; focus on tactical competence challenges.

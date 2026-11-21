@@ -1,12 +1,12 @@
 # Showrunner - notebook
-_Updated 2026-11-18_
+_Updated 2026-11-21_
 
 # Showrunner - notebook
-_Updated 2026-11-14_
+_Updated 2026-11-18_
 
-- Standardize the gold formula: Gym or Streak format + Challenge/Benefit hook + Fast think-time.
-- Enforce question-style packaging centered on a single tactical motif (produced 6.36 score, 103 views).
-- Kill percentage/shock-stat hooks completely (all bottom 3 performers used shock stats or missing %).
-- Enforce audio tracking: state orientation in sentence one and specify source squares before major moves (e.g., 'queen from f7').
-- Mandate fully calculated depth in cold opens (match mate depth, e.g., 4 moves deep).
-- Keep Coach's Rule mandatory with a vivid, visceral punchline.
+- Double down on the proven powerhouse: Gym format + Challenge hook + Question thumb + named tactical motif (Skewer/Deflection sweep top ranks).
+- Fast and normal think-times are both greenlit; avoid long think-time unless paired with high-depth retention plays.
+- Audio tracking is mandatory: explicitly state player orientation in sentence one and source squares on major moves (e.g., 'rook from e8 slides down to d1+').
+- Mandate 100% calculation depth consistency between cold opens and the actual winning sequence (e.g., mate-in-4 must not be labeled 5 moves deep).
+- Ban percentage-based curiosity angles channel-wide.
+- Coach's Rule must feature a sharp, visceral physical image ('cheap lawn chair', 'cardboard house').

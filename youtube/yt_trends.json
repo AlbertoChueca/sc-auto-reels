@@ -1,89 +1,72 @@
 {
- "date": "2026-11-18",
+ "date": "2026-11-21",
  "news": {
   "items": [
    {
-    "headline": "Magnus Carlsen Forfeits Fast Classic Game Against Bibisara Assaubayeva in Total Chess Controversy",
-    "detail": "After taking an 11.5\u20130.5 lead in the blitz and rapid portions, Magnus Carlsen refused to play his scheduled 45+30 Fast Classic game against Kazakhstan's Bibisara Assaubayeva, resulting in a forfeit loss. Carlsen argued the match was already decided and a dead rubber game should not count toward classical ratings, drawing widespread scrutiny.",
-    "date": "2026-11-17",
+    "headline": "Alireza Firouzja Wins Inaugural Total Chess World Championship Tour Pilot",
+    "detail": "Firouzja defeated Anish Giri in an armageddon playoff after winning the second day's set 12\u20138 to capture the combined-discipline event in Budapest. Along with Giri, Fabiano Caruana (3rd), and Maxime Vachier-Lagrave (4th), Firouzja secured qualification for the 2027 full tour.",
+    "date": "2026-11-20",
     "people": [
-     "Magnus Carlsen",
-     "Bibisara Assaubayeva"
-    ],
-    "event": "Total Chess World Championship Tour Pilot 2026",
-    "why_viewers_care": "Carlsen's walkout from a FIDE-rated contest to avoid risking rating points sparked heated debate across the chess community regarding tournament regulations and professional etiquette."
-   },
-   {
-    "headline": "Anish Giri and Alireza Firouzja Take Semifinal Leads at the Total Chess Pilot",
-    "detail": "Anish Giri scored a 14.5\u20135.5 victory over Maxime Vachier-Lagrave, while Alireza Firouzja defeated Fabiano Caruana 12\u20138 on day one of the championship knockout semifinals in Budapest. Both players are now a single drawn day away from reaching the Grand Final.",
-    "date": "2026-11-17",
-    "people": [
-     "Anish Giri",
      "Alireza Firouzja",
+     "Anish Giri",
      "Fabiano Caruana",
      "Maxime Vachier-Lagrave"
     ],
     "event": "Total Chess World Championship Tour Pilot 2026",
-    "why_viewers_care": "The four group winners are battling in the premier bracket of a new multi-discipline format combining blitz, rapid, and fast classic chess for an $80,000 top prize."
+    "why_viewers_care": "It marks the conclusion of FIDE and Norway Chess's pilot for a new unified championship tour testing Fast Classical, Rapid, and Blitz."
    },
    {
-    "headline": "Caruana, Firouzja, Giri, and MVL Advance as Magnus Carlsen Misses Title Bracket",
-    "detail": "At the conclusion of the 10-round Fast Classic group stage, Caruana, Giri, Firouzja, and Vachier-Lagrave claimed top honors to qualify for the championship knockout. In contrast, Magnus Carlsen went winless across 10 group games with nine draws and one loss, relegating him to the 17th\u201320th place bracket.",
-    "date": "2026-11-15",
+    "headline": "Magnus Carlsen Forfeits Game, Drops to Rating Low at Total Chess Pilot",
+    "detail": "Carlsen struggled in the Fast Classical portion in Budapest, refusing to play a game against Bibisara Assaubayeva and later forfeiting another against Vladislav Artemiev to protect his live rating. He rebounded in an armageddon playoff with Black against Artemiev to finish 17th.",
+    "date": "2026-11-20",
     "people": [
      "Magnus Carlsen",
-     "Fabiano Caruana",
-     "Anish Giri",
-     "Alireza Firouzja",
-     "Maxime Vachier-Lagrave"
+     "Bibisara Assaubayeva",
+     "Vladislav Artemiev"
     ],
     "event": "Total Chess World Championship Tour Pilot 2026",
-    "why_viewers_care": "Carlsen failing to win a single group game and being shut out of the title knockout at an elite super-tournament is one of the biggest competitive upsets of the year."
+    "why_viewers_care": "Carlsen's uncharacteristic forfeit and drop to a 15-year rating low ignited massive social media discussion over player burnout and tournament scheduling."
    },
    {
-    "headline": "Hikaru Nakamura Defeats Prodigy Yagiz Erdogmus in Speed Chess Championship Opener",
-    "detail": "Five-time champion Hikaru Nakamura defeated 15-year-old Turkish grandmaster Yagiz Kaan Erdogmus 12\u20138 in the opening Round of 16 match of Speed Chess Championship XI. While Erdogmus impressed by winning the bullet segment 4\u20132, Nakamura's commanding performance in 5+1 and 3+1 blitz carried him to victory.",
+    "headline": "Gukesh and Sindarov Prepare for Youngest World Championship in History",
+    "detail": "FIDE previewed the upcoming World Chess Championship match in Cologny/Geneva between 20-year-olds Gukesh Dommaraju and Javokhir Sindarov. Challenger Sindarov enters ranked world No. 4 with a 72-point rating lead over reigning champion Gukesh, who has dropped to world No. 26.",
+    "date": "2026-11-19",
+    "people": [
+     "Gukesh Dommaraju",
+     "Javokhir Sindarov"
+    ],
+    "event": "Salesforce FIDE World Chess Championship 2026",
+    "why_viewers_care": "It is the youngest classical World Championship match ever, featuring an unusual dynamic where the challenger is the overwhelming rating favorite."
+   },
+   {
+    "headline": "Hikaru Nakamura Fends Off Prodigy Yagiz Erdogmus in Speed Chess Championship XI",
+    "detail": "Nakamura defeated 15-year-old prodigy Yagiz Kaan Erdogmus 12-8 in their Round of 16 encounter to advance to the quarterfinals. Although Erdogmus won the 1+1 bullet section 4-2, Nakamura built an insurmountable lead across the blitz portions.",
     "date": "2026-11-16",
     "people": [
      "Hikaru Nakamura",
      "Yagiz Kaan Erdogmus"
     ],
     "event": "Speed Chess Championship XI",
-    "why_viewers_care": "The match marked the start of the 10th anniversary edition of the SCC, pairing online chess's top speed specialist against the world's most promising young grandmaster."
+    "why_viewers_care": "The match saw the world's highest-rated teenage grandmaster score impressive bullet wins against one of the strongest speed chess players in history."
    },
    {
-    "headline": "Speed Chess Championship XI Kicks Off With 16-Player Bracket",
-    "detail": "Chess.com announced the full 16-player single-elimination bracket for the $250,000 Speed Chess Championship XI, featuring Carlsen, Nakamura, Caruana, Firouzja, and World Championship challenger Javokhir Sindarov. The tournament will conclude with live in-person finals held at 180 Studios in London in February 2027.",
-    "date": "2026-11-15",
+    "headline": "Denis Lazavik Defeats Dmitry Andreikin to Reach SCC XI Quarterfinals",
+    "detail": "Lazavik secured a 12-8 victory over Andreikin in the Round of 16 by dominating the 3+1 blitz segment 5.5-1.5. Lazavik now advances to face the winner of Wesley So versus Praggnanandhaa Rameshbabu.",
+    "date": "2026-11-21",
     "people": [
-     "Magnus Carlsen",
-     "Hikaru Nakamura",
-     "Fabiano Caruana",
-     "Javokhir Sindarov"
+     "Denis Lazavik",
+     "Dmitry Andreikin"
     ],
     "event": "Speed Chess Championship XI",
-    "why_viewers_care": "The tournament serves as one of the premier online speed chess showcases of the season and awards crucial qualifying points for the 2027 Esports World Cup."
-   },
-   {
-    "headline": "Total Chess World Championship Tour Pilot Launches in Budapest",
-    "detail": "Jointly organized by Norway Chess and FIDE, the 24-player pilot tournament commenced at the Anantara New York Palace Hotel in Budapest to trial a multi-time-control scoring system. The format integrates blitz, rapid, and 45+30 fast classic games to determine the ultimate all-around champion ahead of the official 2027 tour.",
-    "date": "2026-11-10",
-    "people": [
-     "Magnus Carlsen",
-     "Fabiano Caruana",
-     "Arjun Erigaisi",
-     "Nodirbek Abdusattorov"
-    ],
-    "event": "Total Chess World Championship Tour Pilot 2026",
-    "why_viewers_care": "The event tests a major structural change in elite competitive chess, featuring spots for the 2028 Candidates Tournament on the line for future editions."
+    "why_viewers_care": "The victory awards key Champions Chess Tour leaderboard points used to determine qualification for the 2027 Esports World Cup."
    }
   ],
   "search_terms": [
-   "Magnus Carlsen forfeits Bibisara Assaubayeva Total Chess",
-   "Hikaru Nakamura vs Yagiz Erdogmus Speed Chess Championship",
-   "Total Chess Budapest 2026 semifinals",
-   "Firouzja vs Caruana Total Chess knockout",
-   "Speed Chess Championship 2026 bracket"
+   "Gukesh vs Sindarov World Championship 2026",
+   "Total Chess World Championship Pilot Budapest",
+   "Firouzja vs Giri Total Chess final",
+   "Magnus Carlsen forfeit Total Chess",
+   "Hikaru Nakamura vs Yagiz Erdogmus SCC"
   ],
   "sources": []
  },
@@ -93,12 +76,12 @@
    "chess tactics for beginners",
    "chess tactics training",
    "chess tactics explained",
+   "chess tactics for intermediate players",
    "chess tactics gothamchess",
    "chess tactics analysis",
    "chess tactics from scratch",
    "chess tactics for kids",
-   "chess tactics hikaru",
-   "chess tactics books"
+   "chess tactics hikaru"
   ],
   "chess puzzles": [
    "chess puzzles",
@@ -126,7 +109,6 @@
   ],
   "chess tricks": [
    "chess tricks",
-   "chess tricks to win fast",
    "chess tricks for beginners",
    "chess tricks checkmate",
    "chess tricks and traps",
@@ -134,10 +116,16 @@
    "chess tricks and tips",
    "chess tricks to win fast for beginners",
    "chess tricks in telugu",
-   "chess tricks in tamil"
+   "chess tricks in tamil",
+   "chess tricks in hindi"
   ],
-  "Magnus Carlsen forfeits Bibisara Assaubayeva Total Chess": [],
-  "Hikaru Nakamura vs Yagiz Erdogmus Speed Chess Championship": [],
-  "Total Chess Budapest 2026 semifinals": []
+  "Gukesh vs Sindarov World Championship 2026": [
+   "gukesh vs sindarov world championship 2026",
+   "world chess championship 2026 gukesh vs sindarov",
+   "gukesh vs ian nepomniachtchi",
+   "gukesh vs nepo"
+  ],
+  "Total Chess World Championship Pilot Budapest": [],
+  "Firouzja vs Giri Total Chess final": []
  }
 }

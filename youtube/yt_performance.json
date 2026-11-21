@@ -114,10 +114,10 @@
   "title": "Can You Find the Only Winning Skewer?"
  },
  "3vtcxe56NqI": {
-  "views": 13,
-  "estimatedMinutesWatched": 8,
-  "averageViewDuration": 55,
-  "averageViewPercentage": 9.63,
+  "views": 17,
+  "estimatedMinutesWatched": 23,
+  "averageViewDuration": 113,
+  "averageViewPercentage": 19.61,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -133,10 +133,10 @@
   "title": "The 5-Second Tactic 90% of Players Miss"
  },
  "VZp148QSjbk": {
-  "views": 10,
-  "estimatedMinutesWatched": 9,
-  "averageViewDuration": 60,
-  "averageViewPercentage": 15.32,
+  "views": 22,
+  "estimatedMinutesWatched": 27,
+  "averageViewDuration": 68,
+  "averageViewPercentage": 17.13,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -152,10 +152,10 @@
   "title": "Chess Calculation: The Queen Sacrifice 92% Reject"
  },
  "0hDm4rHNhMM": {
-  "views": 13,
-  "estimatedMinutesWatched": 20,
-  "averageViewDuration": 110,
-  "averageViewPercentage": 21.08,
+  "views": 24,
+  "estimatedMinutesWatched": 41,
+  "averageViewDuration": 107,
+  "averageViewPercentage": 20.45,
   "subscribersGained": 0,
   "likes": 0,
   "comments": 0,
@@ -171,10 +171,10 @@
   "title": "Can You Find the Decoy Sacrifice?"
  },
  "wwd6tHfeKJY": {
-  "views": 19,
-  "estimatedMinutesWatched": 47,
-  "averageViewDuration": 167,
-  "averageViewPercentage": 31.430000000000003,
+  "views": 50,
+  "estimatedMinutesWatched": 60,
+  "averageViewDuration": 141,
+  "averageViewPercentage": 26.47,
   "subscribersGained": 0,
   "likes": 1,
   "comments": 0,
@@ -188,5 +188,24 @@
    "think_time": "long"
   },
   "title": "Spot Tactics: Back Rank Mates 4 Moves Deep"
+ },
+ "8BtQ-mvhhjs": {
+  "views": 85,
+  "estimatedMinutesWatched": 122,
+  "averageViewDuration": 103,
+  "averageViewPercentage": 20.07,
+  "subscribersGained": 1,
+  "likes": 3,
+  "comments": 0,
+  "shares": 0,
+  "date": "2026-11-18",
+  "arms": {
+   "format": "gym",
+   "hook_style": "challenge: dare the viewer to beat the video and keep score",
+   "title_style": "curiosity: a curiosity gap that makes people need to know the answer",
+   "thumb_style": "question",
+   "think_time": "normal"
+  },
+  "title": "Can You Spot the Winning Deflection?"
  }
 }

@@ -1,11 +1,11 @@
 # Caption Editor - notebook
-_Updated 2026-11-18_
+_Updated 2026-11-21_
 
 # Caption Editor - notebook
-_Updated 2026-11-14_
+_Updated 2026-11-18_
 
-- Open frame 1 with the player orientation badge ('You are playing White/Black').
-- Ensure 100% algebraic notation precision (e.g., Qxf8+, Nxe7, Bc7+).
-- Synchronize source square clarifications ('queen on f7') to support audio-visual tracking.
-- Never reveal motif names or key moves in text while the think timer is active.
-- Keep captions formatted in punchy two-line chunks mapped to spoken cadences.
+- Frame 1 must show player orientation clearly ('You are playing White/Black').
+- Accompany spoken source square callouts with synchronized on-screen notation (e.g., 'rook from e8 -> Rd1+').
+- Ensure zero notation typos: verify checks (+), captures (x), and mates (#) against the actual board state.
+- Keep motif titles or move spoilers hidden while the solve timer is running.
+- Split text into punchy, 2-line cadence-matched chunks that mirror the host's spoken rhythm.

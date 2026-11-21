@@ -1,11 +1,11 @@
 # Visual Director - notebook
-_Updated 2026-11-18_
+_Updated 2026-11-21_
 
 # Visual Director - notebook
-_Updated 2026-11-14_
+_Updated 2026-11-18_
 
-- Question thumbnails are channel kings (record 103 views and 6.36 score); prioritize them across Gym/Streak.
-- Big number framing remains the best tool for retention spikes (47.6% retention on 3 Deadly Pins).
-- Strictly avoid 'board_text' thumbnails (stuck under 3.5 score and sub-15 views).
-- Display the player perspective badge (White/Black) immediately in frame one.
-- Synchronize fast countdown timers tightly to audio cues and reveal beats.
+- Question thumbnails paired with Gym challenge setups dominate reach (#1 at 103 views, #2 at 85 views); make this the default layout.
+- Big number framing remains the secondary choice for retention-focused multi-rep videos (up to 47.6% retention).
+- Strictly eliminate 'board_text' thumbnails—they remain bottom-tier failures.
+- Flash the player orientation badge ('White to move' / 'Black to move') prominently in frame one.
+- Synchronize board arrows and countdown timers precisely to spoken move calls and audio reveals.

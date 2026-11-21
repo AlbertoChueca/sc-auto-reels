@@ -1,12 +1,12 @@
 # Voice & Humor Editor - notebook
-_Updated 2026-11-18_
+_Updated 2026-11-21_
 
 # Voice & Humor Editor - notebook
-_Updated 2026-11-14_
+_Updated 2026-11-18_
 
-- Double down on visceral, physical imagery ('seagulls on dropped fries', 'looting a burning house').
-- Mock the opponent's premature swagger and false security right before tactics hit.
-- Ban all corporate and hype-bro filler ('masterclass', 'dive in', 'unlock', 'insane hack').
-- Give Coach's Rules a rhythmic, memorable sting that sticks in club players' heads.
-- Avoid clickbait shock phrasing ('90% of players miss this') which kills audience goodwill and retention.
-- Keep delivery punchy, confident, and conversational—talking directly to one viewer.
+- Double down on tangible, unglamorous physical metaphors ('cardboard house', 'cheap lawn chair', 'weeping into your keyboard').
+- Tease the opponent's unearned confidence right before the tactic snaps their position.
+- Keep delivery intimate and 1-on-1: sharp, warm, playful, never cringe hype-bro.
+- Ban all empty buzzwords ('masterclass', 'insane hack', 'dive in').
+- Ensure Coach's Rule lands with a rhythmic, memorable sting club players repeat at their local boards.
+- Eliminate percentage-based shock hooks completely; let the visceral calculation supply the drama.

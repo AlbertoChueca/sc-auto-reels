@@ -1,48 +1,48 @@
 # StreakChess YouTube autopilot - what is winning
 
-_Updated 2026-11-18 · 9 videos with results (5+ days old) · average score 4.49_
+_Updated 2026-11-21 · 10 videos with results (5+ days old) · average score 4.76_
 
 
 ## format
 
 | option | videos | avg score |
 |---|---|---|
-| gym | 4 | 4.71 |
-| streak | 3 | 4.57 |
-| legendary | 2 | 3.93 |
+| gym | 5 | 4.92 |
+| streak | 3 | 4.79 |
+| legendary | 2 | 4.33 |
 | trending | 0 | - |
 
 ## hook_style
 
 | option | videos | avg score |
 |---|---|---|
+| promise | 1 | 5.20 |
+| challenge | 3 | 5.19 |
 | story | 2 | 5.11 |
-| challenge | 3 | 5.01 |
-| cold_open | 2 | 3.93 |
-| shock_stat | 2 | 3.65 |
-| promise | 0 | - |
+| cold_open | 2 | 4.26 |
+| shock_stat | 2 | 4.06 |
 
 ## title_style
 
 | option | videos | avg score |
 |---|---|---|
-| benefit | 1 | 5.50 |
-| challenge | 4 | 4.74 |
-| curiosity | 2 | 4.11 |
-| number | 2 | 3.86 |
+| benefit | 2 | 5.35 |
+| challenge | 4 | 4.88 |
+| curiosity | 2 | 4.43 |
+| number | 2 | 4.27 |
 
 ## thumb_style
 
 | option | videos | avg score |
 |---|---|---|
-| question | 3 | 4.96 |
+| question | 4 | 5.18 |
 | big_number | 4 | 4.76 |
-| board_text | 2 | 3.25 |
+| board_text | 2 | 3.93 |
 
 ## think_time
 
 | option | videos | avg score |
 |---|---|---|
-| fast | 6 | 4.63 |
-| long | 3 | 4.21 |
+| fast | 6 | 4.88 |
+| long | 4 | 4.59 |
 | normal | 0 | - |

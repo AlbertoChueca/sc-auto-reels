@@ -1,10 +1,11 @@
 # Seo Specialist For Youtube - notebook
-_Updated 2026-11-18_
+_Updated 2026-11-21_
 
 # Seo Specialist For Youtube - notebook
-_Updated 2026-11-14_
+_Updated 2026-11-18_
 
-- Prioritize challenge questions targeting specific motifs ('Can You Find the Only Winning Skewer?') for maximum CTR and search.
-- Pair speed benefits with tactics keywords ('Chess Calculation: Spot Tactics in 7 Seconds').
-- Completely blacklist percentage-based curiosity titles ('90% of Players Miss', '92% Reject')—they tank reach and score.
-- Front-load high-intent calculation keywords: 'Chess Calculation', 'Tactics Training', 'Spot Tactics'.
+- Target high-performing query structure: 'Can You Find/Spot the Winning [Motif]?' (powers top scores 6.36 and 6.09).
+- Specific tactical keywords ('Winning Skewer', 'Winning Deflection') crush generic tactics tags in CTR and search discovery.
+- Keep speed/reps benefit keywords ('Spot Tactics in 7 Seconds') as secondary title variations.
+- Strictly purge percentage curiosity patterns ('90% Miss', '92% Reject') from titles and descriptions.
+- Front-load search tags: Chess Calculation, Chess Tactics Training, Spot Tactics.
